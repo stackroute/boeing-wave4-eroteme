@@ -45,7 +45,7 @@ jobs:
           command: sudo chmod +x /usr/local/bin/docker-compose
       - setup_remote_docker
       - run: mvn clean compile package
-      - run: ls config-service/target
+      - run: ls
       - run:
           name: Start containers
           command: docker-compose up --build -d
