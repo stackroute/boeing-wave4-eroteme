@@ -19,36 +19,36 @@ jobs:
 
     working_directory: ~/repo
 
-      environment:
-        # Customize the JVM maximum heap limit
-        MAVEN_OPTS: -Xmx3200m
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
 
-      steps:
-        - checkout
+    steps:
+      - checkout
 
-        # Download and cache dependencies
-        - restore_cache:
-            keys:
-              - v1-dependencies-{{ checksum "pom.xml" }}
-              # fallback to using the latest cache if no exact match is found
-              - v1-dependencies-
-        - run:
-            name: Does docker even exist
-            command: docker -v
-        - run:
-            name: Install docker-compose
-            command: |
-              set -x
-              sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-        - run:
-            name: changing permission docker-compose-file
-            command: sudo chmod +x /usr/local/bin/docker-compose
-        - setup_remote_docker
-        - run: mvn clean compile package
-        - run: ls config-service/target
-        - run:
-            name: Start containers
-            command: docker-compose up --build -d
-        - run: docker logs repo_kafka_1
-        - run: docker logs repo_zookeeper_1
-        - run: mvn dependency:go-offline
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Does docker even exist
+          command: docker -v
+      - run:
+          name: Install docker-compose
+          command: |
+            set -x
+            sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+      - run:
+          name: changing permission docker-compose-file
+          command: sudo chmod +x /usr/local/bin/docker-compose
+      - setup_remote_docker
+      - run: mvn clean compile package
+      - run: ls config-service/target
+      - run:
+          name: Start containers
+          command: docker-compose up --build -d
+      - run: docker logs repo_kafka_1
+      - run: docker logs repo_zookeeper_1
+      - run: mvn dependency:go-offline
