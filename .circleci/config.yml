@@ -1,5 +1,4 @@
 # Java Maven CircleCI 2.0 configuration file
-#
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
@@ -7,7 +6,7 @@ jobs:
   build:
     branches:
       only:
-        - v1.0.0
+        - master
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
