@@ -1,6 +1,6 @@
 # Java Maven CircleCI 2.0 configuration file
 # Check https://circleci.com/docs/2.0/language-java/ for more details
-
+#
 version: 2
 jobs:
   build:
@@ -50,14 +50,4 @@ jobs:
 #          command: docker-compose up --build -d
 #      - run: docker logs repo_kafka_1
 #      - run: docker logs repo_zookeeper_1
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      # run tests!
-      - run: mvn integration-test
-      - run: mvn test
-
+#      - run: mvn dependency:go-offline
