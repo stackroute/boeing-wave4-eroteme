@@ -6,7 +6,7 @@ jobs:
   build:
     branches:
       only:
-        - v1.0.0
+        - master
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
