@@ -1,6 +1,6 @@
 # Java Maven CircleCI 2.0 configuration file
 # Check https://circleci.com/docs/2.0/language-java/ for more details
-#
+
 version: 2
 jobs:
   build:
@@ -60,3 +60,4 @@ jobs:
       # run tests!
       - run: mvn integration-test
       - run: mvn test
+
