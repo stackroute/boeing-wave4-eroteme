@@ -43,11 +43,20 @@ jobs:
 #          name: changing permission docker-compose-file
 #          command: sudo chmod +x /usr/local/bin/docker-compose
 #      - setup_remote_docker
-#      - run: mvn clean compile package
-#      - run: ls
+      - run: mvn clean compile package
+      - run: ls
 #      - run:
 #          name: Start containers
 #          command: docker-compose up --build -d
 #      - run: docker logs repo_kafka_1
 #      - run: docker logs repo_zookeeper_1
-#      - run: mvn dependency:go-offline
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+            # run tests!
+            - run: mvn integration-test
+            - run: mvn test
