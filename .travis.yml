@@ -6,9 +6,10 @@ cache:
 addons:
   sonarcloud:
     organization: "stackroute" # the key of the org you chose at step #3
-    token:
-      secure: d30dfbdad9eb2463f2df31805249551a8d12bba6
+#     token:
+#       secure: d30dfbdad9eb2463f2df31805249551a8d12bba6
 script:
-  mvn sonar:sonar -Dsonar.projectKey=stackroute_boeing-wave4-eroteme -Dsonar.organization=stackroute -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=d30dfbdad9eb2463f2df31805249551a8d12bba6
+    sonar-scanner -Dsonar.verbose=true -X
+#   mvn sonar:sonar -Dsonar.projectKey=stackroute_boeing-wave4-eroteme -Dsonar.organization=stackroute -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=d30dfbdad9eb2463f2df31805249551a8d12bba6
 after_success:
   - bash <(curl -s https://codecov.io/bash)
