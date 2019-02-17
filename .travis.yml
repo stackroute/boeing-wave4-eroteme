@@ -3,5 +3,10 @@ jdk: openjdk11
 cache:
 directories:
   - "$HOME/.m2/repository"
+addons:
+  sonarcloud:
+    organization: "stackroute" # the key of the org you chose at step #3
+    token:
+      secure: 3ffb4c27b1606f2e768ce08120eacfc3fdd5c3e7
 after_success:
   - bash <(curl -s https://codecov.io/bash)
