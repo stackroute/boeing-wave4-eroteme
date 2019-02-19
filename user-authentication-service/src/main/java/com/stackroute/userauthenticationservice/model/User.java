@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+    //credentials present in mysql database with  table named users.
     @Entity
     @Table(name = "users", uniqueConstraints = {
             @UniqueConstraint(columnNames = {
@@ -16,11 +16,9 @@ import javax.validation.constraints.Size;
                     "password"
             })
     })
+    //user object having email and password.
     public class User{
-//        @Id
-//        @GeneratedValue(strategy = GenerationType.IDENTITY)
-//        private Long id;
-//        @NaturalId
+
         @Id
         @Email
         private String email;
@@ -30,13 +28,7 @@ import javax.validation.constraints.Size;
 
         public User() {}
 
-//        public Long getId() {
-//            return id;
-//        }
-//
-//        public void setId(Long id) {
-//            this.id = id;
-//        }
+
 
         public String getEmail() {
             return email;
