@@ -3,7 +3,7 @@ package com.stackroute.userauthenticationservice.message.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-
+//credentials to check if the user is authorized to request for services.
     public class Login {
         @NotBlank
         @Size(min=3, max = 60)
