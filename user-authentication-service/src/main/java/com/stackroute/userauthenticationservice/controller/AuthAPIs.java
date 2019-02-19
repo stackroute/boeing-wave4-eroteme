@@ -36,15 +36,15 @@ import javax.validation.Valid;
 
         @PostMapping("/signin")
         public ResponseEntity<?> authenticateUser(@Valid @RequestBody Login loginRequest) {
-
+             //authentication object containing username and password is created if the same is present in our mysql database.
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+             //token is generated
             String jwt = jwtProvider.generateJwtToken(authentication);
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
+            //jwtresponse with all the credentials is returned.
             return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
         }
 
