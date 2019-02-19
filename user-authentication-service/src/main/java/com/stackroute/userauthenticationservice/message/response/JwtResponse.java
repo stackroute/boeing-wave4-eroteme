@@ -10,7 +10,7 @@ public class JwtResponse {
         private String type = "Bearer";
         private String email;
         private Collection<? extends GrantedAuthority> authorities;
-
+         //credentials present in the jwtresponse.
         public JwtResponse(String accessToken, String email, Collection<? extends GrantedAuthority> authorities) {
             this.token = accessToken;
             this.email= email;
