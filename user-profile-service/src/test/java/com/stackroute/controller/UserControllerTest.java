@@ -35,10 +35,12 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
     private User user;
+
     @MockBean
-    private UserService userService;
+    UserService userService;
+
     @MockBean
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
     @InjectMocks
     private UserController userController;
 
@@ -61,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     public void saveUser() throws Exception {
-        when(userService.saveUser(any())).thenReturn(user);
+        when(this.userService.saveUser(any())).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/signup")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
