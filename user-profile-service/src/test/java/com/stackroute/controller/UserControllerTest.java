@@ -33,8 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @WebMvcTest
 public class UserControllerTest {
     @Autowired
-    private MockMvc mockMvc;
-    private User user;
+    MockMvc mockMvc;
+    User user;
 
     @MockBean
     UserService userService;
@@ -42,7 +42,7 @@ public class UserControllerTest {
     @MockBean
     PasswordEncoder passwordEncoder;
     @InjectMocks
-    private UserController userController;
+    UserController userController;
 
     private List<User> list = null;
 
@@ -63,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     public void saveUser() throws Exception {
-        when(this.userService.saveUser(any())).thenReturn(user);
+        when(userService.saveUser(any())).thenReturn(user);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/signup")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(user)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
