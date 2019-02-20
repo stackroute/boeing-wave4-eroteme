@@ -19,7 +19,8 @@ import javax.validation.Valid;
 
     @CrossOrigin(origins = "*")
     @RestController
-    @RequestMapping("/api/auth")
+    @RequestMapping(value = "/api/auth", method = {RequestMethod.GET, RequestMethod.POST})
+
     public class AuthAPIs {
 
         @Autowired
