@@ -2,14 +2,12 @@ package com.stackroute.controller;
 
 import com.stackroute.domain.Question;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
+import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestController
@@ -24,8 +22,14 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     }
 
     @PostMapping("ques")
-    public ResponseEntity<?> saveUser(@RequestBody Question question) throws QuestionAlreadyExistsException  {
+    public ResponseEntity<?> saveQuestion(@RequestBody Question question) throws QuestionAlreadyExistsException  {
             questionService.addQuestion(question);
             return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
+    }
+
+    @PutMapping("ques/{questionId}")
+    public ResponseEntity<?> addDescription(@PathVariable int questionId,@RequestBody Question question) throws QuestionNotFoundException{
+        questionService.addQuestionDescription(questionId,question.getDescription());
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
 }
