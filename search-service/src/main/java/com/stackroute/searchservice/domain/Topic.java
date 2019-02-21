@@ -20,8 +20,7 @@ import java.util.List;
 @Builder
 public class Topic {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
+    //private member variable declaration//
     private String topic;
     List<Question> questions;
 }

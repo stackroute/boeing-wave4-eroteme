@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Builder
 public class User {
-
+   //private member variable declaration//
    private String  firstname;
    private String emailaddress;
    private String imageurl;

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Comments {
-
+    //private member variable declaration//
     private String comments;
     private long timestamp;
     private int likes;
