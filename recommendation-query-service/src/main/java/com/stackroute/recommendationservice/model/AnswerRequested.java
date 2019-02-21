@@ -1,6 +1,7 @@
 package com.stackroute.recommendationservice.model;
 
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Data
 @Document("answer")
+@Builder
 public class AnswerRequested {
     UserRequested userRequested;
     List<CommentRequested> commentRequesteds;

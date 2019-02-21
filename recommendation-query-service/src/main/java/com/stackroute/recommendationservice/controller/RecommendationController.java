@@ -5,6 +5,7 @@ import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,11 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @CrossOrigin("*")
+@PropertySource(value = "classpath:trending-criteria.properties")
 public class RecommendationController {
-    @Value("trending-upvote-threshold")
+    @Value("${trending-upvote-threshold}")
     private int questionUpvoteThreshold;
-    @Value("trending-number-of-answers-for-the-question")
+    @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
 
     private RecommendationServiceImpl recommendationServiceimpl;
@@ -67,6 +69,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
+    // This method is added only for testing purpose
     @PostMapping(value = "/question")
     public ResponseEntity<String> addNewTrack(@RequestBody QuestionRequested questionRequested) {
         ResponseEntity<String> responseEntity;

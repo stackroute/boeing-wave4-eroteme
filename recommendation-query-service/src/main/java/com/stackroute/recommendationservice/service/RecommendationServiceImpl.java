@@ -42,6 +42,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         return userRepository.getAllTrendingQuestionsForUser(username, topic);
     }
 
+    // This method is added only for testing purpose
     public QuestionRequested insertIntoDb(QuestionRequested questionRequested) {
         return recommendationRepository.save(questionRequested);
     }
