@@ -11,7 +11,7 @@ import com.stackroute.exceptions.QuestionNotFoundException;
 public interface QuestionService {
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException;
     public Question addAnswer(int questionId,Answer answer) throws QuestionNotFoundException;
-    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException,QuestionNotFoundException;
+    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException;
     public Question addQuestionCommentReply(int questionId, String comment, Replies replies);
     public Question addAnswerComment(int questionId, String answer, Comment comment);
     public Question addAnswerCommentReply(int questionId,String answer,String comment,Replies replies);

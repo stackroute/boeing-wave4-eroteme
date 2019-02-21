@@ -7,11 +7,30 @@ import com.stackroute.domain.Replies;
 import com.stackroute.exceptions.CommentAlreadyExistsException;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
 import com.stackroute.exceptions.QuestionNotFoundException;
+import com.stackroute.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class QuestionServiceImpl implements QuestionService{
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    public QuestionServiceImpl(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
+
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
-        return null;
+        questionObject.setQuestionId(questionRepository.findAll().size()+1);
+        if(questionRepository.existsById(questionObject.getQuestion())){
+            throw new QuestionAlreadyExistsException("User already exists");
+        }
+        Question savedQuestion = questionRepository.save(questionObject);
+        if(savedQuestion==null){
+            throw new QuestionAlreadyExistsException("User already exists");
+        }
+        return savedQuestion;
     }
 
     @Override
@@ -20,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException, QuestionNotFoundException {
+    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException {
         return null;
     }
 
