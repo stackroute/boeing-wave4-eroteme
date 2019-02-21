@@ -12,8 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Question {
-//    @Id
-//    private Long Question_Id;
+    //private member variable declaration//
     private String question;
     private String description;
     private int upvotes;
