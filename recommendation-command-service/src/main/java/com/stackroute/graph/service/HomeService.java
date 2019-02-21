@@ -82,7 +82,11 @@ public class HomeService {
         return userRepository.getByUser(reputation);
     }
 
-    public Question createRelationshipAt(int questionId, int topicId) {
+    public Question createRelationshipQT(int questionId, int topicId) {
         return topicRepository.createRelatioshipBetweenQuestionAndTopic(questionId, topicId);
+    }
+
+    public User createRelationshipUA(int userId, int answerId) {
+        return answerRepository.createRelatioshipBetweenUserAndAnswer(userId, answerId);
     }
 }

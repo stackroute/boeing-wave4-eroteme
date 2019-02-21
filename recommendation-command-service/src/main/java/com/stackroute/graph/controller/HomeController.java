@@ -171,11 +171,25 @@ public class HomeController {
         ResponseEntity<Question> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<Question>(homeService.createRelationshipAt(questionId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Question>(homeService.createRelationshipQT(questionId, topicId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new Question(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create2/{userId}/{answerId}")
+    public ResponseEntity<User> CreateRelationshiptwo(@PathVariable int userId, @PathVariable int answerId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUA(userId, answerId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
         }
         return responseEntity;
     }
