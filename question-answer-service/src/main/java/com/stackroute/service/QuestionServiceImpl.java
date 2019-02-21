@@ -63,8 +63,21 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException {
-        return null;
+    public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException {
+        if (questionRepository.findByQuestionId(questionId)!= null){
+            Question question = questionRepository.findByQuestionId(questionId);
+            if(question.getComment()!=null){
+                List<Comment> comments = question.getComment();
+                comments.addAll(comment);
+                question.setComment(comments);
+            }
+            else{
+                question.setComment(comment);
+            }
+            return questionRepository.save(question);
+        }
+        else
+            throw new QuestionNotFoundException("Question does not exists");
     }
 
     @Override

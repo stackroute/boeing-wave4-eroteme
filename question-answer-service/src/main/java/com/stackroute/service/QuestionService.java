@@ -14,7 +14,7 @@ public interface QuestionService {
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException;
     public Question addQuestionDescription(int questionId, String description) throws QuestionNotFoundException;
     public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException;
-    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException;
+    public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException;
     public Question addQuestionCommentReply(int questionId, String comment, Replies replies);
     public Question addAnswerComment(int questionId, String answer, Comment comment);
     public Question addAnswerCommentReply(int questionId,String answer,String comment,Replies replies);
