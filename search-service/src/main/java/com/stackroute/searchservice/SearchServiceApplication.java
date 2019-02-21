@@ -107,9 +107,7 @@ public class SearchServiceApplication implements CommandLineRunner {
 			questionList.add(questions);
 			return new Topic(topics,questionList);
 		}
-
-
-	}
+}
 
 
 

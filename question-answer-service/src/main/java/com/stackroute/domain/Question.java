@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Question {
+
     //Variables
     @Id
     private int questionId;

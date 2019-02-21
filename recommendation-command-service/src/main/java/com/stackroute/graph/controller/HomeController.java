@@ -3,6 +3,7 @@ package com.stackroute.graph.controller;
 
 import com.stackroute.graph.model.Answer;
 import com.stackroute.graph.model.Question;
+import com.stackroute.graph.model.Topic;
 import com.stackroute.graph.model.User;
 import com.stackroute.graph.service.HomeService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,21 @@ public class HomeController {
         }
         return responseEntity;
     }
+
+    @PostMapping("/addtopic")
+    public ResponseEntity<String> addTopic(@RequestBody Topic topic) {
+        ResponseEntity<String> responseEntity;
+        try {
+            homeService.saveTopicToDb(topic);
+            responseEntity = new ResponseEntity<>("User saved sucessfully", HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>("Error occured while saving", HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
     @GetMapping("/getusers")
     public ResponseEntity<Collection<User>> getAllUsers() {
@@ -84,7 +100,6 @@ public class HomeController {
         ResponseEntity<String> responseEntity;
         try {
             homeService.saveAnswerToDb(answer);
-            ;
             responseEntity = new ResponseEntity<>("Answer saved sucessfully", HttpStatus.OK);
 
         } catch (Exception e) {
@@ -107,22 +122,10 @@ public class HomeController {
         return responseEntity;
     }
 
-//    @GetMapping("/getanswered")
-//    public ResponseEntity<Collection<Answer>> getAllAnswered() {
-//        ResponseEntity<Collection<Answer>> responseEntity;
-//        try {
-//            log.info("Fetching answer nodes");
-//            responseEntity = new ResponseEntity(homeService.getAnswered(), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-//        }
-//        return responseEntity;
-//    }
-
     @DeleteMapping("/deleteanswer/{answerId}")
     public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
         ResponseEntity<String> responseEntity;
+
         try {
             homeService.deleteAnswers(answerId);
             responseEntity = new ResponseEntity<>("Answer deleted sucessfully", HttpStatus.OK);
@@ -134,5 +137,38 @@ public class HomeController {
     }
 
 
+    @GetMapping("/user/{reputation}")
+    public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
+        ResponseEntity<User> responseEntity;
+        try {
 
+            responseEntity = new ResponseEntity<>(homeService.getByUser(reputation), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
+    @GetMapping("/create/{userId}/{topicId}")
+    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationship(userId, topicId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+//    public void create(@RequestBody User user, @RequestParam int topicId) {
+//        homeService.createRelationship(user, topicId);
+//        System.out.println("topic created");
+//
+//    }
 }
