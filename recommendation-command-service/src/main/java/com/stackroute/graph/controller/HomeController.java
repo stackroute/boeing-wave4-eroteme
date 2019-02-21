@@ -166,9 +166,19 @@ public class HomeController {
         return responseEntity;
     }
 
-//    public void create(@RequestBody User user, @RequestParam int topicId) {
-//        homeService.createRelationship(user, topicId);
-//        System.out.println("topic created");
-//
-//    }
+    @GetMapping("/create1/{questionId}/{topicId}")
+    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
+        ResponseEntity<Question> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<Question>(homeService.createRelationshipAt(questionId, topicId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new Question(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
 }

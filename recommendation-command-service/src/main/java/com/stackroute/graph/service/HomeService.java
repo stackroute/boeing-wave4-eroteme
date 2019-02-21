@@ -81,4 +81,8 @@ public class HomeService {
     public User getByUser(int reputation) {
         return userRepository.getByUser(reputation);
     }
+
+    public Question createRelationshipAt(int questionId, int topicId) {
+        return topicRepository.createRelatioshipBetweenQuestionAndTopic(questionId, topicId);
+    }
 }
