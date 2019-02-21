@@ -22,10 +22,10 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
-        questionObject.setQuestionId(questionRepository.findAll().size()+1);
-        if(questionRepository.existsById(questionObject.getQuestion())){
+        if(questionRepository.existsByQuestion(questionObject.getQuestion())){
             throw new QuestionAlreadyExistsException("User already exists");
         }
+        questionObject.setQuestionId(questionRepository.findAll().size()+1);
         Question savedQuestion = questionRepository.save(questionObject);
         if(savedQuestion==null){
             throw new QuestionAlreadyExistsException("User already exists");

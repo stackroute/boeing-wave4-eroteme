@@ -24,13 +24,8 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     }
 
     @PostMapping("ques")
-    public ResponseEntity<?> saveUser(@RequestBody Question question)  {
-        try {
+    public ResponseEntity<?> saveUser(@RequestBody Question question) throws QuestionAlreadyExistsException  {
             questionService.addQuestion(question);
             return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
-        }catch (QuestionAlreadyExistsException e){
-            System.out.println(e);
-            return new ResponseEntity<String>("Successfully Created", HttpStatus.CONFLICT);
-        }
     }
 }
