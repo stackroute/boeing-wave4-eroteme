@@ -1,0 +1,78 @@
+ <!-- <div *ngIf="isLoggedIn; else loggedOut">
+  <p>Logged in as {{roles}}.</p>
+  <div class="navbar-header">
+    <a class="navbar-brand" href="home"> Login </a>
+  </div>
+</div>
+
+
+
+<ng-template #loggedOut>
+  <div class="row col-sm-6" style="max-width:350px;">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel"
+          required />
+        <div *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.required">Email is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
+          required minlength="6" />
+        <div *ngIf="f.submitted && password.invalid">
+          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">Login</button>
+        <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
+          Login failed: {{errorMessage}}
+        </div>
+      </div>
+    </form>
+    <hr />
+    <p>Don't have an account?</p>
+    <a href="signup" class="btn btn-success">Sign Up</a>
+  </div>
+</ng-template> 
+ -->
+
+ <mat-card  *ngIf="isLoggedIn==false" class="my-card">
+  <mat-toolbar style="background-color:#06B5D3;">
+    <p>Login
+      </p>
+    </mat-toolbar>
+ <mat-card-content>
+    <form class="my-form" >
+      <mat-form-field class="full-width" >
+          <mat-label>email</mat-label><br>
+          <input  matInput  placeholder="email" [formControl]="email" required>
+       </mat-form-field><br>
+       <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input  matInput  type="password" placeholder="password" [formControl]="password" required>
+       </mat-form-field><br>
+       <mat-card-actions>
+          <button mat-raised-button (click)="validate()" color="primary">LOGIN</button>   
+       <!-- </mat-card-actions> -->
+       <!-- <p>Register With us</p> -->
+       <!-- <mat-card-actions> -->
+       <button mat-raised-button  (click)="signup()" color="primary"> Signup </button>
+      </mat-card-actions>
+    </form><br>
+   
+ </mat-card-content>
+ <mat-toolbar *ngIf="this.isLoginFailed == true">
+    Invalid Username or Password
+</mat-toolbar><br> 
+</mat-card> 
+<mat-card *ngIf="isLoggedIn==true" class="my-card">
+<mat-card-actions>
+<button mat-raised-button  (click)="home()" color="primary"> Login </button>
+  <!-- <a  href="home"> Login </a> -->
+</mat-card-actions>
+</mat-card>

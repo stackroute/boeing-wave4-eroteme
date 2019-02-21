@@ -1,4 +1,4 @@
-version: "2"
+version: "2.1"
 services:
 
   apigateway:
@@ -6,33 +6,150 @@ services:
     build: zuul-gatewayservice/
     restart: always
     network_mode: host
+    hostname: localhost
     depends_on:
-    - eurekaserver
+      - eurekaserver
     ports:
-    - 8092:8092
+      - 8092:8092
     expose:
-    - 8092
+      - 8092
+    healthcheck:
+      test: "exit 0"
 
   eurekaserver:
-    image: eureka-servcie:latest
+    image: eureka-service:latest
     build: eureka-server/
     restart: always
     network_mode: host
+    hostname: localhost
     ports:
-    - 9091:9091
+      - 8093:8093
     expose:
-    - 9091
+      - 8093
+    healthcheck:
+      test: "exit 0"
 
-  configserver:
-      image: config-servcie:latest
-      build: config-server/
-      restart: always
-      network_mode: host
-      ports:
-      - 8888:8888
-      expose:
-      - 8888
+  mongo:
+    image: mongo:3.4-jessie
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    container_name: mongo_docker
+    network_mode: host
+    hostname: localhost
+    restart: always
+    volumes:
+      - /DB/mongo:/data/db
+    healthcheck:
+      test: "exit 0"
 
+#  neo4j:
+#    image: neo4j:latest
+#    ports:
+#      - 7474:7474
+#      - 7687:7687
+#    expose:
+#      - 7474
+#    container_name: neo4j_docker
+#    network_mode: host
+#    hostname: localhost
+#    restart: always
+#    volumes:
+#      - /DB/neo4j:/data/db
+#    healthcheck:
+#      test: "exit 0"
 
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: userlogin
+      MYSQL_PASSWORD: root123
+#      MYSQL_USER: root
+    network_mode: "host"
+    hostname: localhost
+    restart: always
+#    volumes:
+#      - /DB/mysql:/var/lib/mysql
+    healthcheck:
+      test: "exit 0"
 
+  rabbitmq:
+    image: rabbitmq:latest
+    container_name: rabbitmqcontainer
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 5672:5672
+    expose:
+      - 5672
+    restart: always
+    healthcheck:
+      test: "exit 0"
 
+  user-authentication-service:
+    image: user-authentication-service
+    build: ./user-authentication-service/
+    container_name: login_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mysql:
+        condition: service_healthy
+      apigateway:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8084:8084
+    expose:
+      - 8084
+    healthcheck:
+      test: "exit 0"
+
+  user-profile-service:
+    image: user-profile-service
+    build: ./user-profile-service/
+    container_name: reg_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      apigateway:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8086:8086
+    expose:
+      - 8086
+    healthcheck:
+      test: "exit 0"
+
+  angular-app:
+    build: AngularService/
+    image: angular
+    restart: always
+    mem_limit: 1024m
+    container_name: Angular
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8000:8000
+    healthcheck:
+      test: "exit 0"
+    expose:
+      - 8000
