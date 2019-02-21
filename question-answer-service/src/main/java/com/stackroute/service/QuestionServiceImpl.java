@@ -11,6 +11,8 @@ import com.stackroute.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionServiceImpl implements QuestionService{
     private QuestionRepository questionRepository;
@@ -43,8 +45,21 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException {
-        return null;
+    public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException {
+        if (questionRepository.findByQuestionId(questionId)!= null){
+            Question question = questionRepository.findByQuestionId(questionId);
+            if(question.getAnswer()!=null){
+            List<Answer> answers = question.getAnswer();
+            answers.addAll(answer);
+            question.setAnswer(answers);
+            }
+            else{
+                question.setAnswer(answer);
+            }
+            return questionRepository.save(question);
+        }
+        else
+            throw new QuestionNotFoundException("Question does not exists");
     }
 
     @Override

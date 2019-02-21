@@ -8,10 +8,12 @@ import com.stackroute.exceptions.CommentAlreadyExistsException;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
 import com.stackroute.exceptions.QuestionNotFoundException;
 
+import java.util.List;
+
 public interface QuestionService {
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException;
     public Question addQuestionDescription(int questionId, String description) throws QuestionNotFoundException;
-    public Question addAnswer(int questionId,Answer answer) throws QuestionNotFoundException;
+    public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException;
     public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException;
     public Question addQuestionCommentReply(int questionId, String comment, Replies replies);
     public Question addAnswerComment(int questionId, String answer, Comment comment);

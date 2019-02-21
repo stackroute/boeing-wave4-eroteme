@@ -32,4 +32,9 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         questionService.addQuestionDescription(questionId,question.getDescription());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
+    @PutMapping("quesans/{questionId}")
+    public ResponseEntity<?> addAnswer(@PathVariable int questionId,@RequestBody Question question) throws QuestionNotFoundException{
+        questionService.addAnswer(questionId,question.getAnswer());
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
+    }
 }
