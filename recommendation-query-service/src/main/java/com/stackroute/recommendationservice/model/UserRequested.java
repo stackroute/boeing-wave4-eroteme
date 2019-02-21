@@ -5,9 +5,9 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document
+@Document("user")
 public class UserRequested {
     private String email;
     private String firstName;
-    private  String imageUrl;
+    private String imageUrl;
 }

@@ -6,11 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document
+@Document("comment")
 public class CommentRequested {
+    UserRequested userRequested;
+    List<ReplyRequested> replies;
     private String reply;
     private long timestamp;
     private long likes;
-    UserRequested userRequested;
-    List<ReplyRequested> replies;
 }
