@@ -33,6 +33,7 @@
         <module>user-profile-service</module>
         <module>user-authentication-service</module>
         <module>question-answer-service</module>
+        <module>recommendation-command-service</module>
     </modules>
     <dependencies>
         <dependency>
