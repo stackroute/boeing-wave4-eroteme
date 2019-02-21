@@ -75,4 +75,9 @@ public class HomeService {
     public void saveTopicToDb(Topic topic) {
         topicRepository.save(topic);
     }
+
+
+    public User getByUser(int reputation) {
+        return userRepository.getByUser(reputation);
+    }
 }

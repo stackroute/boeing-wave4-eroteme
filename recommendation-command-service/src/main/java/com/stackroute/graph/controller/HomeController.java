@@ -123,18 +123,6 @@ public class HomeController {
         return responseEntity;
     }
 
-//    @GetMapping("/getanswered")
-//    public ResponseEntity<Collection<Answer>> getAllAnswered() {
-//        ResponseEntity<Collection<Answer>> responseEntity;
-//        try {
-//            log.info("Fetching answer nodes");
-//            responseEntity = new ResponseEntity(homeService.getAnswered(), HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-//        }
-//        return responseEntity;
-//    }
 
     @DeleteMapping("/deleteanswer/{answerId}")
     public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
@@ -151,14 +139,18 @@ public class HomeController {
     }
 
 
-    @PostMapping("/create")
-    public void create(@RequestBody User user, @RequestParam int topicId) {
-        homeService.createRelationship(user, topicId);
-        System.out.println("topic created");
+    @GetMapping("/user/{reputation}")
+    public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
+        ResponseEntity<User> responseEntity;
+        try {
 
+            responseEntity = new ResponseEntity<>(homeService.getByUser(reputation), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
     }
-
-
-
 
 }
