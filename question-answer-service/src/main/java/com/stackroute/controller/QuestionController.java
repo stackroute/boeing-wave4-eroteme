@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestController
-@RequestMapping(value="api/ques")
-public class QuestionController  extends ResponseEntityExceptionHandler {
+@RequestMapping(value="api/v1")
+public class QuestionController extends ResponseEntityExceptionHandler {
 
     private QuestionService questionService;
 
@@ -23,9 +23,14 @@ public class QuestionController  extends ResponseEntityExceptionHandler {
         this.questionService = questionService;
     }
 
-    @PostMapping("user")
-    public ResponseEntity<?> saveUser(@RequestBody Question question) throws QuestionAlreadyExistsException {
-        questionService.addQuestion(question);
-        return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
+    @PostMapping("ques")
+    public ResponseEntity<?> saveUser(@RequestBody Question question)  {
+        try {
+            questionService.addQuestion(question);
+            return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
+        }catch (QuestionAlreadyExistsException e){
+            System.out.println(e);
+            return new ResponseEntity<String>("Successfully Created", HttpStatus.CONFLICT);
+        }
     }
 }
