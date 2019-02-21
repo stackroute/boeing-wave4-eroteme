@@ -32,6 +32,7 @@
         <module>eventbrite-service</module>
         <module>user-profile-service</module>
         <module>user-authentication-service</module>
+        <module>question-answer-service</module>
     </modules>
     <dependencies>
         <dependency>
