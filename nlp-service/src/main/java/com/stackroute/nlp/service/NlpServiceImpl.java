@@ -36,11 +36,11 @@ public class NlpServiceImpl {
         inputsentence = inputsentence.replaceAll("\\t", " ");
 
         String[] tokenizedWord = inputsentence.split(" ");
-        StringBuffer cleanedquestion = new StringBuffer();
+        StringBuffer cleanquestion = new StringBuffer();
         for (int i = 0; i < tokenizedWord.length; i++) {
-            cleanedquestion.append(tokenizedWord[i] + " ");
+            cleanquestion.append(tokenizedWord[i] + " ");
         }
-        return cleanedquestion.toString().trim();
+        return cleanquestion.toString().trim();
     }
 
     public ArrayList<String> getLemmitizedWords() {
@@ -65,18 +65,7 @@ public class NlpServiceImpl {
         }
         return lemmaWords;
     }
-//
-//    public List<String> getStemmedWords() {
-//        TokenizerFactory tokenizerFactory = IndoEuropeanTokenizerFactory.INSTANCE;
-//        TokenizerFactory porterFactory = new PorterStemmerTokenizerFactory(tokenizerFactory);
-//        ArrayList<String> wordTokens = getLemmitizedWords();
-//        List<String> stemmedWordsList = new ArrayList<>();
-//        for (String word : wordTokens) {
-//            Tokenization tokenization = new Tokenization(word, porterFactory);
-//            stemmedWordsList.add(tokenization.tokenList().toString());
-//        }
-//        return stemmedWordsList;
-//    }
+
 
     public ArrayList<String> getWordsWithoutStopWords() {
         ArrayList<String> wordsWithOutStopwords = getLemmitizedWords();
@@ -86,30 +75,6 @@ public class NlpServiceImpl {
             }
         }
         return wordsWithOutStopwords;
-    }
-
-    public String getSentenceWithOutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getWordsWithoutStopWords();
-        StringBuffer sentenceWithOutStopWords = new StringBuffer();
-        for (int i = 0; i < wordsWithOutStopwords.size(); i++) {
-            sentenceWithOutStopWords.append(wordsWithOutStopwords.get(i) + " ");
-        }
-        return sentenceWithOutStopWords.toString().trim();
-    }
-
-    public ArrayList<NLP> getPOSWords() {
-        Properties properties = new Properties();
-        properties.setProperty("annotator", "pos");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        CoreDocument coreDocument = new CoreDocument(getSentenceWithOutStopWords());
-        pipeline.annotate(coreDocument);
-        List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        ArrayList<NLP> wordsWithPOSTag = new ArrayList<>();
-        for (CoreLabel coreLabel : coreLabelsList) {
-            String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
-            wordsWithPOSTag.add(new NLP(coreLabel.originalText(), partsOfSpeech));
-        }
-        return wordsWithPOSTag;
     }
 
 
@@ -122,21 +87,10 @@ public class NlpServiceImpl {
         ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
         System.out.println(allLemmas);
 
-//        System.out.println("Stemming");
-//        ArrayList<String> allStems = new ArrayList<>(getStemmedWords());
-//        System.out.println(allStems);
-
         System.out.println("Stop Word Removal");
         ArrayList<String> allStopWords = new ArrayList<>(getWordsWithoutStopWords());
         System.out.println(allStopWords);
 
-        System.out.println("Stop Word Removal Paragraph");
-        String sentenceWithOutStopWords = new String(getSentenceWithOutStopWords());
-        System.out.println(sentenceWithOutStopWords);
-
-        System.out.println("POS TAGGING");
-        ArrayList<NLP> nlp = new ArrayList<>(getPOSWords());
-        System.out.println(nlp);
     }
 
 
