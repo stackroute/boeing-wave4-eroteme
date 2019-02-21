@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.stackroute</groupId>
-	<artifactId>notificationService</artifactId>
+	<artifactId>notificationservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>notificationService</name>
 	<description>Demo project for Spring Boot</description>
