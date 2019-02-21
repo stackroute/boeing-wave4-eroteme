@@ -15,8 +15,9 @@ public interface AnswerRepository extends Neo4jRepository<Answer, Integer> {
     Collection<Answer> getAllAnswers();
 
 
-//   @Query("CREATE (a:User)-[r:ANSWERED]->(b:Answer) RETURN type(r)")
-//   Collection<Answer> getAllAnswered();
+    @Query("CREATE (a:User)-[r:ANSWERED]->(b:Answer) RETURN type(r)")
+    Collection<Answer> getAllAnswered();
+
 }
 
 

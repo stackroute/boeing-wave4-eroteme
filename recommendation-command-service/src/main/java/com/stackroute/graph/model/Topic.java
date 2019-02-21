@@ -17,7 +17,7 @@ import java.util.List;
 public class Topic {
     @Id
     private int topicId;
-    private String topics;
+    private String topicname;
     @Relationship(type = "SUBTOPIC", direction = Relationship.INCOMING)
     private Topic topic;
     @Relationship(type = "FOLLOWS", direction = Relationship.INCOMING)

@@ -9,9 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.stackroute</groupId>
-    <artifactId>graph</artifactId>
+    <artifactId>recommendationcommandservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>graph</name>
+    <name>recommendationcommandservice</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
