@@ -68,11 +68,17 @@ public class HomeService {
         answerRepository.deleteById(answerId);
     }
 
-    public void createRelationship(User user, int topicId) {
-        topicRepository.createRelatioshipBetweenUserAndTopic(user, topicId);
+    public User createRelationship(int userId, int topicId) {
+        return topicRepository.createRelatioshipBetweenUserAndTopic(userId, topicId);
+
     }
 
     public void saveTopicToDb(Topic topic) {
         topicRepository.save(topic);
+    }
+
+
+    public User getByUser(int reputation) {
+        return userRepository.getByUser(reputation);
     }
 }

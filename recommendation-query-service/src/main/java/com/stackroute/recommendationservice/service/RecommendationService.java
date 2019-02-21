@@ -9,10 +9,11 @@ import java.util.List;
 @Service
 public interface RecommendationService {
 
- List<Question> getAllUnansweredQuestions(String userName);
- QuestionRequested getDocumentByQuestionId(long questionId);
+    List<Question> getAllUnansweredQuestions(String userName);
 
- List<Question> getTrendingQuestionsForUser(String username);
+    QuestionRequested getDocumentByQuestionId(long questionId);
+
+    List<Question> getTrendingQuestionsForUser(String s, String username);
 
 
 }

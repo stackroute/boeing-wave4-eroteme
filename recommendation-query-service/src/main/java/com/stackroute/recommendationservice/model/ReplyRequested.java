@@ -4,10 +4,10 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document
+@Document("reply")
 public class ReplyRequested {
+    UserRequested userRequested;
     private String reply;
     private long likes;
     private long timestamp;
-    UserRequested userRequested;
 }

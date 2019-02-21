@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class RecommendationServiceImpl  implements RecommendationService {
+public class RecommendationServiceImpl implements RecommendationService {
 
 
     @Autowired
@@ -38,7 +38,11 @@ public class RecommendationServiceImpl  implements RecommendationService {
     }
 
     @Override
-    public List<Question> getTrendingQuestionsForUser(String username) {
-        return userRepository.getAllTrendingQuestionsForUser(username);
+    public List<Question> getTrendingQuestionsForUser(String username, String topic) {
+        return userRepository.getAllTrendingQuestionsForUser(username, topic);
+    }
+
+    public QuestionRequested insertIntoDb(QuestionRequested questionRequested) {
+        return recommendationRepository.save(questionRequested);
     }
 }
