@@ -53,7 +53,6 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/getusers")
     public ResponseEntity<Collection<User>> getAllUsers() {
         ResponseEntity<Collection<User>> responseEntity;
@@ -123,7 +122,6 @@ public class HomeController {
         return responseEntity;
     }
 
-
     @DeleteMapping("/deleteanswer/{answerId}")
     public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
         ResponseEntity<String> responseEntity;
@@ -153,4 +151,24 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    @GetMapping("/create/{userId}/{topicId}")
+    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationship(userId, topicId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+//    public void create(@RequestBody User user, @RequestParam int topicId) {
+//        homeService.createRelationship(user, topicId);
+//        System.out.println("topic created");
+//
+//    }
 }
