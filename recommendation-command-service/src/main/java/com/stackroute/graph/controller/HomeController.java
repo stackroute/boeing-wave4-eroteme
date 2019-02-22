@@ -127,11 +127,25 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to get TOPIC//
+    @GetMapping("/gettopics")
+    public ResponseEntity<Collection<Topic>> getAllTopics() {
+        ResponseEntity<Collection<Topic>> responseEntity;
+        try {
+            log.info("Fetching topic nodes");
+            responseEntity = new ResponseEntity(homeService.getTopics(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
     //method to delete ANSWER using ANSWERID//
     @DeleteMapping("/deleteanswer/{answerId}")
-    public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
-        ResponseEntity<String> responseEntity;
+    public ResponseEntity<?> deleteallAnswer(@PathVariable int answerId) {
+        ResponseEntity<?> responseEntity;
 
         try {
             homeService.deleteAnswers(answerId);
