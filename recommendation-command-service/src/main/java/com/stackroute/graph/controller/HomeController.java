@@ -295,5 +295,19 @@ public class HomeController {
         return responseEntity;
     }
 
+    @GetMapping("/downvote/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipten(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.userdownvotequestion(userId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
 }
