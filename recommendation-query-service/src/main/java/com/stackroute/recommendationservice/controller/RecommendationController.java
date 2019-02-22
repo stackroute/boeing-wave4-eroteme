@@ -54,7 +54,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    @GetMapping("/unanswered/{userName}")
+    @GetMapping("/unanswered/{username}")
     public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestions(@PathVariable String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionRequested = new ArrayList<>();
@@ -81,6 +81,7 @@ public class RecommendationController {
         }
         return responseEntity;
     }
+
 
 //    @GetMapping("/domain/users")
 //    public ResponseEntity<List<User>> getAllUsers(@PathVariable User users){
