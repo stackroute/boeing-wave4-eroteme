@@ -136,8 +136,48 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswerCommentReply(int questionId, String answer, String comment, List<Replies> replies) {
-        return null;
+    public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment)throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException {
+        boolean answerFlag = false;
+        boolean commentFlag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer)){
+                    answerFlag = true;
+                    List<Comment> comments = answer1.getComments();
+                    if (comments==null){
+                        throw new CommentNotFoundException("Comment not found");
+                    }
+                    Comment comment2 = comment.get(0);
+                    for (Comment comment1:comments) {
+                        if(comment1.getComment().equals(comment2.getComment())){
+                            commentFlag = true;
+                            if(comment1.getReplies()==null){
+                                comment1.setReplies(comment2.getReplies());
+                            }
+                            else{
+                                List<Replies> repliesList = comment1.getReplies();
+                                repliesList.addAll(comment2.getReplies());
+                                comment1.setReplies(repliesList);
+                            }
+                        }
+                    }
+                }
+            }
+            if (answerFlag && commentFlag){
+                return questionRepository.save(question);
+            }
+            else if (!commentFlag){
+                throw new CommentNotFoundException("Comment not found");
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override
