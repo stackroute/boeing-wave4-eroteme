@@ -208,5 +208,19 @@ public class HomeController {
         return responseEntity;
     }
 
+    @GetMapping("/create4/{answerId}/{questionId}")
+    public ResponseEntity<Answer> CreateRelationshipfour(@PathVariable int answerId, @PathVariable int questionId) {
+        ResponseEntity<Answer> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<Answer>(homeService.createRelationshipAQ(answerId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<Answer>(new Answer(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
 }

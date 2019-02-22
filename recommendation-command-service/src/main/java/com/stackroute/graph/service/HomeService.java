@@ -94,4 +94,9 @@ public class HomeService {
         return questionRepository.createRelatioshipBetweenUserAndQuestion(userId, questionId);
 
     }
+
+    public Answer createRelationshipAQ(int answerId, int questionId) {
+        return questionRepository.createRelatioshipBetweenAnswerAndQuestion(answerId, questionId);
+
+    }
 }
