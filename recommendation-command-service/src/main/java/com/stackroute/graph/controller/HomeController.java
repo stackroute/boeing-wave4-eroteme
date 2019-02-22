@@ -152,12 +152,12 @@ public class HomeController {
     }
 
 
-    @GetMapping("/create/{userId}/{topicId}")
+    @GetMapping("/follows/{userId}/{topicId}")
     public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.createRelationship(userId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, topicId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,12 +166,12 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/create1/{questionId}/{topicId}")
+    @GetMapping("/belongs/{questionId}/{topicId}")
     public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
         ResponseEntity<Question> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<Question>(homeService.createRelationshipQT(questionId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, topicId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,12 +180,12 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/create2/{userId}/{answerId}")
+    @GetMapping("/answered/{userId}/{answerId}")
     public ResponseEntity<User> CreateRelationshiptwo(@PathVariable int userId, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUA(userId, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.useransweredanswer(userId, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,12 +194,12 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/create3/{userId}/{questionId}")
+    @GetMapping("/viewed/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipthree(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUQ(userId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userviewedquestion(userId, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,12 +208,12 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/create4/{answerId}/{questionId}")
+    @GetMapping("/answerof/{answerId}/{questionId}")
     public ResponseEntity<Answer> CreateRelationshipfour(@PathVariable int answerId, @PathVariable int questionId) {
         ResponseEntity<Answer> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<Answer>(homeService.createRelationshipAQ(answerId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Answer>(homeService.answerisanswerofquestion(answerId, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,7 +222,7 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/create5/{userId}/{questionId}")
+    @GetMapping("/asked/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipfive(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
