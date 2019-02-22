@@ -89,6 +89,4 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
         }
         System.out.println(questionRepository.findAll().size());
 	}
-
-
 }

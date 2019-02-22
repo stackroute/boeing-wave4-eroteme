@@ -27,4 +27,10 @@ public class GlobalExceptions {
     public ResponseEntity handleCommentAlreadyExistsException(final CommentAlreadyExistsException e){
         return new ResponseEntity(e.getMessage(),HttpStatus.CONFLICT);
     }
+
+    //Exception handler to handle Qusetion not found exceptions
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity handleCommentNotFoundException(final CommentNotFoundException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

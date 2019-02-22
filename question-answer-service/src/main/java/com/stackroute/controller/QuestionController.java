@@ -1,6 +1,9 @@
 package com.stackroute.controller;
 
+import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
+import com.stackroute.domain.Replies;
+import com.stackroute.exceptions.CommentNotFoundException;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
 import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.service.QuestionService;
@@ -43,5 +46,10 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> addComment(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addQuestionComment(questionId, question.getComment());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
+    }
+    @PutMapping("quescommentreply/{questionId}")
+    public ResponseEntity<?> addCommentReply(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException, CommentNotFoundException {
+        questionService.addQuestionCommentReply(questionId,comment.getComment(),comment.getReplies());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
     }
 }

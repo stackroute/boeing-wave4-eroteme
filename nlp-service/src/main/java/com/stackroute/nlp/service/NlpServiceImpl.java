@@ -15,7 +15,7 @@ public class NlpServiceImpl {
 
 
     String question;
-    String stopwords[] = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","above","below",
+    String stopwords[] = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","above","below","be", "what","in","on","above",
             "is"};
 
     String[] domainSpecificTopics = {"Fundamentals and Architecture","pipes","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"};
@@ -53,12 +53,12 @@ public class NlpServiceImpl {
         Annotation annotations = new Annotation(getCleanQuestion());
         // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
-        // sentenceList contains list of sentences
+        // wordsList contains list of lemmetized words
         ArrayList<String> lemmaWords = new ArrayList<>();
         ArrayList<String> originalWords = new ArrayList<>();
-        List<CoreMap> sentenceList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
-        for (CoreMap sentence : sentenceList) {
-            for (CoreLabel word : sentence.get(CoreAnnotations.TokensAnnotation.class)) {
+        List<CoreMap> wordsList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
+        for (CoreMap words : wordsList) {
+            for (CoreLabel word : words.get(CoreAnnotations.TokensAnnotation.class)) {
                 lemmaWords.add(word.lemma());
                 originalWords.add(word.originalText());
             }

@@ -18,7 +18,7 @@ public class Topic {
     @Id
     private int topicId;
     private String topicname;
-    @Relationship(type = "SUBTOPIC", direction = Relationship.INCOMING)
+    @Relationship(type = "SUBTOPIC_OF", direction = Relationship.INCOMING)
     private Topic topic;
     @Relationship(type = "FOLLOWS", direction = Relationship.INCOMING)
     private List<User> user;

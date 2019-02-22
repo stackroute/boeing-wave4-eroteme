@@ -28,9 +28,9 @@ public class Question {
     private List<Answer> answer;
     @Relationship(type = "VIEWED", direction = Relationship.INCOMING)
     private List<User> user1;
-    @Relationship(type = "UPVOTED", direction = Relationship.INCOMING)
+    @Relationship(type = "UPVOTE", direction = Relationship.INCOMING)
     private List<User> user2;
-    @Relationship(type = "DOWNVOTED", direction = Relationship.INCOMING)
+    @Relationship(type = "DOWNVOTE", direction = Relationship.INCOMING)
     private List<User> user3;
 
 

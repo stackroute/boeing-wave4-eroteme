@@ -9,13 +9,12 @@ import java.util.Collection;
 
 public interface UserRepository extends Neo4jRepository<User,Integer> {
 
-
+    //method to get USER//
     @Query("MATCH (m:User) RETURN m")
     Collection<User> getAllUsers();
 
-    @Query("MATCH (a:User),(b:Answer) WHERE a.answerId =b.answerId  CREATE (a)-[r:ANSWERED]->(b)")
-    Collection<User> makeRelation();
 
+    //method to get USER using REPUTATION//
     @Query("match (m:User) where m.reputation={reputation} return m")
     User getByUser(@Param("reputation") int reputation);
 }
