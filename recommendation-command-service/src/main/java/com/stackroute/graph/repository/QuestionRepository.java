@@ -13,7 +13,7 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
 
     //method to get QUESTIONS//
-    @Query("MATCH (m:Question) <-[ASKED]-(u:User) RETURN m,u")
+    @Query("MATCH (m:Question) RETURN m")
     Collection<Question> getAllQuestions();
 
     //method to create relationship VIEWED between user and question//

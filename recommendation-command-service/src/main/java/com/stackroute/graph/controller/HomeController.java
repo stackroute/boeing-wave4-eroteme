@@ -338,7 +338,7 @@ public class HomeController {
 //
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+//            responseEntity = new ResponseEntity<>(new User    (), HttpStatus.BAD_GATEWAY);
 //        }
 //        return responseEntity;
 //    }
