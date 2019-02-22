@@ -1,7 +1,7 @@
 package com.stackroute.recommendationservice.service;
 
 import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.repository.RecommendationRepository;
+import com.stackroute.recommendationservice.repository.QuestionDocumentRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,19 +23,19 @@ public class RecommendationServiceImplTest {
     @Mock
     private UserRepository userRepository;
     @Mock
-    private RecommendationRepository recommendationRepository;
+    private QuestionDocumentRepository questionDocumentRepository;
     @InjectMocks
     private RecommendationServiceImpl recommendationService;
 
     @Test
     public void testForTrendingQuestionsPresentInDb() {
-        when(userRepository.getAllTrendingQuestionsForUser(USER, TOPIC)).thenReturn(Collections.singletonList(QUESTION));
-        assertThat(recommendationService.getTrendingQuestionsForUser(USER, TOPIC)).containsOnly(QUESTION);
+        when(userRepository.getAllTrendingQuestionsForUser(USER)).thenReturn(Collections.singletonList(QUESTION));
+        assertThat(recommendationService.getTrendingQuestionsForUser(USER)).containsOnly(QUESTION);
     }
 
     @Test
     public void testForTrendingQuestionsNotPresentInDb() {
-        when(userRepository.getAllTrendingQuestionsForUser(USER, TOPIC)).thenReturn(Collections.emptyList());
-        assertThat(recommendationService.getTrendingQuestionsForUser(USER, TOPIC)).isEmpty();
+        when(userRepository.getAllTrendingQuestionsForUser(USER)).thenReturn(Collections.emptyList());
+        assertThat(recommendationService.getTrendingQuestionsForUser(USER)).isEmpty();
     }
 }
