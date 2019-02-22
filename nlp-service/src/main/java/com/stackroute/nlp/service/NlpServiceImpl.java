@@ -17,7 +17,13 @@ public class NlpServiceImpl {
 
     String question;
     String stopwords[] = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","above","below","be", "what","in","on","above",
-            "is"};
+            "is","i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd","!","@","#","$","%","^","&","*","()",".","?",
+            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd",
+            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's",
+            "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll",
+            "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
+            "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
+            "theirs", "themselves", "who", "whom", "this", "that", "that'll", "these","what","why","which",};
 
     String[] domainSpecificTopics = {"Fundamentals and Architecture","pipes","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"};
 
