@@ -5,6 +5,7 @@ import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
 import com.stackroute.domain.Replies;
 import com.stackroute.exceptions.CommentAlreadyExistsException;
+import com.stackroute.exceptions.CommentNotFoundException;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
 import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.repository.QuestionRepository;
@@ -81,8 +82,34 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionCommentReply(int questionId, String comment, Replies replies) {
-        return null;
+    public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException,CommentNotFoundException {
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Comment> comments = question.getComment();
+            for (Comment comment1: comments) {
+                if(comment1.getComment().equals(comment)){
+                    flag = true;
+                    if (comment1.getReplies()==null){
+                        comment1.setReplies(replies);
+                    }
+                    else {
+                        replies.addAll(comment1.getReplies());
+                        comment1.setReplies(replies);
+                    }
+                }
+            }
+            if (flag){
+                return questionRepository.save(question);
+            }
+            else {
+                throw new CommentNotFoundException("Comment does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
+
     }
 
     @Override

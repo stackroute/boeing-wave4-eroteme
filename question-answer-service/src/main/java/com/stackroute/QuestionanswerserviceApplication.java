@@ -89,6 +89,4 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 		// create and return question of this metadata
 		return new Question(0,question, null,topics,0,timestamp,0,user,null,null);
 	}
-
-
 }
