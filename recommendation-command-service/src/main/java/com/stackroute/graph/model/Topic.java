@@ -20,8 +20,8 @@ public class Topic {
     private String topicname;
     @Relationship(type = "SUBTOPIC_OF", direction = Relationship.INCOMING)
     private Topic topic;
-    @Relationship(type = "FOLLOWS", direction = Relationship.INCOMING)
-    private List<User> user;
+    //    @Relationship(type = "FOLLOWS", direction = Relationship.INCOMING)
+//    private List<User> user;
     @Relationship(type = "BELONGS", direction = Relationship.INCOMING)
     private List<Question> question;
 }

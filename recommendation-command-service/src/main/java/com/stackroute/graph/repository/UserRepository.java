@@ -17,4 +17,11 @@ public interface UserRepository extends Neo4jRepository<User,Integer> {
     //method to get USER using REPUTATION//
     @Query("match (m:User) where m.reputation={reputation} return m")
     User getByUser(@Param("reputation") int reputation);
+
+
+    //method to create relationship FOLLOWS between user and topic//
+    @Query("match (q:User),(t:parents) where q.userId={userid} and t.name={name} create (q)-[r:FOLLOWS]->(t)")
+    User userfollowstopicrelationship(@Param("userid") int userId, @Param("name") String name);
+
+
 }

@@ -8,11 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
-public interface AnswerRepository extends Neo4jRepository<Answer, Integer> {
+public interface AnswerRepository extends Neo4jRepository<Answer, Long> {
 
     //method to delete ANSWER using ANSWERID//
-    Long deleteById(int answerId);
+//    long deleteById(long answerId);
 
+
+//    Long deleteByReleased(int released);
 
     //method to get ANSWERS//
     @Query("MATCH (m:Answer) RETURN m")
@@ -21,22 +23,22 @@ public interface AnswerRepository extends Neo4jRepository<Answer, Integer> {
 
     //method to create relationship ANSWERED between user and answer//
     @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:ANSWERED]->(t)")
-    User useransweredanswerrelationship(@Param("userid") int userId, @Param("answerid") int answerId);
+    User useransweredanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
 
 
     //method to create relationship ACCEPTED between user and answer//
     @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:ACCEPTED]->(t)")
-    User useracceptedanswerrelationship(@Param("userid") int userId, @Param("answerid") int answerId);
+    User useracceptedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
 
 
     //method to create relationship UPVOTED between user and answer//
     @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:UPVOTED]->(t)")
-    User userupvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") int answerId);
+    User userupvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
 
 
     //method to create relationship DOWNVOTED between user and answer//
     @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:DOWNVOTED]->(t)")
-    User userdownvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") int answerId);
+    User userdownvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
 }
 
 

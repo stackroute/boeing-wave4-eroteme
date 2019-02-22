@@ -143,9 +143,9 @@ public class HomeController {
 
 
     //method to delete ANSWER using ANSWERID//
-    @DeleteMapping("/deleteanswer/{answerId}")
-    public ResponseEntity<?> deleteallAnswer(@PathVariable int answerId) {
-        ResponseEntity<?> responseEntity;
+    @DeleteMapping("/deleteanswer")
+    public ResponseEntity<?> deleteallAnswer(@RequestParam long answerId) {
+        ResponseEntity<String> responseEntity;
 
         try {
             homeService.deleteAnswers(answerId);
@@ -174,12 +174,12 @@ public class HomeController {
     }
 
     //method to create relationship FOLLOWS between user and topic//
-    @GetMapping("/follows/{userId}/{topicId}")
-    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
+    @GetMapping("/follows/{userId}/{Name}")
+    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable String name) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,11 +344,11 @@ public class HomeController {
 
 
 //    @GetMapping("/subtopicof/{topicId}/{topicId}")
-//    public ResponseEntity<User> CreateRelationshipeleven(@PathVariable int topicId, @PathVariable int topicId) {
+//    public ResponseEntity<User> CreateRelationshipeleven(@PathVariable int topicId, @PathVariable String topicname) {
 //        ResponseEntity<User> responseEntity;
 //        try {
 //
-//            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(topicId, topicId), HttpStatus.OK);
+//            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(topicname,topicId), HttpStatus.OK);
 //
 //        } catch (Exception e) {
 //            e.printStackTrace();

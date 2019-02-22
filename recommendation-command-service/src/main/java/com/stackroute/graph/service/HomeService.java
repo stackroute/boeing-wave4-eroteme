@@ -64,14 +64,19 @@ public class HomeService {
     }
 
 
-    public void deleteAnswers(int answerId) {
+    public void deleteAnswers(long answerId) {
+
 
         answerRepository.deleteById(answerId);
     }
 
-    public User userfollowstopic(int userId, int topicId) {
+//    public void deleteMovies(int released) {
+//        movieRepository.deleteByReleased(released);
+//    }
 
-        return topicRepository.userfollowstopicrelationship(userId, topicId);
+    public User userfollowstopic(int userId, String name) {
+
+        return userRepository.userfollowstopicrelationship(userId, name);
 
     }
 
@@ -147,6 +152,7 @@ public class HomeService {
 
 
     public Collection<Topic> getTopics() {
+
         return topicRepository.getAllTopics();
     }
 }
