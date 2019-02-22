@@ -10,12 +10,6 @@ import java.util.Collection;
 
 public interface AnswerRepository extends Neo4jRepository<Answer, Long> {
 
-    //method to delete ANSWER using ANSWERID//
-//    long deleteById(long answerId);
-
-
-//    Long deleteByReleased(int released);
-
     //method to get ANSWERS//
     @Query("MATCH (m:Answer) RETURN m")
     Collection<Answer> getAllAnswers();

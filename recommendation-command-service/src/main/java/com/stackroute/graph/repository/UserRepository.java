@@ -24,4 +24,10 @@ public interface UserRepository extends Neo4jRepository<User,Integer> {
     User userfollowstopicrelationship(@Param("userid") int userId, @Param("name") String name);
 
 
+    //method to create relationship BELONGS between question and topic//
+    @Query("match (q:Question),(t:parents) where q.questionId={questionid} and t.name={name} create (q)-[r:BELONGS]->(t)")
+    User userbelongstopicrelationship(@Param("questionid") int questionId, @Param("name") String name);
+
+
+
 }
