@@ -9,6 +9,7 @@ import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class NlpServiceImpl {
@@ -66,15 +67,27 @@ public class NlpServiceImpl {
         return lemmaWords;
     }
 
+   //removal of stop words from the lemmitizedWords
 
-    public ArrayList<String> getWordsWithoutStopWords() {
-        ArrayList<String> wordsWithOutStopwords = getLemmitizedWords();
+    public ArrayList<String> getremoveStopWords() {
+        ArrayList<String> removeStopwords = getLemmitizedWords();
         for (int i = 0; i < stopwords.length; i++) {
-            if (wordsWithOutStopwords.contains(stopwords[i])) {
-                wordsWithOutStopwords.remove(stopwords[i]);//remove it
+            if (removeStopwords.contains(stopwords[i])) {
+                removeStopwords.remove(stopwords[i]);
             }
         }
-        return wordsWithOutStopwords;
+        return removeStopwords;
+    }
+
+    //removal of stop words from the sentence
+
+    public String getSentenceWithoutStopWords() {
+        ArrayList<String> removeStopwords = getremoveStopWords();
+        StringBuffer sentenceWithoutStopWords = new StringBuffer();
+        for (int i = 0; i < removeStopwords.size(); i++) {
+            sentenceWithoutStopWords.append(removeStopwords.get(i) + " ");
+        }
+        return sentenceWithoutStopWords.toString().trim();
     }
 
 
@@ -88,8 +101,12 @@ public class NlpServiceImpl {
         System.out.println(allLemmas);
 
         System.out.println("Stop Word Removal");
-        ArrayList<String> allStopWords = new ArrayList<>(getWordsWithoutStopWords());
+        ArrayList<String> allStopWords = new ArrayList<>(getremoveStopWords());
         System.out.println(allStopWords);
+
+        System.out.println("Stop Word Removal from sentence");
+        String allremovedWords = new String(getSentenceWithoutStopWords());
+        System.out.println(allremovedWords);
 
     }
 
