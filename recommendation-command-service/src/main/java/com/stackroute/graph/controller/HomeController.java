@@ -251,5 +251,19 @@ public class HomeController {
         return responseEntity;
     }
 
+    @GetMapping("/upvoted/{userId}/{answerId}")
+    public ResponseEntity<User> CreateRelationshipseven(@PathVariable int userId, @PathVariable int answerId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.userupvotedanswer(userId, answerId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
 }

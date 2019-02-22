@@ -109,4 +109,9 @@ public class HomeService {
         return answerRepository.useracceptedanswerrelationship(userId, answerId);
 
     }
+
+    public User userupvotedanswer(int userId, int answerId) {
+        return answerRepository.userupvotedanswerrelationship(userId, answerId);
+
+    }
 }
