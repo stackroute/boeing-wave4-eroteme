@@ -104,4 +104,9 @@ public class HomeService {
         return questionRepository.useraskedquestionrelationship(userId, questionId);
 
     }
+
+    public User useracceptedanswer(int userId, int answerId) {
+        return answerRepository.useracceptedanswerrelationship(userId, answerId);
+
+    }
 }
