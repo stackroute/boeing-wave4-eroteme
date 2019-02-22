@@ -174,7 +174,7 @@ public class HomeController {
     }
 
     //method to create relationship FOLLOWS between user and topic//
-    @GetMapping("/follows/{userId}/{Name}")
+    @GetMapping("/follows/{userId}/{name}")
     public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable String name) {
         ResponseEntity<User> responseEntity;
         try {

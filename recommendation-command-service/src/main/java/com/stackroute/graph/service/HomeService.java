@@ -74,9 +74,9 @@ public class HomeService {
 //        movieRepository.deleteByReleased(released);
 //    }
 
-    public User userfollowstopic(int userId, String name) {
+    public User userfollowstopic(int userId, String Name) {
 
-        return userRepository.userfollowstopicrelationship(userId, name);
+        return userRepository.userfollowstopicrelationship(userId, Name);
 
     }
 
