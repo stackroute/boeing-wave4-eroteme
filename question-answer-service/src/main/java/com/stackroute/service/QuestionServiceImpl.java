@@ -191,8 +191,31 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionCommentLikes(int questionId, String comment) {
-        return null;
+    public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException{
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Comment> comments = question.getComment();
+            if (comments==null){
+                throw new CommentNotFoundException("Comment does not exists");
+            }
+            for (Comment comment1: comments) {
+                if(comment1.getComment().equals(comment)){
+                    flag = true;
+                    long likes = comment1.getLikes();
+                    comment1.setLikes(likes+1);
+                }
+            }
+            if (flag){
+                return questionRepository.save(question);
+            }
+            else {
+                throw new CommentNotFoundException("Comment does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override
