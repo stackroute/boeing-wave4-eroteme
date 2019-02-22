@@ -4,11 +4,8 @@ import com.stackroute.domain.Answer;
 import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
 import com.stackroute.domain.Replies;
-import com.stackroute.exceptions.CommentAlreadyExistsException;
-import com.stackroute.exceptions.CommentNotFoundException;
+import com.stackroute.exceptions.*;
 
-import com.stackroute.exceptions.QuestionAlreadyExistsException;
-import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,8 +106,33 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswerComment(int questionId, String answer, Comment comment) {
-        return null;
+    public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException,AnswerNotFoundException {
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer)){
+                    flag = true;
+                    if (answer1.getComments()==null){
+                        answer1.setComments(comment);
+                    }
+                    else {
+                        comment.addAll(answer1.getComments());
+                        answer1.setComments(comment);
+                    }
+                }
+            }
+            if (flag){
+                return questionRepository.save(question);
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override
