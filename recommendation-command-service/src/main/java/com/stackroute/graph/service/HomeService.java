@@ -68,8 +68,8 @@ public class HomeService {
         answerRepository.deleteById(answerId);
     }
 
-    public User createRelationship(int userId, int topicId) {
-        return topicRepository.createRelatioshipBetweenUserAndTopic(userId, topicId);
+    public User userfollowstopic(int userId, int topicId) {
+        return topicRepository.userfollowstopicrelationship(userId, topicId);
 
     }
 
@@ -82,21 +82,21 @@ public class HomeService {
         return userRepository.getByUser(reputation);
     }
 
-    public Question createRelationshipQT(int questionId, int topicId) {
-        return topicRepository.createRelatioshipBetweenQuestionAndTopic(questionId, topicId);
+    public Question questionbelongstopic(int questionId, int topicId) {
+        return topicRepository.questionbelongstopicrelationship(questionId, topicId);
     }
 
-    public User createRelationshipUA(int userId, int answerId) {
-        return answerRepository.createRelatioshipBetweenUserAndAnswer(userId, answerId);
+    public User useransweredanswer(int userId, int answerId) {
+        return answerRepository.useransweredanswerrelationship(userId, answerId);
     }
 
-    public User createRelationshipUQ(int userId, int questionId) {
-        return questionRepository.createRelatioshipBetweenUserAndQuestion(userId, questionId);
+    public User userviewedquestion(int userId, int questionId) {
+        return questionRepository.userviewedquestionrelationship(userId, questionId);
 
     }
 
-    public Answer createRelationshipAQ(int answerId, int questionId) {
-        return questionRepository.createRelatioshipBetweenAnswerAndQuestion(answerId, questionId);
+    public Answer answerisanswerofquestion(int answerId, int questionId) {
+        return questionRepository.answerisanswerofquestionrelationship(answerId, questionId);
 
     }
 

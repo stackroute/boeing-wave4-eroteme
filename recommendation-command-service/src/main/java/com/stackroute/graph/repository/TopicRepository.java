@@ -15,11 +15,11 @@ public interface TopicRepository extends Neo4jRepository<Topic, Integer> {
 
 
     @Query("match (q:User),(t:Topic) where q.userId={userid} and t.topicId={topicid} create (q)-[r:FOLLOWS]->(t)")
-    User createRelatioshipBetweenUserAndTopic(@Param("userid") int userId, @Param("topicid") int topicId);
+    User userfollowstopicrelationship(@Param("userid") int userId, @Param("topicid") int topicId);
 
 
     @Query("match (q:Question),(t:Topic) where q.questionId={questionid} and t.topicId={topicid} create (q)-[r:BELONGS]->(t)")
-    Question createRelatioshipBetweenQuestionAndTopic(@Param("questionid") int questionId, @Param("topicid") int topicId);
+    Question questionbelongstopicrelationship(@Param("questionid") int questionId, @Param("topicid") int topicId);
 }
 
 
