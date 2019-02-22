@@ -14,14 +14,15 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class RecommendationServiceImpl  implements RecommendationService {
+public class RecommendationServiceImpl implements RecommendationService {
 
 
-//    @Autowired
+    @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-    private RecommendationRepository recommendationRepository;
+    @Autowired
+    private
+    RecommendationRepository recommendationRepository;
 
     @Override
     public List<Question> getAllUnansweredQuestions(String userName) {
@@ -44,9 +45,13 @@ public class RecommendationServiceImpl  implements RecommendationService {
     }
 
     @Override
-    public List<Question> getTrendingQuestionsForUser(String username) {
-//        return userRepository.getAllTrendingQuestionsForUser(username);
-        return null;
+    public List<Question> getTrendingQuestionsForUser(String username, String topic) {
+        return userRepository.getAllTrendingQuestionsForUser(username, topic);
+    }
+
+    // This method is added only for testing purpose
+    public QuestionRequested insertIntoDb(QuestionRequested questionRequested) {
+        return recommendationRepository.save(questionRequested);
     }
 
 

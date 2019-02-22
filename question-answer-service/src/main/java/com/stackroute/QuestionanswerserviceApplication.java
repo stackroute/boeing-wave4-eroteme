@@ -27,7 +27,7 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		int count = questionRepository.findAll().size();
+		int count = 0;
 		List<Question> questions = readQuestionsFromCSV("Questions.txt");
 		for (Question q : questions) {
 			q.setQuestionId(++count);

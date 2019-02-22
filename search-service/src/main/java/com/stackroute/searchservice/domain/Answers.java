@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Answers {
+    //private member variable declaration//
     private String answer;
     private boolean accepted;
     List<Comments> comments;

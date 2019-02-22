@@ -7,21 +7,77 @@ import com.stackroute.domain.Replies;
 import com.stackroute.exceptions.CommentAlreadyExistsException;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
 import com.stackroute.exceptions.QuestionNotFoundException;
+import com.stackroute.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class QuestionServiceImpl implements QuestionService{
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    public QuestionServiceImpl(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
+
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
-        return null;
+        if(questionRepository.existsByQuestion(questionObject.getQuestion())){
+            throw new QuestionAlreadyExistsException("Question already exists");
+        }
+        questionObject.setQuestionId(questionRepository.findAll().size()+1);
+        Question savedQuestion = questionRepository.save(questionObject);
+        return savedQuestion;
     }
 
     @Override
-    public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException {
-        return null;
+    public Question addQuestionDescription(int questionId, String description) throws QuestionNotFoundException {
+
+        if (questionRepository.findByQuestionId(questionId)!= null){
+            Question question = questionRepository.findByQuestionId(questionId);
+            question.setDescription(description);
+            return questionRepository.save(question);
+        }
+        else
+            throw new QuestionNotFoundException("Question does not exists");
     }
 
     @Override
-    public Question addQuestionComment(int questionId, Comment comment) throws CommentAlreadyExistsException, QuestionNotFoundException {
-        return null;
+    public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException {
+        if (questionRepository.findByQuestionId(questionId)!= null){
+            Question question = questionRepository.findByQuestionId(questionId);
+            if(question.getAnswer()!=null){
+            List<Answer> answers = question.getAnswer();
+            answers.addAll(answer);
+            question.setAnswer(answers);
+            }
+            else{
+                question.setAnswer(answer);
+            }
+            return questionRepository.save(question);
+        }
+        else
+            throw new QuestionNotFoundException("Question does not exists");
+    }
+
+    @Override
+    public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException {
+        if (questionRepository.findByQuestionId(questionId)!= null){
+            Question question = questionRepository.findByQuestionId(questionId);
+            if(question.getComment()!=null){
+                List<Comment> comments = question.getComment();
+                comments.addAll(comment);
+                question.setComment(comments);
+            }
+            else{
+                question.setComment(comment);
+            }
+            return questionRepository.save(question);
+        }
+        else
+            throw new QuestionNotFoundException("Question does not exists");
     }
 
     @Override
