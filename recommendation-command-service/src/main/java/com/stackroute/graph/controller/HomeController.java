@@ -266,4 +266,34 @@ public class HomeController {
     }
 
 
+    @GetMapping("/downvoted/{userId}/{answerId}")
+    public ResponseEntity<User> CreateRelationshipeight(@PathVariable int userId, @PathVariable int answerId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.userdownvotedanswer(userId, answerId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
+    @GetMapping("/upvote/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipnine(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.userupvotequestion(userId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
 }

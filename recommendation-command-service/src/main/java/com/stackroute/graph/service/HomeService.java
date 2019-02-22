@@ -114,4 +114,14 @@ public class HomeService {
         return answerRepository.userupvotedanswerrelationship(userId, answerId);
 
     }
+
+    public User userdownvotedanswer(int userId, int answerId) {
+        return answerRepository.userdownvotedanswerrelationship(userId, answerId);
+
+    }
+
+    public User userupvotequestion(int userId, int questionId) {
+        return questionRepository.userupvotequestionrelationship(userId, questionId);
+
+    }
 }
