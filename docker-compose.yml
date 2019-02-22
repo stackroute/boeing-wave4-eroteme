@@ -44,21 +44,21 @@ services:
     healthcheck:
       test: "exit 0"
 
-#  neo4j:
-#    image: neo4j:latest
-#    ports:
-#      - 7474:7474
-#      - 7687:7687
-#    expose:
-#      - 7474
-#    container_name: neo4j_docker
-#    network_mode: host
-#    hostname: localhost
-#    restart: always
-#    volumes:
-#      - /DB/neo4j:/data/db
-#    healthcheck:
-#      test: "exit 0"
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - 7474:7474
+      - 7687:7687
+    expose:
+      - 7474
+    container_name: neo4j_docker
+    network_mode: host
+    hostname: localhost
+    restart: always
+    volumes:
+      - /DB/neo4j:/data/db
+    healthcheck:
+      test: "exit 0"
 
   mysql:
     image: mysql:5.7
@@ -140,7 +140,7 @@ services:
       test: "exit 0"
 
   angular-app:
-    build: AngularService/
+    build: angular-service/
     image: angular
     restart: always
     mem_limit: 1024m
@@ -153,3 +153,6 @@ services:
       test: "exit 0"
     expose:
       - 8000
+
+
+

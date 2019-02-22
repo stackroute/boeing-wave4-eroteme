@@ -128,9 +128,11 @@ public class HomeController {
     }
 
 
+
+
     //method to delete ANSWER using ANSWERID//
-    @DeleteMapping("/deleteanswer/{answerId}")
-    public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
+    @DeleteMapping("/deleteanswer")
+    public ResponseEntity<?> deleteallAnswer(@RequestParam long answerId) {
         ResponseEntity<String> responseEntity;
 
         try {
@@ -160,12 +162,12 @@ public class HomeController {
     }
 
     //method to create relationship FOLLOWS between user and topic//
-    @GetMapping("/follows/{userId}/{topicId}")
-    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
+    @GetMapping("/follows/{userId}/{name}")
+    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable String name) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,12 +178,12 @@ public class HomeController {
 
 
     //method to create relationship BELONGS between question and topic//
-    @GetMapping("/belongs/{questionId}/{topicId}")
-    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
+    @GetMapping("/belongs/{questionId}/{name}")
+    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable String name) {
         ResponseEntity<Question> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,6 +191,7 @@ public class HomeController {
         }
         return responseEntity;
     }
+
 
     //method to create relationship ANSWERED between user and answer//
     @GetMapping("/answered/{userId}/{answerId}")
@@ -299,7 +302,7 @@ public class HomeController {
     }
 
     //method to create relationship UPVOTE between user and question//
-    @GetMapping("/upvote/{userId}/{questionId}")
+    @GetMapping("/Upvoted/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipnine(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
@@ -314,7 +317,7 @@ public class HomeController {
     }
 
     //method to create relationship DOWNVOTE between user and question//
-    @GetMapping("/downvote/{userId}/{questionId}")
+    @GetMapping("/Downvoted/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipten(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
@@ -329,17 +332,4 @@ public class HomeController {
     }
 
 
-//    @GetMapping("/subtopicof/{topicId}/{topicId}")
-//    public ResponseEntity<User> CreateRelationshipeleven(@PathVariable int topicId, @PathVariable int topicId) {
-//        ResponseEntity<User> responseEntity;
-//        try {
-//
-//            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(topicId, topicId), HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
-//        }
-//        return responseEntity;
-//    }
 }

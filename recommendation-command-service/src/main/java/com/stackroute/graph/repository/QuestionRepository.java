@@ -13,7 +13,7 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
 
     //method to get QUESTIONS//
-    @Query("MATCH (m:Question) <-[ASKED]-(u:User) RETURN m,u")
+    @Query("MATCH (m:Question) RETURN m")
     Collection<Question> getAllQuestions();
 
     //method to create relationship VIEWED between user and question//
@@ -39,4 +39,12 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
     //method to create relationship DOWNVOTE between user and question//
     @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:DOWNVOTE]->(t)")
     User userdownvotequestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
+
+
+    ////method to create relationship BELONGS between question and topic//
+    @Query("match (q:Question),(t:parents) where q.questionId={questionid} and t.name={name} create (q)-[r:BELONGS]->(t)")
+    Question questionbelongstopicrelationship(@Param("questionid") int questionId, @Param("name") String name);
+
+
+
 }

@@ -18,19 +18,25 @@ public class GlobalExceptions {
 
     //Exception handler to handle Qusetion already exists exceptions
     @ExceptionHandler(QuestionAlreadyExistsException.class)
-    public ResponseEntity handleQuestionAlreadyExistsException(final QuestionAlreadyExistsException e){
-        return new ResponseEntity(e.getMessage(),HttpStatus.CONFLICT);
+    public ResponseEntity handleQuestionAlreadyExistsException(final QuestionAlreadyExistsException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
     }
 
     //Exception handler to handle Comment already exists exceptions
     @ExceptionHandler(CommentAlreadyExistsException.class)
-    public ResponseEntity handleCommentAlreadyExistsException(final CommentAlreadyExistsException e){
-        return new ResponseEntity(e.getMessage(),HttpStatus.CONFLICT);
+    public ResponseEntity handleCommentAlreadyExistsException(final CommentAlreadyExistsException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
     }
 
     //Exception handler to handle Qusetion not found exceptions
     @ExceptionHandler(CommentNotFoundException.class)
     public ResponseEntity handleCommentNotFoundException(final CommentNotFoundException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    //Exception handler to handle Answer not found exceptions
+    @ExceptionHandler(AnswerNotFoundException.class)
+    public ResponseEntity handleAnswerNotFoundException(final AnswerNotFoundException e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
