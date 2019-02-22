@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestController
-@RequestMapping(value="api/v1")
+@RequestMapping(value = "api/v1")
 public class QuestionController extends ResponseEntityExceptionHandler {
 
     private QuestionService questionService;
@@ -25,24 +25,26 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     }
 
     @PostMapping("ques")
-    public ResponseEntity<?> saveQuestion(@RequestBody Question question) throws QuestionAlreadyExistsException  {
-            questionService.addQuestion(question);
-            return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
+    public ResponseEntity<?> saveQuestion(@RequestBody Question question) throws QuestionAlreadyExistsException {
+        questionService.addQuestion(question);
+        return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
     }
 
     @PutMapping("ques/{questionId}")
-    public ResponseEntity<?> addDescription(@PathVariable int questionId,@RequestBody Question question) throws QuestionNotFoundException{
-        questionService.addQuestionDescription(questionId,question.getDescription());
+    public ResponseEntity<?> addDescription(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
+        questionService.addQuestionDescription(questionId, question.getDescription());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
+
     @PutMapping("quesans/{questionId}")
-    public ResponseEntity<?> addAnswer(@PathVariable int questionId,@RequestBody Question question) throws QuestionNotFoundException{
-        questionService.addAnswer(questionId,question.getAnswer());
+    public ResponseEntity<?> addAnswer(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
+        questionService.addAnswer(questionId, question.getAnswer());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
+
     @PutMapping("quescomment/{questionId}")
-    public ResponseEntity<?> addComment(@PathVariable int questionId,@RequestBody Question question) throws QuestionNotFoundException{
-        questionService.addQuestionComment(questionId,question.getComment());
+    public ResponseEntity<?> addComment(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
+        questionService.addQuestionComment(questionId, question.getComment());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
     @PutMapping("quescommentreply/{questionId}")

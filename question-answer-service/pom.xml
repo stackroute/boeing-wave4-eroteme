@@ -9,7 +9,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.stackroute</groupId>
+    <groupId>com.stackroute</groupId>
 	<artifactId>questionanswerservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>questionanswerservice</name>

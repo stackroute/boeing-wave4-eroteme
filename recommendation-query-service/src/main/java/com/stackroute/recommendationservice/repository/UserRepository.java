@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserRepository extends Neo4jRepository<User, Integer> {
-    @Query("MATCH (u:user)-[f:follows]->(t:topic) WHERE (t:topic)<-[question_of]-[Q:Question] AND NOT ()-[answer_of]->Question RETURN user")
-    List<Question> findAllUnansweredQuestion();
+public interface UserRepository extends Neo4jRepository<User,String> {
+    @Query("Match(u:USER),(p:parents),(q:Question),(a:Answer) WHERE u.username={UserName} AND (q)-[:question_of]->(p) AND (u)-[:follows]->(p) And NOT (q)<-[:answer_of ]-() Return q")
+    List<Question> findAllUnansweredQuestion(@Param("UserName") String username);
 
 
     @Query("match (u:USER),(t:children),(q:Question) where u.UserName={username} and t.name={topic} and (q)-[:question_of_topic]->(t) return q")

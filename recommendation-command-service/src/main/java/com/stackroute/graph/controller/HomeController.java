@@ -53,20 +53,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/getusers")
-    public ResponseEntity<Collection<User>> getAllUsers() {
-        ResponseEntity<Collection<User>> responseEntity;
-        try {
-            log.info("Fetching user nodes");
-            responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     @PostMapping("/addquestion")
     public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         ResponseEntity<String> responseEntity;
@@ -81,20 +67,6 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/getquestions")
-    public ResponseEntity<Collection<Question>> getAllQuestions() {
-        ResponseEntity<Collection<Question>> responseEntity;
-        try {
-            log.info("Fetching question nodes");
-            responseEntity = new ResponseEntity(homeService.getQuestions(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     @PostMapping("/addanswer")
     public ResponseEntity<String> addAnswer(@RequestBody Answer answer) {
         ResponseEntity<String> responseEntity;
@@ -108,6 +80,34 @@ public class HomeController {
         }
         return responseEntity;
     }
+
+    @GetMapping("/getusers")
+    public ResponseEntity<Collection<User>> getAllUsers() {
+        ResponseEntity<Collection<User>> responseEntity;
+        try {
+            log.info("Fetching user nodes");
+            responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
+    @GetMapping("/getquestions")
+    public ResponseEntity<Collection<Question>> getAllQuestions() {
+        ResponseEntity<Collection<Question>> responseEntity;
+        try {
+            log.info("Fetching question nodes");
+            responseEntity = new ResponseEntity(homeService.getQuestions(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
     @GetMapping("/getanswers")
     public ResponseEntity<Collection<Answer>> getAllAnswers() {
@@ -166,9 +166,75 @@ public class HomeController {
         return responseEntity;
     }
 
-//    public void create(@RequestBody User user, @RequestParam int topicId) {
-//        homeService.createRelationship(user, topicId);
-//        System.out.println("topic created");
-//
-//    }
+    @GetMapping("/create1/{questionId}/{topicId}")
+    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
+        ResponseEntity<Question> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<Question>(homeService.createRelationshipQT(questionId, topicId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new Question(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create2/{userId}/{answerId}")
+    public ResponseEntity<User> CreateRelationshiptwo(@PathVariable int userId, @PathVariable int answerId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUA(userId, answerId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create3/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipthree(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUQ(userId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create4/{answerId}/{questionId}")
+    public ResponseEntity<Answer> CreateRelationshipfour(@PathVariable int answerId, @PathVariable int questionId) {
+        ResponseEntity<Answer> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<Answer>(homeService.createRelationshipAQ(answerId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<Answer>(new Answer(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create5/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipfive(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.useraskedquestion(userId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
 }

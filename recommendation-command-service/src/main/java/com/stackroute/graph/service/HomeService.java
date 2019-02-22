@@ -81,4 +81,27 @@ public class HomeService {
     public User getByUser(int reputation) {
         return userRepository.getByUser(reputation);
     }
+
+    public Question createRelationshipQT(int questionId, int topicId) {
+        return topicRepository.createRelatioshipBetweenQuestionAndTopic(questionId, topicId);
+    }
+
+    public User createRelationshipUA(int userId, int answerId) {
+        return answerRepository.createRelatioshipBetweenUserAndAnswer(userId, answerId);
+    }
+
+    public User createRelationshipUQ(int userId, int questionId) {
+        return questionRepository.createRelatioshipBetweenUserAndQuestion(userId, questionId);
+
+    }
+
+    public Answer createRelationshipAQ(int answerId, int questionId) {
+        return questionRepository.createRelatioshipBetweenAnswerAndQuestion(answerId, questionId);
+
+    }
+
+    public User useraskedquestion(int userId, int questionId) {
+        return questionRepository.useraskedquestionrelationship(userId, questionId);
+
+    }
 }

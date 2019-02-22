@@ -2,6 +2,7 @@ package com.stackroute.recommendationservice.service;
 
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
+import com.stackroute.recommendationservice.model.User;
 import com.stackroute.recommendationservice.repository.RecommendationRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public List<Question> getAllUnansweredQuestions(String userName) {
-        return userRepository.findAllUnansweredQuestion();
+        return userRepository.findAllUnansweredQuestion(userName);
     }
 
     @Override
@@ -38,11 +39,21 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
+    public List<User> getAllUsers() {
+//        return userRepository.findAllUsers();
+        return null;
+    }
+
+    @Override
     public List<Question> getTrendingQuestionsForUser(String username, String topic) {
         return userRepository.getAllTrendingQuestionsForUser(username, topic);
     }
 
+    // This method is added only for testing purpose
     public QuestionRequested insertIntoDb(QuestionRequested questionRequested) {
         return recommendationRepository.save(questionRequested);
     }
+
+
+
 }
