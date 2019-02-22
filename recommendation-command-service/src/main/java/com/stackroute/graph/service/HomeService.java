@@ -89,4 +89,9 @@ public class HomeService {
     public User createRelationshipUA(int userId, int answerId) {
         return answerRepository.createRelatioshipBetweenUserAndAnswer(userId, answerId);
     }
+
+    public User createRelationshipUQ(int userId, int questionId) {
+        return questionRepository.createRelatioshipBetweenUserAndQuestion(userId, questionId);
+
+    }
 }

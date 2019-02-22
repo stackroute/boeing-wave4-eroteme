@@ -16,9 +16,6 @@ public interface AnswerRepository extends Neo4jRepository<Answer, Integer> {
     @Query("MATCH (m:Answer) <-[ACCEPTED]-(u:User) RETURN m,u")
     Collection<Answer> getAllAnswers();
 
-//
-//    @Query("CREATE (a:User)-[r:ANSWERED]->(b:Answer) RETURN type(r)")
-//    Collection<Answer> getAllAnswered();
 
 
     @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:ANSWERED]->(t)")

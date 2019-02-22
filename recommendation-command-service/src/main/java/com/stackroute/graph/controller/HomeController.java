@@ -53,20 +53,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/getusers")
-    public ResponseEntity<Collection<User>> getAllUsers() {
-        ResponseEntity<Collection<User>> responseEntity;
-        try {
-            log.info("Fetching user nodes");
-            responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     @PostMapping("/addquestion")
     public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         ResponseEntity<String> responseEntity;
@@ -81,20 +67,6 @@ public class HomeController {
         return responseEntity;
     }
 
-    @GetMapping("/getquestions")
-    public ResponseEntity<Collection<Question>> getAllQuestions() {
-        ResponseEntity<Collection<Question>> responseEntity;
-        try {
-            log.info("Fetching question nodes");
-            responseEntity = new ResponseEntity(homeService.getQuestions(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     @PostMapping("/addanswer")
     public ResponseEntity<String> addAnswer(@RequestBody Answer answer) {
         ResponseEntity<String> responseEntity;
@@ -108,6 +80,34 @@ public class HomeController {
         }
         return responseEntity;
     }
+
+    @GetMapping("/getusers")
+    public ResponseEntity<Collection<User>> getAllUsers() {
+        ResponseEntity<Collection<User>> responseEntity;
+        try {
+            log.info("Fetching user nodes");
+            responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+
+    @GetMapping("/getquestions")
+    public ResponseEntity<Collection<Question>> getAllQuestions() {
+        ResponseEntity<Collection<Question>> responseEntity;
+        try {
+            log.info("Fetching question nodes");
+            responseEntity = new ResponseEntity(homeService.getQuestions(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
     @GetMapping("/getanswers")
     public ResponseEntity<Collection<Answer>> getAllAnswers() {
@@ -186,6 +186,20 @@ public class HomeController {
         try {
 
             responseEntity = new ResponseEntity<User>(homeService.createRelationshipUA(userId, answerId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/create3/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipthree(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.createRelationshipUQ(userId, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
