@@ -64,14 +64,16 @@ public class HomeService {
     }
 
 
-    public void deleteAnswers(int answerId) {
+    public void deleteAnswers(long answerId) {
+
 
         answerRepository.deleteById(answerId);
     }
 
-    public User userfollowstopic(int userId, int topicId) {
 
-        return topicRepository.userfollowstopicrelationship(userId, topicId);
+    public User userfollowstopic(int userId, String Name) {
+
+        return userRepository.userfollowstopicrelationship(userId, Name);
 
     }
 
@@ -86,9 +88,9 @@ public class HomeService {
         return userRepository.getByUser(reputation);
     }
 
-    public Question questionbelongstopic(int questionId, int topicId) {
+    public Question questionbelongstopic(int questionId, String Name) {
 
-        return topicRepository.questionbelongstopicrelationship(questionId, topicId);
+        return questionRepository.questionbelongstopicrelationship(questionId, Name);
     }
 
     public User useransweredanswer(int userId, int answerId) {
@@ -146,7 +148,5 @@ public class HomeService {
     }
 
 
-    public Collection<Topic> getTopics() {
-        return topicRepository.getAllTopics();
-    }
+
 }
