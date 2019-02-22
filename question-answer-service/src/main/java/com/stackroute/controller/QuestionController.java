@@ -77,6 +77,12 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     @PutMapping("quesansup/{questionId}")
     public ResponseEntity<?> addAnswerUpvote(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addAnswerUpvote(questionId,answer.getAnswer());
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/ans/accept/{questionId}")
+    public ResponseEntity<?> addAnswerAccept(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
+        questionService.addQuestionAnswerAccepted(questionId,answer.getAnswer());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 }

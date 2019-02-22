@@ -211,7 +211,34 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionAnswerAccepted(int questionId, String answer) {
-        return null;
+    public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            if(answers==null){
+                throw new AnswerNotFoundException("Answer not exists");
+            }
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer)){
+                    flag = true;
+                    if(!answer1.isAccepted()){
+                        answer1.setAccepted(true);
+                    }
+                    else{
+                        answer1.setAccepted(false);
+                    }
+                }
+            }
+            if (flag){
+                return questionRepository.save(question);
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 }

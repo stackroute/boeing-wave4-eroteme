@@ -24,5 +24,5 @@ public interface QuestionService {
     public Question addQuestionCommentReplyLikes(int questionId,String comment,String reply);
     public Question addAnswerCommentLikes(int questionId,String answer,String comment);
     public Question addAnswerCommentReplyLikes(int questionId,String answer,String comment,String reply);
-    public Question addQuestionAnswerAccepted(int questionId,String answer);
+    public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
 }
