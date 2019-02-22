@@ -25,15 +25,22 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(QuestionanswerserviceApplication.class, args);
 	}
-	@Override
-	public void run(String... args) throws Exception {
-		int count = 0;
-		List<Question> questions = readQuestionsFromCSV("Questions.txt");
-		for (Question q : questions) {
-			q.setQuestionId(++count);
-			System.out.println(questionRepository.save(q));
-		}
-		System.out.println(questionRepository.findAll().size());
+
+    private static Question createQuestion(String[] metadata) throws NullPointerException {
+        String question = metadata[0];
+        List<String> topics;
+        if (metadata[1].contains("$")) {
+            String[] topic = metadata[1].split("$");
+            topics = Arrays.asList(topic);
+        } else {
+            topics = new ArrayList<>();
+            topics.add(metadata[1]);
+        }
+        long timestamp = Long.parseLong(metadata[2]);
+        User user = new User(metadata[3], metadata[4], metadata[5]);
+
+        // create and return question of this metadata
+        return new Question(0, question, null, topics, 0, timestamp, 0, user, null, null);
 	}
 	public static List<Question> readQuestionsFromCSV(String fileName){
 		List<Question> questions = new ArrayList<>();
@@ -72,22 +79,15 @@ public class QuestionanswerserviceApplication implements CommandLineRunner {
 		return questions;
 	}
 
-	private static Question createQuestion(String[] metadata) throws NullPointerException{
-		String question = metadata[0];
-		List<String> topics;
-		if(metadata[1].contains("$")){
-		String topic[]=metadata[1].split("$");
-		topics = Arrays.asList(topic);
-		}
-		else {
-			topics = new ArrayList<>();
-			topics.add(metadata[1]);
-		}
-		long timestamp = Long.parseLong(metadata[2]);
-		User user = new User(metadata[3],metadata[4],metadata[5]);
-
-		// create and return question of this metadata
-		return new Question(0,question, null,topics,0,timestamp,0,user,null,null);
+    @Override
+    public void run(String... args) throws Exception {
+        int count = 0;
+        List<Question> questions = readQuestionsFromCSV("Questions.txt");
+        for (Question q : questions) {
+            q.setQuestionId(++count);
+            System.out.println(questionRepository.save(q));
+        }
+        System.out.println(questionRepository.findAll().size());
 	}
 
 
