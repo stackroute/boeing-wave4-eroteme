@@ -7,7 +7,7 @@ addons:
   sonarcloud:
     organization: "stackroute" # the key of the org you chose at step #3
     token:
-      secure: 5b6bbe21331c4f71f29d79e9a674902746d98ca9
+      secure: 31986319aebdbf260cc6f9afeb5527d8e2ed2c2b
 script:
   mvn sonar:sonar \
   -Dsonar.projectKey=stackroute_boeing-wave4-eroteme \
