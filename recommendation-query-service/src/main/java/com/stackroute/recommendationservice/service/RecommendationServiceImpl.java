@@ -17,12 +17,16 @@ import java.util.Optional;
 public class RecommendationServiceImpl implements RecommendationService {
 
 
-    @Autowired
     private UserRepository userRepository;
 
+    private RecommendationRepository recommendationRepository;
     @Autowired
-    private
-    RecommendationRepository recommendationRepository;
+    public RecommendationServiceImpl(UserRepository userRepository, RecommendationRepository recommendationRepository) {
+        this.recommendationRepository = recommendationRepository;
+        this.userRepository = userRepository;
+        System.out.println("bbb");
+
+    }
 
     @Override
     public List<Question> getAllUnansweredQuestions(String userName) {

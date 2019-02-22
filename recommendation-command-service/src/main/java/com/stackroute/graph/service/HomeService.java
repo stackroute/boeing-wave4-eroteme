@@ -47,61 +47,102 @@ public class HomeService {
 
 
     public Collection<Question> getQuestions() {
+
         return questionRepository.getAllQuestions();
     }
 
 
     public void saveAnswerToDb(Answer answer) {
+
         answerRepository.save(answer);
     }
 
 
     public Collection<Answer> getAnswers() {
+
         return answerRepository.getAllAnswers();
     }
 
-//    public Collection<Answer> getAnswered() {
-//        return answerRepository.getAllAnswered();
-//    }
 
     public void deleteAnswers(int answerId) {
+
         answerRepository.deleteById(answerId);
     }
 
     public User userfollowstopic(int userId, int topicId) {
+
         return topicRepository.userfollowstopicrelationship(userId, topicId);
 
     }
 
     public void saveTopicToDb(Topic topic) {
+
         topicRepository.save(topic);
     }
 
 
     public User getByUser(int reputation) {
+
         return userRepository.getByUser(reputation);
     }
 
     public Question questionbelongstopic(int questionId, int topicId) {
+
         return topicRepository.questionbelongstopicrelationship(questionId, topicId);
     }
 
     public User useransweredanswer(int userId, int answerId) {
+
         return answerRepository.useransweredanswerrelationship(userId, answerId);
     }
 
     public User userviewedquestion(int userId, int questionId) {
+
         return questionRepository.userviewedquestionrelationship(userId, questionId);
 
     }
 
     public Answer answerisanswerofquestion(int answerId, int questionId) {
+
         return questionRepository.answerisanswerofquestionrelationship(answerId, questionId);
 
     }
 
     public User useraskedquestion(int userId, int questionId) {
+
         return questionRepository.useraskedquestionrelationship(userId, questionId);
 
     }
+
+    public User useracceptedanswer(int userId, int answerId) {
+
+        return answerRepository.useracceptedanswerrelationship(userId, answerId);
+
+    }
+
+    public User userupvotedanswer(int userId, int answerId) {
+
+        return answerRepository.userupvotedanswerrelationship(userId, answerId);
+
+    }
+
+    public User userdownvotedanswer(int userId, int answerId) {
+
+        return answerRepository.userdownvotedanswerrelationship(userId, answerId);
+
+    }
+
+    public User userupvotequestion(int userId, int questionId) {
+
+        return questionRepository.userupvotequestionrelationship(userId, questionId);
+
+    }
+
+
+    public User userdownvotequestion(int userId, int questionId) {
+
+        return questionRepository.userdownvotequestionrelationship(userId, questionId);
+
+    }
+
 }
