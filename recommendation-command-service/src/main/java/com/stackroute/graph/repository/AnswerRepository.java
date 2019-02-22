@@ -15,7 +15,7 @@ public interface AnswerRepository extends Neo4jRepository<Answer, Integer> {
 
 
     //method to get ANSWERS//
-    @Query("MATCH (m:Answer) <-[ACCEPTED]-(u:User) RETURN m,u")
+    @Query("MATCH (m:Answer) RETURN m")
     Collection<Answer> getAllAnswers();
 
 
