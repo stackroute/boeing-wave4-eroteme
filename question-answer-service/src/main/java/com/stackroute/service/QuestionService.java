@@ -19,7 +19,7 @@ public interface QuestionService {
     public Question addAnswerCommentReply(int questionId,String answer,String comment,List<Replies> replies);
     public Question addQuestionUpvote(int questionId) throws QuestionNotFoundException;
     public Question addQuestionDownvote(int questionId) throws QuestionNotFoundException;
-    public Question addAnswerUpvote(int questionId,String answer);
+    public Question addAnswerUpvote(int questionId,String answer)throws QuestionNotFoundException,AnswerNotFoundException;
     public Question addQuestionCommentLikes(int questionId, String comment);
     public Question addQuestionCommentReplyLikes(int questionId,String comment,String reply);
     public Question addAnswerCommentLikes(int questionId,String answer,String comment);

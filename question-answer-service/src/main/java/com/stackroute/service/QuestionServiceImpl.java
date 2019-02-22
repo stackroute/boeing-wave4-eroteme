@@ -163,8 +163,31 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswerUpvote(int questionId, String answer) {
-        return null;
+    public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            if(answers==null){
+                throw new AnswerNotFoundException("Answer not exists");
+            }
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer)){
+                    flag = true;
+                    int upvotes = answer1.getUpvotes();
+                    answer1.setUpvotes(upvotes+1);
+                }
+            }
+            if (flag){
+                return questionRepository.save(question);
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override

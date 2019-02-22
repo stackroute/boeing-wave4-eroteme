@@ -145,4 +145,8 @@ public class HomeService {
 
     }
 
+
+    public Collection<Topic> getTopics() {
+        return topicRepository.getAllTopics();
+    }
 }
