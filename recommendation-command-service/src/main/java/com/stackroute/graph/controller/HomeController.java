@@ -23,7 +23,7 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-
+    //method to add USER//
     @PostMapping("/adduser")
     public ResponseEntity<String> addUser(@RequestBody User user) {
         ResponseEntity<String> responseEntity;
@@ -38,6 +38,7 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to add TOPIC//
     @PostMapping("/addtopic")
     public ResponseEntity<String> addTopic(@RequestBody Topic topic) {
         ResponseEntity<String> responseEntity;
@@ -52,7 +53,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to add QUESTION//
     @PostMapping("/addquestion")
     public ResponseEntity<String> addQuestion(@RequestBody Question question) {
         ResponseEntity<String> responseEntity;
@@ -67,6 +68,7 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to add ANSWER//
     @PostMapping("/addanswer")
     public ResponseEntity<String> addAnswer(@RequestBody Answer answer) {
         ResponseEntity<String> responseEntity;
@@ -81,6 +83,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to get USERS//
     @GetMapping("/getusers")
     public ResponseEntity<Collection<User>> getAllUsers() {
         ResponseEntity<Collection<User>> responseEntity;
@@ -94,7 +98,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to get QUESTIONS//
     @GetMapping("/getquestions")
     public ResponseEntity<Collection<Question>> getAllQuestions() {
         ResponseEntity<Collection<Question>> responseEntity;
@@ -109,6 +113,7 @@ public class HomeController {
     }
 
 
+    //method to get ANSWERS//
     @GetMapping("/getanswers")
     public ResponseEntity<Collection<Answer>> getAllAnswers() {
         ResponseEntity<Collection<Answer>> responseEntity;
@@ -122,6 +127,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to delete ANSWER using ANSWERID//
     @DeleteMapping("/deleteanswer/{answerId}")
     public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
         ResponseEntity<String> responseEntity;
@@ -137,6 +144,7 @@ public class HomeController {
     }
 
 
+    //method to get USER using REPUTATION//
     @GetMapping("/user/{reputation}")
     public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
         ResponseEntity<User> responseEntity;
@@ -151,7 +159,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to create relationship FOLLOWS between user and topic//
     @GetMapping("/follows/{userId}/{topicId}")
     public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
         ResponseEntity<User> responseEntity;
@@ -166,6 +174,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to create relationship BELONGS between question and topic//
     @GetMapping("/belongs/{questionId}/{topicId}")
     public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
         ResponseEntity<Question> responseEntity;
@@ -180,6 +190,7 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to create relationship ANSWERED between user and answer//
     @GetMapping("/answered/{userId}/{answerId}")
     public ResponseEntity<User> CreateRelationshiptwo(@PathVariable int userId, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
@@ -194,6 +205,7 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to create relationship VIEWED between user and question//
     @GetMapping("/viewed/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipthree(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
@@ -208,6 +220,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to create relationship ANSWER_OF between answer and question//
     @GetMapping("/answerof/{answerId}/{questionId}")
     public ResponseEntity<Answer> CreateRelationshipfour(@PathVariable int answerId, @PathVariable int questionId) {
         ResponseEntity<Answer> responseEntity;
@@ -222,6 +236,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to create relationship ASKED between user and question//
     @GetMapping("/asked/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipfive(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
@@ -236,7 +252,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to create relationship ACCEPTED between user and answer//
     @GetMapping("/accepted/{userId}/{answerId}")
     public ResponseEntity<User> CreateRelationshipsix(@PathVariable int userId, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
@@ -251,6 +267,8 @@ public class HomeController {
         return responseEntity;
     }
 
+
+    //method to create relationship UPVOTED between user and answer//
     @GetMapping("/upvoted/{userId}/{answerId}")
     public ResponseEntity<User> CreateRelationshipseven(@PathVariable int userId, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
@@ -265,7 +283,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to create relationship DOWNVOTED between user and answer//
     @GetMapping("/downvoted/{userId}/{answerId}")
     public ResponseEntity<User> CreateRelationshipeight(@PathVariable int userId, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
@@ -280,7 +298,7 @@ public class HomeController {
         return responseEntity;
     }
 
-
+    //method to create relationship UPVOTE between user and question//
     @GetMapping("/upvote/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipnine(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
@@ -295,6 +313,7 @@ public class HomeController {
         return responseEntity;
     }
 
+    //method to create relationship DOWNVOTE between user and question//
     @GetMapping("/downvote/{userId}/{questionId}")
     public ResponseEntity<User> CreateRelationshipten(@PathVariable int userId, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
@@ -310,4 +329,17 @@ public class HomeController {
     }
 
 
+//    @GetMapping("/subtopicof/{topicId}/{topicId}")
+//    public ResponseEntity<User> CreateRelationshipeleven(@PathVariable int topicId, @PathVariable int topicId) {
+//        ResponseEntity<User> responseEntity;
+//        try {
+//
+//            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(topicId, topicId), HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
+//        }
+//        return responseEntity;
+//    }
 }
