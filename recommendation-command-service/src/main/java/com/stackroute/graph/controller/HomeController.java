@@ -222,5 +222,19 @@ public class HomeController {
         return responseEntity;
     }
 
+    @GetMapping("/create5/{userId}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipfive(@PathVariable int userId, @PathVariable int questionId) {
+        ResponseEntity<User> responseEntity;
+        try {
+
+            responseEntity = new ResponseEntity<User>(homeService.useraskedquestion(userId, questionId), HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
+
 
 }

@@ -21,4 +21,8 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
     @Query("match (q:Answer),(t:Question) where q.answerId={answerid} and t.questionId={questionid} create (q)-[r:ANSWER_OF]->(t)")
     Answer createRelatioshipBetweenAnswerAndQuestion(@Param("answerid") int answerId, @Param("questionid") int questionId);
+
+
+    @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:ASKED]->(t)")
+    User useraskedquestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
 }

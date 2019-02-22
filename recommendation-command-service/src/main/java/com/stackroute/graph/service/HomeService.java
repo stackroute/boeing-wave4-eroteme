@@ -99,4 +99,9 @@ public class HomeService {
         return questionRepository.createRelatioshipBetweenAnswerAndQuestion(answerId, questionId);
 
     }
+
+    public User useraskedquestion(int userId, int questionId) {
+        return questionRepository.useraskedquestionrelationship(userId, questionId);
+
+    }
 }
