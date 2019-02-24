@@ -105,4 +105,10 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         questionService.addQuestionCommentReplyLikes(questionId,comment);
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
+
+    @PutMapping("ques/answer/comment/reply/{questionId}")
+    public ResponseEntity<?> addAnswerCommentReplyLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
+        questionService.addAnswerCommentReplyLikes(questionId,answer);
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
+    }
 }

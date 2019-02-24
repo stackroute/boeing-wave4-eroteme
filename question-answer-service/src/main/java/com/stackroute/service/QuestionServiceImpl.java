@@ -320,7 +320,6 @@ public class QuestionServiceImpl implements QuestionService{
                     answerFlag = true;
                     List<Comment> comments = answer1.getComments();
                     if (comments==null){
-                        System.out.println("qqqqqqqqqq");
                         throw new CommentNotFoundException("Comment not found");
                     }
                     Comment comment2 = comments.get(0);
@@ -349,8 +348,57 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswerCommentReplyLikes(int questionId, String answer, String comment, String reply) {
-        return null;
+    public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
+        boolean answerFlag = false;
+        boolean commentFlag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            if (answers==null){
+                throw new AnswerNotFoundException("Answer not found");
+            }
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer.getAnswer())){
+                    answerFlag = true;
+                    List<Comment> comments = answer1.getComments();
+                    if (comments==null){
+                        throw new CommentNotFoundException("Comment not found");
+                    }
+                    Comment comment2 = comments.get(0);
+                    for (Comment comment1:comments) {
+                        if(comment1.getComment().equals(comment2.getComment())){
+                            commentFlag = true;
+                            List<Replies> repliesList = comment1.getReplies();
+                            if (repliesList==null){
+                                throw new ReplyNotFoundException("Reply not found");
+                            }
+                            else {
+                                List<Replies> replies = comment2.getReplies();
+                                Replies reply = replies.get(0);
+                                for (Replies replies1 : repliesList){
+                                    if (replies1.getReply().equals(reply.getReply())){
+                                        long likes = replies1.getLikes();
+                                        replies1.setLikes(likes+1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (answerFlag && commentFlag){
+                return questionRepository.save(question);
+            }
+            else if (!commentFlag){
+                throw new CommentNotFoundException("Comment not found");
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override

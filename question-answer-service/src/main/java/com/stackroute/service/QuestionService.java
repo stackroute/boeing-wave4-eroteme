@@ -23,6 +23,6 @@ public interface QuestionService {
     public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException;
     public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException,CommentNotFoundException,ReplyNotFoundException;
     public Question addAnswerCommentLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException;
-    public Question addAnswerCommentReplyLikes(int questionId,String answer,String comment,String reply);
+    public Question addAnswerCommentReplyLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException;
     public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
 }
