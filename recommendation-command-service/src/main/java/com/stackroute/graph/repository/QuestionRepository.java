@@ -17,8 +17,8 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
     Collection<Question> getAllQuestions();
 
     //method to create relationship VIEWED between user and question//
-    @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:viewed]->(t)")
-    User userviewedquestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
+    @Query("match (q:User),(t:Question) where q.userName={username} and t.questionId={questionid} create (q)-[r:viewed]->(t)")
+    User userviewedquestionrelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     //method to create relationship ANSWER_OF between answer and question//
@@ -27,18 +27,18 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
 
     //method to create relationship ASKED between user and question//
-    @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:asked]->(t)")
-    User useraskedquestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
+    @Query("match (q:User),(t:Question) where q.userName={username} and t.questionId={questionid} create (q)-[r:asked]->(t)")
+    User useraskedquestionrelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     //method to create relationship UPVOTE between user and question//
-    @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:upvoted]->(t)")
-    User userupvotequestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
+    @Query("match (q:User),(t:Question) where q.userName={username} and t.questionId={questionid} create (q)-[r:upvoted]->(t)")
+    User userupvotequestionrelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     //method to create relationship DOWNVOTE between user and question//
-    @Query("match (q:User),(t:Question) where q.userId={userid} and t.questionId={questionid} create (q)-[r:downvoted]->(t)")
-    User userdownvotequestionrelationship(@Param("userid") int userId, @Param("questionid") int questionId);
+    @Query("match (q:User),(t:Question) where q.userName={username} and t.questionId={questionid} create (q)-[r:downvoted]->(t)")
+    User userdownvotequestionrelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     ////method to create relationship BELONGS between question and topic//

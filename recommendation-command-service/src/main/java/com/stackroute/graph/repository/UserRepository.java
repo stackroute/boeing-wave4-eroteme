@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
-public interface UserRepository extends Neo4jRepository<User,Integer> {
+public interface UserRepository extends Neo4jRepository<User, String> {
 
     //method to get USER//
     @Query("MATCH (m:User) RETURN m")
@@ -20,8 +20,8 @@ public interface UserRepository extends Neo4jRepository<User,Integer> {
 
 
     //method to create relationship FOLLOWS between user and topic//
-    @Query("match (q:User),(t:parents) where q.userId={userid} and t.name={name} create (q)-[r:follows]->(t)")
-    User userfollowstopicrelationship(@Param("userid") int userId, @Param("name") String name);
+    @Query("match (q:User),(t:parents) where q.userName={username} and t.name={name} create (q)-[r:follows]->(t)")
+    User userfollowstopicrelationship(@Param("username") String userName, @Param("name") String name);
 
 
 //    //method to create relationship BELONGS between question and topic//

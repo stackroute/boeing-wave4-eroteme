@@ -71,9 +71,9 @@ public class HomeService {
     }
 
 
-    public User userfollowstopic(int userId, String Name) {
+    public User userfollowstopic(String userName, String Name) {
 
-        return userRepository.userfollowstopicrelationship(userId, Name);
+        return userRepository.userfollowstopicrelationship(userName, Name);
 
     }
 
@@ -93,14 +93,14 @@ public class HomeService {
         return questionRepository.questionbelongstopicrelationship(questionId, Name);
     }
 
-    public User useransweredanswer(int userId, int answerId) {
+    public User useransweredanswer(String userName, int answerId) {
 
-        return answerRepository.useransweredanswerrelationship(userId, answerId);
+        return answerRepository.useransweredanswerrelationship(userName, answerId);
     }
 
-    public User userviewedquestion(int userId, int questionId) {
+    public User userviewedquestion(String userName, int questionId) {
 
-        return questionRepository.userviewedquestionrelationship(userId, questionId);
+        return questionRepository.userviewedquestionrelationship(userName, questionId);
 
     }
 
@@ -110,40 +110,40 @@ public class HomeService {
 
     }
 
-    public User useraskedquestion(int userId, int questionId) {
+    public User useraskedquestion(String userName, int questionId) {
 
-        return questionRepository.useraskedquestionrelationship(userId, questionId);
-
-    }
-
-    public User useracceptedanswer(int userId, int answerId) {
-
-        return answerRepository.useracceptedanswerrelationship(userId, answerId);
+        return questionRepository.useraskedquestionrelationship(userName, questionId);
 
     }
 
-    public User userupvotedanswer(int userId, int answerId) {
+    public User useracceptedanswer(String userName, int answerId) {
 
-        return answerRepository.userupvotedanswerrelationship(userId, answerId);
-
-    }
-
-    public User userdownvotedanswer(int userId, int answerId) {
-
-        return answerRepository.userdownvotedanswerrelationship(userId, answerId);
+        return answerRepository.useracceptedanswerrelationship(userName, answerId);
 
     }
 
-    public User userupvotequestion(int userId, int questionId) {
+    public User userupvotedanswer(String userName, int answerId) {
 
-        return questionRepository.userupvotequestionrelationship(userId, questionId);
+        return answerRepository.userupvotedanswerrelationship(userName, answerId);
+
+    }
+
+    public User userdownvotedanswer(String userName, int answerId) {
+
+        return answerRepository.userdownvotedanswerrelationship(userName, answerId);
+
+    }
+
+    public User userupvotequestion(String userName, int questionId) {
+
+        return questionRepository.userupvotequestionrelationship(userName, questionId);
 
     }
 
 
-    public User userdownvotequestion(int userId, int questionId) {
+    public User userdownvotequestion(String userName, int questionId) {
 
-        return questionRepository.userdownvotequestionrelationship(userId, questionId);
+        return questionRepository.userdownvotequestionrelationship(userName, questionId);
 
     }
 
