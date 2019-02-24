@@ -128,24 +128,6 @@ public class HomeController {
     }
 
 
-
-
-    //method to delete ANSWER using ANSWERID//
-    @DeleteMapping("/deleteanswer")
-    public ResponseEntity<?> deleteallAnswer(@RequestParam long answerId) {
-        ResponseEntity<String> responseEntity;
-
-        try {
-            homeService.deleteAnswers(answerId);
-            responseEntity = new ResponseEntity<>("Answer deleted sucessfully", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>("Error occured while deleting", HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     //method to get USER using REPUTATION//
     @GetMapping("/user/{reputation}")
     public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
@@ -177,7 +159,7 @@ public class HomeController {
     }
 
 
-    //method to create relationship BELONGS between question and topic//
+    //method to create relationship QUESTION_OF between question and topic//
     @GetMapping("/belongs/{questionId}/{name}")
     public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable String name) {
         ResponseEntity<Question> responseEntity;

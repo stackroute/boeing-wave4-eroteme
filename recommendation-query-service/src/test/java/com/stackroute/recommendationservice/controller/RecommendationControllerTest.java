@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.recommendationservice.model.AnswerRequested;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
-import com.stackroute.recommendationservice.repository.RecommendationRepository;
+import com.stackroute.recommendationservice.repository.QuestionDocumentRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class RecommendationControllerTest {
     private UserRepository userRepository;
 
     @MockBean
-    private RecommendationRepository recommendationRepository;
+    private QuestionDocumentRepository questionDocumentRepository;
     @Autowired
     private RecommendationController recommendationController;
     @Autowired
@@ -71,7 +71,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTrendingQuestionsPresent() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -81,7 +81,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTrendingQuestionsNotPresent() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.emptyList());
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.emptyList());
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -92,7 +92,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForUpvotesLessThanThreshold() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_TWO));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_TWO));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -103,7 +103,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForAnswersLessThanThreshold() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_TWO);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
