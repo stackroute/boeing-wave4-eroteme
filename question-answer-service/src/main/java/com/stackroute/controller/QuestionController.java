@@ -4,10 +4,7 @@ import com.stackroute.domain.Answer;
 import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
 import com.stackroute.domain.Replies;
-import com.stackroute.exceptions.AnswerNotFoundException;
-import com.stackroute.exceptions.CommentNotFoundException;
-import com.stackroute.exceptions.QuestionAlreadyExistsException;
-import com.stackroute.exceptions.QuestionNotFoundException;
+import com.stackroute.exceptions.*;
 import com.stackroute.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -100,6 +97,12 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     @PutMapping("ques/ans/comment/likes/{questionId}")
     public ResponseEntity<?> addQuestionAnswerCommentLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, CommentNotFoundException, AnswerNotFoundException {
         questionService.addAnswerCommentLikes(questionId,answer);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/comment/reply/likes/{questionId}")
+    public ResponseEntity<?> addQuestionCommentReplyLikes(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException,CommentNotFoundException, ReplyNotFoundException {
+        questionService.addQuestionCommentReplyLikes(questionId,comment);
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 }

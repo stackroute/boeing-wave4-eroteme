@@ -262,8 +262,47 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addQuestionCommentReplyLikes(int questionId, String comment, String reply) {
-        return null;
+    public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException,CommentNotFoundException,ReplyNotFoundException{
+        boolean commentFlag = false;
+        boolean replyFlag  = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Comment> comments = question.getComment();
+            if (comments==null){
+                throw new CommentNotFoundException("Comment not found");
+            }
+            for (Comment comment1: comments) {
+                if(comment1.getComment().equals(comment.getComment())){
+                    commentFlag = true;
+                    if (comment1.getReplies()==null){
+                        throw new ReplyNotFoundException("Reply not found");
+                    }
+                    else {
+                        List<Replies> repliesList = comment1.getReplies();
+                        Replies replies = comment.getReplies().get(0);
+                        for (Replies reply:repliesList) {
+                            if(reply.getReply().equals(replies.getReply())) {
+                                replyFlag = true;
+                                long likes = reply.getLikes();
+                                reply.setLikes(likes+1);
+                            }
+                        }
+                    }
+                }
+            }
+            if (commentFlag && replyFlag){
+                return questionRepository.save(question);
+            }
+            else if (!replyFlag){
+                throw new ReplyNotFoundException("Reply not found");
+            }
+            else {
+                throw new CommentNotFoundException("Comment does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
     }
 
     @Override
