@@ -16,23 +16,23 @@ public interface AnswerRepository extends Neo4jRepository<Answer, Long> {
 
 
     //method to create relationship ANSWERED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:answered]->(t)")
-    User useransweredanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
+    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:answered]->(t)")
+    User useransweredanswerrelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
     //method to create relationship ACCEPTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:accepted]->(t)")
-    User useracceptedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
+    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:accepted]->(t)")
+    User useracceptedanswerrelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
     //method to create relationship UPVOTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:upvoted]->(t)")
-    User userupvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
+    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:upvoted]->(t)")
+    User userupvotedanswerrelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
     //method to create relationship DOWNVOTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userId={userid} and t.answerId={answerid} create (q)-[r:downvoted]->(t)")
-    User userdownvotedanswerrelationship(@Param("userid") int userId, @Param("answerid") long answerId);
+    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:downvoted]->(t)")
+    User userdownvotedanswerrelationship(@Param("username") String userName, @Param("answerid") long answerId);
 }
 
 

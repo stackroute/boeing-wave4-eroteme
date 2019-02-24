@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 public class User {
     @Id
-    private int userId;
+//    private int userId;
     private String userName;
     private int reputation;
 }
