@@ -22,7 +22,7 @@ public interface QuestionService {
     public Question addAnswerUpvote(int questionId,String answer)throws QuestionNotFoundException,AnswerNotFoundException;
     public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException;
     public Question addQuestionCommentReplyLikes(int questionId,String comment,String reply);
-    public Question addAnswerCommentLikes(int questionId,String answer,String comment);
+    public Question addAnswerCommentLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException;
     public Question addAnswerCommentReplyLikes(int questionId,String answer,String comment,String reply);
     public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
 }
