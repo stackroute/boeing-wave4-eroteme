@@ -17,7 +17,9 @@ public interface RecommendationService {
     List<User> getAllUsersRelatedToQuestion(long questionID);
 
 
-    List<Question> getTrendingQuestionsForUser(String s, String username);
+    List<Question> getTrendingQuestionsForUser(String username);
+
+    QuestionRequested insertIntoDb(QuestionRequested questionRequested);
 
 
 }

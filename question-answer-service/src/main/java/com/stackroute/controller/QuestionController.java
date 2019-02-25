@@ -3,11 +3,7 @@ package com.stackroute.controller;
 import com.stackroute.domain.Answer;
 import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
-import com.stackroute.domain.Replies;
-import com.stackroute.exceptions.AnswerNotFoundException;
-import com.stackroute.exceptions.CommentNotFoundException;
-import com.stackroute.exceptions.QuestionAlreadyExistsException;
-import com.stackroute.exceptions.QuestionNotFoundException;
+import com.stackroute.exceptions.*;
 import com.stackroute.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,27 +34,80 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
 
-    @PutMapping("quesans/{questionId}")
+    @PutMapping("ques/ans/{questionId}")
     public ResponseEntity<?> addAnswer(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addAnswer(questionId, question.getAnswer());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
 
-    @PutMapping("quescomment/{questionId}")
+    @PutMapping("ques/comment/{questionId}")
     public ResponseEntity<?> addComment(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addQuestionComment(questionId, question.getComment());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
     }
 
-    @PutMapping("quescommentreply/{questionId}")
+    @PutMapping("ques/comment/reply/{questionId}")
     public ResponseEntity<?> addCommentReply(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException, CommentNotFoundException {
         questionService.addQuestionCommentReply(questionId,comment.getComment(),comment.getReplies());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
     }
 
-    @PutMapping("quesanscomment/{questionId}")
+    @PutMapping("ques/ans/comment/{questionId}")
     public ResponseEntity<?> addAnswerComment(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addAnswerComment(questionId,answer.getAnswer(),answer.getComments());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+    }
+
+    @PutMapping("ques/ans/comment/reply/{questionId}")
+    public ResponseEntity<?> addAnswerCommentReply(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException{
+        questionService.addAnswerCommentReply(questionId,answer.getAnswer(),answer.getComments());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+    }
+    @PutMapping("ques/up/{questionId}")
+    public ResponseEntity<?> addQuestionUpvote(@PathVariable int questionId) throws QuestionNotFoundException {
+        questionService.addQuestionUpvote(questionId);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+    }
+
+    @PutMapping("ques/down/{questionId}")
+    public ResponseEntity<?> addQuestionDownvote(@PathVariable int questionId) throws QuestionNotFoundException {
+        questionService.addQuestionDownvote(questionId);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+    }
+
+    @PutMapping("ques/ans/up/{questionId}")
+    public ResponseEntity<?> addAnswerUpvote(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
+        questionService.addAnswerUpvote(questionId,answer.getAnswer());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/ans/accept/{questionId}")
+    public ResponseEntity<?> addAnswerAccept(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
+        questionService.addQuestionAnswerAccepted(questionId,answer.getAnswer());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/comment/likes/{questionId}")
+    public ResponseEntity<?> addQuestionCommentLikes(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException, CommentNotFoundException {
+        questionService.addQuestionCommentLikes(questionId,comment.getComment());
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/ans/comment/likes/{questionId}")
+    public ResponseEntity<?> addQuestionAnswerCommentLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, CommentNotFoundException, AnswerNotFoundException {
+        questionService.addAnswerCommentLikes(questionId,answer);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/comment/reply/likes/{questionId}")
+    public ResponseEntity<?> addQuestionCommentReplyLikes(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException,CommentNotFoundException, ReplyNotFoundException {
+        questionService.addQuestionCommentReplyLikes(questionId,comment);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
+    }
+
+    @PutMapping("ques/answer/comment/reply/likes/{questionId}")
+    public ResponseEntity<?> addAnswerCommentReplyLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
+        questionService.addAnswerCommentReplyLikes(questionId,answer);
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
     }
 }

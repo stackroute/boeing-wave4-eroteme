@@ -3,9 +3,8 @@ package com.stackroute.graph.controller;
 
 import com.stackroute.graph.model.Answer;
 import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.Topic;
 import com.stackroute.graph.model.User;
-import com.stackroute.graph.service.HomeService;
+import com.stackroute.graph.service.RecommendationCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ import java.util.Collections;
 @RestController
 @Slf4j
 public class HomeController {
-    private HomeService homeService;
+    private RecommendationCommandService homeService;
 
-    HomeController(HomeService homeService) {
+    HomeController(RecommendationCommandService homeService) {
         this.homeService = homeService;
     }
 
@@ -38,20 +37,6 @@ public class HomeController {
         return responseEntity;
     }
 
-    //method to add TOPIC//
-    @PostMapping("/addtopic")
-    public ResponseEntity<String> addTopic(@RequestBody Topic topic) {
-        ResponseEntity<String> responseEntity;
-        try {
-            homeService.saveTopicToDb(topic);
-            responseEntity = new ResponseEntity<>("User saved sucessfully", HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>("Error occured while saving", HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
 
     //method to add QUESTION//
     @PostMapping("/addquestion")
@@ -128,22 +113,6 @@ public class HomeController {
     }
 
 
-    //method to delete ANSWER using ANSWERID//
-    @DeleteMapping("/deleteanswer/{answerId}")
-    public ResponseEntity<?> deleteallAnswer(@PathVariable("answerId") int answerId) {
-        ResponseEntity<String> responseEntity;
-
-        try {
-            homeService.deleteAnswers(answerId);
-            responseEntity = new ResponseEntity<>("Answer deleted sucessfully", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>("Error occured while deleting", HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
-
-
     //method to get USER using REPUTATION//
     @GetMapping("/user/{reputation}")
     public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
@@ -160,12 +129,12 @@ public class HomeController {
     }
 
     //method to create relationship FOLLOWS between user and topic//
-    @GetMapping("/follows/{userId}/{topicId}")
-    public ResponseEntity<User> CreateRelationship(@PathVariable int userId, @PathVariable int topicId) {
+    @GetMapping("/follows/{userName}/{name}")
+    public ResponseEntity<User> CreateRelationship(@PathVariable String userName, @PathVariable String name) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userName, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -175,13 +144,13 @@ public class HomeController {
     }
 
 
-    //method to create relationship BELONGS between question and topic//
-    @GetMapping("/belongs/{questionId}/{topicId}")
-    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable int topicId) {
+    //method to create relationship QUESTION_OF between question and topic//
+    @GetMapping("/belongs/{questionId}/{name}")
+    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable String name) {
         ResponseEntity<Question> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, topicId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,13 +159,14 @@ public class HomeController {
         return responseEntity;
     }
 
+
     //method to create relationship ANSWERED between user and answer//
-    @GetMapping("/answered/{userId}/{answerId}")
-    public ResponseEntity<User> CreateRelationshiptwo(@PathVariable int userId, @PathVariable int answerId) {
+    @GetMapping("/answered/{userName}/{answerId}")
+    public ResponseEntity<User> CreateRelationshiptwo(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useransweredanswer(userId, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.useransweredanswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,12 +176,12 @@ public class HomeController {
     }
 
     //method to create relationship VIEWED between user and question//
-    @GetMapping("/viewed/{userId}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipthree(@PathVariable int userId, @PathVariable int questionId) {
+    @GetMapping("/viewed/{userName}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipthree(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userviewedquestion(userId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userviewedquestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -238,12 +208,12 @@ public class HomeController {
 
 
     //method to create relationship ASKED between user and question//
-    @GetMapping("/asked/{userId}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipfive(@PathVariable int userId, @PathVariable int questionId) {
+    @GetMapping("/asked/{userName}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipfive(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useraskedquestion(userId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.useraskedquestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -253,12 +223,12 @@ public class HomeController {
     }
 
     //method to create relationship ACCEPTED between user and answer//
-    @GetMapping("/accepted/{userId}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipsix(@PathVariable int userId, @PathVariable int answerId) {
+    @GetMapping("/accepted/{userName}/{answerId}")
+    public ResponseEntity<User> CreateRelationshipsix(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useracceptedanswer(userId, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.useracceptedanswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,12 +239,12 @@ public class HomeController {
 
 
     //method to create relationship UPVOTED between user and answer//
-    @GetMapping("/upvoted/{userId}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipseven(@PathVariable int userId, @PathVariable int answerId) {
+    @GetMapping("/upvoted/{userName}/{answerId}")
+    public ResponseEntity<User> CreateRelationshipseven(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userupvotedanswer(userId, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userupvotedanswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -284,12 +254,12 @@ public class HomeController {
     }
 
     //method to create relationship DOWNVOTED between user and answer//
-    @GetMapping("/downvoted/{userId}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipeight(@PathVariable int userId, @PathVariable int answerId) {
+    @GetMapping("/downvoted/{userName}/{answerId}")
+    public ResponseEntity<User> CreateRelationshipeight(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userdownvotedanswer(userId, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userdownvotedanswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,12 +269,12 @@ public class HomeController {
     }
 
     //method to create relationship UPVOTE between user and question//
-    @GetMapping("/upvote/{userId}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipnine(@PathVariable int userId, @PathVariable int questionId) {
+    @GetMapping("/Upvoted/{userName}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipnine(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userupvotequestion(userId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userupvotequestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -314,12 +284,12 @@ public class HomeController {
     }
 
     //method to create relationship DOWNVOTE between user and question//
-    @GetMapping("/downvote/{userId}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipten(@PathVariable int userId, @PathVariable int questionId) {
+    @GetMapping("/Downvoted/{userName}/{questionId}")
+    public ResponseEntity<User> CreateRelationshipten(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userdownvotequestion(userId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userdownvotequestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -328,18 +298,4 @@ public class HomeController {
         return responseEntity;
     }
 
-
-//    @GetMapping("/subtopicof/{topicId}/{topicId}")
-//    public ResponseEntity<User> CreateRelationshipeleven(@PathVariable int topicId, @PathVariable int topicId) {
-//        ResponseEntity<User> responseEntity;
-//        try {
-//
-//            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(topicId, topicId), HttpStatus.OK);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseEntity = new ResponseEntity<>(new User(), HttpStatus.BAD_GATEWAY);
-//        }
-//        return responseEntity;
-//    }
 }

@@ -1,4 +1,4 @@
-package com.stackroute.nlp.service;
+package com.stackroute.nlp.model;
 
 public class NLP {
     private String originalWord;

@@ -16,13 +16,14 @@ public interface QuestionService {
     public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException;
     public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException, CommentNotFoundException;
     public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException, AnswerNotFoundException;
-    public Question addAnswerCommentReply(int questionId,String answer,String comment,Replies replies);
-    public Question addQuestionUpvote(int questionId);
-    public Question addQuestionDownvote(int questionId);
-    public Question addAnswerUpvote(int questionId,String answer);
-    public Question addQuestionCommentLikes(int questionId, String comment);
-    public Question addQuestionCommentReplyLikes(int questionId,String comment,String reply);
-    public Question addAnswerCommentLikes(int questionId,String answer,String comment);
-    public Question addAnswerCommentReplyLikes(int questionId,String answer,String comment,String reply);
-    public Question addQuestionAnswerAccepted(int questionId,String answer);
+    public Question addAnswerCommentReply(int questionId,String answer,List<Comment> comment) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException;
+    public Question addQuestionUpvote(int questionId) throws QuestionNotFoundException;
+    public Question addQuestionDownvote(int questionId) throws QuestionNotFoundException;
+    public Question addAnswerUpvote(int questionId,String answer)throws QuestionNotFoundException,AnswerNotFoundException;
+    public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException;
+    public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException,CommentNotFoundException,ReplyNotFoundException;
+    public Question addAnswerCommentLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException;
+    public Question addAnswerCommentReplyLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException;
+    public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
+    public void sendProductMessage(String question);
 }

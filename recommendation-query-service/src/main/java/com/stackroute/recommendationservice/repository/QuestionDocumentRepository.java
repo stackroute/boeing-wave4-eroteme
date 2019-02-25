@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RecommendationRepository extends MongoRepository<QuestionRequested, Long> {
+public interface QuestionDocumentRepository extends MongoRepository<QuestionRequested, Long> {
 
 }
 

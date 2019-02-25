@@ -1,13 +1,45 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<body>
+ 
 <div *ngIf="info.token; else loggedOut">
   <h5 class="text-primary">Your Information</h5>
-  <p>
+  
     <strong>email:</strong> {{info.email}}<br/>
     <!-- <strong>Roles:</strong> {{info.authorities}}<br /> -->
     <strong>Token:</strong> {{info.token}}
-  </p>
+    <br>
+    <br>
+    <br>
+    <div class="dropdown">
+        <!-- <button onclick="myFunction()" class="dropbtn">Dropdown</button> -->
+        <button class="notification" (click)=myFunction()>
+            <i class="material-icons">add_alert</i>
+            <span class="badge">{{data.length}}</span>   
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+          <ul class="biglist">
+            <li><strong>Notifications</strong></li>
+            <li><ul *ngIf='data' class="smalllist">
+                <li *ngFor='let d of data'>
+                   <app-notify [notification]=d></app-notify>
+                </li>
+            </ul> 
+            </li>
+            <!-- <li><a href="#">see all</a></li> -->
+          </ul>
+          
+        </div>
+      </div>
+   
+  
   <button class="btn btn-secondary" (click)="logout()">Logout</button>
 </div>
+<br>
+<br>
+
 
 <ng-template #loggedOut>
   Please login.
 </ng-template>
+</body>

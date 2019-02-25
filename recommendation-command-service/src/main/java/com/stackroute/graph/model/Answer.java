@@ -2,6 +2,7 @@ package com.stackroute.graph.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
@@ -12,21 +13,21 @@ import java.util.List;
 
 @NodeEntity
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Answer {
     @Id
-    private int answerId;
+    private long answerId;
     private String answerString;
-    @Relationship(type = "ACCEPTED", direction = Relationship.INCOMING)
+    @Relationship(type = "accepted", direction = Relationship.INCOMING)
     private List<User> user;
-    @Relationship(type = "ANSWERED", direction = Relationship.INCOMING)
+    @Relationship(type = "answered", direction = Relationship.INCOMING)
     private List<User> user1;
-    @Relationship(type = "UPVOTED", direction = Relationship.INCOMING)
+    @Relationship(type = "upvoted", direction = Relationship.INCOMING)
     private List<User> user2;
-    @Relationship(type = "DOWNVOTED", direction = Relationship.INCOMING)
+    @Relationship(type = "downvoted", direction = Relationship.INCOMING)
     private List<User> user3;
-
 
 }
 

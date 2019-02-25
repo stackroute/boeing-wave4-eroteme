@@ -44,22 +44,26 @@ public class RecommendationControllerTest {
             .answerDocuments(Collections.singletonList(ANSWER_REQUESTED)).build();
     private static final String USERNAME = "USERNAME";
     private static final String TOPIC = "TOPIC";
-//    private static final User FINALIST=User.builder().userD
-
-
     @MockBean
     private RecommendationServiceImpl recommendationService;
     @MockBean
     private UserRepository userRepository;
 
     @MockBean
-    private RecommendationRepository recommendationRepository;
+    private QuestionDocumentRepository questionDocumentRepository;
     @Autowired
     private RecommendationController recommendationController;
     @Autowired
     private MockMvc mockMvc;
-    //
-    User mockUsers = new User("Raj", 100);
+
+    private static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Before
     public void setUp() {
@@ -70,7 +74,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTrendingQuestionsPresent() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -80,7 +84,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTrendingQuestionsNotPresent() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.emptyList());
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.emptyList());
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -91,7 +95,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForUpvotesLessThanThreshold() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_TWO));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_TWO));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -102,7 +106,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForAnswersLessThanThreshold() throws Exception {
-        when(recommendationService.getTrendingQuestionsForUser(USERNAME, TOPIC)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_TWO);
         mockMvc.perform(MockMvcRequestBuilders.get("/trending?username=USERNAME&topic=TOPIC")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
@@ -110,14 +114,6 @@ public class RecommendationControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    private static String asJsonString(Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     public void testForTopicRelatedUsersArePresent() throws Exception {
@@ -137,5 +133,4 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
-
 }

@@ -39,4 +39,10 @@ public class GlobalExceptions {
     public ResponseEntity handleAnswerNotFoundException(final AnswerNotFoundException e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    //Exception handler to handle Reply not found exceptions
+    @ExceptionHandler(ReplyNotFoundException.class)
+    public ResponseEntity handlereplyNotFoundException(final ReplyNotFoundException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

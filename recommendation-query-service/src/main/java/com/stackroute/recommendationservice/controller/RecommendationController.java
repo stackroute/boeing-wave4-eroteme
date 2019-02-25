@@ -3,8 +3,9 @@ package com.stackroute.recommendationservice.controller;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
-import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
+import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
@@ -28,23 +29,28 @@ public class RecommendationController {
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
 
-    private RecommendationServiceImpl recommendationServiceimpl;
+    private RecommendationService recommendationService;
 
-    public RecommendationController(RecommendationServiceImpl recommendationServiceimpl) {
-        this.recommendationServiceimpl = recommendationServiceimpl;
+    @Autowired
+    public RecommendationController(RecommendationService recommendationService) {
+        this.recommendationService = recommendationService;
     }
 
+    /**
+     * @param username Username of the registered user
+     * @return Trending questions for the user
+     */
     @GetMapping("/trending")
-    public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForUser(@RequestParam String username, @RequestParam String topic) {
+    public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForUser(@RequestParam String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionDocuments = new ArrayList<>();
         try {
-            List<Question> questionNodes = recommendationServiceimpl.getTrendingQuestionsForUser(username, topic);
+            List<Question> questionNodes = recommendationService.getTrendingQuestionsForUser(username);
             questionNodes
                     .stream()
                     .filter(question -> question.getUpvote() >= questionUpvoteThreshold)
                     .collect(Collectors.toList())
-                    .forEach(question -> questionDocuments.add(recommendationServiceimpl.getDocumentByQuestionId(question.getQuestionId())));
+                    .forEach(question -> questionDocuments.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
             List<QuestionRequested> trendingDocuments = questionDocuments
                     .stream()
                     .filter(questionRequested -> questionRequested.getAnswerDocuments().size() >= numberOfAnswersThreshold)
@@ -52,7 +58,7 @@ public class RecommendationController {
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -62,7 +68,7 @@ public class RecommendationController {
         ResponseEntity<List<User>> responseEntity;
         List<User> users;
         try {
-            users = recommendationServiceimpl.getAllUsersRelatedToQuestion(question.getQuestionId());
+            users = recommendationService.getAllUsersRelatedToQuestion(question.getQuestionId());
             users = users.stream().filter(user -> user.getReputation() >= reputationNeeded).collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
@@ -77,29 +83,29 @@ public class RecommendationController {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionRequested = new ArrayList<>();
         try {
-            List<Question> unansweredQuestions = recommendationServiceimpl.getAllUnansweredQuestions(username);
-            unansweredQuestions.forEach(question -> questionRequested.add(recommendationServiceimpl.getDocumentByQuestionId(question.getQuestionId())));
+            List<Question> unansweredQuestions = recommendationService.getAllUnansweredQuestions(username);
+            unansweredQuestions.forEach(question -> questionRequested.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
             responseEntity = new ResponseEntity<>(questionRequested, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
-
 
     // This method is added only for testing purpose
     @PostMapping(value = "/question")
     public ResponseEntity<String> addNewTrack(@RequestBody QuestionRequested questionRequested) {
         ResponseEntity<String> responseEntity;
         try {
-            recommendationServiceimpl.insertIntoDb(questionRequested);
+            recommendationService.insertIntoDb(questionRequested);
             responseEntity = new ResponseEntity<>("Question Added Sucessfully", HttpStatus.OK);
         } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("Error Occured While Adding Question", HttpStatus.BAD_REQUEST);
+            responseEntity = new ResponseEntity<>("Error Occured While Adding Question", HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
+
 
 
 }

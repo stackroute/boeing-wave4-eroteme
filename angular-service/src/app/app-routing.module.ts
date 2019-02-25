@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { NotifyComponent } from './notify/notify.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,10 @@ const routes: Routes = [
         path: 'signup',
         component: RegisterComponent
     },
+    // {
+    //     path: 'note',
+    //     component: NotifyComponent
+    // },
     {
         path: '',
         redirectTo: 'home',

@@ -1,5 +1,4 @@
 com/stackroute/recommendationservice/model/AnswerRequested$AnswerRequestedBuilder.class
-com/stackroute/recommendationservice/repository/RecommendationRepository.class
 com/stackroute/recommendationservice/model/CommentRequested.class
 com/stackroute/recommendationservice/controller/RecommendationController.class
 com/stackroute/recommendationservice/model/QuestionRequested$QuestionRequestedBuilder.class
@@ -15,3 +14,4 @@ com/stackroute/recommendationservice/model/User.class
 com/stackroute/recommendationservice/service/RecommendationServiceImpl.class
 com/stackroute/recommendationservice/repository/UserRepository.class
 com/stackroute/recommendationservice/model/AnswerRequested.class
+com/stackroute/recommendationservice/repository/QuestionDocumentRepository.class

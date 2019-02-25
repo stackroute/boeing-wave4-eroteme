@@ -35,6 +35,7 @@
         <module>question-answer-service</module>
         <module>recommendation-command-service</module>
         <module>recommendation-query-service</module>
+        <module>notification-service</module>
     </modules>
     <dependencies>
         <dependency>
