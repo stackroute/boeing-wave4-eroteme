@@ -1,5 +1,6 @@
 package com.stackroute.graph.service;
 
+import com.stackroute.graph.model.Question;
 import com.stackroute.graph.model.User;
 import com.stackroute.graph.repository.AnswerRepository;
 import com.stackroute.graph.repository.QuestionRepository;
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.when;
 public class RecommendationCommandServiceImplTest {
 
     private static final User USER = User.builder().userName("kate").reputation(1).build();
+    private static final Question QUESTION = Question.builder().questionId(12).questionString("what is java").timestamp(34544).upVote(32).downVote(1).build();
 
     @Mock
     private AnswerRepository answerRepository;
@@ -41,19 +43,21 @@ public class RecommendationCommandServiceImplTest {
     }
 
 
-//    public void saveUserToDb(User user)
-//        userRepository.save(user);
-//    }
-
-
 //    @Test
 //    public void getUsers(){
 //    }
 //
-//    @Test
-//    public void saveQuestionToDb() {
-//    }
-//
+
+
+    @Test
+    public void saveQuestionToDb() {
+        when(questionRepository.save(QUESTION)).thenReturn(QUESTION);
+        assertThat(recommendationCommandService.saveQuestionToDb(QUESTION)).isEqualTo(QUESTION);
+
+    }
+
+
+
 //    @Test
 //    public void getQuestions() {
 //    }

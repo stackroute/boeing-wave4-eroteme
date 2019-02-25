@@ -37,8 +37,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
     @Override
-    public void saveQuestionToDb(Question question) {
+    public Question saveQuestionToDb(Question question) {
         questionRepository.save(question);
+        return question;
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface RecommendationCommandService {
     Collection<User> getUsers();
 
 
-    void saveQuestionToDb(Question question);
+    Question saveQuestionToDb(Question question);
 
 
     Collection<Question> getQuestions();
