@@ -49,9 +49,10 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
     @Override
-    public void saveAnswerToDb(Answer answer) {
+    public Answer saveAnswerToDb(Answer answer) {
 
         answerRepository.save(answer);
+        return answer;
     }
 
     @Override
@@ -60,12 +61,12 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         return answerRepository.getAllAnswers();
     }
 
-    @Override
-    public void deleteAnswers(long answerId) {
-
-
-        answerRepository.deleteById(answerId);
-    }
+//    @Override
+//    public void deleteAnswers(long answerId) {
+//
+//
+//        answerRepository.deleteById(answerId);
+//    }
 
     @Override
     public User userfollowstopic(String userName, String Name) {
