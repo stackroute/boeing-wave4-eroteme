@@ -1,4 +1,4 @@
-package pac.controllers;
+package com.stackroute.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

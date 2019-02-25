@@ -1,5 +1,6 @@
 package com.stackroute.service;
 
+import com.stackroute.QuestionanswerserviceApplication;
 import com.stackroute.domain.Answer;
 import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
@@ -7,6 +8,9 @@ import com.stackroute.domain.Replies;
 import com.stackroute.exceptions.*;
 
 import com.stackroute.repository.QuestionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +18,14 @@ import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
+    private static final Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
     private QuestionRepository questionRepository;
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    public QuestionServiceImpl(QuestionRepository questionRepository) {
+    public QuestionServiceImpl(QuestionRepository questionRepository,RabbitTemplate rabbitTemplate) {
         this.questionRepository = questionRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -28,6 +35,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         Question savedQuestion = questionRepository.save(questionObject);
+        sendProductMessage(savedQuestion.toString());
         return savedQuestion;
     }
 
@@ -37,7 +45,9 @@ public class QuestionServiceImpl implements QuestionService{
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             question.setDescription(description);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
@@ -53,7 +63,9 @@ public class QuestionServiceImpl implements QuestionService{
             } else {
                 question.setAnswer(answer);
             }
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
@@ -69,7 +81,9 @@ public class QuestionServiceImpl implements QuestionService{
             } else {
                 question.setComment(comment);
             }
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
@@ -93,7 +107,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new CommentNotFoundException("Comment does not exists");
@@ -124,7 +140,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -169,7 +187,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -189,7 +209,9 @@ public class QuestionServiceImpl implements QuestionService{
             Question question = questionRepository.findByQuestionId(questionId);
             int upvotes = question.getUpvotes();
             question.setUpvotes(upvotes+1);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
@@ -200,7 +222,9 @@ public class QuestionServiceImpl implements QuestionService{
             Question question = questionRepository.findByQuestionId(questionId);
             int downvotes = question.getDownvotes();
             question.setDownvotes(downvotes+1);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
@@ -222,7 +246,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -250,7 +276,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new CommentNotFoundException("Comment does not exists");
@@ -291,7 +319,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (commentFlag && replyFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!replyFlag){
                 throw new ReplyNotFoundException("Reply not found");
@@ -333,7 +363,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -387,7 +419,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -422,7 +456,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -431,5 +467,11 @@ public class QuestionServiceImpl implements QuestionService{
         else {
             throw new QuestionNotFoundException("Question does not exists");
         }
+    }
+
+    @Override
+    public void sendProductMessage(String question) {
+        log.info("Sending the index request through queue message");
+        rabbitTemplate.convertAndSend(QuestionanswerserviceApplication.QUEUE_Name, question);
     }
 }
