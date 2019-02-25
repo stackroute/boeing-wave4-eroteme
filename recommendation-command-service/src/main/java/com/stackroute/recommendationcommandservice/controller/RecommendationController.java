@@ -15,10 +15,10 @@ import java.util.Collections;
 
 @RestController
 @Slf4j
-public class HomeController {
+public class RecommendationController {
     private RecommendationCommandService homeService;
 
-    HomeController(RecommendationCommandService homeService) {
+    RecommendationController(RecommendationCommandService homeService) {
         this.homeService = homeService;
     }
 
@@ -130,7 +130,7 @@ public class HomeController {
 
     //method to create relationship FOLLOWS between user and topic//
     @GetMapping("/follows/{userName}/{name}")
-    public ResponseEntity<User> CreateRelationship(@PathVariable String userName, @PathVariable String name) {
+    public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -146,7 +146,7 @@ public class HomeController {
 
     //method to create relationship QUESTION_OF between question and topic//
     @GetMapping("/belongs/{questionId}/{name}")
-    public ResponseEntity<Question> CreateRelationshipone(@PathVariable int questionId, @PathVariable String name) {
+    public ResponseEntity<Question> CreateRelationshipbelongs(@PathVariable int questionId, @PathVariable String name) {
         ResponseEntity<Question> responseEntity;
         try {
 
@@ -162,7 +162,7 @@ public class HomeController {
 
     //method to create relationship ANSWERED between user and answer//
     @GetMapping("/answered/{userName}/{answerId}")
-    public ResponseEntity<User> CreateRelationshiptwo(@PathVariable String userName, @PathVariable int answerId) {
+    public ResponseEntity<User> CreateRelationshipanswered(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -177,7 +177,7 @@ public class HomeController {
 
     //method to create relationship VIEWED between user and question//
     @GetMapping("/viewed/{userName}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipthree(@PathVariable String userName, @PathVariable int questionId) {
+    public ResponseEntity<User> CreateRelationshipviewed(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -193,7 +193,7 @@ public class HomeController {
 
     //method to create relationship ANSWER_OF between answer and question//
     @GetMapping("/answerof/{answerId}/{questionId}")
-    public ResponseEntity<Answer> CreateRelationshipfour(@PathVariable int answerId, @PathVariable int questionId) {
+    public ResponseEntity<Answer> CreateRelationshipanswerof(@PathVariable int answerId, @PathVariable int questionId) {
         ResponseEntity<Answer> responseEntity;
         try {
 
@@ -209,7 +209,7 @@ public class HomeController {
 
     //method to create relationship ASKED between user and question//
     @GetMapping("/asked/{userName}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipfive(@PathVariable String userName, @PathVariable int questionId) {
+    public ResponseEntity<User> CreateRelationshipasked(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -224,7 +224,7 @@ public class HomeController {
 
     //method to create relationship ACCEPTED between user and answer//
     @GetMapping("/accepted/{userName}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipsix(@PathVariable String userName, @PathVariable int answerId) {
+    public ResponseEntity<User> CreateRelationshipaccepted(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -240,7 +240,7 @@ public class HomeController {
 
     //method to create relationship UPVOTED between user and answer//
     @GetMapping("/upvoted/{userName}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipseven(@PathVariable String userName, @PathVariable int answerId) {
+    public ResponseEntity<User> CreateRelationshipupvoted(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -255,7 +255,7 @@ public class HomeController {
 
     //method to create relationship DOWNVOTED between user and answer//
     @GetMapping("/downvoted/{userName}/{answerId}")
-    public ResponseEntity<User> CreateRelationshipeight(@PathVariable String userName, @PathVariable int answerId) {
+    public ResponseEntity<User> CreateRelationshipdownvoted(@PathVariable String userName, @PathVariable int answerId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -270,7 +270,7 @@ public class HomeController {
 
     //method to create relationship UPVOTE between user and question//
     @GetMapping("/Upvoted/{userName}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipnine(@PathVariable String userName, @PathVariable int questionId) {
+    public ResponseEntity<User> CreateRelationshipUpvoted(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
@@ -285,7 +285,7 @@ public class HomeController {
 
     //method to create relationship DOWNVOTE between user and question//
     @GetMapping("/Downvoted/{userName}/{questionId}")
-    public ResponseEntity<User> CreateRelationshipten(@PathVariable String userName, @PathVariable int questionId) {
+    public ResponseEntity<User> CreateRelationshipDownvoted(@PathVariable String userName, @PathVariable int questionId) {
         ResponseEntity<User> responseEntity;
         try {
 
