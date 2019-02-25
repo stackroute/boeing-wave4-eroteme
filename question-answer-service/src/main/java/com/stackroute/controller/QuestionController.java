@@ -31,48 +31,48 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     @PutMapping("question/{questionId}")
     public ResponseEntity<?> addDescription(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addQuestionDescription(questionId, question.getDescription());
-        return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
     }
 
     @PutMapping("question/answer/{questionId}")
     public ResponseEntity<?> addAnswer(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addAnswer(questionId, question.getAnswer());
-        return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
     }
 
     @PutMapping("question/comment/{questionId}")
     public ResponseEntity<?> addComment(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addQuestionComment(questionId, question.getComment());
-        return new ResponseEntity<String>("Successfully updated", HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
     }
 
     @PutMapping("question/comment/reply/{questionId}")
     public ResponseEntity<?> addCommentReply(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException, CommentNotFoundException {
         questionService.addQuestionCommentReply(questionId,comment.getComment(),comment.getReplies());
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
     @PutMapping("question/answer/comment/{questionId}")
     public ResponseEntity<?> addAnswerComment(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addAnswerComment(questionId,answer.getAnswer(),answer.getComments());
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
     @PutMapping("question/answer/comment/reply/{questionId}")
     public ResponseEntity<?> addAnswerCommentReply(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException{
         questionService.addAnswerCommentReply(questionId,answer.getAnswer(),answer.getComments());
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
     @PutMapping("question/upvote/{questionId}")
     public ResponseEntity<?> addQuestionUpvote(@PathVariable int questionId) throws QuestionNotFoundException {
         questionService.addQuestionUpvote(questionId);
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
     @PutMapping("question/downvote/{questionId}")
     public ResponseEntity<?> addQuestionDownvote(@PathVariable int questionId) throws QuestionNotFoundException {
         questionService.addQuestionDownvote(questionId);
-        return new ResponseEntity<String>("Successfully updated",HttpStatus.FOUND);
+        return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
     @PutMapping("question/answer/upvote/{questionId}")
