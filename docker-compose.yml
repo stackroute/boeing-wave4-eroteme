@@ -139,6 +139,21 @@ services:
     healthcheck:
       test: "exit 0"
 
+  notification-service:
+    image: notification-service
+    build: ./notification-service/
+    container_name: notification_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8010:8010
+    expose:
+      - 8010
+    healthcheck:
+      test: "exit 0"
+
+
   question-answer-service:
     image: question-answer-service
     build: ./question-answer-service/
