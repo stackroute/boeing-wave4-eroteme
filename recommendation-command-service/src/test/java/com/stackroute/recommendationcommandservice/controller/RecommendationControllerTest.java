@@ -122,7 +122,7 @@ public class RecommendationControllerTest {
     @Test
     public void getUserByReputation() throws Exception {
         when(userRepository.getByUser(1)).thenReturn(USER);
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/{reputation}")
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/{reputation}", 1)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -130,9 +130,9 @@ public class RecommendationControllerTest {
     }
 
     @Test
-    public void createRelationship() throws Exception {
+    public void createRelationshipfollows() throws Exception {
         when(userRepository.userfollowstopicrelationship("meghana", "testing")).thenReturn(USER);
-        mockMvc.perform(MockMvcRequestBuilders.get("/follows/{userName}/{name}")
+        mockMvc.perform(MockMvcRequestBuilders.get("/follows/{userName}/{name}", "meghana", "testing")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -140,42 +140,66 @@ public class RecommendationControllerTest {
     }
 
     @Test
-    public void createRelationshipone() {
+    public void createRelationshipbelongs() throws Exception {
+        when(questionRepository.questionbelongstopicrelationship(12, "pipes")).thenReturn(QUESTION);
+        mockMvc.perform(MockMvcRequestBuilders.get("/belongs/{questionId}/{name}", "12", "pipes")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+
     }
 
     @Test
-    public void createRelationshiptwo() {
+    public void createRelationshipanswered() throws Exception {
+        when(answerRepository.useransweredanswerrelationship("srinidhi", 201)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/answered/{userName}/{answerId}", "srinidhi", 201)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
     }
 
     @Test
-    public void createRelationshipthree() {
+    public void createRelationshipviewed() throws Exception {
+        when(questionRepository.userviewedquestionrelationship("anirudh", 101)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/viewed/{userName}/{questionId}", "anirudh", 101)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void createRelationshipfour() {
+    public void createRelationshipanswerof() throws Exception {
+        when(questionRepository.answerisanswerofquestionrelationship(202, 101)).thenReturn(ANSWER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/answerof/{answerId}/{questionId}", 201, 101)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(ANSWER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+    @Test
+    public void createRelationshipasked() {
     }
 
     @Test
-    public void createRelationshipfive() {
+    public void createRelationshipaccepted() {
     }
 
     @Test
-    public void createRelationshipsix() {
+    public void createRelationshipupvoted() {
     }
 
     @Test
-    public void createRelationshipseven() {
+    public void createRelationshipdownvoted() {
     }
 
     @Test
-    public void createRelationshipeight() {
+    public void createRelationshipUpvoted() {
     }
 
     @Test
-    public void createRelationshipnine() {
-    }
-
-    @Test
-    public void createRelationshipten() {
+    public void createRelationshipDownvoted() {
     }
 }
