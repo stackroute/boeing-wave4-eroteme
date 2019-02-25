@@ -21,23 +21,7 @@ export class HomeComponent implements OnInit {
       token: this.token.getToken(),
       email: this.token.getUsername() 
     };
-     // Open connection with server socket
-     let stompClient = this.webSocketService.connect();
-     stompClient.connect({}, frame => {
-      // let data: Array < any >= [];
-
-   // Subscribe to notification topic
-         stompClient.subscribe('/queue/'+this.token.getUsername(), notifications => {
- 
-     // Update notifications attribute with the recent messsage sent from the server
-            this.data.push(notifications.body);
-            console.log("note:"+this.data)
-            //this.notification =this.notification+','+ notifications.body;  
-            console.log(this.data.length);  
-            
-         })
-     });
-   
+    
 
   }
   myFunction() {

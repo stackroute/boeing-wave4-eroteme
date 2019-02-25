@@ -1,10 +1,8 @@
 .cards{
     border-radius: 1%;
     background-color: white;
-   max-height:80px;
-    border-bottom-style: solid;
-    border-bottom-width: 0.1rem;
 }
-.cards:hover {
-    background:rgb(199, 199, 218);
+
+.cards:hover{
+    background-color:rgb(223, 223, 240);
 }
