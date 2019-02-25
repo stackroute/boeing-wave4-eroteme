@@ -109,26 +109,43 @@ public class RecommendationCommandServiceImplTest {
 
     }
 
-//    @Test
-//    public void useransweredanswer() {
-//    }
-//
-//    @Test
-//    public void userviewedquestion() {
-//    }
-//
-//    @Test
-//    public void answerisanswerofquestion() {
-//    }
-//
-//    @Test
-//    public void useraskedquestion() {
-//    }
-//
-//    @Test
-//    public void useracceptedanswer() {
-//    }
-//
+    @Test
+    public void useransweredanswer() {
+        when(answerRepository.useransweredanswerrelationship("srinidhi", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.useransweredanswer("srinidhi", 201)).isEqualTo(USER);
+
+    }
+
+    //
+    @Test
+    public void userviewedquestion() {
+        when(questionRepository.userviewedquestionrelationship("anirudh", 101)).thenReturn(USER);
+        assertThat(recommendationCommandService.userviewedquestion("anirudh", 101)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void answerisanswerofquestion() {
+        when(questionRepository.answerisanswerofquestionrelationship(202, 101)).thenReturn(ANSWER);
+        assertThat(recommendationCommandService.answerisanswerofquestion(202, 101)).isEqualTo(ANSWER);
+
+    }
+
+    @Test
+    public void useraskedquestion() {
+        when(questionRepository.useraskedquestionrelationship("kiran", 101)).thenReturn(USER);
+        assertThat(recommendationCommandService.useraskedquestion("kiran", 101)).isEqualTo(USER);
+
+
+    }
+
+    @Test
+    public void useracceptedanswer() {
+        when(answerRepository.useracceptedanswerrelationship("gagana", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.useracceptedanswer("gagana", 201)).isEqualTo(USER);
+
+    }
+
 //    @Test
 //    public void userupvotedanswer() {
 //    }
