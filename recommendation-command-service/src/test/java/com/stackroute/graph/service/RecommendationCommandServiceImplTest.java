@@ -146,20 +146,32 @@ public class RecommendationCommandServiceImplTest {
 
     }
 
-//    @Test
-//    public void userupvotedanswer() {
-//    }
-//
-//    @Test
-//    public void userdownvotedanswer() {
-//    }
-//
-//    @Test
-//    public void userupvotequestion() {
-//    }
-//
-//    @Test
-//    public void userdownvotequestion() {
-//    }
-//}
+    @Test
+    public void userupvotedanswer() {
+        when(answerRepository.userupvotedanswerrelationship("varun", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.userupvotedanswer("varun", 201)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userdownvotedanswer() {
+        when(answerRepository.userdownvotedanswerrelationship("harsha Bean", 222)).thenReturn(USER);
+        assertThat(recommendationCommandService.userdownvotedanswer("harsha Bean", 222)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userupvotequestion() {
+        when(questionRepository.userupvotequestionrelationship("easwar", 2696)).thenReturn(USER);
+        assertThat(recommendationCommandService.userupvotequestion("easwar", 2696)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userdownvotequestion() {
+
+        when(questionRepository.userdownvotequestionrelationship("siddharth", 102)).thenReturn(USER);
+        assertThat(recommendationCommandService.userdownvotequestion("siddharth", 102)).isEqualTo(USER);
+
+    }
 }
