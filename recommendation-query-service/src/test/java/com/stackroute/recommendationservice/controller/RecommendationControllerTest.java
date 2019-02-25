@@ -5,7 +5,7 @@ import com.stackroute.recommendationservice.model.AnswerRequested;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
-import com.stackroute.recommendationservice.repository.RecommendationRepository;
+import com.stackroute.recommendationservice.repository.QuestionDocumentRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import org.junit.Before;
