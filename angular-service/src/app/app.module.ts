@@ -55,6 +55,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebSocketService } from './web-socket-service.service';
 import { NotifyComponent } from './notify/notify.component';
+import { NotificationcardComponent } from './notificationcard/notificationcard.component';
+import { NavigationbarComponent } from './navigationbar/navigationbar.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { NotifyComponent } from './notify/notify.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    NotifyComponent
+    NotifyComponent,
+    NotificationcardComponent,
+    NavigationbarComponent
   ],
   imports: [
     BrowserModule,

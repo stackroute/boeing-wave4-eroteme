@@ -1,12 +1,12 @@
-package com.stackroute.graph.service;
+package com.stackroute.recommendationcommandservice.service;
 
 
-import com.stackroute.graph.model.Answer;
-import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.User;
-import com.stackroute.graph.repository.AnswerRepository;
-import com.stackroute.graph.repository.QuestionRepository;
-import com.stackroute.graph.repository.UserRepository;
+import com.stackroute.recommendationcommandservice.model.Answer;
+import com.stackroute.recommendationcommandservice.model.Question;
+import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.repository.AnswerRepository;
+import com.stackroute.recommendationcommandservice.repository.QuestionRepository;
+import com.stackroute.recommendationcommandservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +49,10 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
     @Override
-    public void saveAnswerToDb(Answer answer) {
+    public Answer saveAnswerToDb(Answer answer) {
 
         answerRepository.save(answer);
+        return answer;
     }
 
     @Override
@@ -60,12 +61,12 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         return answerRepository.getAllAnswers();
     }
 
-    @Override
-    public void deleteAnswers(long answerId) {
-
-
-        answerRepository.deleteById(answerId);
-    }
+//    @Override
+//    public void deleteAnswers(long answerId) {
+//
+//
+//        answerRepository.deleteById(answerId);
+//    }
 
     @Override
     public User userfollowstopic(String userName, String Name) {

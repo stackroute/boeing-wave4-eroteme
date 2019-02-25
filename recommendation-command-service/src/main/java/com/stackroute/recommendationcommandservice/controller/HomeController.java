@@ -1,10 +1,10 @@
-package com.stackroute.graph.controller;
+package com.stackroute.recommendationcommandservice.controller;
 
 
-import com.stackroute.graph.model.Answer;
-import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.User;
-import com.stackroute.graph.service.RecommendationCommandService;
+import com.stackroute.recommendationcommandservice.model.Answer;
+import com.stackroute.recommendationcommandservice.model.Question;
+import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.service.RecommendationCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

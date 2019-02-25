@@ -139,6 +139,29 @@ services:
     healthcheck:
       test: "exit 0"
 
+  question-answer-service:
+    image: question-answer-service
+    build: ./question-answer-service/
+    container_name: ques_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      apigateway:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    healthcheck:
+      test: "exit 0"
+
   angular-app:
     build: angular-service/
     image: angular
