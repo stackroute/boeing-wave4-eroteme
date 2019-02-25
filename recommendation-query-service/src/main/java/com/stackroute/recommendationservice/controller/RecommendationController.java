@@ -2,6 +2,7 @@ package com.stackroute.recommendationservice.controller;
 
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
+import com.stackroute.recommendationservice.model.User;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,8 @@ public class RecommendationController {
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
+    @Value("${reputation-to-answer-the-question}")
+    private int reputationNeeded;
 
     private RecommendationServiceImpl recommendationServiceimpl;
 
@@ -54,6 +57,21 @@ public class RecommendationController {
         return responseEntity;
     }
 
+    @GetMapping("/notifyUsers")
+    public ResponseEntity<List<User>> getAllUsersOfTopic(@RequestBody Question question) {
+        ResponseEntity<List<User>> responseEntity;
+        List<User> users;
+        try {
+            users = recommendationServiceimpl.getAllUsersRelatedToQuestion(question.getQuestionId());
+            users = users.stream().filter(user -> user.getReputation() >= reputationNeeded).collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
     @GetMapping("/unanswered/{username}")
     public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestions(@PathVariable String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
@@ -69,6 +87,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
+
     // This method is added only for testing purpose
     @PostMapping(value = "/question")
     public ResponseEntity<String> addNewTrack(@RequestBody QuestionRequested questionRequested) {
@@ -83,19 +102,5 @@ public class RecommendationController {
     }
 
 
-//    @GetMapping("/domain/users")
-//    public ResponseEntity<List<User>> getAllUsers(@PathVariable User users){
-//        ResponseEntity<List<User>> responseEntity;
-//        List<User> domainUsers = new ArrayList<>();
-//        try {
-//            domainUsers=userRepository.findAllUsers();
-//            responseEntity=new ResponseEntity<>(domainUsers,HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
-//        }
-//        return responseEntity;
-//
-//    }
 }
 
