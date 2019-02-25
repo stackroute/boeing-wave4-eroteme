@@ -41,9 +41,8 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
-    public List<User> getAllUsers() {
-//        return userRepository.findAllUsers();
-        return null;
+    public List<User> getAllUsersRelatedToQuestion(long questionID) {
+        return userRepository.findAllUsersOfTopic(questionID);
     }
 
     @Override

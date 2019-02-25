@@ -14,7 +14,8 @@ public interface RecommendationService {
 
     QuestionRequested getDocumentByQuestionId(long questionId);
 
-    List<User> getAllUsers();
+    List<User> getAllUsersRelatedToQuestion(long questionID);
+
 
     List<Question> getTrendingQuestionsForUser(String username);
 

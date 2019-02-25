@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class AnswerRequested {
     UserRequested userRequested;
-    List<CommentRequested> commentRequesteds;
+    List<CommentRequested> commentRequested;
     private String answer;
     private boolean accepted;
     private int upvotes;

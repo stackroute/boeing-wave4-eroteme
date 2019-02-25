@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.recommendationservice.model.AnswerRequested;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
+import com.stackroute.recommendationservice.model.User;
 import com.stackroute.recommendationservice.repository.QuestionDocumentRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
@@ -30,16 +31,20 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class RecommendationControllerTest {
-    private static final int QUESTION_ID = 10;
+    private static final int QUESTION_ID = 3;
     private static final Question QUESTION_ONE = Question.builder().questionId(QUESTION_ID).upvote(20).build();
     private static final Question QUESTION_TWO = Question.builder().questionId(QUESTION_ID).upvote(0).build();
     private static final AnswerRequested ANSWER_REQUESTED = AnswerRequested.builder().build();
-    private static final QuestionRequested QUESTION_DOCUMENT_ONE = QuestionRequested.builder()
+    private static final QuestionRequested QUESTION_DOCUMENT_ONE = QuestionRequested.builder().questionId(3)
             .answerDocuments(Arrays.asList(ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED))
             .build();
+    private static final Question QUESTION_TEST = Question.builder().questionId(QUESTION_ID).build();
+    private static final User USER = User.builder().username("Sunidhi").reputation(100).build();
     private static final QuestionRequested QUESTION_DOCUMENT_TWO = QuestionRequested.builder()
             .answerDocuments(Collections.singletonList(ANSWER_REQUESTED)).build();
     private static final String USERNAME = "USERNAME";
+    private static final String USERNAME1 = "USERNAME1";
+
     private static final String TOPIC = "TOPIC";
     @MockBean
     private RecommendationServiceImpl recommendationService;
@@ -109,6 +114,46 @@ public class RecommendationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
-
     }
+
+
+    @Test
+    public void testForTopicRelatedUsersArePresent() throws Exception {
+        when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.singletonList(USER));
+        mockMvc.perform(MockMvcRequestBuilders.get("/notifyUsers", QUESTION_ONE)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testForTopicRelatedUsersAreNotPresent() throws Exception {
+        when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.emptyList());
+        mockMvc.perform(MockMvcRequestBuilders.get("/notifyUsers", QUESTION_ONE)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testUnansweredQuestionPresent() throws Exception {
+        when(recommendationService.getAllUnansweredQuestions(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/unanswered/USERNAME")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testUnansweredQuestionNotPresent() throws Exception {
+        when(recommendationService.getAllUnansweredQuestions(USERNAME1)).thenReturn(Collections.emptyList());
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/unanswered/USERNAME1")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
 }

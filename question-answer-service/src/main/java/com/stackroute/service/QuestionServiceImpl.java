@@ -1,5 +1,6 @@
 package com.stackroute.service;
 
+import com.stackroute.QuestionanswerserviceApplication;
 import com.stackroute.domain.Answer;
 import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
@@ -7,6 +8,9 @@ import com.stackroute.domain.Replies;
 import com.stackroute.exceptions.*;
 
 import com.stackroute.repository.QuestionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +18,21 @@ import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements QuestionService{
+
+    //Return a logger named according to the name parameter
+    private static final Logger log = LoggerFactory.getLogger(QuestionServiceImpl.class);
     private QuestionRepository questionRepository;
 
+    //An object for rabbitTemplate
+    private RabbitTemplate rabbitTemplate;
+
     @Autowired
-    public QuestionServiceImpl(QuestionRepository questionRepository) {
+    public QuestionServiceImpl(QuestionRepository questionRepository,RabbitTemplate rabbitTemplate) {
         this.questionRepository = questionRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
+    //Overriden method for posting a new question
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
@@ -28,20 +40,25 @@ public class QuestionServiceImpl implements QuestionService{
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         Question savedQuestion = questionRepository.save(questionObject);
+        sendProductMessage(savedQuestion.toString());
         return savedQuestion;
     }
 
+    //Overriden method to add question description
     @Override
     public Question addQuestionDescription(int questionId, String description) throws QuestionNotFoundException {
 
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             question.setDescription(description);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
 
+    //Overriden method to add answer
     @Override
     public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
@@ -53,11 +70,14 @@ public class QuestionServiceImpl implements QuestionService{
             } else {
                 question.setAnswer(answer);
             }
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
 
+    //Overriden method to comment to a question
     @Override
     public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
@@ -69,11 +89,14 @@ public class QuestionServiceImpl implements QuestionService{
             } else {
                 question.setComment(comment);
             }
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
 
+    //Overriden method to add reply to question comment
     @Override
     public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException,CommentNotFoundException {
         boolean flag = false;
@@ -93,7 +116,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new CommentNotFoundException("Comment does not exists");
@@ -105,6 +130,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     }
 
+    //Overriden method to add comment to answer
     @Override
     public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
@@ -124,7 +150,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -135,6 +163,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to add reply for answer comment
     @Override
     public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment)throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException {
         boolean answerFlag = false;
@@ -169,7 +198,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -183,28 +214,35 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to upvote a question
     @Override
     public Question addQuestionUpvote(int questionId) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int upvotes = question.getUpvotes();
             question.setUpvotes(upvotes+1);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
 
+    //Overriden method to downvote a question
     @Override
     public Question addQuestionDownvote(int questionId) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int downvotes = question.getDownvotes();
             question.setDownvotes(downvotes+1);
-            return questionRepository.save(question);
+            Question question1 = questionRepository.save(question);
+            sendProductMessage(question1.toString());
+            return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
     }
 
+    //Overriden method to upvote an answer
     @Override
     public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
@@ -222,7 +260,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -233,6 +273,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to add likes for question comment
     @Override
     public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException{
         boolean flag = false;
@@ -250,7 +291,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new CommentNotFoundException("Comment does not exists");
@@ -261,6 +304,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to add likes for question comment reply
     @Override
     public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException,CommentNotFoundException,ReplyNotFoundException{
         boolean commentFlag = false;
@@ -291,7 +335,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (commentFlag && replyFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!replyFlag){
                 throw new ReplyNotFoundException("Reply not found");
@@ -305,6 +351,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to add likes for answer comment
     @Override
     public Question addAnswerCommentLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException{
         boolean answerFlag = false;
@@ -333,7 +380,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -347,6 +396,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method to add likes for answer comment reply
     @Override
     public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
         boolean answerFlag = false;
@@ -387,7 +437,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (answerFlag && commentFlag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else if (!commentFlag){
                 throw new CommentNotFoundException("Comment not found");
@@ -401,6 +453,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    //Overriden method for adding accepted answer
     @Override
     public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
@@ -422,7 +475,9 @@ public class QuestionServiceImpl implements QuestionService{
                 }
             }
             if (flag){
-                return questionRepository.save(question);
+                Question question1 = questionRepository.save(question);
+                sendProductMessage(question1.toString());
+                return question1;
             }
             else {
                 throw new AnswerNotFoundException("Answer does not exists");
@@ -431,5 +486,12 @@ public class QuestionServiceImpl implements QuestionService{
         else {
             throw new QuestionNotFoundException("Question does not exists");
         }
+    }
+
+    //RabbitMq message producer method
+    @Override
+    public void sendProductMessage(String question) {
+        log.info("Sending the index request through queue message");
+        rabbitTemplate.convertAndSend(QuestionanswerserviceApplication.QUEUE_Name, question);
     }
 }
