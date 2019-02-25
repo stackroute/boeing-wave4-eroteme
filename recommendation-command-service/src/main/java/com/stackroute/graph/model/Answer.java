@@ -1,7 +1,10 @@
 package com.stackroute.graph.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -10,6 +13,9 @@ import java.util.List;
 
 @NodeEntity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer {
     @Id
     private long answerId;

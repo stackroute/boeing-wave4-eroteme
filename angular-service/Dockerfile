@@ -12,6 +12,6 @@ RUN npm run build
 
 RUN npm install -g http-server 
 
-WORKDIR /app/dist/AngularService
+WORKDIR /app/dist/angular-service
 
 CMD ["http-server", "-p", "8000"]
