@@ -1,4 +1,4 @@
-package com.stackroute.graph.model;
+package com.stackroute.recommendationcommandservice.model;
 
 
 import lombok.Data;

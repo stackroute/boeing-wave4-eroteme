@@ -1,9 +1,9 @@
-package com.stackroute.graph.service;
+package com.stackroute.recommendationcommandservice.service;
 
 
-import com.stackroute.graph.model.Answer;
-import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.User;
+import com.stackroute.recommendationcommandservice.model.Answer;
+import com.stackroute.recommendationcommandservice.model.Question;
+import com.stackroute.recommendationcommandservice.model.User;
 
 import java.util.Collection;
 

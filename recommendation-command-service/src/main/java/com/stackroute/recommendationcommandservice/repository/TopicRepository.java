@@ -1,6 +1,6 @@
-package com.stackroute.graph.repository;
+package com.stackroute.recommendationcommandservice.repository;
 
-import com.stackroute.graph.model.Topic;
+import com.stackroute.recommendationcommandservice.model.Topic;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 
