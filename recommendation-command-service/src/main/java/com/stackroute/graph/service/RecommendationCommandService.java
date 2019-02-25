@@ -11,7 +11,7 @@ import java.util.Collection;
 public interface RecommendationCommandService {
 
 
-    void saveUserToDb(User user);
+    User saveUserToDb(User user);
 
 
     Collection<User> getUsers();

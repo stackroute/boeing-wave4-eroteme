@@ -26,8 +26,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
     @Override
-    public void saveUserToDb(User user) {
+    public User saveUserToDb(User user) {
         userRepository.save(user);
+        return user;
     }
 
     @Override
