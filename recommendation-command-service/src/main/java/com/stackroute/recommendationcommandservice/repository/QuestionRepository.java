@@ -1,8 +1,8 @@
-package com.stackroute.graph.repository;
+package com.stackroute.recommendationcommandservice.repository;
 
-import com.stackroute.graph.model.Answer;
-import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.User;
+import com.stackroute.recommendationcommandservice.model.Answer;
+import com.stackroute.recommendationcommandservice.model.Question;
+import com.stackroute.recommendationcommandservice.model.User;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package com.stackroute.graph.model;
+package com.stackroute.recommendationcommandservice.model;
 
 
 import lombok.AllArgsConstructor;
@@ -16,19 +16,24 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Answer {
+public class Question {
+
     @Id
-    private long answerId;
-    private String answerString;
-    @Relationship(type = "accepted", direction = Relationship.INCOMING)
+    private int questionId;
+    private String questionString;
+    private int timestamp;
+    private int upVote;
+    private int downVote;
+    @Relationship(type = "asked", direction = Relationship.INCOMING)
     private List<User> user;
-    @Relationship(type = "answered", direction = Relationship.INCOMING)
+    @Relationship(type = "answer_of", direction = Relationship.INCOMING)
+    private List<Answer> answer;
+    @Relationship(type = "viewed", direction = Relationship.INCOMING)
     private List<User> user1;
     @Relationship(type = "upvoted", direction = Relationship.INCOMING)
     private List<User> user2;
     @Relationship(type = "downvoted", direction = Relationship.INCOMING)
     private List<User> user3;
 
+
 }
-
-

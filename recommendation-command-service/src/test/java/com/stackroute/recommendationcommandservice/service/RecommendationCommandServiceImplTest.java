@@ -1,11 +1,11 @@
-package com.stackroute.graph.service;
+package com.stackroute.recommendationcommandservice.service;
 
-import com.stackroute.graph.model.Answer;
-import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.User;
-import com.stackroute.graph.repository.AnswerRepository;
-import com.stackroute.graph.repository.QuestionRepository;
-import com.stackroute.graph.repository.UserRepository;
+import com.stackroute.recommendationcommandservice.model.Answer;
+import com.stackroute.recommendationcommandservice.model.Question;
+import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.repository.AnswerRepository;
+import com.stackroute.recommendationcommandservice.repository.QuestionRepository;
+import com.stackroute.recommendationcommandservice.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -109,40 +109,69 @@ public class RecommendationCommandServiceImplTest {
 
     }
 
-//    @Test
-//    public void useransweredanswer() {
-//    }
-//
-//    @Test
-//    public void userviewedquestion() {
-//    }
-//
-//    @Test
-//    public void answerisanswerofquestion() {
-//    }
-//
-//    @Test
-//    public void useraskedquestion() {
-//    }
-//
-//    @Test
-//    public void useracceptedanswer() {
-//    }
-//
-//    @Test
-//    public void userupvotedanswer() {
-//    }
-//
-//    @Test
-//    public void userdownvotedanswer() {
-//    }
-//
-//    @Test
-//    public void userupvotequestion() {
-//    }
-//
-//    @Test
-//    public void userdownvotequestion() {
-//    }
-//}
+    @Test
+    public void useransweredanswer() {
+        when(answerRepository.useransweredanswerrelationship("srinidhi", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.useransweredanswer("srinidhi", 201)).isEqualTo(USER);
+
+    }
+
+    //
+    @Test
+    public void userviewedquestion() {
+        when(questionRepository.userviewedquestionrelationship("anirudh", 101)).thenReturn(USER);
+        assertThat(recommendationCommandService.userviewedquestion("anirudh", 101)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void answerisanswerofquestion() {
+        when(questionRepository.answerisanswerofquestionrelationship(202, 101)).thenReturn(ANSWER);
+        assertThat(recommendationCommandService.answerisanswerofquestion(202, 101)).isEqualTo(ANSWER);
+
+    }
+
+    @Test
+    public void useraskedquestion() {
+        when(questionRepository.useraskedquestionrelationship("kiran", 101)).thenReturn(USER);
+        assertThat(recommendationCommandService.useraskedquestion("kiran", 101)).isEqualTo(USER);
+
+
+    }
+
+    @Test
+    public void useracceptedanswer() {
+        when(answerRepository.useracceptedanswerrelationship("gagana", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.useracceptedanswer("gagana", 201)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userupvotedanswer() {
+        when(answerRepository.userupvotedanswerrelationship("varun", 201)).thenReturn(USER);
+        assertThat(recommendationCommandService.userupvotedanswer("varun", 201)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userdownvotedanswer() {
+        when(answerRepository.userdownvotedanswerrelationship("harsha Bean", 222)).thenReturn(USER);
+        assertThat(recommendationCommandService.userdownvotedanswer("harsha Bean", 222)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userupvotequestion() {
+        when(questionRepository.userupvotequestionrelationship("easwar", 2696)).thenReturn(USER);
+        assertThat(recommendationCommandService.userupvotequestion("easwar", 2696)).isEqualTo(USER);
+
+    }
+
+    @Test
+    public void userdownvotequestion() {
+
+        when(questionRepository.userdownvotequestionrelationship("siddharth", 102)).thenReturn(USER);
+        assertThat(recommendationCommandService.userdownvotequestion("siddharth", 102)).isEqualTo(USER);
+
+    }
 }
