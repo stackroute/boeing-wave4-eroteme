@@ -1,4 +1,4 @@
-package com.stackroute.recommendationservice.model;
+package com.stackroute.recommendationcommandservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,11 +12,9 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
+public class User {
     @Id
-    long questionId;
-    String question;
-    long timestamp;
-    int upvote;
-    int downvote;
+//    private int userId;
+    private String userName;
+    private int reputation;
 }
