@@ -3,9 +3,8 @@ package com.stackroute.graph.controller;
 
 import com.stackroute.graph.model.Answer;
 import com.stackroute.graph.model.Question;
-import com.stackroute.graph.model.Topic;
 import com.stackroute.graph.model.User;
-import com.stackroute.graph.service.HomeService;
+import com.stackroute.graph.service.RecommendationCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ import java.util.Collections;
 @RestController
 @Slf4j
 public class HomeController {
-    private HomeService homeService;
+    private RecommendationCommandService homeService;
 
-    HomeController(HomeService homeService) {
+    HomeController(RecommendationCommandService homeService) {
         this.homeService = homeService;
     }
 
@@ -38,20 +37,6 @@ public class HomeController {
         return responseEntity;
     }
 
-    //method to add TOPIC//
-    @PostMapping("/addtopic")
-    public ResponseEntity<String> addTopic(@RequestBody Topic topic) {
-        ResponseEntity<String> responseEntity;
-        try {
-            homeService.saveTopicToDb(topic);
-            responseEntity = new ResponseEntity<>("User saved sucessfully", HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>("Error occured while saving", HttpStatus.BAD_GATEWAY);
-        }
-        return responseEntity;
-    }
 
     //method to add QUESTION//
     @PostMapping("/addquestion")
