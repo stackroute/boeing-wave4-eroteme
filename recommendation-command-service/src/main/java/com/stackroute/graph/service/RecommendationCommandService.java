@@ -23,13 +23,13 @@ public interface RecommendationCommandService {
     Collection<Question> getQuestions();
 
 
-    void saveAnswerToDb(Answer answer);
+    Answer saveAnswerToDb(Answer answer);
 
 
     Collection<Answer> getAnswers();
 
 
-    void deleteAnswers(long answerId);
+//    void deleteAnswers(long answerId);
 
 
     User userfollowstopic(String userName, String Name);
