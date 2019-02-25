@@ -123,14 +123,39 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
-//    MockMvcRequestBuilders
 
     @Test
     public void testForTopicRelatedUsersAreNotPresent() throws Exception {
         when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.post("/notifyUsers", QUESTION_ONE)
+        mockMvc.perform(MockMvcRequestBuilders.get("/notifyUsers", QUESTION_ONE)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+
+//
 }
+//
+//    String exampleCourseJson = "{\"name\":\"Spring\",\"description\":\"10 Steps\",\"steps\":[\"Learn Maven\",\"Import Project\",\"First Example\",\"Second Example\"]}";
+
+//    @Test
+//    public void retrieveDetailsForCourse() throws Exception {
+//
+//        Mockito.when(
+//                studentService.retrieveUsers(Mockito.anyString(),
+//                        Mockito.anyString())).thenReturn(mockUsers);
+//
+//        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
+//                "/students/Student1/courses/Course1").accept(
+//                MediaType.APPLICATION_JSON);
+//
+//        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+//
+//        System.out.println(result.getResponse());
+//        String expected = "{id:Course1,name:Spring,description:10 Steps}";
+//
+//        // {"id":"Course1","name":"Spring","description":"10 Steps, 25 Examples and 10K Students","steps":["Learn Maven","Import Project","First Example","Second Example"]}
+//
+//        JSONAssert.assertEquals(expected, result.getResponse()
+//                .getContentAsString(), false);
+//    }
