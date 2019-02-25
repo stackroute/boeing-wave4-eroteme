@@ -15,6 +15,7 @@
         <groupId>com.stackroute</groupId>
         <artifactId>boeing-wave4-eroteme</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <dependencies>

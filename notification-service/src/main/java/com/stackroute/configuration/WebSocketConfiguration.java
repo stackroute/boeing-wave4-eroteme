@@ -1,4 +1,4 @@
-package pac.configuration;
+package com.stackroute.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -19,7 +19,6 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/queue");
-//        registry.setUserDestinationPrefix("/secured/user");
         registry.setApplicationDestinationPrefixes("/app");
     }
 }
