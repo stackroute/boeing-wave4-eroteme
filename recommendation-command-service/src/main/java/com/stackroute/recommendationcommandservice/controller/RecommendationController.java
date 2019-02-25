@@ -15,10 +15,10 @@ import java.util.Collections;
 
 @RestController
 @Slf4j
-public class HomeController {
+public class RecommendationController {
     private RecommendationCommandService homeService;
 
-    HomeController(RecommendationCommandService homeService) {
+    RecommendationController(RecommendationCommandService homeService) {
         this.homeService = homeService;
     }
 

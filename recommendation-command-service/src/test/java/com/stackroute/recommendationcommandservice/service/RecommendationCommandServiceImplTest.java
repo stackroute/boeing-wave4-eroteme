@@ -97,8 +97,8 @@ public class RecommendationCommandServiceImplTest {
     @Test
     public void getByUser() {
 
-        when(userRepository.getAllUsers()).thenReturn(Collections.singletonList(USER));
-        assertThat(recommendationCommandService.getUsers()).containsOnly(USER);
+        when(userRepository.getByUser(12)).thenReturn(USER);
+        assertThat(recommendationCommandService.getByUser(12)).isEqualTo(USER);
 
     }
 
