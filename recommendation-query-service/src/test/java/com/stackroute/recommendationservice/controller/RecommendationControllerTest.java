@@ -35,7 +35,7 @@ public class RecommendationControllerTest {
     private static final Question QUESTION_ONE = Question.builder().questionId(QUESTION_ID).upvote(20).build();
     private static final Question QUESTION_TWO = Question.builder().questionId(QUESTION_ID).upvote(0).build();
     private static final AnswerRequested ANSWER_REQUESTED = AnswerRequested.builder().build();
-    private static final QuestionRequested QUESTION_DOCUMENT_ONE = QuestionRequested.builder()
+    private static final QuestionRequested QUESTION_DOCUMENT_ONE = QuestionRequested.builder().questionId(3)
             .answerDocuments(Arrays.asList(ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED))
             .build();
     private static final Question QUESTION_TEST = Question.builder().questionId(QUESTION_ID).build();
@@ -43,6 +43,8 @@ public class RecommendationControllerTest {
     private static final QuestionRequested QUESTION_DOCUMENT_TWO = QuestionRequested.builder()
             .answerDocuments(Collections.singletonList(ANSWER_REQUESTED)).build();
     private static final String USERNAME = "USERNAME";
+    private static final String USERNAME1 = "USERNAME1";
+
     private static final String TOPIC = "TOPIC";
     @MockBean
     private RecommendationServiceImpl recommendationService;
@@ -133,29 +135,23 @@ public class RecommendationControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-//
-}
-//
-//    String exampleCourseJson = "{\"name\":\"Spring\",\"description\":\"10 Steps\",\"steps\":[\"Learn Maven\",\"Import Project\",\"First Example\",\"Second Example\"]}";
+    @Test
+    public void testUnansweredQuestionPresent() throws Exception {
+        when(recommendationService.getAllUnansweredQuestions(USERNAME)).thenReturn(Collections.singletonList(QUESTION_ONE));
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/unanswered/USERNAME")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 
-//    @Test
-//    public void retrieveDetailsForCourse() throws Exception {
-//
-//        Mockito.when(
-//                studentService.retrieveUsers(Mockito.anyString(),
-//                        Mockito.anyString())).thenReturn(mockUsers);
-//
-//        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-//                "/students/Student1/courses/Course1").accept(
-//                MediaType.APPLICATION_JSON);
-//
-//        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-//
-//        System.out.println(result.getResponse());
-//        String expected = "{id:Course1,name:Spring,description:10 Steps}";
-//
-//        // {"id":"Course1","name":"Spring","description":"10 Steps, 25 Examples and 10K Students","steps":["Learn Maven","Import Project","First Example","Second Example"]}
-//
-//        JSONAssert.assertEquals(expected, result.getResponse()
-//                .getContentAsString(), false);
-//    }
+    @Test
+    public void testUnansweredQuestionNotPresent() throws Exception {
+        when(recommendationService.getAllUnansweredQuestions(USERNAME1)).thenReturn(Collections.emptyList());
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/unanswered/USERNAME1")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+}
