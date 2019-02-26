@@ -1,12 +1,10 @@
-package com.stackroute.service;
+package com.stackroute.nlp.service;
 
 import com.stackroute.domain.User;
 import com.stackroute.exceptions.UserAlreadyExistsException;
 import com.stackroute.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {

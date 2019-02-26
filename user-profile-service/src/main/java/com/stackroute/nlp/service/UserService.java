@@ -1,12 +1,10 @@
-package com.stackroute.service;
+package com.stackroute.nlp.service;
 
 import com.stackroute.domain.User;
 import com.stackroute.exceptions.UserAlreadyExistsException;
 
-import java.util.List;
-
 public interface UserService {
 
-    public User saveUser(User user) throws UserAlreadyExistsException;
+    User saveUser(User user) throws UserAlreadyExistsException;
 }
 
