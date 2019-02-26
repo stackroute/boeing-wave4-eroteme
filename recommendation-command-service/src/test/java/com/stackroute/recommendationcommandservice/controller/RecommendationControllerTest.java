@@ -62,7 +62,7 @@ public class RecommendationControllerTest {
     @Test
     public void addUser() throws Exception {
         when(userRepository.save(USER)).thenReturn(USER);
-        mockMvc.perform(MockMvcRequestBuilders.post("/adduser")
+        mockMvc.perform(MockMvcRequestBuilders.post("/user")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -71,7 +71,7 @@ public class RecommendationControllerTest {
     @Test
     public void addQuestion() throws Exception {
         when(questionRepository.save(QUESTION)).thenReturn(QUESTION);
-        mockMvc.perform(MockMvcRequestBuilders.post("/addquestion")
+        mockMvc.perform(MockMvcRequestBuilders.post("/question")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -82,7 +82,7 @@ public class RecommendationControllerTest {
     @Test
     public void addAnswer() throws Exception {
         when(answerRepository.save(ANSWER)).thenReturn(ANSWER);
-        mockMvc.perform(MockMvcRequestBuilders.post("/addanswer")
+        mockMvc.perform(MockMvcRequestBuilders.post("/answer")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(ANSWER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -93,7 +93,7 @@ public class RecommendationControllerTest {
     @Test
     public void getAllUsers() throws Exception {
         when(userRepository.getAllUsers()).thenReturn(Collections.singletonList(USER));
-        mockMvc.perform(MockMvcRequestBuilders.get("/getusers")
+        mockMvc.perform(MockMvcRequestBuilders.get("/users")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -102,7 +102,7 @@ public class RecommendationControllerTest {
     @Test
     public void getAllQuestions() throws Exception {
         when(questionRepository.getAllQuestions()).thenReturn(Collections.singletonList(QUESTION));
-        mockMvc.perform(MockMvcRequestBuilders.get("/getquestions")
+        mockMvc.perform(MockMvcRequestBuilders.get("/questions")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -112,7 +112,7 @@ public class RecommendationControllerTest {
     @Test
     public void getAllAnswers() throws Exception {
         when(answerRepository.getAllAnswers()).thenReturn(Collections.singletonList(ANSWER));
-        mockMvc.perform(MockMvcRequestBuilders.get("/getanswers")
+        mockMvc.perform(MockMvcRequestBuilders.get("/answers")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(ANSWER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
