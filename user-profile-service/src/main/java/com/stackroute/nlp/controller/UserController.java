@@ -1,16 +1,15 @@
-package com.stackroute.controller;
+package com.stackroute.nlp.controller;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import com.stackroute.domain.User;
-import com.stackroute.exceptions.UserAlreadyExistsException;
-import com.stackroute.service.UserService;
+import com.stackroute.nlp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 
 
 @CrossOrigin(origins = "*")
@@ -33,7 +32,7 @@ public class UserController {
      */
     private final static String QUEUE_NAME = "register";
     @PostMapping("signup")
-    public ResponseEntity<?> saveUser(@RequestBody User user) throws UserAlreadyExistsException,Exception {
+    public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         User signUp = new User(user.getEmail(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getInterests());
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
