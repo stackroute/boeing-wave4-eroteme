@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 		public static void main(String[] args) {
 			SpringApplication.run(NlpApplication.class, args);
 			NlpServiceImpl nlpService = new NlpServiceImpl();
-			nlpService.setquestion("What is server Side in angular");
+			nlpService.setquestion("What is server Side");
 			nlpService.showAllResults();
 		}
 

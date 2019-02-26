@@ -1,4 +1,8 @@
-server.port=8088
-spring.data.neo4j.uri=bolt://localhost
-spring.data.neo4j.username=neo4j
-spring.data.neo4j.password=faith
+server:
+  port: 8088
+spring:
+  data:
+    neo4j:
+      uri: bolt://localhost
+      username: neo4j
+      password: faith

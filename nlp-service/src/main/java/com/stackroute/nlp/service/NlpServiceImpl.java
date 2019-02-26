@@ -107,8 +107,7 @@ public class NlpServiceImpl{
     }
 
     public ArrayList<NLP> getPOSWords() {
-        domainSpecificTopics.add("angular");
-        domainSpecificTopics.add("Angular");
+        domainSpecificTopics.add("angular\",\"Angular\",\"pipes\",\"Fundamentals and Architecture\"\"Navigation\",\"server Side\",\"Using Promises\",\"Http Client\",\"Configuring Routes\",\"Routing\",\"Custom pipes\",\"using pipes\",\"Data Binding\",\"Templates");
         Properties properties = new Properties();
         properties.setProperty("annotator", "pos");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
