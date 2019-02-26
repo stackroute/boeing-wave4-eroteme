@@ -187,6 +187,8 @@ services:
     depends_on:
       neo4j:
         condition: service_healthy
+      mongo:
+        condition: service_healthy
     ports:
       - 8081:8081
     expose:
