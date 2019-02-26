@@ -14,5 +14,5 @@ com/stackroute/recommendationservice/service/RecommendationService.class
 com/stackroute/recommendationservice/model/User.class
 com/stackroute/recommendationservice/service/RecommendationServiceImpl.class
 com/stackroute/recommendationservice/repository/UserRepository.class
-com/stackroute/recommendationservice/model/AnswerRequested.class
 com/stackroute/recommendationservice/repository/QuestionDocumentRepository.class
+com/stackroute/recommendationservice/model/AnswerRequested.class
