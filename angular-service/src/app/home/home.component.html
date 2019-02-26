@@ -11,29 +11,7 @@
     <br>
     <br>
     <br>
-    <div class="dropdown">
-        <!-- <button onclick="myFunction()" class="dropbtn">Dropdown</button> -->
-        <button class="notification" (click)=myFunction()>
-            <i class="material-icons">add_alert</i>
-            <span class="badge">{{data.length}}</span>   
-        </button>
-        <div id="myDropdown" class="dropdown-content">
-          <ul class="biglist">
-            <li><strong>Notifications</strong></li>
-            <li><ul *ngIf='data' class="smalllist">
-                <li *ngFor='let d of data'>
-                   <app-notify [notification]=d></app-notify>
-                </li>
-            </ul> 
-            </li>
-            <!-- <li><a href="#">see all</a></li> -->
-          </ul>
-          
-        </div>
-      </div>
    
-  
-  <button class="btn btn-secondary" (click)="logout()">Logout</button>
 </div>
 <br>
 <br>
@@ -43,3 +21,5 @@
   Please login.
 </ng-template>
 </body>
+
+

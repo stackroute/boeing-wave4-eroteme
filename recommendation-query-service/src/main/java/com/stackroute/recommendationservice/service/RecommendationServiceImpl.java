@@ -24,8 +24,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     public RecommendationServiceImpl(UserRepository userRepository, QuestionDocumentRepository questionDocumentRepository) {
         this.questionDocumentRepository = questionDocumentRepository;
         this.userRepository = userRepository;
-        System.out.println("bbb");
-
     }
 
     @Override

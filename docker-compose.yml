@@ -139,6 +139,21 @@ services:
     healthcheck:
       test: "exit 0"
 
+  notification-service:
+    image: notification-service
+    build: ./notification-service/
+    container_name: notification_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8010:8010
+    expose:
+      - 8010
+    healthcheck:
+      test: "exit 0"
+
+
   question-answer-service:
     image: question-answer-service
     build: ./question-answer-service/
@@ -162,6 +177,25 @@ services:
     healthcheck:
       test: "exit 0"
 
+  recommendation-query-service:
+    image: recommendation-query-service
+    build: ./recommendation-query-service/
+    container_name: recommendation-query_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
+    healthcheck:
+      test: "exit 0"
+
   angular-app:
     build: angular-service/
     image: angular
@@ -176,6 +210,28 @@ services:
       test: "exit 0"
     expose:
       - 8000
+
+#  recommendation-command-service:
+#    build: ./recommendation-command-service/
+#    image: recommendation-command-service
+#    container_name: recommendation-query_docker
+#      restart: always
+#      network_mode: host
+#      hostname: localhost
+#      depends_on:
+#        neo4j:
+#          condition: service_healthy
+#        mongo:
+#          condition: service_healthy
+#      ports:
+#        - 8088:8088
+#      expose:
+#        - 8088
+#      healthcheck:
+#        test: "exit 0"
+
+
+
 
 
 

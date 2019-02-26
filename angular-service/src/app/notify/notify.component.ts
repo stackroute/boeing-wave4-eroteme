@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,11 +9,16 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class NotifyComponent implements OnInit {
   @Input() notification:string;
-  constructor() { }
+  constructor(private router :Router) { }
 
   ngOnInit() {
   }
   
+
+  navigate(){
+    //do your any operations
+    this.router.navigate(["/notificationCard"]);
+  }
   
 
 }

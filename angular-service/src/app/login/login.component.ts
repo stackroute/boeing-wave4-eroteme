@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["/signup"]);
   }
   home(){
+    window.location.reload();
     this.router.navigate(["/home"]);
   }
 }

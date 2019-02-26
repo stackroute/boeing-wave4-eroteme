@@ -13,7 +13,7 @@ public class NotificationController {
 
     @Scheduled(fixedDelay = 6000)
     public void generateQuestionNotification() {
-        String[] user = new String[]{"julu@fmail.com", "sita"};
+        String[] user = new String[]{"nan@gmail.com", "sita"};
         String Question = "What is Angular?";
         for (int i = 0; i < user.length; i++) {
             template.convertAndSend("/queue/" + user[i], "Can you answer this:" + Question);
@@ -22,14 +22,14 @@ public class NotificationController {
 
     @Scheduled(fixedDelay = 7000)
     public void generateAnswerNotification() {
-        String user = "julu@fmail.com";
+        String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
     }
 
     @Scheduled(fixedDelay = 8000)
     public void generateLikedNotification() {
-        String user = "julu@fmail.com";
+        String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your Answer to the  question:" + Question + "has been accepted!");
     }
