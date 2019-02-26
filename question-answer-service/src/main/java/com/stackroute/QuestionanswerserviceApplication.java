@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class QuestionanswerserviceApplication implements CommandLineRunner{
+public class QuestionanswerserviceApplication{
 	@Autowired
 	QuestionRepository questionRepository;
 
@@ -49,54 +49,5 @@ public class QuestionanswerserviceApplication implements CommandLineRunner{
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(QuestionanswerserviceApplication.class, args);
-	}
-	public static List<Question> readAllDataAtOnce(String file)
-	{
-		List<Question> questionList = new ArrayList<Question>();
-		try {
-			// Create an object of file reader
-			// class with CSV file as a parameter.
-			FileReader filereader = new FileReader(file);
-
-			// create csvReader object and skip first Line
-			CSVReader csvReader = new CSVReaderBuilder(filereader)
-					.build();
-			List<String[]> allData = csvReader.readAll();
-			// print Data
-			for (String[] row : allData) {
-				questionList.add(createQuestion(row));
-			}
-			return questionList;
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return questionList;
-	}
-	    private static Question createQuestion(String row[]) throws NullPointerException {
-			String question = row[0];
-			List<String> topics;
-			if (row[1].contains("$")) {
-				String[] topic = row[1].split("$");
-				topics = Arrays.asList(topic);
-			} else {
-				topics = new ArrayList<>();
-				topics.add(row[1]);
-			}
-			long timestamp = Long.parseLong(row[2]);
-			User user = new User(row[3], row[4], row[5]);
-        // create and return question of this metadata
-        return new Question(0, question, null, topics, 0, timestamp, 0, user, null, null);
-	}
-
-    @Override
-    public void run(String... args) throws Exception {
-        int count = 0;
-        List<Question> questions = readAllDataAtOnce("Questions.csv");
-        for (Question q : questions) {
-            q.setQuestionId(++count);
-            System.out.println(questionRepository.save(q));
-        }
-        System.out.println(questionRepository.findAll().size());
 	}
 }
