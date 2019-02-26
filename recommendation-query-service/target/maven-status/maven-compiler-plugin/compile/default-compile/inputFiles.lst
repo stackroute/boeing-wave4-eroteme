@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/service/RecommendationService.java
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/Question.java
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/controller/RecommendationController.java
@@ -12,3 +13,19 @@
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/UserRequested.java
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/RecommendationServiceApplication.java
 /home/user/Videos/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/User.java
+=======
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/Question.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/service/RecommendationServiceImpl.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/CommentRequested.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/User.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/controller/RecommendationController.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/AnswerRequested.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/RecommendationServiceApplication.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/ReplyRequested.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/Answer.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/service/RecommendationService.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/repository/QuestionDocumentRepository.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/repository/UserRepository.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/QuestionRequested.java
+/home/user/a_repo/boeing-wave4-eroteme/recommendation-query-service/src/main/java/com/stackroute/recommendationservice/model/UserRequested.java
+>>>>>>> 397b96a674eded14e25c0e960cedcd115c928af2
