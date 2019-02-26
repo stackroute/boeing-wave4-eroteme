@@ -180,26 +180,58 @@ public class RecommendationControllerTest {
 
 
     @Test
-    public void createRelationshipasked() {
+    public void createRelationshipasked() throws Exception {
+        when(questionRepository.useraskedquestionrelationship("kiran", 101)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/asked/{userName}/{questionId}", "kiran", 101)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void createRelationshipaccepted() {
+    public void createRelationshipaccepted() throws Exception {
+        when(answerRepository.useracceptedanswerrelationship("gagana", 201)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/accepted/{userName}/{answerId}", "gagana", 201)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void createRelationshipupvoted() {
+    public void createRelationshipupvoted() throws Exception {
+        when(answerRepository.userupvotedanswerrelationship("varun", 201)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/upvoted/{userName}/{answerId}", "varun", 201)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void createRelationshipdownvoted() {
+    public void createRelationshipdownvoted() throws Exception {
+        when(answerRepository.userdownvotedanswerrelationship("harsha Bean", 222)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/downvoted/{userName}/{answerId}", "varun", 201)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void createRelationshipUpvoted() {
+    public void createRelationshipUpvoted() throws Exception {
+        when(questionRepository.userupvotequestionrelationship("easwar", 2696)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/Upvoted/{userName}/{questionId}", "easwar", 2696)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
     }
 
     @Test
-    public void createRelationshipDownvoted() {
+    public void createRelationshipDownvoted() throws Exception {
+        when(questionRepository.userdownvotequestionrelationship("siddharth", 102)).thenReturn(USER);
+        mockMvc.perform(MockMvcRequestBuilders.get("/Downvoted/{userName}/{questionId}", "siddharth", 102)
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
     }
 }
