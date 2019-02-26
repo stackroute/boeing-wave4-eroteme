@@ -1,0 +1,8 @@
+.cards{
+    border-radius: 1%;
+    background-color: white;
+}
+
+.cards:hover{
+    background-color:rgb(223, 223, 240);
+}

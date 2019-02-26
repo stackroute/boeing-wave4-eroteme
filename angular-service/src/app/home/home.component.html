@@ -1,13 +1,25 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<body>
+ 
 <div *ngIf="info.token; else loggedOut">
   <h5 class="text-primary">Your Information</h5>
-  <p>
+  
     <strong>email:</strong> {{info.email}}<br/>
     <!-- <strong>Roles:</strong> {{info.authorities}}<br /> -->
     <strong>Token:</strong> {{info.token}}
-  </p>
-  <button class="btn btn-secondary" (click)="logout()">Logout</button>
+    <br>
+    <br>
+    <br>
+   
 </div>
+<br>
+<br>
+
 
 <ng-template #loggedOut>
   Please login.
 </ng-template>
+</body>
+
+

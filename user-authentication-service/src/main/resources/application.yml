@@ -3,7 +3,7 @@ grokonez:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
 server:
-    port: 8084
+    port: 8048
 spring:
     datasource:
         password: root123
@@ -19,3 +19,6 @@ spring:
     rabbitmq:
         host: localhost
         port: 5672
+
+    application:
+          name: user-authentication-service

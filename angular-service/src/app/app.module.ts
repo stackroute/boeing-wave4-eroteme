@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -52,12 +53,20 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WebSocketService } from './web-socket-service.service';
+import { NotifyComponent } from './notify/notify.component';
+import { NotificationcardComponent } from './notificationcard/notificationcard.component';
+import { NavigationbarComponent } from './navigationbar/navigationbar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    NotifyComponent,
+    NotificationcardComponent,
+    NavigationbarComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +120,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ScrollingModule,
     HttpClientModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders,WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
