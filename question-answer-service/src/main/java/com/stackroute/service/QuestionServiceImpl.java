@@ -36,10 +36,11 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
-            throw new QuestionAlreadyExistsException("Question already exists");
+            throw new QuestionAlreadyExistsException(questionObject.getQuestion()+" already exists");
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         Question savedQuestion = questionRepository.save(questionObject);
+
         sendProductMessage(savedQuestion.toString());
         return savedQuestion;
     }

@@ -211,6 +211,26 @@ services:
     expose:
       - 8000
 
+#  recommendation-command-service:
+#    build: ./recommendation-command-service/
+#    image: recommendation-command-service
+#    container_name: recommendation-query_docker
+#      restart: always
+#      network_mode: host
+#      hostname: localhost
+#      depends_on:
+#        neo4j:
+#          condition: service_healthy
+#        mongo:
+#          condition: service_healthy
+#      ports:
+#        - 8088:8088
+#      expose:
+#        - 8088
+#      healthcheck:
+#        test: "exit 0"
+
+
 
 
 
