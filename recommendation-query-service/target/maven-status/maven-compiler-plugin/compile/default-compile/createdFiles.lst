@@ -6,10 +6,10 @@ com/stackroute/recommendationservice/RecommendationServiceApplication.class
 com/stackroute/recommendationservice/model/User$UserBuilder.class
 com/stackroute/recommendationservice/model/Answer.class
 com/stackroute/recommendationservice/model/QuestionRequested.class
-com/stackroute/recommendationservice/model/UserRequested.class
 com/stackroute/recommendationservice/model/Question.class
-com/stackroute/recommendationservice/model/Question$QuestionBuilder.class
+com/stackroute/recommendationservice/model/UserRequested.class
 com/stackroute/recommendationservice/model/ReplyRequested.class
+com/stackroute/recommendationservice/model/Question$QuestionBuilder.class
 com/stackroute/recommendationservice/service/RecommendationService.class
 com/stackroute/recommendationservice/model/User.class
 com/stackroute/recommendationservice/service/RecommendationServiceImpl.class
