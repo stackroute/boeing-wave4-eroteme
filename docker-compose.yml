@@ -222,9 +222,9 @@ services:
       neo4j:
         condition: service_healthy
     ports:
-      - 8088:8088
+      - 8080:8080
     expose:
-      - 8088
+      - 8080
     healthcheck:
       test: "exit 0"
 
