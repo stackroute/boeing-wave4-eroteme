@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @CrossOrigin("*")
-@PropertySource(value = "classpath:trending-criteria.properties")
+@PropertySource(value = "classpath:trending-criteria.yml")
 public class RecommendationController {
     @Value("${trending-upvote-threshold}")
     private int questionUpvoteThreshold;
