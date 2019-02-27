@@ -3,11 +3,11 @@ grokonez:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
 server:
-    port: 8048
+    port: 8084
 spring:
     datasource:
         password: root123
-        url: jdbc:mysql://localhost:3306/userlogin
+        url: jdbc:mysql://localhost:3306/userlogin?useSSL=false
         username: root
     jpa:
         generate-ddl: true

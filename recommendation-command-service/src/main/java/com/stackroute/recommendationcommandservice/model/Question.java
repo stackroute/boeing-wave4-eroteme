@@ -35,5 +35,4 @@ public class Question {
     @Relationship(type = "downvoted", direction = Relationship.INCOMING)
     private List<User> user3;
 
-
 }
