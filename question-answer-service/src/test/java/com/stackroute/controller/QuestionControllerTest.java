@@ -2,6 +2,7 @@
 //
 //import com.stackroute.domain.Question;
 //import com.stackroute.domain.User;
+//import com.stackroute.exceptions.QuestionAlreadyExistsException;
 //import com.stackroute.service.QuestionService;
 //import org.junit.Before;
 //import org.junit.Test;
@@ -13,14 +14,20 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 //import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.http.MediaType;
 //import org.springframework.test.context.junit4.SpringRunner;
 //import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 //import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 //
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //import static org.junit.Assert.*;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.Mockito.when;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 //
 ////JUnit will invoke the class it references to run the tests in that class instead of the runner built into JUnit.
 //@RunWith(SpringRunner.class)
@@ -54,7 +61,12 @@
 //    }
 //
 //    @Test
-//    public void testSaveQuestionSuccess() {
+//    public void testSaveQuestionSuccess() throws QuestionAlreadyExistsException {
+//        when(questionService.addQuestion(any())).thenReturn(question);
+//        mockMvc.perform(post("/api/v1/question")
+//                .contentType(MediaType.APPLICATION_JSON).content(asJsonString("Successfully created")))
+//                .andExpect(MockMvcResultMatchers.status().isCreated())
+//                .andDo(MockMvcResultHandlers.print());
 //
 //    }
 //}
