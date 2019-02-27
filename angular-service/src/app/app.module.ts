@@ -1,15 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule,Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { MyQuestionsComponent } from './my-questions/my-questions.component';
+import { MyAnswersComponent } from './my-answers/my-answers.component';
+import { HomesectionComponent } from './homesection/homesection.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TrendingQuestionsComponent } from './trending-questions/trending-questions.component';
+import { UnansweredQuestionsComponent } from './unanswered-questions/unanswered-questions.component';
+import { QuestionAnswerCardComponent } from './question-answer-card/question-answer-card.component';
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+import { QuestionCardComponent } from './question-card/question-card.component';
+import { TransferServiceService } from './transfer-service.service';
+import { CarouselComponent } from './carousel/carousel.component';
+import { CarouselModule } from 'ngx-bootstrap';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { PostQuestionComponent } from './post-question/post-question.component';
+import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
-import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -53,22 +67,54 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { httpInterceptorProviders } from './auth/auth-interceptor';
+import { LoginComponent } from './login/login.component';
+import { NotifyComponent } from '../app/notify/notify.component';
 import { WebSocketService } from './web-socket-service.service';
-import { NotifyComponent } from './notify/notify.component';
-import { NotificationcardComponent } from './notificationcard/notificationcard.component';
-import { NavigationbarComponent } from './navigationbar/navigationbar.component';
+
+
+const routes:Routes=[{path:'myprofile',component:ProfileComponent},
+                     {path:'questionAnswerCard',component:QuestionAnswerCardComponent},
+                    {path:'',component:HomesectionComponent},
+                    {path:'postQuestion',component:PostQuestionComponent},
+                    {path:'searchresult',component:SearchResultComponent},
+                    {path:'register', component:RegisterComponent},
+                    {path:'login',component:LoginComponent}]
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    NavbarComponent,
+    MyQuestionsComponent,
+    MyAnswersComponent,
+    HomesectionComponent,
+    ProfileComponent,
+    TrendingQuestionsComponent,
+    UnansweredQuestionsComponent,
+    QuestionAnswerCardComponent,
+    QuestionCardComponent,
+    CarouselComponent,
+    SearchResultComponent,
+    PostQuestionComponent,
     RegisterComponent,
-    HomeComponent,
+    LoginComponent,
     NotifyComponent,
-    NotificationcardComponent,
-    NavigationbarComponent
+    
   ],
   imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    RouterModule.forRoot(routes),
+    Ng2CarouselamosModule,
+    MatCardModule,
+    MatButtonModule,
+    CarouselModule.forRoot(),
+    MatFormFieldModule,
+    MatChipsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    DragDropModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -120,7 +166,8 @@ import { NavigationbarComponent } from './navigationbar/navigationbar.component'
     ScrollingModule,
     HttpClientModule
   ],
-  providers: [httpInterceptorProviders,WebSocketService],
+  providers: [TransferServiceService,httpInterceptorProviders,WebSocketService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}

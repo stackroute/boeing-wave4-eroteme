@@ -1,0 +1,39 @@
+body{
+    background:url('../../assets/images/post.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#division{
+    height: 100%;
+    margin-left: 10%;
+    margin-right: 10%;
+    color: white;
+    background-color: rgba(red, green, blue, alpha)
+}
+
+#question{
+    width: 80%;
+    margin-left: 10%;
+    font-size: 30px;
+}
+
+#description{
+    margin-left: 10%;
+    width: 80%;
+    margin-top: 8%;
+}
+
+#butt{
+    margin-left: 17%;
+    width: 70%;
+}
+
+@media screen and (max-width: 600px) {
+    #butt{
+        margin-left: 0%;
+        width: 100%;
+    }
+}

@@ -226,6 +226,31 @@ services:
     expose:
       - 8080
     healthcheck:
+
+  json-server1: 
+    container_name: json-server1
+    image: clue/json-server
+    volumes:
+      - ${DIR}/trendingQues.json:/data/db.json
+    ports: 
+      - 8050:80 
+
+  json-server2: 
+    container_name: json-server2
+    image: clue/json-server
+    volumes:
+      - ${DIR}/unansweredQues.json:/data/db.json
+    ports: 
+      - 8051:80 
+
+  json-server3: 
+    container_name: json-server3
+    image: clue/json-server
+    volumes:
+      - ${DIR}/User.json:/data/db.json
+    ports: 
+      - 8052:80 
+
       test: "exit 0"
 
 

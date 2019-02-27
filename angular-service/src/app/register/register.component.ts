@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
   form: any = {};
   signupInfo: SignUpInfo;
   errorMessage = '';
@@ -65,6 +66,7 @@ export class RegisterComponent implements OnInit {
   }
   backToLogin()
   {
-    this.route.navigate(["/auth/login"]);
+    this.route.navigate([""]);
   }
+
 }
