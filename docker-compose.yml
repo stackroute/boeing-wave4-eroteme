@@ -226,6 +226,7 @@ services:
     expose:
       - 8080
     healthcheck:
+      test: "exit 0"
 
   json-server1: 
     container_name: json-server1
