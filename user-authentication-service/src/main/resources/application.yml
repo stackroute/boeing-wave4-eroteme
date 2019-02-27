@@ -3,7 +3,7 @@ grokonez:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
 server:
-    port: 8048
+    port: 8084
 spring:
     datasource:
         password: root123
