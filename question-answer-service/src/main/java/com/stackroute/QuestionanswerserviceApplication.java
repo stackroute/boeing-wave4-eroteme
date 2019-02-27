@@ -32,6 +32,8 @@ public class QuestionanswerserviceApplication{
 	QuestionRepository questionRepository;
 
 	public final static String QUEUE_Name = "question-answer-message-queue";
+	public final static String EXCHANGE_Name = "spring-boot-exchange";
+	public final static String ROUTING_KEY = "routing-key";
 
 	@Bean
 	Queue queue() {
@@ -40,12 +42,12 @@ public class QuestionanswerserviceApplication{
 
 	@Bean
 	TopicExchange exchange() {
-		return new TopicExchange("spring-boot-exchange");
+		return new TopicExchange(EXCHANGE_Name);
 	}
 
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(QUEUE_Name);
+		return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(QuestionanswerserviceApplication.class, args);

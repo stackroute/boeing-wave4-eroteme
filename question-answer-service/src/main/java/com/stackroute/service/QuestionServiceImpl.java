@@ -41,7 +41,7 @@ public class QuestionServiceImpl implements QuestionService{
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         Question savedQuestion = questionRepository.save(questionObject);
 
-        sendProductMessage(savedQuestion.toString());
+        sendProductMessage(savedQuestion);
         return savedQuestion;
     }
 
@@ -53,7 +53,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question question = questionRepository.findByQuestionId(questionId);
             question.setDescription(description);
             Question question1 = questionRepository.save(question);
-            sendProductMessage(question1.toString());
+            sendProductMessage(question1);
             return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -72,7 +72,7 @@ public class QuestionServiceImpl implements QuestionService{
                 question.setAnswer(answer);
             }
             Question question1 = questionRepository.save(question);
-            sendProductMessage(question1.toString());
+            sendProductMessage(question1);
             return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -91,7 +91,7 @@ public class QuestionServiceImpl implements QuestionService{
                 question.setComment(comment);
             }
             Question question1 = questionRepository.save(question);
-            sendProductMessage(question1.toString());
+            sendProductMessage(question1);
             return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -118,7 +118,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else {
@@ -152,7 +152,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else {
@@ -200,7 +200,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else if (!commentFlag){
@@ -223,7 +223,7 @@ public class QuestionServiceImpl implements QuestionService{
             int upvotes = question.getUpvotes();
             question.setUpvotes(upvotes+1);
             Question question1 = questionRepository.save(question);
-            sendProductMessage(question1.toString());
+            sendProductMessage(question1);
             return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -237,7 +237,7 @@ public class QuestionServiceImpl implements QuestionService{
             int downvotes = question.getDownvotes();
             question.setDownvotes(downvotes+1);
             Question question1 = questionRepository.save(question);
-            sendProductMessage(question1.toString());
+            sendProductMessage(question1);
             return question1;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -262,7 +262,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else {
@@ -293,7 +293,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else {
@@ -337,7 +337,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (commentFlag && replyFlag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else if (!replyFlag){
@@ -382,7 +382,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else if (!commentFlag){
@@ -439,7 +439,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else if (!commentFlag){
@@ -477,7 +477,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question question1 = questionRepository.save(question);
-                sendProductMessage(question1.toString());
+                sendProductMessage(question1);
                 return question1;
             }
             else {
@@ -491,8 +491,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     //RabbitMq message producer method
     @Override
-    public void sendProductMessage(String question) {
+    public void sendProductMessage(Question question) {
         log.info("Sending the index request through queue message");
-        rabbitTemplate.convertAndSend(QuestionanswerserviceApplication.QUEUE_Name, question);
+        rabbitTemplate.convertAndSend(QuestionanswerserviceApplication.EXCHANGE_Name, QuestionanswerserviceApplication.ROUTING_KEY,question);
+        System.out.println(question);
     }
 }
