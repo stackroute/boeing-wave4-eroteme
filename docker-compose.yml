@@ -248,9 +248,9 @@ services:
     image: clue/json-server
     volumes:
       - ${DIR}/User.json:/data/db.json
-    ports: 
-      - 8052:80 
-
+    ports:
+      - 8052:80
+    healthcheck:
       test: "exit 0"
 
 
