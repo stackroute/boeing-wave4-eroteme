@@ -69,9 +69,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 //    }
 
     @Override
-    public User userfollowstopic(String userName, String Name) {
+    public User userFollowsTopic(String userName, String Name) {
 
-        return userRepository.userfollowstopicrelationship(userName, Name);
+        return userRepository.userFollowsTopicRelationship(userName, Name);
 
     }
 
@@ -82,71 +82,71 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
     @Override
-    public Question questionbelongstopic(int questionId, String Name) {
+    public Question questionBelongsTopic(int questionId, String Name) {
 
-        return questionRepository.questionbelongstopicrelationship(questionId, Name);
+        return questionRepository.questionBelongsTopicRelationship(questionId, Name);
     }
 
     @Override
-    public User useransweredanswer(String userName, int answerId) {
+    public User userAnsweredAnswer(String userName, int answerId) {
 
-        return answerRepository.useransweredanswerrelationship(userName, answerId);
+        return answerRepository.userAnsweredAnswerRelationship(userName, answerId);
     }
 
     @Override
-    public User userviewedquestion(String userName, int questionId) {
+    public User userViewedQuestion(String userName, int questionId) {
 
-        return questionRepository.userviewedquestionrelationship(userName, questionId);
-
-    }
-
-    @Override
-    public Answer answerisanswerofquestion(int answerId, int questionId) {
-
-        return questionRepository.answerisanswerofquestionrelationship(answerId, questionId);
+        return questionRepository.userViewedQuestionRelationship(userName, questionId);
 
     }
 
     @Override
-    public User useraskedquestion(String userName, int questionId) {
+    public Answer answerIsAnswerOfQuestion(int answerId, int questionId) {
 
-        return questionRepository.useraskedquestionrelationship(userName, questionId);
-
-    }
-
-    @Override
-    public User useracceptedanswer(String userName, int answerId) {
-
-        return answerRepository.useracceptedanswerrelationship(userName, answerId);
+        return questionRepository.answerIsAnswerOfQuestionRelationship(answerId, questionId);
 
     }
 
     @Override
-    public User userupvotedanswer(String userName, int answerId) {
+    public User userAskedQuestion(String userName, int questionId) {
 
-        return answerRepository.userupvotedanswerrelationship(userName, answerId);
-
-    }
-
-    @Override
-    public User userdownvotedanswer(String userName, int answerId) {
-
-        return answerRepository.userdownvotedanswerrelationship(userName, answerId);
+        return questionRepository.userAskedQuestionRelationship(userName, questionId);
 
     }
 
     @Override
-    public User userupvotequestion(String userName, int questionId) {
+    public User userAcceptedAnswer(String userName, int answerId) {
 
-        return questionRepository.userupvotequestionrelationship(userName, questionId);
+        return answerRepository.userAcceptedAnswerRelationship(userName, answerId);
+
+    }
+
+    @Override
+    public User userUpvotedAnswer(String userName, int answerId) {
+
+        return answerRepository.userUpvotedAnswerRelationship(userName, answerId);
+
+    }
+
+    @Override
+    public User userDownvotedAnswer(String userName, int answerId) {
+
+        return answerRepository.userDownvotedAnswerRelationship(userName, answerId);
+
+    }
+
+    @Override
+    public User userUpvoteQuestion(String userName, int questionId) {
+
+        return questionRepository.userUpvoteQuestionRelationship(userName, questionId);
 
     }
 
     @Override
 
-    public User userdownvotequestion(String userName, int questionId) {
+    public User userDownvoteQuestion(String userName, int questionId) {
 
-        return questionRepository.userdownvotequestionrelationship(userName, questionId);
+        return questionRepository.userDownvoteQuestionRelationship(userName, questionId);
 
     }
 

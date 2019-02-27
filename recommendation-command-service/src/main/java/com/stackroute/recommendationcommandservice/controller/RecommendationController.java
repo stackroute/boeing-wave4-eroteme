@@ -78,7 +78,7 @@ public class RecommendationController {
             responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -92,7 +92,7 @@ public class RecommendationController {
             responseEntity = new ResponseEntity(homeService.getQuestions(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -107,7 +107,7 @@ public class RecommendationController {
             responseEntity = new ResponseEntity(homeService.getAnswers(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -123,7 +123,7 @@ public class RecommendationController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
     }
@@ -133,11 +133,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userfollowstopic(userName, name), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userFollowsTopic(userName, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -148,11 +148,11 @@ public class RecommendationController {
     public ResponseEntity<Question> CreateRelationshipbelongs(@PathVariable int questionId, @PathVariable String name) {
         try {
 
-            responseEntity = new ResponseEntity<Question>(homeService.questionbelongstopic(questionId, name), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Question>(homeService.questionBelongsTopic(questionId, name), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<Question>(new Question(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<Question>(new Question(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -163,11 +163,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipanswered(@PathVariable String userName, @PathVariable int answerId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useransweredanswer(userName, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userAnsweredAnswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -177,11 +177,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipviewed(@PathVariable String userName, @PathVariable int questionId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userviewedquestion(userName, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userViewedQuestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -192,11 +192,11 @@ public class RecommendationController {
     public ResponseEntity<Answer> CreateRelationshipanswerof(@PathVariable int answerId, @PathVariable int questionId) {
         try {
 
-            responseEntity = new ResponseEntity<Answer>(homeService.answerisanswerofquestion(answerId, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<Answer>(homeService.answerIsAnswerOfQuestion(answerId, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<Answer>(new Answer(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<Answer>(new Answer(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -207,11 +207,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipasked(@PathVariable String userName, @PathVariable int questionId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useraskedquestion(userName, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userAskedQuestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -221,11 +221,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipaccepted(@PathVariable String userName, @PathVariable int answerId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.useracceptedanswer(userName, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userAcceptedAnswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -236,11 +236,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipupvoted(@PathVariable String userName, @PathVariable int answerId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userupvotedanswer(userName, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userUpvotedAnswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -250,11 +250,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipdownvoted(@PathVariable String userName, @PathVariable int answerId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userdownvotedanswer(userName, answerId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userDownvotedAnswer(userName, answerId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -264,11 +264,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipUpvoted(@PathVariable String userName, @PathVariable int questionId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userupvotequestion(userName, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userUpvoteQuestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }
@@ -278,11 +278,11 @@ public class RecommendationController {
     public ResponseEntity<User> CreateRelationshipDownvoted(@PathVariable String userName, @PathVariable int questionId) {
         try {
 
-            responseEntity = new ResponseEntity<User>(homeService.userdownvotequestion(userName, questionId), HttpStatus.OK);
+            responseEntity = new ResponseEntity<User>(homeService.userDownvoteQuestion(userName, questionId), HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
         }
         return responseEntity;
     }

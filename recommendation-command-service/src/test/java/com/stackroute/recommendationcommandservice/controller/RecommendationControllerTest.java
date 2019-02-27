@@ -131,7 +131,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipfollows() throws Exception {
-        when(userRepository.userfollowstopicrelationship("meghana", "testing")).thenReturn(USER);
+        when(userRepository.userFollowsTopicRelationship("meghana", "testing")).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/follows/{userName}/{name}", "meghana", "testing")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -141,7 +141,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipbelongs() throws Exception {
-        when(questionRepository.questionbelongstopicrelationship(12, "pipes")).thenReturn(QUESTION);
+        when(questionRepository.questionBelongsTopicRelationship(12, "pipes")).thenReturn(QUESTION);
         mockMvc.perform(MockMvcRequestBuilders.get("/belongs/{questionId}/{name}", "12", "pipes")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -152,7 +152,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipanswered() throws Exception {
-        when(answerRepository.useransweredanswerrelationship("srinidhi", 201)).thenReturn(USER);
+        when(answerRepository.userAnsweredAnswerRelationship("srinidhi", 201)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/answered/{userName}/{answerId}", "srinidhi", 201)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -162,7 +162,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipviewed() throws Exception {
-        when(questionRepository.userviewedquestionrelationship("anirudh", 101)).thenReturn(USER);
+        when(questionRepository.userViewedQuestionRelationship("anirudh", 101)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/viewed/{userName}/{questionId}", "anirudh", 101)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -171,7 +171,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipanswerof() throws Exception {
-        when(questionRepository.answerisanswerofquestionrelationship(202, 101)).thenReturn(ANSWER);
+        when(questionRepository.answerIsAnswerOfQuestionRelationship(202, 101)).thenReturn(ANSWER);
         mockMvc.perform(MockMvcRequestBuilders.get("/answerof/{answerId}/{questionId}", 201, 101)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(ANSWER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -181,7 +181,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipasked() throws Exception {
-        when(questionRepository.useraskedquestionrelationship("kiran", 101)).thenReturn(USER);
+        when(questionRepository.userAskedQuestionRelationship("kiran", 101)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/asked/{userName}/{questionId}", "kiran", 101)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -190,7 +190,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipaccepted() throws Exception {
-        when(answerRepository.useracceptedanswerrelationship("gagana", 201)).thenReturn(USER);
+        when(answerRepository.userAcceptedAnswerRelationship("gagana", 201)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/accepted/{userName}/{answerId}", "gagana", 201)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -199,7 +199,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipupvoted() throws Exception {
-        when(answerRepository.userupvotedanswerrelationship("varun", 201)).thenReturn(USER);
+        when(answerRepository.userUpvotedAnswerRelationship("varun", 201)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/upvoted/{userName}/{answerId}", "varun", 201)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -208,7 +208,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipdownvoted() throws Exception {
-        when(answerRepository.userdownvotedanswerrelationship("harsha Bean", 222)).thenReturn(USER);
+        when(answerRepository.userDownvotedAnswerRelationship("harsha Bean", 222)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/downvoted/{userName}/{answerId}", "varun", 201)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -217,7 +217,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipUpvoted() throws Exception {
-        when(questionRepository.userupvotequestionrelationship("easwar", 2696)).thenReturn(USER);
+        when(questionRepository.userUpvoteQuestionRelationship("easwar", 2696)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/Upvoted/{userName}/{questionId}", "easwar", 2696)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -227,7 +227,7 @@ public class RecommendationControllerTest {
 
     @Test
     public void createRelationshipDownvoted() throws Exception {
-        when(questionRepository.userdownvotequestionrelationship("siddharth", 102)).thenReturn(USER);
+        when(questionRepository.userDownvoteQuestionRelationship("siddharth", 102)).thenReturn(USER);
         mockMvc.perform(MockMvcRequestBuilders.get("/Downvoted/{userName}/{questionId}", "siddharth", 102)
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
