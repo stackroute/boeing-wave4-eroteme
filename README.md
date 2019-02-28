@@ -5,7 +5,7 @@
 ![](https://img.shields.io/snyk/vulnerabilities/github/stackroute/boeing-wave4-eroteme.svg?style=popout)
 ![](https://img.shields.io/github/issues/stackroute/boeing-wave4-eroteme.svg?style=popout)
 
-![](https://img.shields.io/github/contributors/stackroute/boeing-wave4-eroteme/v1.0.0.svg?style=popout)
+![](https://img.shields.io/github/contributors/stackroute/boeing-wave4-eroteme.svg?style=popout)
 ![](https://img.shields.io/github/last-commit/stackroute/boeing-wave4-eroteme/v1.0.0.svg?style=popout)
 
 ![](https://img.shields.io/github/repo-size/stackroute/boeing-wave4-eroteme.svg?style=popout)
