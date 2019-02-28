@@ -25,29 +25,37 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         this.answerRepository = answerRepository;
     }
 
+    /*method to save user*/
     @Override
     public User saveUserToDb(User user) {
         userRepository.save(user);
         return user;
     }
 
+    //method to get USERS//
     @Override
     public Collection<User> getUsers() {
         return userRepository.getAllUsers();
     }
 
+
+    //method to add QUESTION//
     @Override
     public Question saveQuestionToDb(Question question) {
         questionRepository.save(question);
         return question;
     }
 
+
+    //method to get QUESTIONS//
     @Override
     public Collection<Question> getQuestions() {
 
         return questionRepository.getAllQuestions();
     }
 
+
+    //method to add ANSWER//
     @Override
     public Answer saveAnswerToDb(Answer answer) {
 
@@ -55,12 +63,15 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         return answer;
     }
 
+    //method to get ANSWERS//
     @Override
     public Collection<Answer> getAnswers() {
 
         return answerRepository.getAllAnswers();
     }
 
+
+    //method to create relationship FOLLOWS between user and topic//
     @Override
     public User userFollowsTopic(String userName, String Name) {
 
@@ -68,24 +79,32 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to get USERS by reputation//
     @Override
     public User getByUser(int reputation) {
 
         return userRepository.getByUser(reputation);
     }
 
+
+    //method to create relationship QUESTION_OF between question and topic//
     @Override
     public Question questionBelongsTopic(int questionId, String Name) {
 
         return questionRepository.questionBelongsTopicRelationship(questionId, Name);
     }
 
+
+    //method to create relationship ANSWERED between user and answer//
     @Override
     public User userAnsweredAnswer(String userName, int answerId) {
 
         return answerRepository.userAnsweredAnswerRelationship(userName, answerId);
     }
 
+
+    //method to create relationship VIEWED between user and question//
     @Override
     public User userViewedQuestion(String userName, int questionId) {
 
@@ -93,6 +112,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to create relationship ANSWER_OF between answer and question//
     @Override
     public Answer answerIsAnswerOfQuestion(int answerId, int questionId) {
 
@@ -100,6 +121,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to create relationship ASKED between user and question//
     @Override
     public User userAskedQuestion(String userName, int questionId) {
 
@@ -107,6 +130,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+    //method to create relationship ACCEPTED between user and answer//
     @Override
     public User userAcceptedAnswer(String userName, int answerId) {
 
@@ -114,6 +138,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to create relationship UPVOTED between user and answer//
     @Override
     public User userUpvotedAnswer(String userName, int answerId) {
 
@@ -121,6 +147,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to create relationship DOWNVOTED between user and answer//
     @Override
     public User userDownvotedAnswer(String userName, int answerId) {
 
@@ -128,6 +156,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
+
+    //method to create relationship UPVOTE between user and question//
     @Override
     public User userUpvoteQuestion(String userName, int questionId) {
 
@@ -135,8 +165,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
-    @Override
 
+    //method to create relationship DOWNVOTE between user and question//
+    @Override
     public User userDownvoteQuestion(String userName, int questionId) {
 
         return questionRepository.userDownvoteQuestionRelationship(userName, questionId);
