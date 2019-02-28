@@ -1,4 +1,4 @@
-   # Rrecommendation-query-service
+   # Recommendation-query-service
 
     recommendation-query-service is a service that recommends unanswered and trending questions to registered users.
     It also filters a list of users who have considerate reputataion in their respective domain/topic to
