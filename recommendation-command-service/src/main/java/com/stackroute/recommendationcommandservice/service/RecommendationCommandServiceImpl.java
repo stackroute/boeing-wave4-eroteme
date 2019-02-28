@@ -61,13 +61,6 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         return answerRepository.getAllAnswers();
     }
 
-//    @Override
-//    public void deleteAnswers(long answerId) {
-//
-//
-//        answerRepository.deleteById(answerId);
-//    }
-
     @Override
     public User userFollowsTopic(String userName, String Name) {
 

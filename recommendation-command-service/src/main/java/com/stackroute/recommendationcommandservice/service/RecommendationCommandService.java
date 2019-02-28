@@ -29,9 +29,6 @@ public interface RecommendationCommandService {
     Collection<Answer> getAnswers();
 
 
-//    void deleteAnswers(long answerId);
-
-
     User userFollowsTopic(String userName, String Name);
 
 

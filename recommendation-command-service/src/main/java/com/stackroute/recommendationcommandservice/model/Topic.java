@@ -8,4 +8,5 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 
 public class Topic {
+
 }
