@@ -9,12 +9,12 @@ eureka:
         serviceUrl:
             defaultZone: http://localhost:9091/eureka/
 server:
-    port: 8093
+  port: 8092
 spring:
     application:
         name: api-gateway
 zuul:
     routes:
         user-authentication-service:
-            url: http://localhost:8048
+          url: http://localhost:8084
         sensitiveHeaders:

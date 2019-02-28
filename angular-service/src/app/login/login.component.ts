@@ -3,7 +3,6 @@ import { AuthService } from '../auth/auth.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { AuthLoginInfo } from '../auth/login-info';
 import { Router } from '@angular/router';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -12,6 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
@@ -43,8 +43,9 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.email);
         this.isLoginFailed = false;
-        this.isLoggedIn = true;      
+        this.isLoggedIn = true;  
         // this.reloadPage();
+        this.home();
       },
       error => {
         console.log(error);
@@ -54,14 +55,14 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  reloadPage() {
-    window.location.reload();
-  }
   signup(){
-    this.router.navigate(["/signup"]);
+    this.router.navigate(["/register"]);
   }
+
   home(){
+    console.log("siudbv");
     window.location.reload();
-    this.router.navigate(["/home"]);
+    this.router.navigate([""]);
   }
+
 }

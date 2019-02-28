@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 @CrossOrigin("*")
-@PropertySource(value = "classpath:trending-criteria.properties")
+@PropertySource(value = "classpath:trending-criteria.yml")
 public class RecommendationController {
     @Value("${trending-upvote-threshold}")
     private int questionUpvoteThreshold;
@@ -48,12 +48,14 @@ public class RecommendationController {
             List<Question> questionNodes = recommendationService.getTrendingQuestionsForUser(username);
             questionNodes
                     .stream()
+                    .peek(question -> log.info("Question nodes is {}", question))
                     .filter(question -> question.getUpvote() >= questionUpvoteThreshold)
                     .collect(Collectors.toList())
                     .forEach(question -> questionDocuments.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
             List<QuestionRequested> trendingDocuments = questionDocuments
                     .stream()
                     .filter(questionRequested -> questionRequested.getAnswerDocuments().size() >= numberOfAnswersThreshold)
+                    .peek(questionRequested -> log.info(" Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
         } catch (Exception e) {

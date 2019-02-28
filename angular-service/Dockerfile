@@ -1,17 +1,17 @@
 FROM node:carbon
 
-WORKDIR /app 
+WORKDIR /app
 
-COPY . . 
+COPY . .
 
 RUN ls -la
 
-RUN npm install 
+RUN npm install
 
-RUN npm run build 
+RUN npm run build
 
-RUN npm install -g http-server 
+RUN npm install -g http-server
 
-WORKDIR /app/dist/angular-service
+WORKDIR /app/dist/AngularService
 
 CMD ["http-server", "-p", "8000"]

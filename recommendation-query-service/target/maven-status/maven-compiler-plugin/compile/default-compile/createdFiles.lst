@@ -3,6 +3,7 @@ com/stackroute/recommendationservice/model/CommentRequested.class
 com/stackroute/recommendationservice/controller/RecommendationController.class
 com/stackroute/recommendationservice/model/QuestionRequested$QuestionRequestedBuilder.class
 com/stackroute/recommendationservice/RecommendationServiceApplication.class
+com/stackroute/recommendationservice/model/User$UserBuilder.class
 com/stackroute/recommendationservice/model/Answer.class
 com/stackroute/recommendationservice/model/QuestionRequested.class
 com/stackroute/recommendationservice/model/Question.class

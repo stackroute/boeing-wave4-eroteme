@@ -139,6 +139,21 @@ services:
     healthcheck:
       test: "exit 0"
 
+  notification-service:
+    image: notification-service
+    build: ./notification-service/
+    container_name: notification_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8010:8010
+    expose:
+      - 8010
+    healthcheck:
+      test: "exit 0"
+
+
   question-answer-service:
     image: question-answer-service
     build: ./question-answer-service/
@@ -156,9 +171,28 @@ services:
       rabbitmq:
         condition: service_healthy
     ports:
-      - 8080:8080
+      - 8090:8090
     expose:
-      - 8080
+      - 8090
+    healthcheck:
+      test: "exit 0"
+
+  recommendation-query-service:
+    image: recommendation-query-service
+    build: ./recommendation-query-service/
+    container_name: recommendation-query_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
     healthcheck:
       test: "exit 0"
 
@@ -177,7 +211,48 @@ services:
     expose:
       - 8000
 
+  recommendation-command-service:
+    build: ./recommendation-command-service/
+    image: recommendation-command-service
+    container_name: recommendation-command_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    healthcheck:
+      test: "exit 0"
 
+  json-server1: 
+    container_name: json-server1
+    image: clue/json-server
+    volumes:
+      - ${DIR}/trendingQues.json:/data/db.json
+    ports: 
+      - 8050:80 
+
+  json-server2: 
+    container_name: json-server2
+    image: clue/json-server
+    volumes:
+      - ${DIR}/unansweredQues.json:/data/db.json
+    ports: 
+      - 8051:80 
+
+  json-server3: 
+    container_name: json-server3
+    image: clue/json-server
+    volumes:
+      - ${DIR}/User.json:/data/db.json
+    ports:
+      - 8052:80
+    healthcheck:
+      test: "exit 0"
 
 
 
