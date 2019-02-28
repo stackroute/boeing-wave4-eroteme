@@ -10,7 +10,7 @@ public class NotificationController {
 
     @Autowired
     private SimpMessagingTemplate template;
-
+  //notifies all the users sent by recommendation service regarding question which has been posted
     @Scheduled(fixedDelay = 6000)
     public void generateQuestionNotification() {
         String[] user = new String[]{"nan@gmail.com", "sita"};
@@ -19,14 +19,14 @@ public class NotificationController {
             template.convertAndSend("/queue/" + user[i], "Can you answer this:" + Question);
         }
     }
-
+    //notifies the user that your question has been answered
     @Scheduled(fixedDelay = 7000)
     public void generateAnswerNotification() {
         String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
     }
-
+    //notifies the user that thier answer has been accepted
     @Scheduled(fixedDelay = 8000)
     public void generateLikedNotification() {
         String user = "nan@gmail.com";
