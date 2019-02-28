@@ -1,0 +1,38 @@
+<mat-card *ngIf="isLoggedIn==false" class="my-card">
+   <mat-toolbar style="background-color:#06B5D3;">
+      <p>Login
+      </p>
+   </mat-toolbar>
+   <mat-card-content>
+      <form class="my-form">
+         <mat-form-field class="full-width">
+            <mat-label>Email</mat-label><br>
+            <input matInput placeholder="email" [formControl]="email" required>
+         </mat-form-field><br>
+         <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="password" [formControl]="password" required>
+         </mat-form-field><br>
+         <mat-card-actions>
+            <button mat-raised-button (click)="validate()" color="primary">Login</button>
+            <!-- </mat-card-actions> -->
+            <!-- <p>Register With us</p> -->
+            <!-- <mat-card-actions> -->
+            <button mat-raised-button (click)="signup()" color="primary"> Signup </button>
+         </mat-card-actions>
+      </form><br>
+
+   </mat-card-content>
+   <mat-toolbar *ngIf="this.isLoginFailed == true">
+      Invalid username or password
+   </mat-toolbar><br>
+</mat-card>
+
+
+
+<!-- <mat-card *ngIf="isLoggedIn==true" class="my-card">
+   <mat-card-actions>
+      <button mat-raised-button (click)="home()" color="primary"> Login </button> -->
+      <!-- <a  href="home"> Login </a> -->
+   <!-- </mat-card-actions> -->
+<!-- </mat-card> -->

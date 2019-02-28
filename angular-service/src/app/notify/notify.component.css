@@ -1,0 +1,13 @@
+.cards{
+    border-radius: 1%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+.cards:hover{
+    background-color:rgb(223, 223, 240);
+}
+
+.texxt{
+    color: white;
+}

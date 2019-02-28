@@ -1,0 +1,14 @@
+server:
+  context-path: /question
+  port: 8090
+spring:
+  application:
+    name: BootMongo
+  data:
+    mongodb:
+      database: ques_db
+      host: localhost
+      port: 27017
+  rabbitmq:
+    host: localhost
+    port: 5672

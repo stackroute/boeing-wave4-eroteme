@@ -1,0 +1,24 @@
+
+.my-form{
+    min-width: 100px;
+    max-width: 500px;
+    width: 98%;
+    margin-left:10%;
+    
+  }
+  .mat-toolbar{
+    max-width: 500px;
+    margin-left:10%;
+    min-width: 100px;
+  }
+.my-card{
+    /* max-width: 500px;
+    min-width: 100px; */
+    padding-top: 6%;
+    padding-left:20%; 
+    padding-right:20%; 
+    padding-bottom: 8%; 
+}
+.full-width {
+    width: 100%;
+  }
