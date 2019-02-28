@@ -1,3 +1,11 @@
 server:
   port: 8010
-
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+jsa:
+  rabbitmq:
+    queue: jsa.queue1
+    exchange: jsa.direct1
+    routingkey: jsa.routingkey1

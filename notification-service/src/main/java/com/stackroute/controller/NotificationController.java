@@ -1,5 +1,8 @@
 package com.stackroute.controller;
 
+import com.stackroute.domain.Answer;
+import com.stackroute.domain.QuestionDTO;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -7,7 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationController {
-
+    @RabbitListener(queues="${jsa.rabbitmq.queue}")
+    public void receivedMessage(QuestionDTO msg) {
+        System.out.println("Received Message: " + msg);
+//        System.out.println(msg.getAction());
+//        System.out.println(msg.getQuestion());
+//        System.out.println(msg.getUser());
+//        Answer answer = msg.getAnswer().get(0);
+    }
     @Autowired
     private SimpMessagingTemplate template;
   //notifies all the users sent by recommendation service regarding question which has been posted
@@ -20,8 +30,8 @@ public class NotificationController {
         }
     }
     //notifies the user that your question has been answered
-    @Scheduled(fixedDelay = 7000)
-    public void generateAnswerNotification() {
+
+    public void generateAnswerNotification(QuestionDTO questionDTO) {
         String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
