@@ -29,12 +29,17 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
     }
 
-    //Controller method to put question description
-    @PutMapping("question/{questionId}")
-    public ResponseEntity<?> addDescription(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
-        questionService.addQuestionDescription(questionId, question.getDescription());
-        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
+    @GetMapping("{questionId}")
+    public ResponseEntity<?> getQuestion(@PathVariable int questionId) throws QuestionNotFoundException{
+        return new ResponseEntity<Question>(questionService.getQuestion(questionId),HttpStatus.FOUND);
     }
+
+//    //Controller method to put question description
+//    @PutMapping("question/{questionId}")
+//    public ResponseEntity<?> addDescription(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
+//        questionService.addQuestionDescription(questionId, question.getDescription());
+//        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
+//    }
 
     //Controller method to put answer to a question
     @PutMapping("question/answer/{questionId}")

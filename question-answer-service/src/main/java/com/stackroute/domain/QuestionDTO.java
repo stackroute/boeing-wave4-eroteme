@@ -4,21 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Document
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question{
-
-    //Variables
-    @Id
+public class QuestionDTO {
+    private int action;
     private int questionId;
     private String question;
     private String description;

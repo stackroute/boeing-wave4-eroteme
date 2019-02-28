@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment implements Serializable {
+public class Comment{
     private String comment;
     private long timestamp;
     private long likes;

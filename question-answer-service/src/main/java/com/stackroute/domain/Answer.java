@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Answer implements Serializable {
+public class Answer{
     private String answer;
     private boolean accepted;
     private int upvotes;

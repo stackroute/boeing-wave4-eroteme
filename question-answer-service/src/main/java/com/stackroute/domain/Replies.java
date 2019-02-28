@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Replies implements Serializable {
+public class Replies{
     private String reply;
     private long likes;
     private long timestamp;
