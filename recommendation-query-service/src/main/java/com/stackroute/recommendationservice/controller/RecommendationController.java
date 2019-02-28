@@ -65,13 +65,20 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    @GetMapping("/notifyUsers")
-    public ResponseEntity<List<User>> getAllUsersOfTopic(@RequestBody Question question) {
+    /**
+     * @param questionId Question Id of the posted question
+     * @return List of users who will be notified
+     */
+
+    @GetMapping("/notify")
+    public ResponseEntity<List<User>> getAllUsersToBeNotified(@RequestParam long questionId) {
         ResponseEntity<List<User>> responseEntity;
         List<User> users;
         try {
-            users = recommendationService.getAllUsersRelatedToQuestion(question.getQuestionId());
-            users = users.stream().filter(user -> user.getReputation() >= reputationNeeded).collect(Collectors.toList());
+            users = recommendationService.getAllUsersRelatedToQuestion(questionId)
+                    .stream()
+                    .filter(user -> user.getReputation() >= reputationNeeded)
+                    .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,13 +87,18 @@ public class RecommendationController {
         return responseEntity;
     }
 
+    /**
+     * @param username Username of the loggedin user
+     * @return List of unanswered questions
+     */
     @GetMapping("/unanswered/{username}")
     public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestions(@PathVariable String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionRequested = new ArrayList<>();
         try {
             List<Question> unansweredQuestions = recommendationService.getAllUnansweredQuestions(username);
-            unansweredQuestions.forEach(question -> questionRequested.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
+            unansweredQuestions.forEach(question ->
+                    questionRequested.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
             responseEntity = new ResponseEntity<>(questionRequested, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,21 +106,5 @@ public class RecommendationController {
         }
         return responseEntity;
     }
-
-    // This method is added only for testing purpose
-    @PostMapping(value = "/question")
-    public ResponseEntity<String> addNewTrack(@RequestBody QuestionRequested questionRequested) {
-        ResponseEntity<String> responseEntity;
-        try {
-            recommendationService.insertIntoDb(questionRequested);
-            responseEntity = new ResponseEntity<>("Question Added Sucessfully", HttpStatus.OK);
-        } catch (Exception e) {
-            responseEntity = new ResponseEntity<>("Error Occured While Adding Question", HttpStatus.NOT_FOUND);
-        }
-        return responseEntity;
-    }
-
-
-
 }
 

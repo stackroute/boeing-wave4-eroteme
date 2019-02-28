@@ -38,19 +38,15 @@ public class RecommendationControllerTest {
     private static final QuestionRequested QUESTION_DOCUMENT_ONE = QuestionRequested.builder().questionId(3)
             .answerDocuments(Arrays.asList(ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED))
             .build();
-    private static final Question QUESTION_TEST = Question.builder().questionId(QUESTION_ID).build();
     private static final User USER = User.builder().username("Sunidhi").reputation(100).build();
     private static final QuestionRequested QUESTION_DOCUMENT_TWO = QuestionRequested.builder()
             .answerDocuments(Collections.singletonList(ANSWER_REQUESTED)).build();
     private static final String USERNAME = "USERNAME";
     private static final String USERNAME1 = "USERNAME1";
-
-    private static final String TOPIC = "TOPIC";
     @MockBean
     private RecommendationServiceImpl recommendationService;
     @MockBean
     private UserRepository userRepository;
-
     @MockBean
     private QuestionDocumentRepository questionDocumentRepository;
     @Autowired
@@ -58,12 +54,13 @@ public class RecommendationControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private static String asJsonString(final Object obj) {
+    private String asJsonString(Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return "";
         }
     }
 
@@ -120,7 +117,7 @@ public class RecommendationControllerTest {
     @Test
     public void testForTopicRelatedUsersArePresent() throws Exception {
         when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.singletonList(USER));
-        mockMvc.perform(MockMvcRequestBuilders.get("/notifyUsers", QUESTION_ONE)
+        mockMvc.perform(MockMvcRequestBuilders.get("/notify?questionId=3")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -129,7 +126,7 @@ public class RecommendationControllerTest {
     @Test
     public void testForTopicRelatedUsersAreNotPresent() throws Exception {
         when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.get("/notifyUsers", QUESTION_ONE)
+        mockMvc.perform(MockMvcRequestBuilders.get("/notify?questionId=3")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -154,6 +151,4 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
-
-
 }

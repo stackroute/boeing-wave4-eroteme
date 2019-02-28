@@ -17,7 +17,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class RecommendationServiceImplTest {
     private static final String USER = "USER";
-    private static final String TOPIC = "TOPIC";
     private static final int QUESTION_ID = 10;
     private static final Question QUESTION = Question.builder().questionId(QUESTION_ID).build();
     @Mock
