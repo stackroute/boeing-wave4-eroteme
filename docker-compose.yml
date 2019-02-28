@@ -216,8 +216,6 @@ services:
     image: recommendation-command-service
     container_name: recommendation-command_docker
     restart: always
-    volumes:
-    #      - /DB/neo4j:/data/db
     network_mode: host
     hostname: localhost
     depends_on:
