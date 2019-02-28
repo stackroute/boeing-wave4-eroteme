@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/issues/stackroute/boeing-wave4-eroteme.svg?style=popout)
 
 ![](https://img.shields.io/github/contributors/stackroute/boeing-wave4-eroteme.svg?style=popout)
-![](https://img.shields.io/github/last-commit/stackroute/boeing-wave4-eroteme.svg?style=popout&branch=v1.0.1)
+![](https://img.shields.io/github/last-commit/stackroute/boeing-wave4-eroteme/v1.0.1.svg?style=popout&branch=v1.0.1)
 
 ![](https://img.shields.io/github/repo-size/stackroute/boeing-wave4-eroteme.svg?style=popout)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
