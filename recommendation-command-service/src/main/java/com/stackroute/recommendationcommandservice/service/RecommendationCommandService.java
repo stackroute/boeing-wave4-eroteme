@@ -32,38 +32,38 @@ public interface RecommendationCommandService {
 //    void deleteAnswers(long answerId);
 
 
-    User userfollowstopic(String userName, String Name);
+    User userFollowsTopic(String userName, String Name);
 
 
     User getByUser(int reputation);
 
 
-    Question questionbelongstopic(int questionId, String Name);
+    Question questionBelongsTopic(int questionId, String Name);
 
 
-    User useransweredanswer(String userName, int answerId);
+    User userAnsweredAnswer(String userName, int answerId);
 
 
-    User userviewedquestion(String userName, int questionId);
+    User userViewedQuestion(String userName, int questionId);
 
 
-    Answer answerisanswerofquestion(int answerId, int questionId);
+    Answer answerIsAnswerOfQuestion(int answerId, int questionId);
 
 
-    User useraskedquestion(String userName, int questionId);
+    User userAskedQuestion(String userName, int questionId);
 
 
-    User useracceptedanswer(String userName, int answerId);
+    User userAcceptedAnswer(String userName, int answerId);
 
 
-    User userupvotedanswer(String userName, int answerId);
+    User userUpvotedAnswer(String userName, int answerId);
 
 
-    User userdownvotedanswer(String userName, int answerId);
+    User userDownvotedAnswer(String userName, int answerId);
 
 
-    User userupvotequestion(String userName, int questionId);
+    User userUpvoteQuestion(String userName, int questionId);
 
-    User userdownvotequestion(String userName, int questionId);
+    User userDownvoteQuestion(String userName, int questionId);
 
 }

@@ -17,16 +17,16 @@ export class TransferServiceService {
 
 
   loaditems() {
-    return this.http.get("http://localhost:8050/trendingQues");
+    return this.http.get("http://52.66.134.21:8050/trendingQues");
 }
 
 
 loaditems1() {
-  return this.http.get("http://localhost:8051/unansweredQues");
+  return this.http.get("http://52.66.134.21:8051/unansweredQues");
 }
 
 loaditems2() {
-  return this.http.get("http://localhost:8052/User");
+  return this.http.get("http://52.66.134.21:8052/User");
 }
 
 }
