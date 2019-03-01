@@ -1,9 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import {TransferServiceService} from '../transfer-service.service';
 @Component({
-  selector: 'app-question-answer-card',
-  templateUrl: './question-answer-card.component.html',
-  styleUrls: ['./question-answer-card.component.css']
+  selector: 'app-question-answerDTO-card',
+  templateUrl: './question-answerDTO-card.component.html',
+  styleUrls: ['./question-answerDTO-card.component.css']
 })
 export class QuestionAnswerCardComponent implements OnInit {
 
@@ -28,8 +28,8 @@ export class QuestionAnswerCardComponent implements OnInit {
     this.vote=this.present.upvote-this.present.downvote;
   }
 
-  toggle(answer){
-    this.ans=answer;
+  toggle(answerDTO){
+    this.ans=answerDTO;
     if(this.showAllCommentsAnswer==='Hide Details'){
       this.showAllCommentsAnswer='Show Details';
     }else{
@@ -81,22 +81,22 @@ export class QuestionAnswerCardComponent implements OnInit {
   }
 
   upvoteAnswer(){
-    console.log('answer upvote');
+    console.log('answerDTO upvote');
   }
 
   downvoteAnswer(){
-    console.log('downvote answer')
+    console.log('downvote answerDTO')
   }
 
   commentAnswer(){
-    console.log('comment on answer');
+    console.log('comment on answerDTO');
   }
 
   replyAnswerComment(){
-    console.log('reply to comment of answer');
+    console.log('reply to comment of answerDTO');
   }
 
   postanswer(){
-    console.log('post answer for the question');
+    console.log('post answerDTO for the question');
   }
 }

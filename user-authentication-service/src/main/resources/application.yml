@@ -21,4 +21,4 @@ spring:
         port: 5672
 
     application:
-          name: user-authentication-service
+      name: userDTO-authentication-service

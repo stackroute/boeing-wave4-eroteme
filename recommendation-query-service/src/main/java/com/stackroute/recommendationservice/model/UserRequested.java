@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document("user")
+@Document("userDTO")
 public class UserRequested {
     @Id
     private String username;

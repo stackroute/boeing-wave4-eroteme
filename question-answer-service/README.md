@@ -10,7 +10,7 @@ topics:list<string>,
 upvotes:integer
 timestamp:long
 downvote:integer,
-user:{
+userDTO:{
      firstname:string,
      emailaddress:string,
      imageurl:string
@@ -20,7 +20,7 @@ comments:[
 	   comment:string,
 	   timestamp:long,
 	   likes:integer,
-           user:{
+           userDTO:{
                  firstname:string,
                  emailaddress:string,
                  imageurl:string
@@ -30,7 +30,7 @@ comments:[
 		    reply:string,
 		    likes:integer,
 		    timestamp:long,
-                    user:{
+                    userDTO:{
                           firstname:string,
                           emailaddress:string,
                           imageurl:string
@@ -41,12 +41,12 @@ comments:[
 	],
 answers:[
 	  {
-	   answer:string,
+	   answerDTO:string,
            accepted:boolean,
 	   upvotes:integer,
 	   views:integer,
 	   timestamp:long,
-           user:{
+           userDTO:{
                 firstname:string,
                 emailaddress:string,
                 imageurl:string
@@ -56,7 +56,7 @@ answers:[
 			comment:string,
 			timestamp:long,
 			likes:integer,
-                        user:{
+                        userDTO:{
                              firstname:string,
                              emailaddress:string,
                              imageurl:string
@@ -66,7 +66,7 @@ answers:[
 				   reply:string,
 				   likes:integer,
 				   timestamp:long,
-                                   user:{
+                                   userDTO:{
                                         firstname:string,
                                         emailaddress:string,
                                         imageurl:string

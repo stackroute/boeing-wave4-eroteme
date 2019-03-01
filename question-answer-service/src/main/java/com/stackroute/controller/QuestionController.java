@@ -41,8 +41,8 @@ public class QuestionController extends ResponseEntityExceptionHandler {
 //        return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
 //    }
 
-    //Controller method to put answer to a question
-    @PutMapping("question/answer/{questionId}")
+    //Controller method to put answerDTO to a question
+    @PutMapping("question/answerDTO/{questionId}")
     public ResponseEntity<?> addAnswer(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
         questionService.addAnswer(questionId, question.getAnswer());
         return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
@@ -62,15 +62,15 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put comment to answer
-    @PutMapping("question/answer/comment/{questionId}")
+    //Controller method to put comment to answerDTO
+    @PutMapping("question/answerDTO/comment/{questionId}")
     public ResponseEntity<?> addAnswerComment(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addAnswerComment(questionId,answer.getAnswer(),answer.getComments());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put reply to the answer comment
-    @PutMapping("question/answer/comment/reply/{questionId}")
+    //Controller method to put reply to the answerDTO comment
+    @PutMapping("question/answerDTO/comment/reply/{questionId}")
     public ResponseEntity<?> addAnswerCommentReply(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException{
         questionService.addAnswerCommentReply(questionId,answer.getAnswer(),answer.getComments());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
@@ -90,15 +90,15 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put upvote for answer
-    @PutMapping("question/answer/upvote/{questionId}")
+    //Controller method to put upvote for answerDTO
+    @PutMapping("question/answerDTO/upvote/{questionId}")
     public ResponseEntity<?> addAnswerUpvote(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addAnswerUpvote(questionId,answer.getAnswer());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put answer accept
-    @PutMapping("question/answer/accept/{questionId}")
+    //Controller method to put answerDTO accept
+    @PutMapping("question/answerDTO/accept/{questionId}")
     public ResponseEntity<?> addAnswerAccept(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
         questionService.addQuestionAnswerAccepted(questionId,answer.getAnswer());
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
@@ -111,8 +111,8 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put likes for answer comment
-    @PutMapping("question/answer/comment/likes/{questionId}")
+    //Controller method to put likes for answerDTO comment
+    @PutMapping("question/answerDTO/comment/likes/{questionId}")
     public ResponseEntity<?> addQuestionAnswerCommentLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, CommentNotFoundException, AnswerNotFoundException {
         questionService.addAnswerCommentLikes(questionId,answer);
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
@@ -125,8 +125,8 @@ public class QuestionController extends ResponseEntityExceptionHandler {
         return new ResponseEntity<String>("Successfully updated",HttpStatus.OK);
     }
 
-    //Controller method to put likes for answer comment reply
-    @PutMapping("question/answer/comment/reply/likes/{questionId}")
+    //Controller method to put likes for answerDTO comment reply
+    @PutMapping("question/answerDTO/comment/reply/likes/{questionId}")
     public ResponseEntity<?> addAnswerCommentReplyLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
         questionService.addAnswerCommentReplyLikes(questionId,answer);
         return new ResponseEntity<String>("Successfully updated", HttpStatus.OK);

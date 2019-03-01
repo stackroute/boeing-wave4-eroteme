@@ -16,17 +16,19 @@ public class NotificationController {
         String[] user = new String[]{"nan@gmail.com", "sita"};
         String Question = "What is Angular?";
         for (int i = 0; i < user.length; i++) {
-            template.convertAndSend("/queue/" + user[i], "Can you answer this:" + Question);
+            template.convertAndSend("/queue/" + user[i], "Can you answerDTO this:" + Question);
         }
     }
-    //notifies the user that your question has been answered
+
+    //notifies the userDTO that your question has been answered
     @Scheduled(fixedDelay = 7000)
     public void generateAnswerNotification() {
         String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
     }
-    //notifies the user that thier answer has been accepted
+
+    //notifies the userDTO that thier answerDTO has been accepted
     @Scheduled(fixedDelay = 8000)
     public void generateLikedNotification() {
         String user = "nan@gmail.com";

@@ -1,5 +1,5 @@
 server:
-    context-path: /user
+  context-path: /userDTO
     port: 8086
 spring:
     application:

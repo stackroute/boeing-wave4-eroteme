@@ -26,7 +26,7 @@ public class RecommendationController {
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
-    @Value("${reputation-to-answer-the-question}")
+    @Value("${reputation-to-answerDTO-the-question}")
     private int reputationNeeded;
 
     private RecommendationService recommendationService;
@@ -37,8 +37,8 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the registered user
-     * @return Trending questions for the user
+     * @param username Username of the registered userDTO
+     * @return Trending questions for the userDTO
      */
     @GetMapping("/trending")
     public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForUser(@RequestParam String username) {
@@ -88,7 +88,7 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the loggedin user
+     * @param username Username of the loggedin userDTO
      * @return List of unanswered questions
      */
     @GetMapping("/unanswered/{username}")

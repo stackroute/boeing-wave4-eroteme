@@ -11,7 +11,7 @@ import { HomesectionComponent } from './homesection/homesection.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TrendingQuestionsComponent } from './trending-questions/trending-questions.component';
 import { UnansweredQuestionsComponent } from './unanswered-questions/unanswered-questions.component';
-import { QuestionAnswerCardComponent } from './question-answer-card/question-answer-card.component';
+import { QuestionAnswerCardComponent } from './question-answerDTO-card/question-answerDTO-card.component';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 import { QuestionCardComponent } from './question-card/question-card.component';
 import { TransferServiceService } from './transfer-service.service';
