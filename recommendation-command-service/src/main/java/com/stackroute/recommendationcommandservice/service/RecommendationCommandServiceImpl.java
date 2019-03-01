@@ -25,7 +25,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         this.answerRepository = answerRepository;
     }
 
-    /*method to save user*/
+    /*method to save userDTO*/
     @Override
     public User saveUserToDb(User user) {
         userRepository.save(user);
@@ -71,7 +71,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship FOLLOWS between user and topic//
+    //method to create relationship FOLLOWS between userDTO and topic//
     @Override
     public User userFollowsTopic(String userName, String Name) {
 
@@ -96,7 +96,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship ANSWERED between user and answer//
+    //method to create relationship ANSWERED between userDTO and answerDTO//
     @Override
     public User userAnsweredAnswer(String userName, int answerId) {
 
@@ -104,7 +104,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship VIEWED between user and question//
+    //method to create relationship VIEWED between userDTO and question//
     @Override
     public User userViewedQuestion(String userName, int questionId) {
 
@@ -113,7 +113,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship ANSWER_OF between answer and question//
+    //method to create relationship ANSWER_OF between answerDTO and question//
     @Override
     public Answer answerIsAnswerOfQuestion(int answerId, int questionId) {
 
@@ -122,7 +122,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship ASKED between user and question//
+    //method to create relationship ASKED between userDTO and question//
     @Override
     public User userAskedQuestion(String userName, int questionId) {
 
@@ -130,7 +130,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
-    //method to create relationship ACCEPTED between user and answer//
+    //method to create relationship ACCEPTED between userDTO and answerDTO//
     @Override
     public User userAcceptedAnswer(String userName, int answerId) {
 
@@ -139,7 +139,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship UPVOTED between user and answer//
+    //method to create relationship UPVOTED between userDTO and answerDTO//
     @Override
     public User userUpvotedAnswer(String userName, int answerId) {
 
@@ -148,7 +148,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship DOWNVOTED between user and answer//
+    //method to create relationship DOWNVOTED between userDTO and answerDTO//
     @Override
     public User userDownvotedAnswer(String userName, int answerId) {
 
@@ -157,7 +157,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship UPVOTE between user and question//
+    //method to create relationship UPVOTE between userDTO and question//
     @Override
     public User userUpvoteQuestion(String userName, int questionId) {
 
@@ -166,7 +166,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     }
 
 
-    //method to create relationship DOWNVOTE between user and question//
+    //method to create relationship DOWNVOTE between userDTO and question//
     @Override
     public User userDownvoteQuestion(String userName, int questionId) {
 

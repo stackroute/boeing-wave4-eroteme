@@ -11,27 +11,27 @@ import java.util.Collection;
 public interface AnswerRepository extends Neo4jRepository<Answer, Long> {
 
     //method to get ANSWERS//
-    @Query("MATCH (m:Answer) RETURN m")
+    @Query("MATCH (m:AnswerDTO) RETURN m")
     Collection<Answer> getAllAnswers();
 
 
-    //method to create relationship ANSWERED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:answered]->(t)")
+    //method to create relationship ANSWERED between userDTO and answerDTO//
+    @Query("match (q:UserDTO),(t:AnswerDTO) where q.userName={username} and t.answerId={answerid} create (q)-[r:answered]->(t)")
     User userAnsweredAnswerRelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
-    //method to create relationship ACCEPTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:accepted]->(t)")
+    //method to create relationship ACCEPTED between userDTO and answerDTO//
+    @Query("match (q:UserDTO),(t:AnswerDTO) where q.userName={username} and t.answerId={answerid} create (q)-[r:accepted]->(t)")
     User userAcceptedAnswerRelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
-    //method to create relationship UPVOTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:upvoted]->(t)")
+    //method to create relationship UPVOTED between userDTO and answerDTO//
+    @Query("match (q:UserDTO),(t:AnswerDTO) where q.userName={username} and t.answerId={answerid} create (q)-[r:upvoted]->(t)")
     User userUpvotedAnswerRelationship(@Param("username") String userName, @Param("answerid") long answerId);
 
 
-    //method to create relationship DOWNVOTED between user and answer//
-    @Query("match (q:User),(t:Answer) where q.userName={username} and t.answerId={answerid} create (q)-[r:downvoted]->(t)")
+    //method to create relationship DOWNVOTED between userDTO and answerDTO//
+    @Query("match (q:UserDTO),(t:AnswerDTO) where q.userName={username} and t.answerId={answerid} create (q)-[r:downvoted]->(t)")
     User userDownvotedAnswerRelationship(@Param("username") String userName, @Param("answerid") long answerId);
 }
 
