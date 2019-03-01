@@ -8,13 +8,17 @@ import java.util.List;
 
 public interface RecommendationService {
 
-    List<Question> getAllUnansweredQuestions(String userName);
+    List<Question> getAllUnansweredQuestionsForRegisteredUser(String userName);
+
+    List<QuestionRequested> getAllUnansweredQuestionsForGuestUser();
 
     QuestionRequested getDocumentByQuestionId(long questionId);
 
     List<User> getAllUsersRelatedToQuestion(long questionID);
 
-    List<Question> getTrendingQuestionsForUser(String username);
+    List<Question> getTrendingQuestionsForRegisteredUser(String username);
+
+    List<QuestionRequested> getTrendingQuestionsForGuestUser();
 
     List<Question> getAllAcceptedAnswersOfDomain(String username);
 

@@ -1,10 +1,10 @@
 package com.stackroute.recommendationservice.controller;
 
-import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 @PropertySource(value = "classpath:trending-criteria.yml")
 public class RecommendationController {
+    @Value("${trending-timestampThreshold}")
+    private long timestampThreshold;
     @Value("${trending-upvote-threshold}")
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
@@ -37,27 +40,44 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the registered userDTO
-     * @return Trending questions for the userDTO
+     * @param username Username of the registered user
+     * @return Trending questions for the logged in user
      */
-    @GetMapping("/trending")
-    public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForUser(@RequestParam String username) {
+    @GetMapping("/member/trending")
+    public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForRegisteredUser(@RequestParam String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionDocuments = new ArrayList<>();
         try {
-            List<Question> questionNodes = recommendationService.getTrendingQuestionsForUser(username);
-            questionNodes
+            List<QuestionRequested> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
-                    .peek(question -> log.info("Question nodes is {}", question))
-                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold)
-                    .collect(Collectors.toList())
-                    .forEach(question -> questionDocuments.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
-            List<QuestionRequested> trendingDocuments = questionDocuments
-                    .stream()
+                    .peek(question -> log.info("Question node is {}", question))
+                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
                     .filter(questionRequested -> questionRequested.getAnswerDocuments().size() >= numberOfAnswersThreshold)
-                    .peek(questionRequested -> log.info(" Question document is {}", questionRequested))
+                    .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * @return Trending questions for the guest user
+     */
+    @GetMapping("/guest/trending")
+    public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForGuestUser() {
+        ResponseEntity<List<QuestionRequested>> responseEntity;
+        try {
+            List<QuestionRequested> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser()
+                    .stream()
+                    .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
+                            && document.getAnswerDocuments().size() >= numberOfAnswersThreshold
+                            && Math.abs(DateTime.now().getMillis() - document.getTimestamp()) <= timestampThreshold)
+                    .collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
@@ -70,7 +90,7 @@ public class RecommendationController {
      * @return List of users who will be notified
      */
 
-    @GetMapping("/notify")
+    @GetMapping("/member/notify")
     public ResponseEntity<List<User>> getAllUsersToBeNotified(@RequestParam long questionId) {
         ResponseEntity<List<User>> responseEntity;
         List<User> users;
@@ -88,17 +108,37 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the loggedin userDTO
-     * @return List of unanswered questions
+     * @param username Username of the registered user
+     * @return List of unanswered questions for the logged in user
      */
-    @GetMapping("/unanswered/{username}")
-    public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestions(@PathVariable String username) {
+    @GetMapping("/member/unanswered/{username}")
+    public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestionsForRegisteredUser(@PathVariable String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
         List<QuestionRequested> questionRequested = new ArrayList<>();
         try {
-            List<Question> unansweredQuestions = recommendationService.getAllUnansweredQuestions(username);
-            unansweredQuestions.forEach(question ->
-                    questionRequested.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
+            List<QuestionRequested> unansweredQuestions = recommendationService.getAllUnansweredQuestionsForRegisteredUser(username)
+                    .stream()
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
+                    .collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(unansweredQuestions, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * @return List of unanswered questions for guest user
+     */
+    @GetMapping("/guest/unanswered")
+    public ResponseEntity<List<QuestionRequested>> getAllUnansweredQuestionsForGuestUser() {
+        ResponseEntity<List<QuestionRequested>> responseEntity;
+        try {
+            List<QuestionRequested> questionRequested = recommendationService.getAllUnansweredQuestionsForGuestUser()
+                    .stream()
+                    .sorted(Comparator.comparing(QuestionRequested::getTimestamp))
+                    .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(questionRequested, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,12 +154,12 @@ public class RecommendationController {
     @GetMapping("/acceptedAnswers")
     public ResponseEntity<List<QuestionRequested>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
         ResponseEntity<List<QuestionRequested>> responseEntity;
-        List<QuestionRequested> listOfAcceptedAnswers = new ArrayList<>();
         try {
-            List<Question> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username);
-            acceptedAnswers.forEach(question ->
-                    listOfAcceptedAnswers.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
-            responseEntity = new ResponseEntity<>(listOfAcceptedAnswers, HttpStatus.OK);
+            List<QuestionRequested> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username)
+                    .stream()
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
+                    .collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(acceptedAnswers, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
