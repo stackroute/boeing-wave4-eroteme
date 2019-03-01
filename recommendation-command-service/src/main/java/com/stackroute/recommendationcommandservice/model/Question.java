@@ -21,7 +21,7 @@ public class Question {
     @Id
     private int questionId;
     private String questionString;
-    private int timestamp;
+    private long timestamp;
     private int upVote;
     private int downVote;
     @Relationship(type = "asked", direction = Relationship.INCOMING)
