@@ -9,3 +9,14 @@ spring:
     neo4j:
       password: marvel
       username: neo4j
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+jsa:
+  rabbitmq:
+    queue: jsa.queue1
+    exchange: jsa.direct1
+    routingkey: jsa.routingkey1
+questionAndAnswerUrl: http://localhost:8090/
