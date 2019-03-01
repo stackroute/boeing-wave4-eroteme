@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class NLP {
     private String originalWord;
     private String partsOfSpeech;
-
 }
