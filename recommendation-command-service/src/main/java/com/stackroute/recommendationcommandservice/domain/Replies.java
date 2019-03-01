@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Replies {
-    com.stackroute.domain.User user;
+    com.stackroute.recommendationcommandservice.domain.User user;
     private String reply;
     private long likes;
     private long timestamp;

@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Comment {
-    com.stackroute.domain.User user;
-    List<com.stackroute.domain.Replies> replies;
+    com.stackroute.recommendationcommandservice.domain.User user;
+    List<com.stackroute.recommendationcommandservice.domain.Replies> replies;
     private String comment;
     private long timestamp;
     private long likes;

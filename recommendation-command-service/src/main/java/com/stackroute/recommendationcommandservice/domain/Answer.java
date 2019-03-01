@@ -1,4 +1,4 @@
-package com.stackroute.domain;
+package com.stackroute.recommendationcommandservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Answer {
-    com.stackroute.domain.User user;
-    List<com.stackroute.domain.Comment> comments;
+    com.stackroute.recommendationcommandservice.domain.User user;
+    List<com.stackroute.recommendationcommandservice.domain.Comment> comments;
     private String answer;
     private boolean accepted;
     private int upvotes;
