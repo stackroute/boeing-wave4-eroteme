@@ -92,7 +92,7 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     //Controller method to put answer accept
     @PutMapping("question/answer/accept/{questionId}")
     public ResponseEntity<Question> addAnswerAccept(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException, AnswerNotFoundException {
-        return new ResponseEntity<Question>(questionService.addAnswerUpvote(questionId,answer.getAnswer()),HttpStatus.OK);
+        return new ResponseEntity<Question>(questionService.addQuestionAnswerAccepted(questionId,answer.getAnswer()),HttpStatus.OK);
     }
 
     //Controller method to put likes for question comment
@@ -120,5 +120,11 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<Question> addAnswerCommentReplyLikes(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
 
         return new ResponseEntity<Question>(questionService.addAnswerCommentReplyLikes(questionId,answer), HttpStatus.OK);
+    }
+
+    //Controller method to get all the questions in database
+    @GetMapping("questions")
+    public ResponseEntity<?> getAllQuestions() {
+        return new ResponseEntity<>(questionService.getAllQuestions(),HttpStatus.FOUND);
     }
 }

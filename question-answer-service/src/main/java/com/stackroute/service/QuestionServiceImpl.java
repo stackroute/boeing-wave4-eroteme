@@ -3,14 +3,12 @@ package com.stackroute.service;
 import com.stackroute.QuestionanswerserviceApplication;
 import com.stackroute.domain.*;
 import com.stackroute.exceptions.*;
-
 import com.stackroute.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Slf4j
@@ -497,6 +495,11 @@ public class QuestionServiceImpl implements QuestionService{
         else {
             throw new QuestionNotFoundException("Question does not exists");
         }
+    }
+
+    @Override
+    public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
     }
 
     //RabbitMq message producer method

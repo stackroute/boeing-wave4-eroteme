@@ -51,11 +51,6 @@ public class NlpServiceImpl implements NlpService{
 
     }
 
-//    String[] domainSpecificTopics = {"Fundamentals and Architecture","pipes","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"};
-
-//    public static void main(String[] args) {
-//
-//    }
 
 
     public String setquestion(String question) {
@@ -161,32 +156,7 @@ public class NlpServiceImpl implements NlpService{
         return conceptName;
     }
 
-    public void showAllResults() {
-        System.out.println("Get Cleared Paragraph");
-        String clearedParagraph = getCleanQuestion();
-        System.out.println(clearedParagraph);
 
-        System.out.println("Lemmitization");
-        ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
-        System.out.println(allLemmas);
-
-        System.out.println("Stop Word Removal");
-        ArrayList<String> allStopWords = new ArrayList<>(getremoveStopWords());
-        System.out.println(allStopWords);
-
-        System.out.println("Stop Word Removal from sentence");
-        String allremovedWords = getSentenceWithoutStopWords();
-        System.out.println(allremovedWords);
-
-        System.out.println("POS TAGGING");
-        ArrayList<NLP> nlp = new ArrayList<>(getPOSWords());
-        System.out.println(nlp);
-
-        System.out.println("Get Topic Name");
-        System.out.println(getDomainSpecificTopicName());
-
-    }
-    //
     // RabbitMq message producer method
     public void produceMsg(List<String> msg){
         log.info("Sending message");
