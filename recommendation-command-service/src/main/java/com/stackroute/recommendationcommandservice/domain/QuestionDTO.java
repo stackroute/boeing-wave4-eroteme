@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class QuestionDTO {
-    com.stackroute.recommendationcommandservice.domain.User user;
-    List<com.stackroute.recommendationcommandservice.domain.Comment> comment;
-    List<com.stackroute.recommendationcommandservice.domain.Answer> answer;
+    UserDTO user;
+    List<CommentDTO> comment;
+    List<AnswerDTO> answer;
     private int action;
     private int questionId;
     private String question;

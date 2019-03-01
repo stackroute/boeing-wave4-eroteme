@@ -15,9 +15,9 @@ import java.util.List;
 @Builder
 public class Question {
 
-    com.stackroute.recommendationcommandservice.domain.User user;
-    List<com.stackroute.recommendationcommandservice.domain.Comment> comment;
-    List<com.stackroute.recommendationcommandservice.domain.Answer> answer;
+    UserDTO user;
+    List<CommentDTO> comment;
+    List<AnswerDTO> answer;
     //Variables
     @Id
     private int questionId;
