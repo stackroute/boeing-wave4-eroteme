@@ -113,10 +113,10 @@ BufferedReader br;
 ////				topics.add(metadata[1]);
 ////			}
 //			long timestamp = Long.parseLong(metadata[2]);
-//			User user = new User(metadata[3],metadata[4],metadata[5]);
+//			User userDTO = new User(metadata[3],metadata[4],metadata[5]);
 ////		int price = Integer.parseInt(metadata[1]);
 ////		String author = metadata[2];
-////    public Question(final String question, final String description, final List<String> topics, final int upvotes, final long timestamp, final int downvotes, final User user, final List<Comment> comment, final List<Answer> answer) {
+////    public Question(final String question, final String description, final List<String> topics, final int upvotes, final long timestamp, final int downvotes, final User userDTO, final List<Comment> comment, final List<Answer> answerDTO) {
 //			Question questions=new Question(question,null,0,timestamp,0,null,null);
 //			// create and return question of this metadata
 ////			private String question;

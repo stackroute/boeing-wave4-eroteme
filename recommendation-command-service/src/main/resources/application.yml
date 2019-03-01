@@ -1,8 +1,16 @@
 server:
   port: 8080
+  rabbitmq:
+    host: localhost
+    port: 5672
 spring:
   data:
     neo4j:
       uri: bolt://localhost
       username: neo4j
       password: marvel
+jsa:
+  rabbitmq:
+    queue: jsa.queue1
+    exchange: jsa.direct1
+    routingkey: jsa.routingkey1

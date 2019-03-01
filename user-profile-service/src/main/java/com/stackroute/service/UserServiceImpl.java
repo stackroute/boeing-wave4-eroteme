@@ -6,8 +6,6 @@ import com.stackroute.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,14 +22,14 @@ public class UserServiceImpl implements UserService {
 
 
     /*
-    save user in db
+    save userDTO in db
      */
 
     @Override
     public User saveUser(User user) throws UserAlreadyExistsException {
 
         if(userRepository.existsById(user.getEmail())){
-            throw new UserAlreadyExistsException("user already exists");
+            throw new UserAlreadyExistsException("userDTO already exists");
         }
 
         User savedUser = userRepository.save(user);

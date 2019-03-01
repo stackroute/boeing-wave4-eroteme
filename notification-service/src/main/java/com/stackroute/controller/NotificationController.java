@@ -1,8 +1,5 @@
 package com.stackroute.controller;
 
-import com.stackroute.domain.Answer;
-import com.stackroute.domain.QuestionDTO;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,14 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationController {
-    @RabbitListener(queues="${jsa.rabbitmq.queue}")
-    public void receivedMessage(QuestionDTO msg) {
-        System.out.println("Received Message: " + msg);
-//        System.out.println(msg.getAction());
-//        System.out.println(msg.getQuestion());
-//        System.out.println(msg.getUser());
-//        Answer answer = msg.getAnswer().get(0);
-    }
+
     @Autowired
     private SimpMessagingTemplate template;
   //notifies all the users sent by recommendation service regarding question which has been posted
@@ -26,17 +16,19 @@ public class NotificationController {
         String[] user = new String[]{"nan@gmail.com", "sita"};
         String Question = "What is Angular?";
         for (int i = 0; i < user.length; i++) {
-            template.convertAndSend("/queue/" + user[i], "Can you answer this:" + Question);
+            template.convertAndSend("/queue/" + user[i], "Can you answerDTO this:" + Question);
         }
     }
-    //notifies the user that your question has been answered
 
-    public void generateAnswerNotification(QuestionDTO questionDTO) {
+    //notifies the userDTO that your question has been answered
+    @Scheduled(fixedDelay = 7000)
+    public void generateAnswerNotification() {
         String user = "nan@gmail.com";
         String Question = "What is Angular?";
         template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
     }
-    //notifies the user that thier answer has been accepted
+
+    //notifies the userDTO that thier answerDTO has been accepted
     @Scheduled(fixedDelay = 8000)
     public void generateLikedNotification() {
         String user = "nan@gmail.com";

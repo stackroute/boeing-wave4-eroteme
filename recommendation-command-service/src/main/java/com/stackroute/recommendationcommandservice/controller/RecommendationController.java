@@ -24,12 +24,12 @@ public class RecommendationController {
     }
 
     //method to add USER//
-    @PostMapping("/user")
+    @PostMapping("/userDTO")
     public ResponseEntity<String> addUser(@RequestBody User user) {
 
         try {
             homeService.saveUserToDb(user);
-            responseEntity = new ResponseEntity<String>("User saved sucessfully", HttpStatus.OK);
+            responseEntity = new ResponseEntity<String>("UserDTO saved sucessfully", HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,11 +55,11 @@ public class RecommendationController {
     }
 
     //method to add ANSWER//
-    @PostMapping("/answer")
+    @PostMapping("/answerDTO")
     public ResponseEntity<String> addAnswer(@RequestBody Answer answer) {
         try {
             homeService.saveAnswerToDb(answer);
-            responseEntity = new ResponseEntity<String>("Answer saved sucessfully", HttpStatus.OK);
+            responseEntity = new ResponseEntity<String>("AnswerDTO saved sucessfully", HttpStatus.OK);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class RecommendationController {
     public ResponseEntity<Collection<User>> getAllUsers() {
         ResponseEntity<Collection<User>> responseEntity;
         try {
-            log.info("Fetching user nodes");
+            log.info("Fetching userDTO nodes");
             responseEntity = new ResponseEntity(homeService.getUsers(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class RecommendationController {
     public ResponseEntity<Collection<Answer>> getAllAnswers() {
         ResponseEntity<Collection<Answer>> responseEntity;
         try {
-            log.info("Fetching answer nodes");
+            log.info("Fetching answerDTO nodes");
             responseEntity = new ResponseEntity(homeService.getAnswers(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,7 +114,7 @@ public class RecommendationController {
 
 
     //method to get USER using REPUTATION//
-    @GetMapping("/user/{reputation}")
+    @GetMapping("/userDTO/{reputation}")
     public ResponseEntity<User> getUserByReputation(@PathVariable int reputation) {
 
         try {
@@ -128,7 +128,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship FOLLOWS between user and topic//
+    //method to create relationship FOLLOWS between userDTO and topic//
     @GetMapping("/follows/{userName}/{name}")
     public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
         try {
@@ -158,7 +158,7 @@ public class RecommendationController {
     }
 
 
-    //method to create relationship ANSWERED between user and answer//
+    //method to create relationship ANSWERED between userDTO and answerDTO//
     @GetMapping("/answered/{userName}/{answerId}")
     public ResponseEntity<User> CreateRelationshipanswered(@PathVariable String userName, @PathVariable int answerId) {
         try {
@@ -172,7 +172,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship VIEWED between user and question//
+    //method to create relationship VIEWED between userDTO and question//
     @GetMapping("/viewed/{userName}/{questionId}")
     public ResponseEntity<User> CreateRelationshipviewed(@PathVariable String userName, @PathVariable int questionId) {
         try {
@@ -187,7 +187,7 @@ public class RecommendationController {
     }
 
 
-    //method to create relationship ANSWER_OF between answer and question//
+    //method to create relationship ANSWER_OF between answerDTO and question//
     @GetMapping("/answerof/{answerId}/{questionId}")
     public ResponseEntity<Answer> CreateRelationshipanswerof(@PathVariable int answerId, @PathVariable int questionId) {
         try {
@@ -202,7 +202,7 @@ public class RecommendationController {
     }
 
 
-    //method to create relationship ASKED between user and question//
+    //method to create relationship ASKED between userDTO and question//
     @GetMapping("/asked/{userName}/{questionId}")
     public ResponseEntity<User> CreateRelationshipasked(@PathVariable String userName, @PathVariable int questionId) {
         try {
@@ -216,7 +216,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship ACCEPTED between user and answer//
+    //method to create relationship ACCEPTED between userDTO and answerDTO//
     @GetMapping("/accepted/{userName}/{answerId}")
     public ResponseEntity<User> CreateRelationshipaccepted(@PathVariable String userName, @PathVariable int answerId) {
         try {
@@ -231,7 +231,7 @@ public class RecommendationController {
     }
 
 
-    //method to create relationship UPVOTED between user and answer//
+    //method to create relationship UPVOTED between userDTO and answerDTO//
     @GetMapping("/upvoted/{userName}/{answerId}")
     public ResponseEntity<User> CreateRelationshipupvoted(@PathVariable String userName, @PathVariable int answerId) {
         try {
@@ -245,7 +245,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship DOWNVOTED between user and answer//
+    //method to create relationship DOWNVOTED between userDTO and answerDTO//
     @GetMapping("/downvoted/{userName}/{answerId}")
     public ResponseEntity<User> CreateRelationshipdownvoted(@PathVariable String userName, @PathVariable int answerId) {
         try {
@@ -259,7 +259,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship UPVOTE between user and question//
+    //method to create relationship UPVOTE between userDTO and question//
     @GetMapping("/Upvoted/{userName}/{questionId}")
     public ResponseEntity<User> CreateRelationshipUpvoted(@PathVariable String userName, @PathVariable int questionId) {
         try {
@@ -273,7 +273,7 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    //method to create relationship DOWNVOTE between user and question//
+    //method to create relationship DOWNVOTE between userDTO and question//
     @GetMapping("/Downvoted/{userName}/{questionId}")
     public ResponseEntity<User> CreateRelationshipDownvoted(@PathVariable String userName, @PathVariable int questionId) {
         try {

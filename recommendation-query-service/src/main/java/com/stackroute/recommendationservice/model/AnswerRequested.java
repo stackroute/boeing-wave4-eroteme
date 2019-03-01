@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Data
-@Document("answer")
+@Document("answerDTO")
 @Builder
 public class AnswerRequested {
     UserRequested userRequested;

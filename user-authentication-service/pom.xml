@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<packaging>war</packaging>
-	<name>user-authentication-service</name>
+    <name>userDTO-authentication-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
