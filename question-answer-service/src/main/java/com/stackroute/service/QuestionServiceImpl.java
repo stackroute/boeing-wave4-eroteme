@@ -499,6 +499,11 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
+    @Override
+    public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
+    }
+
     //RabbitMq message producer method
     public void produceMsg(QuestionDTO msg){
         log.info("Sending message");
