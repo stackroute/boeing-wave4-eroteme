@@ -106,5 +106,25 @@ public class RecommendationController {
         }
         return responseEntity;
     }
+
+    /**
+     * @param username Username of the loggedin user
+     * @return List of Accepted answers of the domain which user follows
+     */
+    @GetMapping("/acceptedAnswers")
+    public ResponseEntity<List<QuestionRequested>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
+        ResponseEntity<List<QuestionRequested>> responseEntity;
+        List<QuestionRequested> listOfAcceptedAnswers = new ArrayList<>();
+        try {
+            List<Question> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username);
+            acceptedAnswers.forEach(question ->
+                    listOfAcceptedAnswers.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
+            responseEntity = new ResponseEntity<>(listOfAcceptedAnswers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
+        }
+        return responseEntity;
+    }
 }
 
