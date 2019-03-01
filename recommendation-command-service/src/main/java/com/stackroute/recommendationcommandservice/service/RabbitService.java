@@ -1,6 +1,6 @@
 package com.stackroute.recommendationcommandservice.service;
 
-import com.stackroute.domain.QuestionDTO;
+import com.stackroute.recommendationcommandservice.domain.QuestionDTO;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
