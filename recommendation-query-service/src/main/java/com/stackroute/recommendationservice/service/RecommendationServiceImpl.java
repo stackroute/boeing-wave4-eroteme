@@ -1,6 +1,5 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.model.AnswerRequested;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
@@ -58,8 +57,8 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
-    public List<AnswerRequested> getAllAcceptedAnswerOfDomain(String userName) {
-        return null;
+    public List<Question> getAllAcceptedAnswersOfDomain(String username) {
+        return userRepository.getAllAcceptedAnswersForDomain(username);
     }
 
 

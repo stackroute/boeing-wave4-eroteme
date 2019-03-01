@@ -1,6 +1,5 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.model.AnswerRequested;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
@@ -21,8 +20,6 @@ public interface RecommendationService {
 
     QuestionRequested insertIntoDb(QuestionRequested questionRequested);
 
-    List<AnswerRequested> getAllAcceptedAnswerOfDomain(String userName);
-
-
+    List<Question> getAllAcceptedAnswersOfDomain(String username);
 }
 

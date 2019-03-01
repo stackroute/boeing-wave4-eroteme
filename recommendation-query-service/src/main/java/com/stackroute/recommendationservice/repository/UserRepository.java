@@ -19,5 +19,9 @@ public interface UserRepository extends Neo4jRepository<User,String> {
 
     @Query("match (q:Question),(u:USER),(c:children),(p:parents) where u.UserName={username} and (u)-[:follows]->(c) and (q)-[:question_of_topic]->(c) or (u)-[:follows]->(p) and (q)-[:question_of_topic]->(p) return q")
     List<Question> getAllTrendingQuestionsForUser(@Param("username") String username);
+
+
+    @Query("")
+    List<Question> getAllAcceptedAnswersForDomain(String username);
 }
 
