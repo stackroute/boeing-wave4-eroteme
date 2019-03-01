@@ -125,6 +125,6 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     //Controller method to get all the questions in database
     @GetMapping("questions")
     public ResponseEntity<?> getAllQuestions() {
-        return new ResponseEntity<>(questionService.getAllQuestions(),HttpStatus.FOUND);
+        return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
     }
 }

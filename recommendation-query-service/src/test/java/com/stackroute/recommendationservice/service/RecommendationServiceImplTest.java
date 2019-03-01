@@ -31,37 +31,37 @@ public class RecommendationServiceImplTest {
 
     @Test
     public void testForTrendingQuestionsPresentInDb() {
-        when(userRepository.getAllTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION));
-        assertThat(recommendationService.getTrendingQuestionsForUser(USERNAME)).containsOnly(QUESTION);
+        when(userRepository.getAllTrendingQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION));
+        assertThat(recommendationService.getTrendingQuestionsForRegisteredUser(USERNAME)).containsOnly(QUESTION);
     }
 
     @Test
     public void testForTrendingQuestionsNotPresentInDb() {
-        when(userRepository.getAllTrendingQuestionsForUser(USERNAME)).thenReturn(Collections.emptyList());
-        assertThat(recommendationService.getTrendingQuestionsForUser(USERNAME)).isEmpty();
+        when(userRepository.getAllTrendingQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.emptyList());
+        assertThat(recommendationService.getTrendingQuestionsForRegisteredUser(USERNAME)).isEmpty();
     }
 
     @Test
     public void testForUnansweredQuestionsPresentInDb() {
-        when(userRepository.findAllUnansweredQuestion(USERNAME)).thenReturn(Collections.singletonList(QUESTION));
-        assertThat(recommendationService.getAllUnansweredQuestions(USERNAME)).containsExactly(QUESTION);
+        when(userRepository.findAllUnansweredQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION));
+        assertThat(recommendationService.getAllUnansweredQuestionsForRegisteredUser(USERNAME)).containsExactly(QUESTION);
     }
 
     @Test
     public void testForUnansweredQuestionsNotPresentInDb() {
-        when(userRepository.findAllUnansweredQuestion(USERNAME)).thenReturn(Collections.emptyList());
-        assertThat(recommendationService.getAllUnansweredQuestions(USERNAME)).isEmpty();
+        when(userRepository.findAllUnansweredQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.emptyList());
+        assertThat(recommendationService.getAllUnansweredQuestionsForRegisteredUser(USERNAME)).isEmpty();
     }
 
     @Test
     public void testForEligibleUsersNotPresentInDb() {
-        when(userRepository.findAllUsersOfTopic(QUESTION_ID)).thenReturn(Collections.emptyList());
+        when(userRepository.findAllUsersRelatedToTopic(QUESTION_ID)).thenReturn(Collections.emptyList());
         assertThat(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).isEmpty();
     }
 
     @Test
     public void testForEligibleUsersPresentInDb() {
-        when(userRepository.findAllUsersOfTopic(QUESTION_ID)).thenReturn(Collections.singletonList(USER));
+        when(userRepository.findAllUsersRelatedToTopic(QUESTION_ID)).thenReturn(Collections.singletonList(USER));
         assertThat(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).containsExactly(USER);
     }
 }
