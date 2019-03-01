@@ -26,7 +26,7 @@ public class RecommendationController {
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
-    @Value("${reputation-to-answerDTO-the-question}")
+    @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
 
     private RecommendationService recommendationService;
