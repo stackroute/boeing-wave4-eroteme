@@ -1,6 +1,6 @@
 server:
-  port: 8010
-spring:
+  context-path: /nlp
+  port: 8070
   rabbitmq:
     host: localhost
     port: 5672
