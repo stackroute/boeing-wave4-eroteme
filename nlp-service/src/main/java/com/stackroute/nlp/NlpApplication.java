@@ -9,9 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 	public class NlpApplication {
 		public static void main(String[] args) {
 			SpringApplication.run(NlpApplication.class, args);
-		NlpServiceImpl nlpService = new NlpServiceImpl();
-		nlpService.setquestion("What is JAVA in ANGULAR");
-			nlpService.showAllResults();
+
 		}
 
 	}

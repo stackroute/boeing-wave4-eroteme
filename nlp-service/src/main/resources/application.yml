@@ -6,6 +6,6 @@ server:
     port: 5672
 jsa:
   rabbitmq:
-    queue: jsa.queue1
-    exchange: jsa.direct1
-    routingkey: jsa.routingkey1
+    queue: jsa.queue2
+    exchange: jsa.direct2
+    routingkey: jsa.routingkey2
