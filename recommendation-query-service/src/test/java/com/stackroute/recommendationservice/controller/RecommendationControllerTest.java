@@ -151,4 +151,5 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+    
 }
