@@ -3,27 +3,28 @@ package com.stackroute.recommendationservice.service;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionRequested;
 import com.stackroute.recommendationservice.model.User;
-import com.stackroute.recommendationservice.repository.QuestionDocumentRepository;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 public class RecommendationServiceImpl implements RecommendationService {
 
-
     private UserRepository userRepository;
+    private RestTemplate restTemplate;
+    @Value("${questionAndAnswerUrl}")
+    private String questionAndAnswerUrl;
 
-    private QuestionDocumentRepository questionDocumentRepository;
     @Autowired
-    public RecommendationServiceImpl(UserRepository userRepository, QuestionDocumentRepository questionDocumentRepository) {
-        this.questionDocumentRepository = questionDocumentRepository;
+    public RecommendationServiceImpl(UserRepository userRepository, RestTemplate restTemplate) {
         this.userRepository = userRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -33,11 +34,12 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public QuestionRequested getDocumentByQuestionId(long questionId) {
-        Optional<QuestionRequested> questionDocument = questionDocumentRepository.findById(questionId);
-        return questionDocument.orElseGet(() -> {
-            log.info("Document not found for the ID {}. Returning empty document", questionId);
-            return questionDocument.get();
-        });
+        try {
+            return restTemplate.getForObject(questionAndAnswerUrl.concat(Long.toString(questionId)), QuestionRequested.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new QuestionRequested();
+        }
     }
 
     @Override
@@ -50,16 +52,8 @@ public class RecommendationServiceImpl implements RecommendationService {
         return userRepository.getAllTrendingQuestionsForUser(username);
     }
 
-    // This method is added only for testing purpose
-    @Override
-    public QuestionRequested insertIntoDb(QuestionRequested questionRequested) {
-        return questionDocumentRepository.save(questionRequested);
-    }
-
     @Override
     public List<Question> getAllAcceptedAnswersOfDomain(String username) {
         return userRepository.getAllAcceptedAnswersForDomain(username);
     }
-
-
 }
