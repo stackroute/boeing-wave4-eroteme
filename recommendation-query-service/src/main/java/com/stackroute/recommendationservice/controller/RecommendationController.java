@@ -26,7 +26,7 @@ public class RecommendationController {
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
-    @Value("${reputation-to-answer-the-question}")
+    @Value("${reputation-to-answerDTO-the-question}")
     private int reputationNeeded;
 
     private RecommendationService recommendationService;
@@ -37,8 +37,8 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the registered user
-     * @return Trending questions for the user
+     * @param username Username of the registered userDTO
+     * @return Trending questions for the userDTO
      */
     @GetMapping("/trending")
     public ResponseEntity<List<QuestionRequested>> getTrendingQuestionsForUser(@RequestParam String username) {
@@ -88,7 +88,7 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the loggedin user
+     * @param username Username of the loggedin userDTO
      * @return List of unanswered questions
      */
     @GetMapping("/unanswered/{username}")
@@ -103,6 +103,26 @@ public class RecommendationController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * @param username Username of the loggedin user
+     * @return List of Accepted answers of the domain which user follows
+     */
+    @GetMapping("/acceptedAnswers")
+    public ResponseEntity<List<QuestionRequested>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
+        ResponseEntity<List<QuestionRequested>> responseEntity;
+        List<QuestionRequested> listOfAcceptedAnswers = new ArrayList<>();
+        try {
+            List<Question> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username);
+            acceptedAnswers.forEach(question ->
+                    listOfAcceptedAnswers.add(recommendationService.getDocumentByQuestionId(question.getQuestionId())));
+            responseEntity = new ResponseEntity<>(listOfAcceptedAnswers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
         return responseEntity;
     }

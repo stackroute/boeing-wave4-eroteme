@@ -1,10 +1,10 @@
-<!-- <pre><img src="{{present.user.imageurl}}"/><h3>{{present.question}}</h3></pre> -->
+<!-- <pre><img src="{{present.userDTO.imageurl}}"/><h3>{{present.question}}</h3></pre> -->
 
 <body>
     <br>
     <div id="bord">
         <div class="container">
-            <h5><img src="../../assets/images/beats.jpg" /><span class="spaci"></span>By:{{present.user.firstname}}</h5>
+          <h5><img src="../../assets/images/beats.jpg"/><span class="spaci"></span>By:{{present.userDTO.firstname}}</h5>
             <h6 id="ron"><i class="fas fa-calendar-alt"></i>:{{present.timestamp}}</h6>
             <br>
             <h3>{{present.question}}</h3>
@@ -33,7 +33,7 @@
                 <ul *ngFor="let first1 of present.comments" id="comment">
                     <h5><u><em>Comment:</em></u>
                         <pre
-                            id="this"><h5>By:{{first1.user.firstname}}</h5><i class="fas fa-user-clock"></i><h6>{{first1.timestamp}}</h6></pre>
+                          id="this"><h5>By:{{first1.userDTO.firstname}}</h5><i class="fas fa-userDTO-clock"></i><h6>{{first1.timestamp}}</h6></pre>
                     </h5>
                     <li>{{first1.comment}}</li>
                     <li><i class="fas fa-heart"></i>{{first1.likes}}</li>
@@ -41,13 +41,13 @@
                     <br>
                     <ul *ngFor='let second1 of first1.replies' id="reply">
                         <h6><u><em>Replies:</em></u></h6>
-                        <li id="replies">By:{{second1.user.firstname}}</li>
+                      <li id="replies">By:{{second1.userDTO.firstname}}</li>
                         <li>Reply:{{second1.reply}}</li>
                         <li><i class="far fa-clock"></i>:{{second1.timestamp}}<i
                                 class="far fa-heart"></i>:{{second1.likes}}</li>
-                        <!-- <li>{{third.user.imageurl}} By:{{third.user.firstname}}</li> -->
+                      <!-- <li>{{third.userDTO.imageurl}} By:{{third.userDTO.firstname}}</li> -->
                     </ul>
-                    <!-- <li>{{second.user.imageurl}} By:{{second.user.firstname}}</li> -->
+                  <!-- <li>{{second.userDTO.imageurl}} By:{{second.userDTO.firstname}}</li> -->
                     <button type="button" class="btn btn-outline-dark" (click)="putval(first1.comment)">Reply</button>
                     <ul *ngIf="comm==first1.comment">
                         <form class="form-inline my-2 my-lg-0" *ngIf="val">
@@ -71,14 +71,17 @@
             </div> -->
             <form>
                 <div class="form-group" style="margin-right: 8%;">
-                  <label for="exampleFormControlTextarea1" style="font-size: 20px;">Post the answer below:</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Enter your answer here......."></textarea>
+                  <label for="exampleFormControlTextarea1" style="font-size: 20px;">Post the answerDTO below:</label>
+                  <textarea class="form-control" id="exampleFormControlTextarea1"
+                            placeholder="Enter your answerDTO here......." rows="6"></textarea>
                 </div>
               </form>
             <div class="input-group mb-3">
                 <!-- <input type="text" class="form-control" placeholder="Write your" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-dark" (click)="postanswer()" style="float:right">Post your own answer</button>
+                  <button (click)="postanswer()" class="btn btn-dark" style="float:right" type="button">Post your own
+                    answerDTO
+                  </button>
                 </div>
               </div>
               <br>
@@ -86,11 +89,11 @@
               <br>
             <ul *ngFor='let first of present.answers' id="ans">
                 <h3><u><em>Answer:</em></u>
-                    <pre id="this"><h4>By:{{first.user.firstname}}</h4></pre>
+                  <pre id="this"><h4>By:{{first.userDTO.firstname}}</h4></pre>
                 </h3>
-                <li>{{first.answer}}</li>
-                <!-- <li>{{first.user.imageurl}} By:{{First.user.firstname}}</li> -->
-                <li>By:{{first.user.firstname}}</li>
+              <li>{{first.answerDTO}}</li>
+              <!-- <li>{{first.userDTO.imageurl}} By:{{First.userDTO.firstname}}</li> -->
+              <li>By:{{first.userDTO.firstname}}</li>
                 <li>
                     <!-- <pre>Upvote:{{first.upvotes}}<button type="button" class="btn btn-outline-success spacing"> Upvote!!</button></pre> -->
                     <mat-chip-list>
@@ -120,14 +123,15 @@
                     </div>
                 </li>
                 <br>
-                <button type="button" class="btn btn-dark" (click)="toggle(first.answer)"
-                    id="viewMore">View More</button>
-                <ul *ngIf="first.answer==ans" id="divide">
+              <button (click)="toggle(first.answerDTO)" class="btn btn-dark" id="viewMore"
+                      type="button">View More
+              </button>
+              <ul *ngIf="first.answerDTO==ans" id="divide">
                     <ul *ngIf="showAllCommentsAnswer==='Hide Details'" id="divide1">
                         <ul *ngFor="let second of first.comments" id="comment1">
                             <h5><u><em>Comment:</em></u>
                                 <pre
-                                    id="this"><h5>By:{{second.user.firstname}}</h5><i class="fas fa-user-clock"></i><h6>{{second.timestamp}}</h6></pre>
+                                  id="this"><h5>By:{{second.userDTO.firstname}}</h5><i class="fas fa-userDTO-clock"></i><h6>{{second.timestamp}}</h6></pre>
                             </h5>
                             <li>{{second.comment}}</li>
                             <li><i class="fas fa-heart"></i>{{second.likes}}</li>
@@ -135,14 +139,14 @@
                             <br>
                             <ul *ngFor='let third of second.replies' id="border">
                                 <h6><u><em>Replies:</em></u></h6>
-                                <li id="reply1">By:{{third.user.firstname}}</li>
+                              <li id="reply1">By:{{third.userDTO.firstname}}</li>
                                 <li>Reply:{{third.reply}}</li>
                                 <li><i class="far fa-clock"></i>:{{third.timestamp}}<i
                                         class="far fa-heart"></i>:{{third.likes}}</li>
-                                <!-- <li>{{third.user.imageurl}} By:{{third.user.firstname}}</li> -->
+                              <!-- <li>{{third.userDTO.imageurl}} By:{{third.userDTO.firstname}}</li> -->
                             </ul>
                             <br>
-                            <!-- <li>{{second.user.imageurl}} By:{{second.user.firstname}}</li> -->
+                          <!-- <li>{{second.userDTO.imageurl}} By:{{second.userDTO.firstname}}</li> -->
                             <button type="button" class="btn btn-outline-dark"
                                 (click)="putval1(second.comment)">Reply</button>
                             <ul *ngIf="comm1==second.comment">

@@ -19,7 +19,7 @@ public class NotificationServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         notificationController.generateQuestionNotification();
-        notificationController.generateAnswerNotification();
+//        notificationController.generateAnswerNotification();
         notificationController.generateLikedNotification();
     }
 
