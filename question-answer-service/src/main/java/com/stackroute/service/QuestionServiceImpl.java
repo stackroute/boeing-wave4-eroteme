@@ -1,12 +1,10 @@
 package com.stackroute.service;
 
-import com.stackroute.QuestionanswerserviceApplication;
 import com.stackroute.domain.*;
 import com.stackroute.exceptions.*;
-
 import com.stackroute.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -60,7 +58,7 @@ public class QuestionServiceImpl implements QuestionService{
 //            throw new QuestionNotFoundException("Question does not exists");
 //    }
 
-    //Overriden method to add answer
+    //Overriden method to add answerDTO
     @Override
     public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
@@ -145,7 +143,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     }
 
-    //Overriden method to add comment to answer
+    //Overriden method to add comment to answerDTO
     @Override
     public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
@@ -179,7 +177,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
-    //Overriden method to add reply for answer comment
+    //Overriden method to add reply for answerDTO comment
     @Override
     public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment)throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException {
         boolean answerFlag = false;
@@ -261,7 +259,7 @@ public class QuestionServiceImpl implements QuestionService{
             throw new QuestionNotFoundException("Question does not exists");
     }
 
-    //Overriden method to upvote an answer
+    //Overriden method to upvote an answerDTO
     @Override
     public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
@@ -373,7 +371,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
-    //Overriden method to add likes for answer comment
+    //Overriden method to add likes for answerDTO comment
     @Override
     public Question addAnswerCommentLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException{
         boolean answerFlag = false;
@@ -419,7 +417,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
-    //Overriden method to add likes for answer comment reply
+    //Overriden method to add likes for answerDTO comment reply
     @Override
     public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
         boolean answerFlag = false;
@@ -477,7 +475,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
     }
 
-    //Overriden method for adding accepted answer
+    //Overriden method for adding accepted answerDTO
     @Override
     public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
         boolean flag = false;
