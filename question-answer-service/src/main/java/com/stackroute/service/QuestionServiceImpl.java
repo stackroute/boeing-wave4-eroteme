@@ -40,7 +40,7 @@ public class QuestionServiceImpl implements QuestionService{
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         Question savedQuestion = questionRepository.save(questionObject);
-        QuestionDTO questionDTO = new QuestionDTO(1,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+        QuestionDTO questionDTO = new QuestionDTO(Actions.POST_QUESTION,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
         produceMsg(questionDTO);
         return savedQuestion;
     }
@@ -58,7 +58,7 @@ public class QuestionServiceImpl implements QuestionService{
                 question.setAnswer(answer);
             }
             Question savedQuestion = questionRepository.save(question);
-            QuestionDTO questionDTO = new QuestionDTO(2,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+            QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_ANSWER,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
             produceMsg(questionDTO);
             return savedQuestion;
         } else
@@ -89,7 +89,7 @@ public class QuestionServiceImpl implements QuestionService{
                 question.setComment(comment);
             }
             Question savedQuestion = questionRepository.save(question);
-            QuestionDTO questionDTO = new QuestionDTO(3,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+            QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
             produceMsg(questionDTO);
             return savedQuestion;
         } else
@@ -117,7 +117,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(4,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -152,7 +152,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(5,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -201,7 +201,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(6,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -225,7 +225,7 @@ public class QuestionServiceImpl implements QuestionService{
             int upvotes = question.getUpvotes();
             question.setUpvotes(upvotes+1);
             Question savedQuestion = questionRepository.save(question);
-            QuestionDTO questionDTO = new QuestionDTO(7,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+            QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_UPVOTE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
             produceMsg(questionDTO);
             return savedQuestion;
         } else
@@ -240,7 +240,7 @@ public class QuestionServiceImpl implements QuestionService{
             int downvotes = question.getDownvotes();
             question.setDownvotes(downvotes+1);
             Question savedQuestion = questionRepository.save(question);
-            QuestionDTO questionDTO = new QuestionDTO(8,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+            QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_DOWNVOTE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
             produceMsg(questionDTO);
             return savedQuestion;
         } else
@@ -266,7 +266,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(9,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_UPVOTE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -298,7 +298,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(10,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_LIKE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -343,7 +343,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (commentFlag && replyFlag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(11,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY_LIKE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -389,7 +389,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(12,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_LIKE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -447,7 +447,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(13,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY_LIKE,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
@@ -486,7 +486,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(14,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_ACCEPT,savedQuestion.getQuestionId(),savedQuestion.getQuestion(),savedQuestion.getDescription(),savedQuestion.getTopics(),savedQuestion.getUpvotes(),savedQuestion.getTimestamp(),savedQuestion.getDownvotes(),savedQuestion.getUser(),savedQuestion.getComment(),savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
