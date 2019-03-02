@@ -1,13 +1,26 @@
 package com.stackroute.recommendationservice.model;
 
-import lombok.Data;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
 
-@NodeEntity
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
+import java.util.List;
+
 @Data
-public class Answer {
-    @Id
-    long answerId;
-    String answer;
+@Document
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Answer implements Serializable {
+    User user;
+    List<Comment> comments;
+    private String answer;
+    private boolean accepted;
+    private int upvotes;
+    private int views;
+    private long timestamp;
 }
