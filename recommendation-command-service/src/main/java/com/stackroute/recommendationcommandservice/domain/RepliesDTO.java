@@ -1,19 +1,17 @@
-package com.stackroute.domain;
+package com.stackroute.recommendationcommandservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document
-public class Replies{
+public class RepliesDTO {
+    UserDTO user;
     private String reply;
     private long likes;
     private long timestamp;
-    User user;
 }

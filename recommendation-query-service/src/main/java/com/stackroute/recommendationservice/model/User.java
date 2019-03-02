@@ -1,21 +1,21 @@
 package com.stackroute.recommendationservice.model;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-@NodeEntity
 @Data
-@Builder
-@NoArgsConstructor
+@Document
 @AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
     @Id
-    String username;
-    int reputation;
+    private String username;
+    private String firstName;
+    private String imageUrl;
 }
