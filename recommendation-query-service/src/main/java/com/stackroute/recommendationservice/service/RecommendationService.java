@@ -1,26 +1,26 @@
 package com.stackroute.recommendationservice.service;
 
 import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.QuestionRequested;
-import com.stackroute.recommendationservice.model.User;
+import com.stackroute.recommendationservice.model.QuestionNode;
+import com.stackroute.recommendationservice.model.UserNode;
 
 import java.util.List;
 
 public interface RecommendationService {
 
-    List<Question> getAllUnansweredQuestionsForRegisteredUser(String userName);
+    List<QuestionNode> getAllUnansweredQuestionsForRegisteredUser(String userName);
 
-    List<QuestionRequested> getAllUnansweredQuestionsForGuestUser();
+    List<Question> getAllUnansweredQuestionsForGuestUser();
 
-    QuestionRequested getDocumentByQuestionId(long questionId);
+    Question getDocumentByQuestionId(long questionId);
 
-    List<User> getAllUsersRelatedToQuestion(long questionID);
+    List<UserNode> getAllUsersRelatedToQuestion(long questionID);
 
-    List<Question> getTrendingQuestionsForRegisteredUser(String username);
+    List<QuestionNode> getTrendingQuestionsForRegisteredUser(String username);
 
-    List<QuestionRequested> getTrendingQuestionsForGuestUser();
+    List<Question> getTrendingQuestionsForGuestUser();
 
-    List<Question> getAllAcceptedAnswersOfDomain(String username);
+    List<QuestionNode> getAllAcceptedAnswersOfDomain(String username);
 
 }
 
