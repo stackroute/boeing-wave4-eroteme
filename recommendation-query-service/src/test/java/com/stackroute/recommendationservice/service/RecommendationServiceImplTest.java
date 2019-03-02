@@ -64,4 +64,18 @@ public class RecommendationServiceImplTest {
         when(userRepository.findAllUsersOfTopic(QUESTION_ID)).thenReturn(Collections.singletonList(USER));
         assertThat(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).containsExactly(USER);
     }
+
+    @Test
+    public void testForAcceptedAnswersPresentInDb() {
+        when(userRepository.getAllAcceptedAnswersForDomain(USERNAME)).thenReturn(Collections.singletonList(QUESTION));
+        assertThat(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).containsExactly(QUESTION);
+    }
+
+    @Test
+    public void testForAcceptedAnswersNotPresentInDb() {
+        when(userRepository.getAllAcceptedAnswersForDomain(USERNAME)).thenReturn(Collections.emptyList());
+        assertThat(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).isEmpty();
+    }
+
+
 }
