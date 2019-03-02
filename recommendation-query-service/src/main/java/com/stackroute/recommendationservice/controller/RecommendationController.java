@@ -50,11 +50,11 @@ public class RecommendationController {
         try {
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
-                    .peek(question -> log.info("QuestionNode node is {}", question))
+                    .peek(question -> log.info("Question node is {}", question))
                     .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
                     .filter(questionRequested -> questionRequested.getAnswer().size() >= numberOfAnswersThreshold)
-                    .peek(questionRequested -> log.info("QuestionNode document is {}", questionRequested))
+                    .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
         } catch (Exception e) {
