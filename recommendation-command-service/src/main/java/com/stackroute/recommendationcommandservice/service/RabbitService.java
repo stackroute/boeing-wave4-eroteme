@@ -1,5 +1,6 @@
 package com.stackroute.recommendationcommandservice.service;
 
+import com.stackroute.recommendationcommandservice.domain.AnswerDTO;
 import com.stackroute.recommendationcommandservice.domain.QuestionDTO;
 import com.stackroute.recommendationcommandservice.model.Answer;
 import com.stackroute.recommendationcommandservice.model.Question;
@@ -20,6 +21,7 @@ public class RabbitService {
     @RabbitListener(queues = "${jsa.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO questionDTO) {
         log.info("Received Message: " + questionDTO);
+        System.out.println(questionDTO.getAction());
 
         Question ques = new Question();
         ques.setQuestionId(questionDTO.getQuestionId());
@@ -29,27 +31,61 @@ public class RabbitService {
         ques.setDownVote(questionDTO.getDownvotes());
 
 
+//        Answer answer = new Answer();
+//        List<AnswerDTO> answer1 = questionDTO.getAnswer();
+//        answer1.forEach(answerDTO -> {
+//        answer.setAnswerString(answerDTO.getAnswer());
+//        User user = new User();
+//        user.setUserName(answerDTO.getUser().getEmail());
+//        answer.setUser(Collections.singletonList(user));
+
+
         if (questionDTO.getAction() == 1) {
             recommendationCommandService.saveQuestionToDb(ques);
 
         }
 
-        questionDTO.getAnswer().forEach(answerDTO -> {
+
+//        if (questionDTO.getAction() == 1) {
+//            recommendationCommandService.saveQuestionToDb(ques);
+//
+//        }
+
+//        questionDTO.getAnswer().forEach(answerDTO -> {
+//            Answer answer = new Answer();
+//            System.out.println("i got answer " + answerDTO.getAnswer());
+//            answer.setAnswerString(answerDTO.getAnswer());
+//            User user = new User();
+//            user.setUserName(answerDTO.getUser().getEmail());
+//            answer.setUser(Collections.singletonList(user));
+        if (questionDTO.getAction() == 2) {
+            System.out.println(questionDTO.getAnswer().size());
+            int n = questionDTO.getAnswer().size();
+            AnswerDTO answerDTO = new AnswerDTO();
+            answerDTO = questionDTO.getAnswer().get(n - 1);
             Answer answer = new Answer();
-            System.out.println("i got answer " + answerDTO.getAnswer());
             answer.setAnswerString(answerDTO.getAnswer());
             User user = new User();
             user.setUserName(answerDTO.getUser().getEmail());
             answer.setUser(Collections.singletonList(user));
-            recommendationCommandService.saveAnswerToDb(answer);
-//            int questionDTOAction = questionDTO.getAction();
-            if (questionDTO.getAction() == 1) {
-                recommendationCommandService.saveQuestionToDb(ques);
 
-            } else if (questionDTO.getAction() == 2) {
-                recommendationCommandService.saveAnswerToDb(answer);
-            }
-        });
+            recommendationCommandService.saveAnswerToDb(answer);
+        }
+
+
+//            recommendationCommandService.saveAnswerToDb(answer);
+//            int questionDTOAction = questionDTO.getAction();
+//            if (questionDTO.getAction() == 2) {
+//                recommendationCommandService.saveAnswerToDb(answer);
+//            }
+//            else if(questionDTO.getAction() == 7){
+//                recommendationCommandService.userUpvoteQuestion(user.getUserName(),questionDTO.getQuestionId());
+//            }
+
+//        });
+
+
+
 
 
 

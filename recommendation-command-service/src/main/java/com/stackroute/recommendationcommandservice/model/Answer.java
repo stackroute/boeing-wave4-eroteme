@@ -18,11 +18,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Answer {
     @Id
-    private long answerId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Long id;
+//    private long answerId;
     private String answerString;
-    @Relationship(type = "accepted", direction = Relationship.INCOMING)
-    private List<User> user;
     @Relationship(type = "answered", direction = Relationship.INCOMING)
+    private List<User> user;
+    @Relationship(type = "accepted", direction = Relationship.INCOMING)
     private List<User> user1;
     @Relationship(type = "upvoted", direction = Relationship.INCOMING)
     private List<User> user2;
