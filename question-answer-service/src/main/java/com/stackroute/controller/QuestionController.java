@@ -126,10 +126,4 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> getAllQuestions() {
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
     }
-
-    //Controller method to get all unanswered questions in database
-    @GetMapping("questions/unanswer")
-    public ResponseEntity<?> getAllUnanswerQuestions() {
-        return new ResponseEntity<>(questionService.getUnansweredQuestions(), HttpStatus.OK);
-    }
 }

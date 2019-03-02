@@ -26,5 +26,4 @@ public interface QuestionService {
     public Question addAnswerCommentReplyLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException;
     public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
     public List<Question> getAllQuestions();
-    public List<Question> getUnansweredQuestions();
 }

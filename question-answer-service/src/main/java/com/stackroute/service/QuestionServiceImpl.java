@@ -503,18 +503,6 @@ public class QuestionServiceImpl implements QuestionService{
         return questionRepository.findAll();
     }
 
-    @Override
-    public List<Question> getUnansweredQuestions() {
-        List<Question> questions = questionRepository.findAll();
-        List<Question> unanswered = new ArrayList<>();
-        for (Question question : questions){
-            if (question.getAnswer()==null){
-                unanswered.add(question);
-            }
-        }
-        return unanswered;
-    }
-
     //RabbitMq message producer method
     public void produceMsg(QuestionDTO msg){
         log.info("Sending message");
