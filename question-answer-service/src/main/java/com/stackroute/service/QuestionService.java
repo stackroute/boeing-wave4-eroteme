@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface QuestionService {
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException;
-//    public Question addQuestionDescription(int questionId, String description) throws QuestionNotFoundException;
     public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException;
     public Question getQuestion(int questionId) throws QuestionNotFoundException;
     public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException;
@@ -27,4 +26,5 @@ public interface QuestionService {
     public Question addAnswerCommentReplyLikes(int questionId,Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException;
     public Question addQuestionAnswerAccepted(int questionId,String answer) throws QuestionNotFoundException,AnswerNotFoundException;
     public List<Question> getAllQuestions();
+    public List<Question> getUnansweredQuestions();
 }

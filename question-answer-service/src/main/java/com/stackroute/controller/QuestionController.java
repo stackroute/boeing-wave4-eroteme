@@ -36,7 +36,6 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     //Controller method to put answer to a question
     @PutMapping("question/answer/{questionId}")
     public ResponseEntity<Question> addAnswer(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
-        questionService.addAnswer(questionId, question.getAnswer());
         return new ResponseEntity<Question>(questionService.addAnswer(questionId, question.getAnswer()), HttpStatus.OK);
     }
 
@@ -126,5 +125,11 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     @GetMapping("questions")
     public ResponseEntity<?> getAllQuestions() {
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
+    }
+
+    //Controller method to get all unanswered questions in database
+    @GetMapping("questions/unanswer")
+    public ResponseEntity<?> getAllUnanswerQuestions() {
+        return new ResponseEntity<>(questionService.getUnansweredQuestions(), HttpStatus.OK);
     }
 }
