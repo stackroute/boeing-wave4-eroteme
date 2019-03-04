@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class NLP {
-    private String originalWord;
-    private String partsOfSpeech;
+    private String originalWord;          //Keyword is stored in this String
+    private String partsOfSpeech;         //Parts of speech og the extracted keyword
 }

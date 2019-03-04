@@ -17,6 +17,7 @@ public class NLPController
         this.nlpService = nlpService;
     }
 
+    //getting question
     @PostMapping("{question}")
     public ResponseEntity<?> setquestion(@PathVariable String question) {
         return new ResponseEntity<String>(nlpService.setquestion(question), HttpStatus.CREATED);

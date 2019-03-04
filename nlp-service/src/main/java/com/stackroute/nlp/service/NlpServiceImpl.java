@@ -104,8 +104,8 @@ public class NlpServiceImpl implements NlpService{
         }
         return removeStopwords;
     }
+    //Removal of stopwords from the sentence
     @Override
-
     public String getSentenceWithoutStopWords() {
         ArrayList<String> removeStopwords = getremoveStopWords();
         StringBuffer sentenceWithoutStopWords = new StringBuffer();
@@ -155,7 +155,7 @@ public class NlpServiceImpl implements NlpService{
         return conceptName;
     }
 
-//
+
     // RabbitMq message producer method
     public void produceMsg(List<String> msg){
         log.info("Sending message");
