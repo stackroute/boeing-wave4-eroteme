@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -45,15 +46,18 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add answer
     @Override
-    public Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException {
+    public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getAnswer() != null) {
                 List<Answer> answers = question.getAnswer();
-                answers.addAll(answer);
+                answers.add(answer);
                 question.setAnswer(answers);
-            } else {
-                question.setAnswer(answer);
+            }
+            else {
+                List<Answer> answers = new ArrayList<>();
+                answers.add(answer);
+                question.setAnswer(answers);
             }
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_ANSWER, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
@@ -76,15 +80,17 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to comment to a question
     @Override
-    public Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException {
+    public Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getComment() != null) {
                 List<Comment> comments = question.getComment();
-                comments.addAll(comment);
+                comments.add(comment);
                 question.setComment(comments);
             } else {
-                question.setComment(comment);
+                List<Comment> comments = new ArrayList<>();
+                comments.add(comment);
+                question.setComment(comments);
             }
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());

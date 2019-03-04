@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "api/v1")
 public class QuestionController extends ResponseEntityExceptionHandler {
 
@@ -27,6 +28,7 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     //Controller method to post a question
     @PostMapping("question")
     public ResponseEntity<Question> saveQuestion(@RequestBody Question question) throws QuestionAlreadyExistsException {
+        System.out.println("backend");
         return new ResponseEntity<Question>(questionService.addQuestion(question), HttpStatus.CREATED);
     }
 
@@ -37,14 +39,14 @@ public class QuestionController extends ResponseEntityExceptionHandler {
 
     //Controller method to put answer to a question
     @PutMapping("question/answer/{questionId}")
-    public ResponseEntity<Question> addAnswer(@PathVariable int questionId, @RequestBody List<Answer> answers) throws QuestionNotFoundException {
-        return new ResponseEntity<Question>(questionService.addAnswer(questionId, answers), HttpStatus.OK);
+    public ResponseEntity<Question> addAnswer(@PathVariable int questionId, @RequestBody Answer answer) throws QuestionNotFoundException {
+        return new ResponseEntity<Question>(questionService.addAnswer(questionId, answer), HttpStatus.OK);
     }
 
     //Controller method to put comments to question
     @PutMapping("question/comment/{questionId}")
-    public ResponseEntity<Question> addComment(@PathVariable int questionId, @RequestBody Question question) throws QuestionNotFoundException {
-        return new ResponseEntity<Question>(questionService.addQuestionComment(questionId, question.getComment()), HttpStatus.OK);
+    public ResponseEntity<Question> addComment(@PathVariable int questionId, @RequestBody Comment comment) throws QuestionNotFoundException {
+        return new ResponseEntity<Question>(questionService.addQuestionComment(questionId, comment), HttpStatus.OK);
     }
 
     //Controller method to put reply to question comment

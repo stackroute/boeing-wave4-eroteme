@@ -11,11 +11,11 @@ import java.util.List;
 public interface QuestionService {
     Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException;
 
-    Question addAnswer(int questionId, List<Answer> answer) throws QuestionNotFoundException;
+    Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException;
 
     Question getQuestion(int questionId) throws QuestionNotFoundException;
 
-    Question addQuestionComment(int questionId, List<Comment> comment) throws QuestionNotFoundException;
+    Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException;
 
     Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException, CommentNotFoundException;
 
