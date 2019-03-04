@@ -7,6 +7,8 @@ import com.stackroute.recommendationservice.model.QuestionNode;
 import com.stackroute.recommendationservice.model.UserNode;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
+import org.joda.time.DateTimeUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +37,8 @@ public class RecommendationControllerTest {
     private static final QuestionNode QUESTION_NODE_TWO = QuestionNode.builder().questionId(QUESTION_ID).upvote(0).build();
     private static final Answer ANSWER_REQUESTED = Answer.builder().build();
     private static final Question QUESTION_DOCUMENT_ONE = Question.builder().questionId(3)
+            .upvotes(123)
+            .timestamp(1551589785355L)
             .answer(Arrays.asList(ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED, ANSWER_REQUESTED))
             .build();
     private static final UserNode USER_NODE = UserNode.builder().username("Sunidhi").reputation(100).build();
@@ -67,10 +71,16 @@ public class RecommendationControllerTest {
         ReflectionTestUtils.setField(recommendationController, "numberOfAnswersThreshold", 5);
         ReflectionTestUtils.setField(recommendationController, "reputationNeeded", 50);
         ReflectionTestUtils.setField(recommendationController, "timestampThreshold", 5);
+        DateTimeUtils.setCurrentMillisFixed(1551693625);
+    }
+
+    @After
+    public void tearDown() {
+        DateTimeUtils.setCurrentMillisSystem();
     }
 
     @Test
-    public void testForTrendingQuestionsPresent() throws Exception {
+    public void testForTrendingQuestionsPresentForRegisteredUser() throws Exception {
         when(recommendationService.getTrendingQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.singletonList(QUESTION_NODE_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
         mockMvc.perform(MockMvcRequestBuilders.get("/member/trending?username=USERNAME")
@@ -80,7 +90,7 @@ public class RecommendationControllerTest {
     }
 
     @Test
-    public void testForTrendingQuestionsNotPresent() throws Exception {
+    public void testForTrendingQuestionsNotPresentForRegisteredUser() throws Exception {
         when(recommendationService.getTrendingQuestionsForRegisteredUser(USERNAME)).thenReturn(Collections.emptyList());
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/member/trending?username=USERNAME")
@@ -88,6 +98,47 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
 
+    }
+
+
+    //
+
+    @Test
+    public void testForTrendingQuestionsPresentForGuestUser() throws Exception {
+        when(recommendationService.getTrendingQuestionsForGuestUser()).thenReturn(Collections.singletonList(QUESTION_DOCUMENT_ONE));
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/trending")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testForTrendingQuestionsNotPresentForGuestUser() throws Exception {
+        when(recommendationService.getTrendingQuestionsForGuestUser()).thenReturn(Collections.emptyList());
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/trending")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+
+    @Test
+    public void testForUnansweredQuestionsPresentForGuestUser() throws Exception {
+        when(recommendationService.getAllUnansweredQuestionsForGuestUser()).thenReturn(Collections.singletonList(QUESTION_DOCUMENT_ONE));
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/unanswered")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testForUnansweredQuestionsNotPresentForGuestUser() throws Exception {
+        when(recommendationService.getAllUnansweredQuestionsForGuestUser()).thenReturn(Collections.emptyList());
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/unanswered")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test

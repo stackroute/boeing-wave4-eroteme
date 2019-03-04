@@ -15,7 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,14 +90,18 @@ public class RecommendationServiceImpl implements RecommendationService {
             List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
 
-            Map<Long, List<Answer>> questionListMap = questions.stream()
-                    .collect(Collectors.toMap(Question::getQuestionId, question -> question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
+//            Map<Long, List<Answer>> questionListMap = questions.stream()
+//                    .collect(Collectors.toMap(Question::getQuestionId, question -> question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
 
-            return questionListMap
-                    .keySet()
-                    .stream()
-                    .flatMap(key -> questions.stream().filter(question -> question.getQuestionId() == key))
-                    .collect(Collectors.toList());
+
+            questions.forEach(question ->
+                    question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
+//            questionListMap
+//                    .keySet()
+//                    .stream()
+//                    .flatMap(key -> questions.stream().filter(question -> question.getQuestionId() == key))
+//                    .collect(Collectors.toList());
+            return questions;
 
         } catch (Exception e) {
             e.printStackTrace();
