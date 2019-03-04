@@ -50,6 +50,7 @@ public class NlpServiceImpl implements NlpService{
 
     }
 
+
     public String setquestion(String question) {
         this.question = question;
         getDomainSpecificTopicName();
@@ -103,8 +104,8 @@ public class NlpServiceImpl implements NlpService{
         }
         return removeStopwords;
     }
+    //Removal of stopwords from the sentence
     @Override
-
     public String getSentenceWithoutStopWords() {
         ArrayList<String> removeStopwords = getremoveStopWords();
         StringBuffer sentenceWithoutStopWords = new StringBuffer();
@@ -143,9 +144,9 @@ public class NlpServiceImpl implements NlpService{
         for (int i = 0; i < domainSpecificTopics.size(); i++) {
             String pattenString = domainSpecificTopics.get(i).toLowerCase();
             Pattern pattern = Pattern.compile(pattenString);
-            Matcher matcher = pattern.matcher(sentenceWithoutStopWords);
+            Matcher matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
             while (matcher.find()) {
-                conceptName.add(domainSpecificTopics.get(i));
+                conceptName.add(domainSpecificTopics.get(i).toLowerCase());
                 break;
             }
         }
