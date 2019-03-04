@@ -1,15 +1,20 @@
 package com.stackroute.recommendationservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Document("comment")
-public class CommentRequested {
-    UserRequested userRequested;
-    List<ReplyRequested> replies;
+@NoArgsConstructor
+@AllArgsConstructor
+public class Comment implements Serializable {
+    User user;
+    List<Reply> replies;
     private String reply;
     private long timestamp;
     private long likes;
