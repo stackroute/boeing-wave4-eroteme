@@ -1,4 +1,4 @@
-package com.stackroute.nlp.model;
+package com.stackroute.nlp.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

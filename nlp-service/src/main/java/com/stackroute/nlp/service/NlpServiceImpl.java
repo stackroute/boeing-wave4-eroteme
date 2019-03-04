@@ -1,6 +1,6 @@
 package com.stackroute.nlp.service;
 
-import com.stackroute.nlp.model.NLP;
+import com.stackroute.nlp.domain.NLP;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -97,7 +97,7 @@ public class NlpServiceImpl implements NlpService{
 
     //removal of stop words from the sentence
     @Override
-    public ArrayList<String> getremoveStopWords() {
+    public ArrayList<String> getRemoveStopWords() {
         ArrayList<String> removeStopwords = getLemmitizedWords();
         for (int i = 0; i < stopwords.length; i++) {
             removeStopwords.remove(stopwords[i]);
@@ -107,7 +107,7 @@ public class NlpServiceImpl implements NlpService{
     //Removal of stopwords from the sentence
     @Override
     public String getSentenceWithoutStopWords() {
-        ArrayList<String> removeStopwords = getremoveStopWords();
+        ArrayList<String> removeStopwords = getRemoveStopWords();
         StringBuffer sentenceWithoutStopWords = new StringBuffer();
         for (int i = 0; i < removeStopwords.size(); i++) {
             sentenceWithoutStopWords.append(removeStopwords.get(i) + " ");
