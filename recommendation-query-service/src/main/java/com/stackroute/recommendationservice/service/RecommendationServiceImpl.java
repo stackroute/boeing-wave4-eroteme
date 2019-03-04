@@ -85,8 +85,8 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
-            }).getBody();
+            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            }).getBody());
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
