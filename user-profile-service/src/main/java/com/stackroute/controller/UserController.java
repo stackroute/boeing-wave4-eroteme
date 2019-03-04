@@ -34,15 +34,15 @@ public class UserController {
     @PostMapping("signup")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         User signUp = new User(user.getEmail(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getInterests());
-//        ConnectionFactory factory = new ConnectionFactory();
-//        factory.setHost("localhost");
-//        try (Connection connection = factory.newConnection();
-//             Channel channel = connection.createChannel()) {
-//            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-//            String message = signUp.getEmail()+','+encoder.encode(signUp.getPassword());
-//            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-//            System.out.println(" [x] Sent '" + message + "'");
-//        }
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost("localhost");
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()) {
+            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            String message = signUp.getEmail()+','+encoder.encode(signUp.getPassword());
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            System.out.println(" [x] Sent '" + message + "'");
+        }
         try{
             //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());
             userService.saveUser(signUp);
