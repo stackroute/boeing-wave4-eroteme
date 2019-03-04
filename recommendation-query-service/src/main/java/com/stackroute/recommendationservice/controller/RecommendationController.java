@@ -167,7 +167,7 @@ public class RecommendationController {
     }
 
     /**
-     * @return List of accepted anwsers to guest users
+     * @return List of accepted answers to guest users
      */
     @GetMapping("/guest/acceptedAnswers")
     public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
