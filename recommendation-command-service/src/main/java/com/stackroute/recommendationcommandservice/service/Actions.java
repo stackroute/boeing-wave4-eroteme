@@ -1,4 +1,4 @@
-package com.stackroute.service;
+package com.stackroute.recommendationcommandservice.service;
 
 public enum Actions {
     QUESTION_COMMENT,
@@ -19,4 +19,5 @@ public enum Actions {
 
     Actions() {
     }
+
 }

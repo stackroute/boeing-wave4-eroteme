@@ -1,33 +1,33 @@
 version: "2.1"
 services:
 
-#  apigateway:
-#    image: zuul-service
-#    build: zuul-gatewayservice/
-#    restart: always
-#    network_mode: host
-#    hostname: localhost
-#    depends_on:
-#      - eurekaserver
-#    ports:
-#      - 8092:8092
-#    expose:
-#      - 8092
-#    healthcheck:
-#      test: "exit 0"
+  #  apigateway:
+  #    image: zuul-service
+  #    build: zuul-gatewayservice/
+  #    restart: always
+  #    network_mode: host
+  #    hostname: localhost
+  #    depends_on:
+  #      - eurekaserver
+  #    ports:
+  #      - 8092:8092
+  #    expose:
+  #      - 8092
+  #    healthcheck:
+  #      test: "exit 0"
 
-#  eurekaserver:
-#    image: eureka-service:latest
-#    build: eureka-server/
-#    restart: always
-#    network_mode: host
-#    hostname: localhost
-#    ports:
-#      - 8093:8093
-#    expose:
-#      - 8093
-#    healthcheck:
-#      test: "exit 0"
+  #  eurekaserver:
+  #    image: eureka-service:latest
+  #    build: eureka-server/
+  #    restart: always
+  #    network_mode: host
+  #    hostname: localhost
+  #    ports:
+  #      - 8093:8093
+  #    expose:
+  #      - 8093
+  #    healthcheck:
+  #      test: "exit 0"
 
   mongo:
     image: mongo:3.4-jessie
@@ -103,10 +103,10 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-#      apigateway:
-#        condition: service_healthy
-#      eurekaserver:
-#        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
+      #      eurekaserver:
+      #        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     ports:
@@ -126,10 +126,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-#      apigateway:
-#        condition: service_healthy
-#      eurekaserver:
-#        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
+      #      eurekaserver:
+      #        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     ports:
@@ -177,10 +177,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-#      apigateway:
-#        condition: service_healthy
-#      eurekaserver:
-#        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
+      #      eurekaserver:
+      #        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     ports:
@@ -209,20 +209,20 @@ services:
     healthcheck:
       test: "exit 0"
 
-#  angular-app:
-#    build: angular-service/
-#    image: angular
-#    restart: always
-#    mem_limit: 1024m
-#    container_name: Angular
-#    network_mode: "host"
-#    hostname: localhost
-#    ports:
-#      - 8000:8000
-#    healthcheck:
-#      test: "exit 0"
-#    expose:
-#      - 8000
+  #  angular-app:
+  #    build: angular-service/
+  #    image: angular
+  #    restart: always
+  #    mem_limit: 1024m
+  #    container_name: Angular
+  #    network_mode: "host"
+  #    hostname: localhost
+  #    ports:
+  #      - 8000:8000
+  #    healthcheck:
+  #      test: "exit 0"
+  #    expose:
+  #      - 8000
 
   recommendation-command-service:
     build: ./recommendation-command-service/

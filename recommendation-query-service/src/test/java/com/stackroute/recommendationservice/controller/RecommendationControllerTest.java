@@ -149,4 +149,25 @@ public class RecommendationControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    public void testAcceptedQuestionsPresent() throws Exception {
+        when(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).thenReturn(Collections.singletonList(QUESTION_NODE_ONE));
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/acceptedAnswers?username=USERNAME")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testAcceptedQuestionsNotPresent() throws Exception {
+        when(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).thenReturn(Collections.emptyList());
+        when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
+        mockMvc.perform(MockMvcRequestBuilders.get("/acceptedAnswers?username=USERNAME")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 }
