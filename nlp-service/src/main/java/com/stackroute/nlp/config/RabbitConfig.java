@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${jsa.rabbitmq.queue}") //queue names are passed
+    @Value("${jsb.rabbitmq.queue}") //queue names are passed
     private String queueName;
 
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jsb.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}") //unique routing key for eachqueue
+    @Value("${jsb.rabbitmq.routingkey}") //unique routing key for eachqueue
     private String routingKey;
 
     @Bean
