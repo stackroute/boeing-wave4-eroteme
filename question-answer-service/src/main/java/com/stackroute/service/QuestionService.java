@@ -29,6 +29,8 @@ public interface QuestionService {
 
     Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException;
 
+    Question addAnswerDownvote(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException;
+
     Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException, CommentNotFoundException;
 
     Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException, CommentNotFoundException, ReplyNotFoundException;
