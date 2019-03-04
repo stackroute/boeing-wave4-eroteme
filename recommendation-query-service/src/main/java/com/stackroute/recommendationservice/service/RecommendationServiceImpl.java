@@ -89,19 +89,12 @@ public class RecommendationServiceImpl implements RecommendationService {
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
+            questions.forEach(question -> {
+                question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList()));
 
-//            Map<Long, List<Answer>> questionListMap = questions.stream()
-//                    .collect(Collectors.toMap(Question::getQuestionId, question -> question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
+            });
 
-
-            questions.forEach(question ->
-                    question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
-//            questionListMap
-//                    .keySet()
-//                    .stream()
-//                    .flatMap(key -> questions.stream().filter(question -> question.getQuestionId() == key))
-//                    .collect(Collectors.toList());
-            return questions;
+            return questions.stream().filter(question -> !question.getAnswer().isEmpty()).collect(Collectors.toList());
 
         } catch (Exception e) {
             e.printStackTrace();
