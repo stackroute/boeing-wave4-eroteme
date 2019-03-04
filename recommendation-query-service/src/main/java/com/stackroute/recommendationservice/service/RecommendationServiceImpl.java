@@ -90,17 +90,8 @@ public class RecommendationServiceImpl implements RecommendationService {
             List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
 
-//            Map<Long, List<Answer>> questionListMap = questions.stream()
-//                    .collect(Collectors.toMap(Question::getQuestionId, question -> question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
-
-
             questions.forEach(question ->
                     question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
-//            questionListMap
-//                    .keySet()
-//                    .stream()
-//                    .flatMap(key -> questions.stream().filter(question -> question.getQuestionId() == key))
-//                    .collect(Collectors.toList());
             return questions;
 
         } catch (Exception e) {
