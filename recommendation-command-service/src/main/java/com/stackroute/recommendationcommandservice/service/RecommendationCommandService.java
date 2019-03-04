@@ -6,6 +6,7 @@ import com.stackroute.recommendationcommandservice.model.Question;
 import com.stackroute.recommendationcommandservice.model.User;
 
 import java.util.Collection;
+import java.util.List;
 
 
 public interface RecommendationCommandService {
@@ -29,7 +30,7 @@ public interface RecommendationCommandService {
     Collection<Answer> getAnswers();
 
 
-    User userFollowsTopic(String userName, String Name);
+    User userFollowsTopic(String userName, List<String> Name);
 
 
     User getByUser(int reputation);

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.stackroute.recommendationcommandservice.service.Actions.*;
 
@@ -87,11 +88,14 @@ public class RabbitService {
 //
         user.setEmail(user.getEmail());
         user.setInterests(user.getInterests());
+        List<String> name = user.getInterests();
         User user1 = new User();
         user1.setUserName(user.getEmail());
+        String userName = user1.getUserName();
         User user2 = user1;
 
         recommendationCommandServiceImpl.saveUserToDb(user2);
+        recommendationCommandServiceImpl.userFollowsTopic(userName, name);
 
     }
 }
