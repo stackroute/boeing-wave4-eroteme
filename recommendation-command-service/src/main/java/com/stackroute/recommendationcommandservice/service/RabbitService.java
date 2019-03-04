@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
+import static com.stackroute.recommendationcommandservice.service.Actions.POST_QUESTION;
+import static com.stackroute.recommendationcommandservice.service.Actions.QUESTION_ANSWER;
+
 @Component
 @Slf4j
 public class RabbitService {
@@ -40,7 +43,7 @@ public class RabbitService {
 //        answer.setUser(Collections.singletonList(user));
 
 
-        if (questionDTO.getAction() == 1) {
+        if (questionDTO.getAction() == POST_QUESTION) {
             recommendationCommandService.saveQuestionToDb(ques);
 
         }
@@ -58,7 +61,7 @@ public class RabbitService {
 //            User user = new User();
 //            user.setUserName(answerDTO.getUser().getEmail());
 //            answer.setUser(Collections.singletonList(user));
-        if (questionDTO.getAction() == 2) {
+        if (questionDTO.getAction() == QUESTION_ANSWER) {
             System.out.println(questionDTO.getAnswer().size());
             int n = questionDTO.getAnswer().size();
             AnswerDTO answerDTO = new AnswerDTO();

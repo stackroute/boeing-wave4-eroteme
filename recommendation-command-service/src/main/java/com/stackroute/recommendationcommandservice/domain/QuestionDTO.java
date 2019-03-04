@@ -1,5 +1,6 @@
 package com.stackroute.recommendationcommandservice.domain;
 
+import com.stackroute.recommendationcommandservice.service.Actions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class QuestionDTO {
     UserDTO user;
     List<CommentDTO> comment;
     List<AnswerDTO> answer;
-    private int action;
+    private Actions action;
     private int questionId;
     private String question;
     private String description;
