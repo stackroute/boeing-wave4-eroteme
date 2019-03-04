@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "api/v1")
-public class NLPController
+public class NlpController
 {
     NlpService nlpService;
     @Autowired
-    public NLPController(NlpService nlpService) {
+    public NlpController(NlpService nlpService) {
         this.nlpService = nlpService;
     }
 

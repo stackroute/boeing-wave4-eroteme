@@ -1,6 +1,6 @@
 package com.stackroute.nlp.service;
 
-import com.stackroute.nlp.model.NLP;
+import com.stackroute.nlp.domain.Nlp;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -75,7 +75,7 @@ public class NlpServiceImpl implements NlpService{
     public ArrayList<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
-        //predefined properties of NLP Stanford
+        //predefined properties of Nlp Stanford
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         // This annotations object gives the special meaning to the
         // string we used in propeties.put() method
@@ -97,7 +97,7 @@ public class NlpServiceImpl implements NlpService{
 
     //removal of stop words from the sentence
     @Override
-    public ArrayList<String> getremoveStopWords() {
+    public ArrayList<String> getRemoveStopWords() {
         ArrayList<String> removeStopwords = getLemmitizedWords();
         for (int i = 0; i < stopwords.length; i++) {
             removeStopwords.remove(stopwords[i]);
@@ -107,7 +107,7 @@ public class NlpServiceImpl implements NlpService{
     //Removal of stopwords from the sentence
     @Override
     public String getSentenceWithoutStopWords() {
-        ArrayList<String> removeStopwords = getremoveStopWords();
+        ArrayList<String> removeStopwords = getRemoveStopWords();
         StringBuffer sentenceWithoutStopWords = new StringBuffer();
         for (int i = 0; i < removeStopwords.size(); i++) {
             sentenceWithoutStopWords.append(removeStopwords.get(i) + " ");
@@ -116,21 +116,21 @@ public class NlpServiceImpl implements NlpService{
     }
     @Override
     //List of parts of speech words
-    public ArrayList<NLP> getPOSWords() {
+    public ArrayList<Nlp> getPOSWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "pos");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         CoreDocument coreDocument = new CoreDocument(getSentenceWithoutStopWords());
         pipeline.annotate(coreDocument);
         List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        ArrayList<NLP> wordsWithPOSTag = new ArrayList<>();
+        ArrayList<Nlp> wordsWithPOSTag = new ArrayList<>();
         for (CoreLabel coreLabel : coreLabelsList) {
 
             String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
             if (domainSpecificTopics.contains(coreLabel.originalText())) {
-                wordsWithPOSTag.add(new NLP(coreLabel.originalText(), "NN"));
+                wordsWithPOSTag.add(new Nlp(coreLabel.originalText(), "NN"));
             } else {
-                wordsWithPOSTag.add(new NLP(coreLabel.originalText(), partsOfSpeech));
+                wordsWithPOSTag.add(new Nlp(coreLabel.originalText(), partsOfSpeech));
             }
         }
         return wordsWithPOSTag;

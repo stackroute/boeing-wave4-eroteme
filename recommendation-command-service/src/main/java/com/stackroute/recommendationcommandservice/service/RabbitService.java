@@ -76,8 +76,9 @@ public class RabbitService {
     }
 
 
-    @RabbitListener(queues = "${jsc.rabbitmq.queue}")
+    @RabbitListener(queues = "${jsh.rabbitmq.queue}")
     public void receivedMessage(UserDTO user) {
+
         log.info("Received Message: " + user);
     }
 }
