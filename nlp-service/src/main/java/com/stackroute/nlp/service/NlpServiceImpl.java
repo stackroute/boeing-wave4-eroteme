@@ -24,6 +24,12 @@ import java.util.regex.Pattern;
 @Service
 public class NlpServiceImpl implements NlpService{
 
+    @Value("${jsa.rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${jsa.rabbitmq.routingkey}")
+    private String routingKey;
+
     private static final Logger log = LoggerFactory.getLogger(NlpServiceImpl.class);
     String question;
     String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "above", "below", "be", "what", "in", "on", "above",
@@ -40,21 +46,13 @@ public class NlpServiceImpl implements NlpService{
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    @Value("${jsa.rabbitmq.exchange}")
-    private String exchange;
-
-    @Value("${jsa.rabbitmq.routingkey}")
-    private String routingKey;
-
-
     public NlpServiceImpl() {
 
     }
 
-
-
     public String setquestion(String question) {
         this.question = question;
+        getDomainSpecificTopicName();
         return question;
     }
 
