@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${jsa.rabbitmq.queue}")
+    @Value("${jsa.rabbitmq.queue}") //queue names are passed
     private String queueName;
 
     @Value("${jsa.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jsa.rabbitmq.routingkey}") //unique routing key for eachqueue
     private String routingKey;
 
     @Bean
@@ -33,10 +33,13 @@ public class RabbitConfig {
         return new DirectExchange(exchange);
     }
 
+    //combing the key with direct exchange
     @Bean
     Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
+
+    //message to jason data convdersion
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
