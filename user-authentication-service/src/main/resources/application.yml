@@ -22,3 +22,8 @@ spring:
 
     application:
       name: userDTO-authentication-service
+jsh:
+    rabbitmq:
+        queue: jsh.queuereg
+        exchange: jsh.directreg
+        routingkey: jsh.routingkeyreg

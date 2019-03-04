@@ -1,4 +1,4 @@
-package com.stackroute.nlp.config;
+package com.stackroute.userauthenticationservice.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -12,15 +12,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
-public class RabbitConfig {
-    @Value("${jsb.rabbitmq.queue}") //queue names are passed
+public class RabbitmqConfig {
+    @Value("${jsh.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${jsb.rabbitmq.exchange}")
+    @Value("${jsh.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsb.rabbitmq.routingkey}") //unique routing key for eachqueue
+    @Value("${jsh.rabbitmq.routingkey}")
     private String routingKey;
 
     @Bean
@@ -33,13 +34,10 @@ public class RabbitConfig {
         return new DirectExchange(exchange);
     }
 
-    //combing the key with direct exchange
     @Bean
     Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
-
-    //message to jason data convdersion
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
@@ -53,4 +51,3 @@ public class RabbitConfig {
     }
 
 }
-
