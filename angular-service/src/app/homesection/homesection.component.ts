@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../auth/auth.service';
 import { TokenStorageService } from './../auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-homesection',
@@ -15,14 +16,17 @@ export class HomesectionComponent implements OnInit {
 
   post;
 
+  checkvalue;
+
   info: any;
   
   public data: Array < any >= [];
 
-  constructor(private token: TokenStorageService,private authService: AuthService,private router :Router,private webSocketService:WebSocketService) { }
+  constructor(private token: TokenStorageService,private authService: AuthService,private router :Router,private webSocketService:WebSocketService,private app:AppComponent) { }
 
 
   ngOnInit() {
+    this.checkvalue=this.app.checkLoggedIn;
     this.info = {
       token: this.token.getToken(),
       email: this.token.getUsername()

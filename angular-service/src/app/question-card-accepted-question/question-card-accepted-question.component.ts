@@ -1,12 +1,12 @@
-import { Component, OnInit,Input } from '@angular/core';
-import {TransferServiceService} from '../transfer-service.service';
-import { __assign } from 'tslib';
+import { Component, OnInit, Input } from '@angular/core';
+import { TransferServiceService } from '../transfer-service.service';
+
 @Component({
-  selector: 'app-question-card',
-  templateUrl: './question-card.component.html',
-  styleUrls: ['./question-card.component.css']
+  selector: 'app-question-card-accepted-question',
+  templateUrl: './question-card-accepted-question.component.html',
+  styleUrls: ['./question-card-accepted-question.component.css']
 })
-export class QuestionCardComponent implements OnInit {
+export class QuestionCardAcceptedQuestionComponent implements OnInit {
 
   @Input()
   passedQuestions;

@@ -1,15 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-question-answer-card',
-  templateUrl: './question-answer-card.component.html',
-  styleUrls: ['./question-answer-card.component.css']
+  selector: 'app-notify-answer-card',
+  templateUrl: './notify-answer-card.component.html',
+  styleUrls: ['./notify-answer-card.component.css']
 })
-export class QuestionAnswerCardComponent implements OnInit {
+export class NotifyAnswerCardComponent implements OnInit {
 
   showAllCommentsQuestion = '';
   showAllCommentsAnswer = '';
@@ -200,7 +201,6 @@ downvoteAnswer() {
   }
   else {
     console.log('downvote answer');
-    this.http.put("http://localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
@@ -334,4 +334,13 @@ postanswer() {
         })
   }
 }
+
+
+acceptedAnswer(answertoAccept){
+  this.http.put("http://localhost:8080/api/v1/question/answer/accept"+this.present.questionId,{
+    "answer": answertoAccept
+  })
+}
+
+
 }

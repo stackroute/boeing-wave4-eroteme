@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
 
       //Below is the JWT Token
     this.checkLoggedIn= this.info.token;
+   // this.checkLoggedIn= "eurbg";
 
   }
 
@@ -46,9 +47,6 @@ export class AppComponent implements OnInit {
    
   }
 
-
-  title = 'homepage';
-
   // putvalues(){
   //   if()
   // }
@@ -62,7 +60,7 @@ export class AppComponent implements OnInit {
   //     "question": "What are some of the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answerDTO": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -73,7 +71,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -83,14 +81,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -105,7 +103,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -115,21 +113,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -140,7 +138,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answerDTO": "Directives are one of the most important concepts of angular",
+  //         "answer": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -151,7 +149,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -161,14 +159,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -183,7 +181,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -193,21 +191,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -219,7 +217,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "userDTO": {
+  //     "user": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -235,10 +233,10 @@ export class AppComponent implements OnInit {
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answerDTO the question",
+  //             "reply": "I think the details mentioned are enough to answer the question",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -248,14 +246,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -271,7 +269,7 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
@@ -281,14 +279,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Dude the question is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -300,7 +298,7 @@ export class AppComponent implements OnInit {
   //     "question": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answerDTO": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -311,7 +309,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -321,14 +319,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -343,7 +341,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -353,21 +351,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -378,7 +376,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answerDTO": "Directives are one of the most important concepts of angular",
+  //         "answer": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -389,7 +387,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -399,14 +397,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -421,7 +419,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -431,21 +429,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -457,7 +455,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "userDTO": {
+  //     "user": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -473,10 +471,10 @@ export class AppComponent implements OnInit {
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answerDTO the question",
+  //             "reply": "I think the details mentioned are enough to answer the question",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -486,14 +484,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -509,7 +507,7 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //              "likes": 3,
   //             "timestamp": 1550166532,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
@@ -519,14 +517,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Dude the question is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -541,7 +539,7 @@ export class AppComponent implements OnInit {
   //     "question": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answerDTO": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention1 other important topics ?",
@@ -552,7 +550,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -562,14 +560,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -584,7 +582,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -594,21 +592,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -619,7 +617,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answerDTO": "Directives are one of the most important concepts of angular",
+  //         "answer": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -630,7 +628,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -640,14 +638,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -662,7 +660,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -672,21 +670,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -698,7 +696,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "userDTO": {
+  //     "user": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -714,10 +712,10 @@ export class AppComponent implements OnInit {
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answerDTO the question",
+  //             "reply": "I think the details mentioned are enough to answer the question",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -727,14 +725,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -750,7 +748,7 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
@@ -760,14 +758,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Dude the question is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -779,7 +777,7 @@ export class AppComponent implements OnInit {
   //     "question": "What are some of the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answerDTO": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -790,7 +788,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -800,14 +798,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -822,7 +820,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -832,21 +830,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -857,7 +855,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answerDTO": "Directives are one of the most important concepts of angular",
+  //         "answer": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -868,7 +866,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -878,14 +876,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -900,7 +898,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -910,21 +908,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -936,7 +934,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "userDTO": {
+  //     "user": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -952,10 +950,10 @@ export class AppComponent implements OnInit {
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answerDTO the question",
+  //             "reply": "I think the details mentioned are enough to answer the question",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -965,14 +963,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -988,7 +986,7 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
@@ -998,14 +996,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Dude the question is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -1017,7 +1015,7 @@ export class AppComponent implements OnInit {
   //     "question": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answerDTO": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -1028,7 +1026,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1038,14 +1036,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -1060,7 +1058,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1070,21 +1068,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -1095,7 +1093,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answerDTO": "Directives are one of the most important concepts of angular",
+  //         "answer": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -1106,7 +1104,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1116,14 +1114,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -1138,7 +1136,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1148,21 +1146,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "userDTO": {
+  //                 "user": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -1174,7 +1172,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "userDTO": {
+  //     "user": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -1190,10 +1188,10 @@ export class AppComponent implements OnInit {
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answerDTO the question",
+  //             "reply": "I think the details mentioned are enough to answer the question",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -1203,14 +1201,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -1226,7 +1224,7 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
@@ -1236,14 +1234,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Dude the question is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "userDTO": {
+  //             "user": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "userDTO": {
+  //         "user": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
