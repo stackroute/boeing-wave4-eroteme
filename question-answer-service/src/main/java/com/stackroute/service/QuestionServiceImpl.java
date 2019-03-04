@@ -270,7 +270,38 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
-                QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
+                produceMsg(questionDTO);
+                return savedQuestion;
+            }
+            else {
+                throw new AnswerNotFoundException("Answer does not exists");
+            }
+        }
+        else {
+            throw new QuestionNotFoundException("Question does not exists");
+        }
+    }
+
+    @Override
+    public Question addAnswerDownvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException {
+        boolean flag = false;
+        if (questionRepository.findByQuestionId(questionId)!= null) {
+            Question question = questionRepository.findByQuestionId(questionId);
+            List<Answer> answers = question.getAnswer();
+            if(answers==null){
+                throw new AnswerNotFoundException("Answer not exists");
+            }
+            for (Answer answer1: answers) {
+                if(answer1.getAnswer().equals(answer)){
+                    flag = true;
+                    int downvotes = answer1.getDownvotes();
+                    answer1.setDownvotes(downvotes+1);
+                }
+            }
+            if (flag){
+                Question savedQuestion = questionRepository.save(question);
+                QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_DOWNVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
             }
