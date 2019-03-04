@@ -165,5 +165,23 @@ public class RecommendationController {
         }
         return responseEntity;
     }
+
+    @GetMapping("/guest/acceptedAnswers")
+    public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
+        ResponseEntity<List<Question>> responseEntity;
+        try {
+            List<Question> question = recommendationService.getAllAcceptedAnswersForGuestUser()
+                    .stream()
+                    .sorted(Comparator.comparing(Question::getTimestamp))
+                    .collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(question, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
+
+
+    }
 }
 

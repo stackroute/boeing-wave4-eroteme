@@ -19,7 +19,7 @@ import static com.stackroute.recommendationcommandservice.service.Actions.QUESTI
 @Slf4j
 public class RabbitService {
     @Autowired
-    private RecommendationCommandService recommendationCommandService;
+    private RecommendationCommandServiceImpl recommendationCommandServiceImpl;
 
     @RabbitListener(queues = "${jsa.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO questionDTO) {
@@ -28,39 +28,18 @@ public class RabbitService {
 
         Question ques = new Question();
         ques.setQuestionId(questionDTO.getQuestionId());
+        int questionId = ques.getQuestionId();
         ques.setQuestionString(questionDTO.getQuestion());
         ques.setTimestamp(questionDTO.getTimestamp());
         ques.setUpVote(questionDTO.getUpvotes());
         ques.setDownVote(questionDTO.getDownvotes());
 
 
-//        Answer answer = new Answer();
-//        List<AnswerDTO> answer1 = questionDTO.getAnswer();
-//        answer1.forEach(answerDTO -> {
-//        answer.setAnswerString(answerDTO.getAnswer());
-//        User user = new User();
-//        user.setUserName(answerDTO.getUser().getEmail());
-//        answer.setUser(Collections.singletonList(user));
-
-
         if (questionDTO.getAction() == POST_QUESTION) {
-            recommendationCommandService.saveQuestionToDb(ques);
+            recommendationCommandServiceImpl.saveQuestionToDb(ques);
 
         }
 
-
-//        if (questionDTO.getAction() == 1) {
-//            recommendationCommandService.saveQuestionToDb(ques);
-//
-//        }
-
-//        questionDTO.getAnswer().forEach(answerDTO -> {
-//            Answer answer = new Answer();
-//            System.out.println("i got answer " + answerDTO.getAnswer());
-//            answer.setAnswerString(answerDTO.getAnswer());
-//            User user = new User();
-//            user.setUserName(answerDTO.getUser().getEmail());
-//            answer.setUser(Collections.singletonList(user));
         if (questionDTO.getAction() == QUESTION_ANSWER) {
             System.out.println(questionDTO.getAnswer().size());
             int n = questionDTO.getAnswer().size();
@@ -68,24 +47,37 @@ public class RabbitService {
             answerDTO = questionDTO.getAnswer().get(n - 1);
             Answer answer = new Answer();
             answer.setAnswerString(answerDTO.getAnswer());
+            String answerString = answer.getAnswerString();
             User user = new User();
             user.setUserName(answerDTO.getUser().getEmail());
             answer.setUser(Collections.singletonList(user));
 
-            recommendationCommandService.saveAnswerToDb(answer);
+            recommendationCommandServiceImpl.saveAnswerToDb(answer);
+            recommendationCommandServiceImpl.answerIsAnswerOfQuestion(answerString, questionId);
         }
 
+//        if (questionDTO.getAction() == ANSWER_ACCEPT) {
+//            System.out.println(questionDTO.getAnswer().size());
+//            int n = questionDTO.getAnswer().size();
+//            AnswerDTO answerDTO = new AnswerDTO();
+//            answerDTO = questionDTO.getAnswer().get(n - 1);
+//            Answer answer = new Answer();
+//            answer.setAnswerString(answerDTO.getAnswer());
+//            String answerString = answer.getAnswerString();
+//            User user = new User();
+//            user.setUserName(questionDTO.getUser().getEmail());
+//            String userName = user.getUserName();
+//            System.out.println(userName);
+//            System.out.println(answerString);
+//            answer.setUser(Collections.singletonList(user));
+//
+//            recommendationCommandServiceImpl.userAcceptedAnswer(userName,answerString);
+//        }
 
-//            recommendationCommandService.saveAnswerToDb(answer);
-//            int questionDTOAction = questionDTO.getAction();
-//            if (questionDTO.getAction() == 2) {
-//                recommendationCommandService.saveAnswerToDb(answer);
-//            }
-//            else if(questionDTO.getAction() == 7){
-//                recommendationCommandService.userUpvoteQuestion(user.getUserName(),questionDTO.getQuestionId());
-//            }
 
-//        });
+
+
+
 
 
 

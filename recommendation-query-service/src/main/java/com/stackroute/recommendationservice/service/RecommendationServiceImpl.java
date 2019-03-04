@@ -40,29 +40,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     @Override
-    public List<Question> getAllUnansweredQuestionsForGuestUser() {
-        try {
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
-            }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
-    public Question getDocumentByQuestionId(long questionId) {
-        try {
-            return restTemplate.getForObject(questionAndAnswerUrl.concat(Long.toString(questionId)), Question.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Question();
-        }
-    }
-
-    @Override
     public List<UserNode> getAllUsersRelatedToQuestion(long questionId) {
         return userRepository.findAllUsersRelatedToTopic(questionId);
     }
@@ -87,6 +64,42 @@ public class RecommendationServiceImpl implements RecommendationService {
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Question> getAllUnansweredQuestionsForGuestUser() {
+        try {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Question> getAllAcceptedAnswersForGuestUser() {
+        try {
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            }).getBody());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public Question getDocumentByQuestionId(long questionId) {
+        try {
+            return restTemplate.getForObject(questionAndAnswerUrl.concat(Long.toString(questionId)), Question.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Question();
         }
     }
 }
