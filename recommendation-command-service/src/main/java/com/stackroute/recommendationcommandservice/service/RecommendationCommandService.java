@@ -38,25 +38,25 @@ public interface RecommendationCommandService {
     Question questionBelongsTopic(int questionId, String Name);
 
 
-    User userAnsweredAnswer(String userName, int answerId);
+    User userAnsweredAnswer(String userName, String answerString);
 
 
     User userViewedQuestion(String userName, int questionId);
 
 
-    Answer answerIsAnswerOfQuestion(int answerId, int questionId);
+    Answer answerIsAnswerOfQuestion(String answerString, int questionId);
 
 
     User userAskedQuestion(String userName, int questionId);
 
 
-    User userAcceptedAnswer(String userName, int answerId);
+    User userAcceptedAnswer(String userName, String answerString);
 
 
-    User userUpvotedAnswer(String userName, int answerId);
+    User userUpvotedAnswer(String userName, String answerString);
 
 
-    User userDownvotedAnswer(String userName, int answerId);
+    User userDownvotedAnswer(String userName, String answerString);
 
 
     User userUpvoteQuestion(String userName, int questionId);

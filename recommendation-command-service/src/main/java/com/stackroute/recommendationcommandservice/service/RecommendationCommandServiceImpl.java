@@ -98,9 +98,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship ANSWERED between userDTO and answerDTO//
     @Override
-    public User userAnsweredAnswer(String userName, int answerId) {
+    public User userAnsweredAnswer(String userName, String answerString) {
 
-        return answerRepository.userAnsweredAnswerRelationship(userName, answerId);
+        return answerRepository.userAnsweredAnswerRelationship(userName, answerString);
     }
 
 
@@ -115,9 +115,9 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship ANSWER_OF between answerDTO and question//
     @Override
-    public Answer answerIsAnswerOfQuestion(int answerId, int questionId) {
+    public Answer answerIsAnswerOfQuestion(String answerString, int questionId) {
 
-        return questionRepository.answerIsAnswerOfQuestionRelationship(answerId, questionId);
+        return questionRepository.answerIsAnswerOfQuestionRelationship(answerString, questionId);
 
     }
 
@@ -132,27 +132,27 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship ACCEPTED between userDTO and answerDTO//
     @Override
-    public User userAcceptedAnswer(String userName, int answerId) {
+    public User userAcceptedAnswer(String userName, String answerString) {
 
-        return answerRepository.userAcceptedAnswerRelationship(userName, answerId);
+        return answerRepository.userAcceptedAnswerRelationship(userName, answerString);
 
     }
 
 
     //method to create relationship UPVOTED between userDTO and answerDTO//
     @Override
-    public User userUpvotedAnswer(String userName, int answerId) {
+    public User userUpvotedAnswer(String userName, String answerString) {
 
-        return answerRepository.userUpvotedAnswerRelationship(userName, answerId);
+        return answerRepository.userUpvotedAnswerRelationship(userName, answerString);
 
     }
 
 
     //method to create relationship DOWNVOTED between userDTO and answerDTO//
     @Override
-    public User userDownvotedAnswer(String userName, int answerId) {
+    public User userDownvotedAnswer(String userName, String answerString) {
 
-        return answerRepository.userDownvotedAnswerRelationship(userName, answerId);
+        return answerRepository.userDownvotedAnswerRelationship(userName, answerString);
 
     }
 
