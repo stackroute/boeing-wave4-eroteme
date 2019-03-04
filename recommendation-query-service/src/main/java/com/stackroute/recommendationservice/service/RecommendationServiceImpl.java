@@ -1,5 +1,6 @@
 package com.stackroute.recommendationservice.service;
 
+import com.stackroute.recommendationservice.model.Answer;
 import com.stackroute.recommendationservice.model.Question;
 import com.stackroute.recommendationservice.model.QuestionNode;
 import com.stackroute.recommendationservice.model.UserNode;
@@ -14,9 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,8 +84,18 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
-            }).getBody());
+            List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            }).getBody()));
+
+            Map<Long, List<Answer>> questionListMap = questions.stream()
+                    .collect(Collectors.toMap(Question::getQuestionId, question -> question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
+
+            return questionListMap
+                    .keySet()
+                    .stream()
+                    .flatMap(key -> questions.stream().filter(question -> question.getQuestionId() == key))
+                    .collect(Collectors.toList());
+
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();

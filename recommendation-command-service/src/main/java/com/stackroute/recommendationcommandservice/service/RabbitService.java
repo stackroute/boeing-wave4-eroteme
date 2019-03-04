@@ -1,5 +1,6 @@
 package com.stackroute.recommendationcommandservice.service;
 
+import com.stackroute.recommendationcommandservice.UserDomain.UserDTO;
 import com.stackroute.recommendationcommandservice.domain.AnswerDTO;
 import com.stackroute.recommendationcommandservice.domain.QuestionDTO;
 import com.stackroute.recommendationcommandservice.model.Answer;
@@ -12,8 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
-import static com.stackroute.recommendationcommandservice.service.Actions.POST_QUESTION;
-import static com.stackroute.recommendationcommandservice.service.Actions.QUESTION_ANSWER;
+import static com.stackroute.recommendationcommandservice.service.Actions.*;
 
 @Component
 @Slf4j
@@ -56,36 +56,28 @@ public class RabbitService {
             recommendationCommandServiceImpl.answerIsAnswerOfQuestion(answerString, questionId);
         }
 
-//        if (questionDTO.getAction() == ANSWER_ACCEPT) {
-//            System.out.println(questionDTO.getAnswer().size());
-//            int n = questionDTO.getAnswer().size();
-//            AnswerDTO answerDTO = new AnswerDTO();
-//            answerDTO = questionDTO.getAnswer().get(n - 1);
-//            Answer answer = new Answer();
-//            answer.setAnswerString(answerDTO.getAnswer());
-//            String answerString = answer.getAnswerString();
-//            User user = new User();
-//            user.setUserName(questionDTO.getUser().getEmail());
-//            String userName = user.getUserName();
-//            System.out.println(userName);
-//            System.out.println(answerString);
-//            answer.setUser(Collections.singletonList(user));
-//
-//            recommendationCommandServiceImpl.userAcceptedAnswer(userName,answerString);
-//        }
+        if (questionDTO.getAction() == ANSWER_ACCEPT) {
+            System.out.println(questionDTO.getAnswer().size());
+            int n = questionDTO.getAnswer().size();
+            AnswerDTO answerDTO = new AnswerDTO();
+            answerDTO = questionDTO.getAnswer().get(n - 1);
+            Answer answer = new Answer();
+            answer.setAnswerString(answerDTO.getAnswer());
+            answer.setAccepted(answerDTO.isAccepted());
+            String answerString = answer.getAnswerString();
+            User user = new User();
+            user.setUserName(answerDTO.getUser().getEmail());
+            answer.setUser(Collections.singletonList(user));
+
+            recommendationCommandServiceImpl.saveAnswerToDb(answer);
 
 
+        }
+    }
 
 
-
-
-
-
-
-
-
-
-
-
+    @RabbitListener(queues = "${jsc.rabbitmq.queue}")
+    public void receivedMessage(UserDTO user) {
+        log.info("Received Message: " + user);
     }
 }
