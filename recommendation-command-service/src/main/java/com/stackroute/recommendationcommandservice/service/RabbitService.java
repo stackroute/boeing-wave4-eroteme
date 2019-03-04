@@ -1,5 +1,6 @@
 package com.stackroute.recommendationcommandservice.service;
 
+import com.stackroute.recommendationcommandservice.UserDomain.UserDTO;
 import com.stackroute.recommendationcommandservice.domain.AnswerDTO;
 import com.stackroute.recommendationcommandservice.domain.QuestionDTO;
 import com.stackroute.recommendationcommandservice.model.Answer;
@@ -72,5 +73,11 @@ public class RabbitService {
 
 
         }
+    }
+
+
+    @RabbitListener(queues = "${jsc.rabbitmq.queue}")
+    public void receivedMessage(UserDTO user) {
+        log.info("Received Message: " + user);
     }
 }
