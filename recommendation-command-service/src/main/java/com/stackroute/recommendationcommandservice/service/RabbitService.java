@@ -27,8 +27,17 @@ public class RabbitService {
         log.info("Received Message: " + questionDTO);
         System.out.println(questionDTO.getAction());
 
+
+//        user.setEmail(user.getEmail());
+//        user.setInterests(user.getInterests());
+//        List<String> name = user.getInterests();
+//        User user1 = new User();
+//        user1.setUserName(user.getEmail());
+//        String userName = user1.getUserName();
+//        User user2 = user1;
         Question ques = new Question();
         ques.setQuestionId(questionDTO.getQuestionId());
+        List<String> name = questionDTO.getTopics();
         int questionId = ques.getQuestionId();
         ques.setQuestionString(questionDTO.getQuestion());
         ques.setTimestamp(questionDTO.getTimestamp());
@@ -38,6 +47,7 @@ public class RabbitService {
 
         if (questionDTO.getAction() == POST_QUESTION) {
             recommendationCommandServiceImpl.saveQuestionToDb(ques);
+            recommendationCommandServiceImpl.questionBelongsTopic(questionId, name);
 
         }
 
@@ -81,11 +91,8 @@ public class RabbitService {
     public void receivedMessage(UserDTO user) {
 
         log.info("Received Message: " + user);
-//        Question ques = new Question();
-//        ques.setQuestionId(questionDTO.getQuestionId());
-//        int questionId = ques.getQuestionId();
-//        ques.setQuestionString(questionDTO.getQuestion());
-//
+
+
         user.setEmail(user.getEmail());
         user.setInterests(user.getInterests());
         List<String> name = user.getInterests();
