@@ -1,5 +1,5 @@
 server:
-  context-path: /userDTO
+#  context-path: /userDTO
     port: 8086
 spring:
     application:
@@ -12,3 +12,8 @@ spring:
     rabbitmq:
             host: localhost
             port: 5672
+jsd:
+  rabbitmq:
+    queue: jsd.queuereg
+    exchange: jsd.directreg
+    routingkey: jsd.routingkeyreg
