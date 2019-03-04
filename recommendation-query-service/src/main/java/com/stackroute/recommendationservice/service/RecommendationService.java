@@ -22,5 +22,6 @@ public interface RecommendationService {
 
     List<QuestionNode> getAllAcceptedAnswersOfDomain(String username);
 
+    List<Question> getAllAcceptedAnswersForGuestUser();
 }
 

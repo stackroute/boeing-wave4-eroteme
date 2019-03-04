@@ -10,4 +10,5 @@ public class AnswerNode {
     @Id
     long answerId;
     String answer;
+    boolean accepted;
 }
