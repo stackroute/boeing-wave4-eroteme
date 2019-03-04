@@ -2,7 +2,6 @@ package com.stackroute.recommendationcommandservice.controller;
 
 
 import com.stackroute.recommendationcommandservice.model.Question;
-import com.stackroute.recommendationcommandservice.model.User;
 import com.stackroute.recommendationcommandservice.service.RecommendationCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -129,18 +128,18 @@ public class RecommendationController {
 //    //method to create relationship FOLLOWS between userDTO and topic//
 
 
-    @GetMapping("/follows/{userName}/{name}")
-    public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
-        try {
-
-            responseEntity = new ResponseEntity<User>(homeService.userFollowsTopic(userName, name), HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
-        }
-        return responseEntity;
-    }
+//    @GetMapping("/follows/{userName}/{name}")
+//    public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
+//        try {
+//
+//            responseEntity = new ResponseEntity<User>(homeService.userFollowsTopic(userName, name), HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
+//        }
+//        return responseEntity;
+//    }
 
     //
 //    //method to create relationship QUESTION_OF between question and topic//
