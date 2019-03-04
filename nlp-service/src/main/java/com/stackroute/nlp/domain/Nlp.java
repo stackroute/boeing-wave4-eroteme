@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NLP {
+public class Nlp {
     private String originalWord;          //Keyword is stored in this String
     private String partsOfSpeech;         //Parts of speech og the extracted keyword
 }

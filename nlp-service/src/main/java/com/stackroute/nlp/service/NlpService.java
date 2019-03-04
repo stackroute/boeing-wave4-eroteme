@@ -1,6 +1,6 @@
 package com.stackroute.nlp.service;
 
-import com.stackroute.nlp.domain.NLP;
+import com.stackroute.nlp.domain.Nlp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,5 +12,5 @@ public interface NlpService {
     public String getSentenceWithoutStopWords();
     public List<String> getDomainSpecificTopicName();
     public String getCleanQuestion();
-    public ArrayList<NLP> getPOSWords();
+    public ArrayList<Nlp> getPOSWords();
 }
