@@ -91,7 +91,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship QUESTION_OF between question and topic//
     @Override
-    public Question questionBelongsTopic(int questionId, String Name) {
+    public Question questionBelongsTopic(int questionId, List<String> Name) {
 
         return questionRepository.questionBelongsTopicRelationship(questionId, Name);
     }

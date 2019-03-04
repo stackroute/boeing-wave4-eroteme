@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
@@ -43,7 +44,7 @@ public interface QuestionRepository extends Neo4jRepository<Question, Integer> {
 
     ////method to create relationship BELONGS between question and topic//
     @Query("match (q:Question),(t:parents) where q.questionId={questionid} and t.name={name} create (q)-[r:question_of_topic]->(t)")
-    Question questionBelongsTopicRelationship(@Param("questionid") int questionId, @Param("name") String name);
+    Question questionBelongsTopicRelationship(@Param("questionid") int questionId, @Param("name") List<String> name);
 
 
 
