@@ -76,8 +76,22 @@ public class RabbitService {
     }
 
 
-    @RabbitListener(queues = "${jsc.rabbitmq.queue}")
+    @RabbitListener(queues = "${jsh.rabbitmq.queue}")
     public void receivedMessage(UserDTO user) {
+
         log.info("Received Message: " + user);
+//        Question ques = new Question();
+//        ques.setQuestionId(questionDTO.getQuestionId());
+//        int questionId = ques.getQuestionId();
+//        ques.setQuestionString(questionDTO.getQuestion());
+//
+        user.setEmail(user.getEmail());
+        user.setInterests(user.getInterests());
+        User user1 = new User();
+        user1.setUserName(user.getEmail());
+        User user2 = user1;
+
+        recommendationCommandServiceImpl.saveUserToDb(user2);
+
     }
 }

@@ -1,4 +1,4 @@
-package com.stackroute.nlp.model;
+package com.stackroute.nlp.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NLP {
+public class Nlp {
     private String originalWord;          //Keyword is stored in this String
     private String partsOfSpeech;         //Parts of speech og the extracted keyword
 }

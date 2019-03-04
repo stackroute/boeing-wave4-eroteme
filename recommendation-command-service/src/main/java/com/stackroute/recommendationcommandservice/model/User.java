@@ -16,5 +16,6 @@ public class User {
     @Id
 //    private int userId;
     private String userName;
+    //    @GeneratedValue(strategy = GenerationType.AUTO)
     private int reputation;
 }
