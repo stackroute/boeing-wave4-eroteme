@@ -170,4 +170,22 @@ public class RecommendationControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void testAcceptedQuestionsPresentForGuestUser() throws Exception {
+        when(recommendationService.getAllAcceptedAnswersForGuestUser()).thenReturn(Collections.singletonList(QUESTION_DOCUMENT_ONE));
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedAnswers")
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(asJsonString(QUESTION_DOCUMENT_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void testAcceptedQuestionsNotPresentForGuestUser() throws Exception {
+        when(recommendationService.getAllAcceptedAnswersForGuestUser()).thenReturn(Collections.emptyList());
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedAnswers")
+                .contentType(MediaType.APPLICATION_JSON_UTF8).content(asJsonString(QUESTION_DOCUMENT_ONE)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 }

@@ -166,6 +166,9 @@ public class RecommendationController {
         return responseEntity;
     }
 
+    /**
+     * @return List of accepted answers to guest users
+     */
     @GetMapping("/guest/acceptedAnswers")
     public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
         ResponseEntity<List<Question>> responseEntity;
@@ -180,8 +183,6 @@ public class RecommendationController {
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
-
-
     }
 }
 
