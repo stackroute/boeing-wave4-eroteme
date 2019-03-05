@@ -6,9 +6,9 @@ server:
     port: 8084
 spring:
     datasource:
-        password: password
+        password: root123
         url: jdbc:mysql://localhost:3306/userlogin?useSSL=false
-        username: sammy
+        username: root
     jpa:
         generate-ddl: true
         hibernate:
