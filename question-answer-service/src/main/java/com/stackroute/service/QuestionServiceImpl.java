@@ -26,6 +26,18 @@ public class QuestionServiceImpl implements QuestionService{
     @Value("${jsa.rabbitmq.routingkey}")
     private String routingKey;
 
+    @Value("${jsd.rabbitmq.exchange}")
+    private String exchange1;
+
+    @Value("${jsd.rabbitmq.routingkey}")
+    private String routingKey1;
+
+    @Value("${jse.rabbitmq.exchange}")
+    private String exchange2;
+
+    @Value("${jse.rabbitmq.routingkey}")
+    private String routingKey2;
+
     private QuestionRepository questionRepository;
 
     @Autowired
@@ -561,6 +573,8 @@ public class QuestionServiceImpl implements QuestionService{
     public void produceMsg(QuestionDTO msg){
         log.info("Sending message");
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
+        amqpTemplate.convertAndSend(exchange1, routingKey1, msg);
+        amqpTemplate.convertAndSend(exchange2, routingKey2, msg);
         System.out.println("Send msg = " + msg);
     }
 }

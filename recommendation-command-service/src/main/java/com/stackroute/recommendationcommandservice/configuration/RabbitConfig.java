@@ -1,9 +1,6 @@
 package com.stackroute.recommendationcommandservice.configuration;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -14,22 +11,22 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
-    @Value("${jsa.rabbitmq.queue}")
+    @Value("${jse.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jse.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jse.rabbitmq.routingkey}")
     private String routingKey;
 
-    @Value("${jsh.rabbitmq.queue}")
+    @Value("${jsf.rabbitmq.queue}")
     private String queueName1;
 
-    @Value("${jsh.rabbitmq.exchange}")
+    @Value("${jsf.rabbitmq.exchange}")
     private String exchange1;
 
-    @Value("${jsh.rabbitmq.routingkey}")
+    @Value("${jsf.rabbitmq.routingkey}")
     private String routingKey1;
 
     @Bean

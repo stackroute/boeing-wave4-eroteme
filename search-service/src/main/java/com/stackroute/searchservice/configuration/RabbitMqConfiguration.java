@@ -28,12 +28,12 @@ public class RabbitMqConfiguration{
         return new Queue(queueName, false);
     }
     @Bean
-    FanoutExchange exchange() {
-        return new FanoutExchange(exchange);
+    DirectExchange exchange() {
+        return new DirectExchange(exchange);
     }
     @Bean
-    Binding binding(Queue queue, FanoutExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange);
+    Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
 
     @Bean

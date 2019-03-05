@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
 
 import static com.stackroute.recommendationcommandservice.service.Actions.*;
 
@@ -21,7 +22,7 @@ public class RabbitService {
     @Autowired
     private RecommendationCommandServiceImpl recommendationCommandServiceImpl;
 
-    @RabbitListener(queues = "${jsa.rabbitmq.queue}")
+    @RabbitListener(queues = "${jse.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO questionDTO) {
         log.info("Received Message: " + questionDTO);
         System.out.println(questionDTO.getAction());
@@ -86,7 +87,7 @@ public class RabbitService {
     }
 
 
-    @RabbitListener(queues = "${jsh.rabbitmq.queue}")
+    @RabbitListener(queues = "${jsf.rabbitmq.queue}")
     public void receivedMessage(UserDTO user) {
 
         log.info("Received Message: " + user);

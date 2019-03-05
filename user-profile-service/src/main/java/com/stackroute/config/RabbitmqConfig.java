@@ -1,9 +1,6 @@
 package com.stackroute.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -14,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitmqConfig {
+
+    //For User-authentication service
     @Value("${jsh.rabbitmq.queue}")
     private String queueName;
 
@@ -22,6 +21,16 @@ public class RabbitmqConfig {
 
     @Value("${jsh.rabbitmq.routingkey}")
     private String routingKey;
+
+    //For recommandation command service
+    @Value("${jsf.rabbitmq.queue}")
+    private String queueName1;
+
+    @Value("${jsf.rabbitmq.exchange}")
+    private String exchange1;
+
+    @Value("${jsf.rabbitmq.routingkey}")
+    private String routingKey1;
 
     @Bean
     Queue queue() {
@@ -36,6 +45,21 @@ public class RabbitmqConfig {
     @Bean
     Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+    }
+
+    @Bean
+    Queue queue1() {
+        return new Queue(queueName1, false);
+    }
+
+    @Bean
+    DirectExchange exchange1() {
+        return new DirectExchange(exchange1);
+    }
+
+    @Bean
+    Binding binding1(Queue queue1, DirectExchange exchange1) {
+        return BindingBuilder.bind(queue1).to(exchange1).with(routingKey1);
     }
     @Bean
     public MessageConverter jsonMessageConverter() {

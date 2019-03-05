@@ -6,6 +6,7 @@ import com.stackroute.recommendationcommandservice.model.Question;
 import com.stackroute.recommendationcommandservice.model.User;
 
 import java.util.Collection;
+import java.util.List;
 
 
 public interface RecommendationCommandService {
