@@ -1,18 +1,18 @@
 package com.stackroute.searchservice.service;
 
-import com.stackroute.searchservice.exceptions.ConceptNotFoundException;
 import com.stackroute.searchservice.domain.*;
-//import com.stackroute.searchservice.model.Answer;
+import com.stackroute.searchservice.exceptions.ConceptNotFoundException;
 import com.stackroute.searchservice.model.Comment;
 import com.stackroute.searchservice.model.QuestionDTO;
 import com.stackroute.searchservice.repository.SearchRepository;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.stackroute.searchservice.model.Answer;
 
 
 @Service
@@ -47,8 +47,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<Topic> getQuestion(List<String> topic) throws ConceptNotFoundException {
-        for (String topicName : topic
-        ) {
+        for (String topicName : topic) {
 
 
             if (!searchRepository.existsById(topicName)) {
@@ -69,7 +68,7 @@ public class SearchServiceImpl implements SearchService {
         List<com.stackroute.searchservice.domain.Question> questionLists = topics.getQuestions();
         List<com.stackroute.searchservice.domain.Question> questions = new ArrayList<>();
         for (com.stackroute.searchservice.domain.Question questionList : questionLists) {
-            if (questionList.getQuestion().contains(question.toString())) {
+            if (questionList.getQuestion().contains(question)) {
                 questions.add(questionList);
             }
         }
