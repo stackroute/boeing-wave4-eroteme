@@ -60,8 +60,6 @@ export class LoginComponent implements OnInit {
   }
 
   home(){
-    console.log("siudbv");
-    window.location.reload();
     this.router.navigate([""]);
   }
 

@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   User;
 
   constructor(private trans:TransferServiceService) {
-    this.trans.loaditems2().subscribe((data) => {
+    this.trans.GetUserData().subscribe((data) => {
       console.log(data);
       this.User = data;
     });
