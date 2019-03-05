@@ -1,9 +1,9 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.domain.Answer;
-import com.stackroute.recommendationservice.domain.Question;
-import com.stackroute.recommendationservice.domain.QuestionNode;
-import com.stackroute.recommendationservice.domain.UserNode;
+import com.stackroute.recommendationservice.model.Answer;
+import com.stackroute.recommendationservice.model.Question;
+import com.stackroute.recommendationservice.model.QuestionNode;
+import com.stackroute.recommendationservice.model.UserNode;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,10 +89,9 @@ public class RecommendationServiceImpl implements RecommendationService {
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
-
-            questions.forEach(question ->
-                    question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
-            return questions;
+            questions.forEach(question -> question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
+            return questions.stream().
+                    filter(question -> !question.getAnswer().isEmpty()).collect(Collectors.toList());
 
         } catch (Exception e) {
             e.printStackTrace();

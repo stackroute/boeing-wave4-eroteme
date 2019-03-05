@@ -14,10 +14,10 @@ public class RabbitService {
     public void receivedMessage(QuestionDTO msg) {
 
         System.out.println("Received Message: " + msg);
-        if(msg.getAction()==2){
+        if(msg.getAction()==Actions.QUESTION_ANSWER){
             notifications.generateAnswerNotification(msg.getUser().getEmail(),msg.getQuestion());
         }
-        if(msg.getAction()==14){
+        if(msg.getAction()==Actions.ANSWER_ACCEPT){
             notifications.generateLikedNotification(msg.getAnswer().get(0).getUser().getEmail(),msg.getQuestion());
         }
     }

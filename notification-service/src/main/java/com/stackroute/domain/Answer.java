@@ -15,6 +15,7 @@ import java.util.List;
 public class Answer{
     private String answer;
     private boolean accepted;
+    private int downvotes;
     private int upvotes;
     private int views;
     private long timestamp;

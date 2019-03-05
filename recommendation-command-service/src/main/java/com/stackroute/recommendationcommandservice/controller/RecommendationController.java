@@ -1,14 +1,9 @@
 package com.stackroute.recommendationcommandservice.controller;
 
 
-import com.stackroute.recommendationcommandservice.model.Question;
-import com.stackroute.recommendationcommandservice.model.User;
 import com.stackroute.recommendationcommandservice.service.RecommendationCommandService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -129,33 +124,33 @@ public class RecommendationController {
 //    //method to create relationship FOLLOWS between userDTO and topic//
 
 
-    @GetMapping("/follows/{userName}/{name}")
-    public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
-        try {
-
-            responseEntity = new ResponseEntity<User>(homeService.userFollowsTopic(userName, name), HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
-        }
-        return responseEntity;
-    }
+//    @GetMapping("/follows/{userName}/{name}")
+//    public ResponseEntity<User> CreateRelationshipfollows(@PathVariable String userName, @PathVariable String name) {
+//        try {
+//
+//            responseEntity = new ResponseEntity<User>(homeService.userFollowsTopic(userName, name), HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            responseEntity = new ResponseEntity<User>(new User(), HttpStatus.NOT_MODIFIED);
+//        }
+//        return responseEntity;
+//    }
 
     //
 //    //method to create relationship QUESTION_OF between question and topic//
-    @GetMapping("/belongs/{questionId}/{name}")
-    public ResponseEntity<Question> CreateRelationshipbelongs(@PathVariable int questionId, @PathVariable String name) {
-        try {
-
-            responseEntity = new ResponseEntity<Question>(homeService.questionBelongsTopic(questionId, name), HttpStatus.OK);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<Question>(new Question(), HttpStatus.NOT_MODIFIED);
-        }
-        return responseEntity;
-    }
+//    @GetMapping("/belongs/{questionId}/{name}")
+//    public ResponseEntity<Question> CreateRelationshipbelongs(@PathVariable int questionId, @PathVariable String name) {
+//        try {
+//
+//            responseEntity = new ResponseEntity<Question>(homeService.questionBelongsTopic(questionId, name), HttpStatus.OK);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            responseEntity = new ResponseEntity<Question>(new Question(), HttpStatus.NOT_MODIFIED);
+//        }
+//        return responseEntity;
+//    }
 //
 //
 //    //method to create relationship ANSWERED between userDTO and answerDTO//

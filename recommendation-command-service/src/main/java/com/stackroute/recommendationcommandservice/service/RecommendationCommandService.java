@@ -35,7 +35,7 @@ public interface RecommendationCommandService {
     User getByUser(int reputation);
 
 
-    Question questionBelongsTopic(int questionId, String Name);
+    Question questionBelongsTopic(int questionId, List<String> Name);
 
 
     User userAnsweredAnswer(String userName, String answerString);
