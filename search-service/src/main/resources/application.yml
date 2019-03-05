@@ -18,10 +18,10 @@ jsa:
         exchange: jsa.direct1
         routingkey: jsa.routingkey1
 jsb:
-     rabbitmq:
-       queue: jsb.queue
-       exchange: jsb.direct
-       routingkey: jsb.routingkey
+  rabbitmq:
+    queue: jsb.queue
+    exchange: jsb.direct
+    routingkey: jsb.routingkey
 
 
 
