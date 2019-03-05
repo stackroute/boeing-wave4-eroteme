@@ -1,13 +1,4 @@
-#circle{
-    padding: 2px;
-    margin-left: 0px;
-    margin-right: 0px
-  }
-  #photo{
-    width:100px;
-    height: 65px;
-    margin-top: 0px;
-  }
+
 #baap{
     margin-left: 10%;
 }
@@ -66,7 +57,7 @@ ul{
     max-width: 100%;
 }
 #ron{
-    margin-left: 2%;
+    margin-left: 6%;
 }
 #ans{
     padding: 10px;

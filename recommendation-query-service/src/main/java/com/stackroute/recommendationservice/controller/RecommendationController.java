@@ -1,7 +1,7 @@
 package com.stackroute.recommendationservice.controller;
 
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
@@ -150,7 +150,7 @@ public class RecommendationController {
      * @param username Username of the loggedin user
      * @return List of Accepted answers of the domain which user follows
      */
-    @GetMapping("/acceptedAnswers")
+    @GetMapping("/member/acceptedanswers")
     public ResponseEntity<List<Question>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
         ResponseEntity<List<Question>> responseEntity;
         try {
@@ -169,7 +169,7 @@ public class RecommendationController {
     /**
      * @return List of accepted answers to guest users
      */
-    @GetMapping("/guest/acceptedAnswers")
+    @GetMapping("/guest/acceptedanswers")
     public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
         ResponseEntity<List<Question>> responseEntity;
         try {

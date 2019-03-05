@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 
 @Service
 public class RecommendationCommandServiceImpl implements RecommendationCommandService {
@@ -74,7 +73,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
-    public User userFollowsTopic(String userName, List<String> Name) {
+    public User userFollowsTopic(String userName, String Name) {
 
         return userRepository.userFollowsTopicRelationship(userName, Name);
 

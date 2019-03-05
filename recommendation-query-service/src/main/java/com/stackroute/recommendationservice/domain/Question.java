@@ -1,4 +1,4 @@
-package com.stackroute.recommendationservice.model;
+package com.stackroute.recommendationservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,10 +1,10 @@
 package com.stackroute.recommendationservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stackroute.recommendationservice.model.Answer;
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.QuestionNode;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.Answer;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionNode;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import org.joda.time.DateTimeUtils;
@@ -205,7 +205,7 @@ public class RecommendationControllerTest {
     public void testAcceptedQuestionsPresent() throws Exception {
         when(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).thenReturn(Collections.singletonList(QUESTION_NODE_ONE));
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
-        mockMvc.perform(MockMvcRequestBuilders.get("/acceptedAnswers?username=USERNAME")
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/acceptedanswers?username=USERNAME")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -215,7 +215,7 @@ public class RecommendationControllerTest {
     public void testAcceptedQuestionsNotPresent() throws Exception {
         when(recommendationService.getAllAcceptedAnswersOfDomain(USERNAME)).thenReturn(Collections.emptyList());
         when(recommendationService.getDocumentByQuestionId(QUESTION_ID)).thenReturn(QUESTION_DOCUMENT_ONE);
-        mockMvc.perform(MockMvcRequestBuilders.get("/acceptedAnswers?username=USERNAME")
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/acceptedanswers?username=USERNAME")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(QUESTION_NODE_ONE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -224,7 +224,7 @@ public class RecommendationControllerTest {
     @Test
     public void testAcceptedQuestionsPresentForGuestUser() throws Exception {
         when(recommendationService.getAllAcceptedAnswersForGuestUser()).thenReturn(Collections.singletonList(QUESTION_DOCUMENT_ONE));
-        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedAnswers")
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedanswers")
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(asJsonString(QUESTION_DOCUMENT_ONE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -233,7 +233,7 @@ public class RecommendationControllerTest {
     @Test
     public void testAcceptedQuestionsNotPresentForGuestUser() throws Exception {
         when(recommendationService.getAllAcceptedAnswersForGuestUser()).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedAnswers")
+        mockMvc.perform(MockMvcRequestBuilders.get("/guest/acceptedanswers")
                 .contentType(MediaType.APPLICATION_JSON_UTF8).content(asJsonString(QUESTION_DOCUMENT_ONE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
