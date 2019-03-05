@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EnviormentVariabelsService } from './enviorment-variabels.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransferServiceService {
-  
 
   value;
 
@@ -13,20 +13,31 @@ export class TransferServiceService {
 
   unans;
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private env:EnviormentVariabelsService) { }
 
 
-  loaditems() {
-    return this.http.get("http://52.66.134.21:8050/trendingQues");
+  GuestTrendingQues() {
+    return this.http.get(this.env.trendingQuesGuest);
 }
 
+  LoggedInTrendingQues(emailid){
+    return this.http.get(this.env.trendingQuesLoggedIn+emailid);
+  }
 
-loaditems1() {
-  return this.http.get("http://52.66.134.21:8051/unansweredQues");
-}
+  GuestUnansweredQues(){
+   return this.http.get(this.env.unansweredQuesGuest);
+  }
 
-loaditems2() {
-  return this.http.get("http://52.66.134.21:8052/User");
+  LoggedInUnansweredQues(emailid){
+    return this.http.get(this.env.unansweredQuesLoggedin+emailid);
+  }
+
+  LoggedInAcceptedQues(emailid){
+    return this.http.get(this.env.acceptedAnswersLoggedIn+emailid)
+  }
+
+  GetUserData() {
+  return this.http.get(this.env.User);
 }
 
 }

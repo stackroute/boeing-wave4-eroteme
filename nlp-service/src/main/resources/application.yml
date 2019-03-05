@@ -1,4 +1,4 @@
-pserver:
+server:
   context-path: /nlp
   port: 8070
   rabbitmq:
