@@ -150,7 +150,7 @@ public class RecommendationController {
      * @param username Username of the loggedin user
      * @return List of Accepted answers of the domain which user follows
      */
-    @GetMapping("/acceptedAnswers")
+    @GetMapping("/member/acceptedanswers")
     public ResponseEntity<List<Question>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
         ResponseEntity<List<Question>> responseEntity;
         try {
@@ -169,7 +169,7 @@ public class RecommendationController {
     /**
      * @return List of accepted answers to guest users
      */
-    @GetMapping("/guest/acceptedAnswers")
+    @GetMapping("/guest/acceptedanswers")
     public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
         ResponseEntity<List<Question>> responseEntity;
         try {
