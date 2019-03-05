@@ -1,26 +1,23 @@
-package com.stackroute.searchservice.domain;
+package com.stackroute.searchservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Answers {
-    //private member variable declaration//
+public class Answer {
     private String answer;
     private boolean accepted;
-    List<Comments> comments;
     private int upvotes;
     private int views;
     private long timestamp;
 
+    private List<Comment> comments;
+    private User user;
 
 }

@@ -11,7 +11,7 @@
 		<groupId>com.stackroute</groupId>
 		<artifactId>search-service</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<packaging>war</packaging>
+		<packaging>jar</packaging>
 		<name>search-service</name>
 		<description>Search service for the project</description>
 
@@ -27,6 +27,15 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>5.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -48,6 +57,10 @@
             <groupId>javax.persistence</groupId>
             <artifactId>javax.persistence-api</artifactId>
             <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
         </dependency>
     </dependencies>
 

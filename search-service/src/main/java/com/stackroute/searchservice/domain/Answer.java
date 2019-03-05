@@ -8,15 +8,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comments {
+public class Answer {
     //private member variable declaration//
-    private String comment;
+    private String answer;
+    private boolean accepted;
+    List<Comments> comments;
+    private int upvotes;
+    private int views;
     private long timestamp;
-    private int likes;
-    private List<Replies> replies;
     private User user;
+
 }
