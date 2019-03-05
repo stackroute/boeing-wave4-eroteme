@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +36,9 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method for posting a new question
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
+        Timestamp timestamp = generateTimestamp();
+        String time = String.valueOf(timestamp);
+        System.out.println("added "+time);
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
             throw new QuestionAlreadyExistsException(questionObject.getQuestion()+" already exists");
         }
@@ -537,6 +542,19 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
+    }
+
+    public Timestamp generateTimestamp(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        //via Date
+        Date date = new Date();
+        new Timestamp(date.getTime());
+
+        //return number of milliseconds since January 1, 1970, 00:00:00 GMT
+        timestamp.getTime();
+        return timestamp;
+
     }
 
     //RabbitMq message producer method
