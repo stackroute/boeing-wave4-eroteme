@@ -15,9 +15,12 @@ export class EnviormentVariabelsService {
 
   acceptedAnswersLoggedIn:string;
 
+  searchServiceQuestion:string;
+
   User:string;
   
   constructor() {
+    
     this.trendingQuesGuest="http://localhost:8081/guest/trending";
 
     this.trendingQuesLoggedIn="http://localhost:8081/member/trending?username=";
@@ -29,5 +32,8 @@ export class EnviormentVariabelsService {
     this.acceptedAnswersLoggedIn="http://localhost:8081/member/acceptedanswers?username=";
   
     this.User="http://localhost:8052/User";
+
+    this.searchServiceQuestion="http://localhost:8099/api/v1/topics";
+
    }
 }

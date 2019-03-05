@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RabbitService {
-//    @Autowired
-//    UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @RabbitListener(queues = "${jsh.rabbitmq.queue}")
     public void receivedMessage(UserDTO msg) {
 
         System.out.println("Received Message: " + msg);
         User user=new User(msg.getEmail(),msg.getPassword());
-//        userRepository.save(user);
+        userRepository.save(user);
     }
 }

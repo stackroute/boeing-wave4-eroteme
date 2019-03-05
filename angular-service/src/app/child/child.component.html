@@ -1,6 +1,5 @@
 <div id="border">
-  <mat-card class="example-card" id="some">
-    <!-- <mat-card class="example-card waves-effect waves-light" (click)="put()" id="some"> -->
+  <mat-card class="example-card" id="some" (click)="putValue()" routerLink="/questionAnswerCard">
     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15px"></div>
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -18,9 +17,8 @@
             <div style="padding: 10px;display: inline-block;"></div>
             <i class="fas fa-eye"></i>{{view}}
             <div style="padding: 10px;display: inline-block;"></div>
-            <!-- <mat-card-actions id="butt"> -->
-            <button mat-raised-button color="primary" (click)="put()">Show more</button>
-            <!-- </mat-card-actions> -->
+            <button mat-raised-button color="primary" (click)="putValue()" routerLink="/questionAnswerCard">Show
+              more</button>
           </mat-card-content>
         </div>
       </div>

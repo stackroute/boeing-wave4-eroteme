@@ -12,6 +12,7 @@ export class TransferServiceService {
   searchValue;
 
   unans;
+
   
   constructor(private http:HttpClient,private env:EnviormentVariabelsService) { }
 
@@ -38,6 +39,10 @@ export class TransferServiceService {
 
   GetUserData() {
   return this.http.get(this.env.User);
+}
+
+  GetSearchResult(){
+  return this.http.get(this.env.searchServiceQuestion);
 }
 
 }
