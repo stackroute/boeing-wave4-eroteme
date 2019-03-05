@@ -1,4 +1,4 @@
-package com.stackroute.recommendationservice.model;
+package com.stackroute.recommendationservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,15 +7,16 @@ import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
-import java.io.Serializable;
-
 @NodeEntity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserNode implements Serializable {
+public class QuestionNode {
     @Id
-    String username;
-    int reputation;
+    long questionId;
+    String question;
+    long timestamp;
+    int upvote;
+    int downvote;
 }

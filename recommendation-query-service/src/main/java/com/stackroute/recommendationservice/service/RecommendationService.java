@@ -1,8 +1,8 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.QuestionNode;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionNode;
+import com.stackroute.recommendationservice.domain.UserNode;
 
 import java.util.List;
 

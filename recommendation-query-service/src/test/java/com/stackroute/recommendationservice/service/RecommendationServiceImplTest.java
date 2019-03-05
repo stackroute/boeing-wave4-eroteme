@@ -1,7 +1,7 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.model.QuestionNode;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.QuestionNode;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
