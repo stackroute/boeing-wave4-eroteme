@@ -1,7 +1,7 @@
 package com.stackroute.recommendationservice.controller;
 
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;

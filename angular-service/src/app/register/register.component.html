@@ -7,7 +7,7 @@
           <form class="my-form">
              <mat-form-field class="full-width">
                 <mat-label>First Name</mat-label>
-                <input matInput placeholder="First name (not more than 14 characters)" [formControl]="FirstName" required minlength="3" maxlength="14">
+                <input matInput placeholder="First name" [formControl]="FirstName" required minlength="3" maxlength="14">
                 <mat-error *ngIf="FirstName.invalid">{{getErrorFnameMessage()}}</mat-error>
              </mat-form-field>
              <mat-form-field class="full-width">

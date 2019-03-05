@@ -1,5 +1,4 @@
-package com.stackroute.recommendationservice.model;
-
+package com.stackroute.searchservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,29 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.util.List;
 
+
 @Data
-@Document
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Answer implements Serializable {
-    User user;
-    List<Comment> comments;
+@Builder
+public class Answer {
+    //private member variable declaration//
     private String answer;
-
-    public boolean isAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
-    }
-
     private boolean accepted;
+    List<Comments> comments;
     private int upvotes;
     private int views;
     private long timestamp;
+    private User user;
+
 }

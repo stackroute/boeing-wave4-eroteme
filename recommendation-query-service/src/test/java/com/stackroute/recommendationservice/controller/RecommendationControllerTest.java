@@ -1,10 +1,10 @@
 package com.stackroute.recommendationservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stackroute.recommendationservice.model.Answer;
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.QuestionNode;
-import com.stackroute.recommendationservice.model.UserNode;
+import com.stackroute.recommendationservice.domain.Answer;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionNode;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.repository.UserRepository;
 import com.stackroute.recommendationservice.service.RecommendationServiceImpl;
 import org.joda.time.DateTimeUtils;

@@ -240,6 +240,30 @@ services:
       - 8080
     healthcheck:
       test: "exit 0"
+  search-service:
+    image: search-service
+    build: ./search-service/
+    container_name: search_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      #    apigateway:
+      #      condition: service_healthy
+      #    eurekaserver:
+      #      condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      nlp-service:
+        condition: service_healthy
+    ports:
+      - 8099:8099
+    expose:
+      - 8099
+    healthcheck:
+      test: "exit 0"
 
 #  json-server1:
 #    container_name: json-server1
