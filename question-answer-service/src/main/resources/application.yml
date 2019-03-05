@@ -17,3 +17,13 @@ jsa:
     queue: jsa.queue1
     exchange: jsa.direct1
     routingkey: jsa.routingkey1
+jsd:
+  rabbitmq:
+    queue: jsd.queue1
+    exchange: jsd.direct1
+    routingkey: jsd.routingkey1
+jse:
+  rabbitmq:
+    queue: jse.queue1
+    exchange: jse.direct1
+    routingkey: jse.routingkey1

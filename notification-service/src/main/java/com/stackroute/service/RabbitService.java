@@ -10,7 +10,7 @@ public class RabbitService {
     @Autowired
     Notifications notifications;
 
-    @RabbitListener(queues = "${jsa.rabbitmq.queue}")
+    @RabbitListener(queues = "${jsd.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO msg) {
 
         System.out.println("Received Message: " + msg);

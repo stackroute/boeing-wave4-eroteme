@@ -1,5 +1,6 @@
 package com.stackroute.nlp.controller;
 
+import com.stackroute.nlp.exceptions.QuestionNotFoundException;
 import com.stackroute.nlp.service.NlpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class NlpController
 
     //getting question
     @PostMapping("{question}")
-    public ResponseEntity<?> setquestion(@PathVariable String question) {
+    public ResponseEntity<String> setquestion(@PathVariable String question) throws QuestionNotFoundException {
         return new ResponseEntity<String>(nlpService.setquestion(question), HttpStatus.CREATED);
     }
 }
