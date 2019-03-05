@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitmqConfig {
-    @Value("${jsa.rabbitmq.queue}")
+    @Value("${jsd.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jsd.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jsd.rabbitmq.routingkey}")
     private String routingKey;
 
     @Bean
@@ -26,13 +26,13 @@ public class RabbitmqConfig {
     }
 
     @Bean
-    FanoutExchange exchange() {
-        return new FanoutExchange(exchange);
+    DirectExchange exchange() {
+        return new DirectExchange(exchange);
     }
 
     @Bean
-    Binding binding(Queue queue, FanoutExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange);
+    Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
     @Bean
     public MessageConverter jsonMessageConverter() {

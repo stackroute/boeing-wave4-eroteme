@@ -36,6 +36,7 @@
         <module>recommendation-query-service</module>
         <module>notification-service</module>
         <module>nlp-service</module>
+        <module>search-service</module>
     </modules>
     <dependencies>
         <dependency>

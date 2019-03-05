@@ -31,11 +31,19 @@ public class UserController {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    //for user authentication service
     @Value("${jsh.rabbitmq.exchange}")
     private String exchange;
 
     @Value("${jsh.rabbitmq.routingkey}")
     private String routingKey;
+
+    //For recommandation command service
+    @Value("${jsf.rabbitmq.exchange}")
+    private String exchange1;
+
+    @Value("${jsf.rabbitmq.routingkey}")
+    private String routingKey1;
 
     /*
     saving userDTO in db
@@ -45,16 +53,8 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
         User signUp = new User(user.getEmail(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getInterests());
         amqpTemplate.convertAndSend(exchange, routingKey, signUp);
+        amqpTemplate.convertAndSend(exchange1, routingKey1, signUp);
 
-        //        ConnectionFactory factory = new ConnectionFactory();
-//        factory.setHost("localhost");
-//        try (Connection connection = factory.newConnection();
-//             Channel channel = connection.createChannel()) {
-//            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-//            String message = signUp.getEmail()+','+encoder.encode(signUp.getPassword());
-//            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-//            System.out.println(" [x] Sent '" + message + "'");
-//        }
         try{
             //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());
             userService.saveUser(signUp);

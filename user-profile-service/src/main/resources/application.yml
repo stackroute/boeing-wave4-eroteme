@@ -17,3 +17,8 @@ jsh:
         queue: jsh.queuereg
         exchange: jsh.directreg
         routingkey: jsh.routingkeyreg
+jsf:
+    rabbitmq:
+        queue: jsf.queuereg
+        exchange: jsf.directreg
+        routingkey: jsf.routingkeyreg

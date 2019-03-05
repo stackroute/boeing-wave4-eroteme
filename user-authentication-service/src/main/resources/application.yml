@@ -21,7 +21,7 @@ spring:
         port: 5672
 
     application:
-      name: userDTO-authentication-service
+      name: user-authentication-service
 jsh:
     rabbitmq:
         queue: jsh.queuereg
