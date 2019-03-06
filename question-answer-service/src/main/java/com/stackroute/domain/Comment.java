@@ -15,7 +15,7 @@ import java.util.List;
 @Document
 public class Comment{
     private String comment;
-    private String timestamp;
+    private long timestamp;
     private long likes;
     User user;
     List<Replies> replies;

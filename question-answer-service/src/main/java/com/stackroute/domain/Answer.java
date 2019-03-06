@@ -19,7 +19,7 @@ public class Answer{
     private int upvotes;
     private int downvotes;
     private int views;
-    private String timestamp;
+    private long timestamp;
     User user;
     List<Comment> comments;
 }

@@ -14,6 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Replies{
     private String reply;
     private long likes;
-    private String timestamp;
+    private long timestamp;
     User user;
 }

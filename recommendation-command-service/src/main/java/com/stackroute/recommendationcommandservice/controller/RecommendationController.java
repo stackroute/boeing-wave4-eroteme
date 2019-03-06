@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class RecommendationController {
-    private RecommendationCommandService homeService;
     ResponseEntity responseEntity;
+    private RecommendationCommandService homeService;
 
     RecommendationController(RecommendationCommandService homeService) {
         this.homeService = homeService;

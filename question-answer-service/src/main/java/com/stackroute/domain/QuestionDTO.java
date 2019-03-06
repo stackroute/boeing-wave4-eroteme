@@ -19,7 +19,7 @@ public class QuestionDTO {
     private String description;
     private List<String> topics;
     private int upvotes;
-    private String timestamp;
+    private long timestamp;
     private int downvotes;
     User user;
     List<Comment> comment;
