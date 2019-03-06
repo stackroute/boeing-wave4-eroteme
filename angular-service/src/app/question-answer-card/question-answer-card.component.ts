@@ -35,7 +35,7 @@ export class QuestionAnswerCardComponent implements OnInit {
 
   ngOnInit() {
     this.present = this.trans.value;
-    this.vote = this.present.upvote - this.present.downvote;
+    this.vote = this.present.upvotes - this.present.downvote;
   }
 
   toggle(answer) {
