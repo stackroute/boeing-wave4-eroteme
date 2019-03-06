@@ -52,7 +52,9 @@ public class RabbitService {
 
         if (questionDTO.getAction() == POST_QUESTION) {
             recommendationCommandServiceImpl.saveQuestionToDb(ques);
+            log.info("question is posted and saved");
             recommendationCommandServiceImpl.questionBelongsTopic(questionId, name);
+            log.info("question belongs to this topic relationship is created");
 
         }
 
@@ -76,7 +78,9 @@ public class RabbitService {
             answer.setUser(Collections.singletonList(user));
 
             recommendationCommandServiceImpl.saveAnswerToDb(answer);
+            log.info("answer is posted and saved");
             recommendationCommandServiceImpl.answerIsAnswerOfQuestion(answerString, questionId);
+            log.info("relationship answer of is created");
         }
 
 
@@ -98,6 +102,7 @@ public class RabbitService {
             answer.setUser(Collections.singletonList(user));
 
             recommendationCommandServiceImpl.saveAnswerToDb(answer);
+            log.info("answer is set to accepted");
 
 
         }
@@ -130,6 +135,7 @@ public class RabbitService {
 
 //this method creates relationship follows between user and topics
         recommendationCommandServiceImpl.userFollowsTopic(userName, Name);
+        log.info("follows relationship is created");
 
     }
 }

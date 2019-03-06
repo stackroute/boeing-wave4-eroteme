@@ -47,6 +47,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     @Override
     public Question saveQuestionToDb(Question question) {
         questionRepository.save(question);
+        log.info("question is posted and saved");
         return question;
     }
 
@@ -63,7 +64,10 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     @Override
     public Answer saveAnswerToDb(Answer answer) {
 
+
         answerRepository.save(answer);
+        log.info("answer is posted and saved");
+        log.info("answer is set to accepted");
         return answer;
     }
 
@@ -78,6 +82,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
     public User userFollowsTopic(String userName, List<String> Name) {
+        log.info("follows relationship  is created");
 
         return userRepository.userFollowsTopicRelationship(userName, Name);
 
@@ -95,6 +100,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     //method to create relationship QUESTION_OF between question and topic//
     @Override
     public Question questionBelongsTopic(int questionId, List<String> Name) {
+        log.info("question belongs to this topic relationship is created");
 
         return questionRepository.questionBelongsTopicRelationship(questionId, Name);
     }
@@ -120,6 +126,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     //method to create relationship ANSWER_OF between answerDTO and question//
     @Override
     public Answer answerIsAnswerOfQuestion(String answerString, int questionId) {
+        log.info("relationship answer of is created");
 
         return questionRepository.answerIsAnswerOfQuestionRelationship(answerString, questionId);
 
