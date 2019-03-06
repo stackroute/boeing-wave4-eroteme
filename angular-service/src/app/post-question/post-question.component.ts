@@ -36,7 +36,7 @@ export class PostQuestionComponent implements OnInit {
     if (this.app.checkLoggedIn == null) {
       alert("You need to login first");
       this.route.navigate(["/login"]);
-    }
+    }else{
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
@@ -71,6 +71,7 @@ export class PostQuestionComponent implements OnInit {
     }
 
     );
+    }
 }
 
   addTopic(toadd) {

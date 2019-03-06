@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
   }
 
   home(){
+    window.location.reload();
     this.router.navigate([""]);
   }
 
