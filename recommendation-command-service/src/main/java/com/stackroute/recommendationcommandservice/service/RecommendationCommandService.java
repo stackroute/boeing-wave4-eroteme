@@ -30,7 +30,7 @@ public interface RecommendationCommandService {
     Collection<Answer> getAnswers();
 
 
-    User userFollowsTopic(String userName, String Name);
+    User userFollowsTopic(String userName, List<String> Name);
 
 
     User getByUser(int reputation);

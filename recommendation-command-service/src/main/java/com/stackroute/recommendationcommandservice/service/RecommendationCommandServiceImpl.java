@@ -7,12 +7,14 @@ import com.stackroute.recommendationcommandservice.model.User;
 import com.stackroute.recommendationcommandservice.repository.AnswerRepository;
 import com.stackroute.recommendationcommandservice.repository.QuestionRepository;
 import com.stackroute.recommendationcommandservice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 
+@Slf4j
 @Service
 public class RecommendationCommandServiceImpl implements RecommendationCommandService {
     private UserRepository userRepository;
@@ -30,6 +32,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     @Override
     public User saveUserToDb(User user) {
         userRepository.save(user);
+        log.info("user node is created");
         return user;
     }
 
@@ -74,7 +77,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
-    public User userFollowsTopic(String userName, String Name) {
+    public User userFollowsTopic(String userName, List<String> Name) {
 
         return userRepository.userFollowsTopicRelationship(userName, Name);
 

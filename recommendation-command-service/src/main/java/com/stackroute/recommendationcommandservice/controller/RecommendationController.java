@@ -22,7 +22,7 @@ public class RecommendationController {
 //
 //        try {
 //            homeService.saveUserToDb(user);
-//            responseEntity = new ResponseEntity<String>("UserDTO saved sucessfully", HttpStatus.OK);
+//            responseEntity = new ResponseEntity<String>("UserProfileDTO saved sucessfully", HttpStatus.OK);
 //
 //        } catch (Exception e) {
 //            e.printStackTrace();
