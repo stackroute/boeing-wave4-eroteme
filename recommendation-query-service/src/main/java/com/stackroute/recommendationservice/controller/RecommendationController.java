@@ -74,8 +74,7 @@ public class RecommendationController {
             List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser()
                     .stream()
                     .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
-                            && document.getAnswer().size() >= numberOfAnswersThreshold
-                            && Math.abs(DateTime.now().getMillis() - document.getTimestamp()) <= timestampThreshold)
+                            && document.getAnswer().size() >= numberOfAnswersThreshold)
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
