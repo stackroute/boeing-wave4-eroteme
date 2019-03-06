@@ -33,7 +33,7 @@ export class EnviormentVariabelsService {
   
     this.User="http://localhost:8052/User";
 
-    this.searchServiceQuestion="http://localhost:8099/api/v1/topics";
+    this.searchServiceQuestion="http://localhost:8099/api/v1/topic";
 
    }
 }

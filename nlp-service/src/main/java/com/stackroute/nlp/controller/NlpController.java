@@ -20,8 +20,9 @@ public class NlpController
 
     //getting question
     @GetMapping("{question}")
-    public ResponseEntity<String> setquestion(@PathVariable String question) throws QuestionNotFoundException {
-        return new ResponseEntity<String>(nlpService.setquestion(question), HttpStatus.CREATED);
+    @ResponseBody
+    public String setquestion(@PathVariable String question) throws QuestionNotFoundException {
+        return nlpService.setquestion(question);
     }
 }
 

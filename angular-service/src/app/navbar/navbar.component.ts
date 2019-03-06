@@ -70,21 +70,11 @@ export class NavbarComponent implements OnInit {
 
   putSearchVal() {
     this.trans.searchValue = this.value;
-    console.log(this.value);
-    this.http.post("http://52.66.134.21:8070/api/v1/" + this.value, {
-    })
-      .subscribe(
-        data => {
-          console.log("POST Request is successful ", data);
-          alert("Your question is posted successfully");
-          window.location.reload();
-        },
-        error => {
-          console.log("Error", error);
-
-        }
-
-      );
+    this.http.get("http://localhost:8070/api/v1/"+this.value,{responseType:"text"})
+    .subscribe(res=>{
+      console.log("fff");
+      this.router.navigate(["/searchresult"]);
+    });
   }
 
   logout() {

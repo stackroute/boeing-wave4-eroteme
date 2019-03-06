@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 
 @Component({
@@ -6,15 +6,25 @@ import { TransferServiceService } from '../transfer-service.service';
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.css']
 })
-export class ParentComponent implements OnInit {
+export class ParentComponent implements OnInit, OnChanges{
 
-  variable;
+  variable: any;
 
-  constructor(private trans:TransferServiceService) {
-    this.trans.GetSearchResult().subscribe((data)=>{
-      this.variable=data;
-    })
+  constructor(private trans: TransferServiceService) {
+
   }
 
-  ngOnInit(){}
+  ngOnInit() {
+    this.trans.GetSearchResult().subscribe((data) => {
+      console.log("inside parent");
+      console.log(data[0].questions, "Data taht we r getting form the backend");
+      // console.log(data[0]["questions"]);
+      this.variable = data[0].questions;
+      console.log("this is variable", this.variable);
+    }) 
+  }
+
+  ngOnChanges() {
+   
+  }
 }
