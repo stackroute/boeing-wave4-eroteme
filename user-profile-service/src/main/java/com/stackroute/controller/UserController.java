@@ -1,8 +1,5 @@
 package com.stackroute.controller;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import com.stackroute.domain.User;
 import com.stackroute.service.UserService;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -51,7 +48,7 @@ public class UserController {
     private final static String QUEUE_NAME = "register";
     @PostMapping("signup")
     public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
-        User signUp = new User(user.getEmail(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getInterests());
+        User signUp = new User(user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName(), user.getInterests());
         amqpTemplate.convertAndSend(exchange, routingKey, signUp);
         amqpTemplate.convertAndSend(exchange1, routingKey1, signUp);
 
