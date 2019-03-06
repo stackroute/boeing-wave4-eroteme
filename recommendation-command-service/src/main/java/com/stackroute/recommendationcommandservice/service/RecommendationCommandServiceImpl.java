@@ -36,6 +36,7 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         return user;
     }
 
+
     //method to get USERS//
     @Override
     public Collection<User> getUsers() {
@@ -82,9 +83,12 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
     public User userFollowsTopic(String userName, List<String> Name) {
-        log.info("follows relationship  is created");
 
-        return userRepository.userFollowsTopicRelationship(userName, Name);
+
+        User user = userRepository.userFollowsTopicRelationship(userName, Name);
+        log.info("follows relationship  is created");
+        return user;
+
 
     }
 
