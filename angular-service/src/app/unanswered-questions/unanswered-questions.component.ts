@@ -17,7 +17,9 @@ export class UnansweredQuestionsComponent implements OnInit {
         this.questions=data;
       })
     }else{
+      console.log("logged in");
       this.trans.LoggedInUnansweredQues(this.app.emailid).subscribe((data)=>{
+        console.log(data);
         this.questions=data;
       })
     }  

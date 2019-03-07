@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
 
 @Component({
-selector: 'app-post-question',
-templateUrl: './post-question.component.html',
-styleUrls: ['./post-question.component.css']
+  selector: 'app-post-question',
+  templateUrl: './post-question.component.html',
+  styleUrls: ['./post-question.component.css']
 })
 export class PostQuestionComponent implements OnInit {
 
@@ -48,7 +48,7 @@ export class PostQuestionComponent implements OnInit {
         "upvotes": 0,
         "timestamp": 82345,
         "downvotes": 0,
-        "user": null,
+        "user":null,
         "comment": null,
         "answer": null
       },

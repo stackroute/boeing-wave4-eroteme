@@ -13,24 +13,23 @@ export class QuestionCardComponent implements OnInit {
   
   desc;
 
-  size;
+
 
 
   constructor(private trans:TransferServiceService) {
    }
 
   ngOnInit() {
-    this.size=this.passedQuestions.answers.length;
     this.desc=(this.passedQuestions.description ? this.passedQuestions.description : '(No Description)');
-    this.assign();
+    //this.assign();
   }
 
   put(){
     this.trans.value=this.passedQuestions;
   }
 
-  assign(){
-    console.log(this.passedQuestions.description.length);
-  }
+  //assign(){
+    //console.log(this.passedQuestions.description.length);
+  //}
 
 }
