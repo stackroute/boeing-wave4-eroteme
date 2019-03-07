@@ -3,9 +3,9 @@ package com.stackroute.recommendationcommandservice.service;
 import com.stackroute.recommendationcommandservice.domain.AnswerDTO;
 import com.stackroute.recommendationcommandservice.domain.QuestionDTO;
 import com.stackroute.recommendationcommandservice.domain.UserProfileDTO;
-import com.stackroute.recommendationcommandservice.model.Answer;
-import com.stackroute.recommendationcommandservice.model.Question;
-import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.model.AnswerNode;
+import com.stackroute.recommendationcommandservice.model.QuestionNode;
+import com.stackroute.recommendationcommandservice.model.UserNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +34,14 @@ public class RabbitService {
          * our domain objects to call the methods
          * */
 
-        Question ques = new Question();
+        QuestionNode ques = new QuestionNode();
         ques.setQuestionId(questionDTO.getQuestionId());
         List<String> name = questionDTO.getTopics();
         int questionId = ques.getQuestionId();
-        ques.setQuestionString(questionDTO.getQuestion());
+        ques.setQuestion(questionDTO.getQuestion());
         ques.setTimestamp(questionDTO.getTimestamp());
-        ques.setUpVote(questionDTO.getUpvotes());
-        ques.setDownVote(questionDTO.getDownvotes());
+        ques.setUpvote(questionDTO.getUpvotes());
+        ques.setDownvote(questionDTO.getDownvotes());
 
 
         /*
@@ -60,8 +60,8 @@ public class RabbitService {
 
         /*
          * when the action code sent by Q A service equals the below action i.e. QUESTION_ANSWER
-         * then call the below methods to save the answer
-         * and create relationship between answer and question asked
+         * then call the below methods to save the answerNode
+         * and create relationship between answerNode and question asked
          * and create nodes in neo4j
          * */
 
@@ -70,22 +70,22 @@ public class RabbitService {
             int n = questionDTO.getAnswer().size();
             AnswerDTO answerDTO = new AnswerDTO();
             answerDTO = questionDTO.getAnswer().get(n - 1);
-            Answer answer = new Answer();
-            answer.setAnswerString(answerDTO.getAnswer());
-            String answerString = answer.getAnswerString();
-            User user = new User();
-            user.setUserName(answerDTO.getUser().getEmail());
-            answer.setUser(Collections.singletonList(user));
+            AnswerNode answerNode = new AnswerNode();
+            answerNode.setAnswer(answerDTO.getAnswer());
+            String answerString = answerNode.getAnswer();
+            UserNode userNode = new UserNode();
+            userNode.setUsername(answerDTO.getUser().getEmail());
+            answerNode.setUserNode(Collections.singletonList(userNode));
 
-            recommendationCommandServiceImpl.saveAnswerToDb(answer);
-            log.info("answer is posted and saved");
+            recommendationCommandServiceImpl.saveAnswerToDb(answerNode);
+            log.info("answerNode is posted and saved");
             recommendationCommandServiceImpl.answerIsAnswerOfQuestion(answerString, questionId);
-            log.info("relationship answer of is created");
+            log.info("relationship answerNode of is created");
         }
 
 
         /*when the action code sent by Q A service equals the below action i.e ANSWER_ACCEPT
-         * then call the below methods to save the answer and set the accepted status
+         * then call the below methods to save the answerNode and set the accepted status
          * to true and update the node*/
 
         if (questionDTO.getAction() == ANSWER_ACCEPT) {
@@ -93,23 +93,23 @@ public class RabbitService {
             int n = questionDTO.getAnswer().size();
             AnswerDTO answerDTO = new AnswerDTO();
             answerDTO = questionDTO.getAnswer().get(n - 1);
-            Answer answer = new Answer();
-            answer.setAnswerString(answerDTO.getAnswer());
-            answer.setAccepted(answerDTO.isAccepted());
-            String answerString = answer.getAnswerString();
-            User user = new User();
-            user.setUserName(answerDTO.getUser().getEmail());
-            answer.setUser(Collections.singletonList(user));
+            AnswerNode answerNode = new AnswerNode();
+            answerNode.setAnswer(answerDTO.getAnswer());
+            answerNode.setAccepted(answerDTO.isAccepted());
+            String answerString = answerNode.getAnswer();
+            UserNode userNode = new UserNode();
+            userNode.setUsername(answerDTO.getUser().getEmail());
+            answerNode.setUserNode(Collections.singletonList(userNode));
 
-            recommendationCommandServiceImpl.saveAnswerToDb(answer);
-            log.info("answer is set to accepted");
+            recommendationCommandServiceImpl.saveAnswerToDb(answerNode);
+            log.info("answerNode is set to accepted");
 
 
         }
     }
 
 
-    /*this is the queue from user profile registration service*/
+    /*this is the queue from userNode3 profile registration service*/
     @RabbitListener(queues = "${jsf.rabbitmq.queue}")
     public void receivedMessage(UserProfileDTO user) {
 
@@ -122,18 +122,18 @@ public class RabbitService {
 
         user.setEmail(user.getEmail());
         user.setInterests(user.getInterests());
-        User user1 = new User();
-        user1.setUserName(user.getEmail());
-        String userName = user1.getUserName();
+        UserNode userNode1 = new UserNode();
+        userNode1.setUsername(user.getEmail());
+        String userName = userNode1.getUsername();
         List<String> Name = user.getInterests();
-        User user2 = user1;
+        UserNode userNode2 = userNode1;
 
-//this method will save the user into db and create user node
-        recommendationCommandServiceImpl.saveUserToDb(user2);
-        log.info("user is created");
+//this method will save the userNode3 into db and create userNode3 node
+        recommendationCommandServiceImpl.saveUserToDb(userNode2);
+        log.info("userNode3 is created");
 
 
-//this method creates relationship follows between user and topics
+//this method creates relationship follows between userNode3 and topics
         recommendationCommandServiceImpl.userFollowsTopic(userName, Name);
         log.info("follows relationship is created");
 

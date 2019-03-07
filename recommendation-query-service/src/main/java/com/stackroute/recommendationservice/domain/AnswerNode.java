@@ -8,7 +8,6 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Data
 public class AnswerNode {
     @Id
-    long answerId;
     String answer;
     boolean accepted;
 }

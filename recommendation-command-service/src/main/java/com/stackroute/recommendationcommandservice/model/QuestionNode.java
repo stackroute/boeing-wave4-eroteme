@@ -16,23 +16,23 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question {
+public class QuestionNode {
 
     @Id
     private int questionId;
-    private String questionString;
+    private String question;
     private long timestamp;
-    private int upVote;
-    private int downVote;
+    private int upvote;
+    private int downvote;
     @Relationship(type = "asked", direction = Relationship.INCOMING)
-    private List<User> user;
+    private List<UserNode> userNode;
     @Relationship(type = "answer_of", direction = Relationship.INCOMING)
-    private List<Answer> answer;
+    private List<AnswerNode> answerNode;
     @Relationship(type = "viewed", direction = Relationship.INCOMING)
-    private List<User> user1;
+    private List<UserNode> userNode1;
     @Relationship(type = "upvoted", direction = Relationship.INCOMING)
-    private List<User> user2;
+    private List<UserNode> userNode2;
     @Relationship(type = "downvoted", direction = Relationship.INCOMING)
-    private List<User> user3;
+    private List<UserNode> userNode3;
 
 }
