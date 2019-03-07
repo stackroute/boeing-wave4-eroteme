@@ -29,6 +29,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     private RestTemplate restTemplate;
     @Value("${questionAndAnswerUrl}")
     private String questionAndAnswerUrl;
+    private String questions = "questions";
 
     @Autowired
     public RecommendationServiceImpl(UserRepository userRepository, RestTemplate restTemplate) {
@@ -61,7 +62,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            return restTemplate.exchange(questionAndAnswerUrl + questions, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody();
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +75,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + questions, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();

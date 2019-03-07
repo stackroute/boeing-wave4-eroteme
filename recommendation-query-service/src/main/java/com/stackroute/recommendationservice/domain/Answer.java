@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Answer implements Serializable {
     User user;
-    List<Comment> comments;
+    private List<Comment> comments;
     private String answer;
 
     public boolean isAccepted() {
