@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-notify-answer-card',
-  templateUrl: './notify-answer-card.component.html',
-  styleUrls: ['./notify-answer-card.component.css']
+  selector: 'app-notify-answerNode-card',
+  templateUrl: './notify-answerNode-card.component.html',
+  styleUrls: ['./notify-answerNode-card.component.css']
 })
 export class NotifyAnswerCardComponent implements OnInit {
 
@@ -21,7 +21,7 @@ export class NotifyAnswerCardComponent implements OnInit {
   comm;
   comm1;
   val1 = "";
-  answer;
+  answerNode;
   questionComm;
   QuestionCommentReply;
   commentAnswer1:string;
@@ -39,8 +39,8 @@ export class NotifyAnswerCardComponent implements OnInit {
     this.vote = this.present.upvotes - this.present.downvote;
   }
 
-  toggle(answer) {
-    this.ans = answer;
+  toggle(answerNode) {
+    this.ans = answerNode;
     if (this.showAllCommentsAnswer === 'Hide Details') {
       this.showAllCommentsAnswer = 'Show Details';
     } else {
@@ -82,8 +82,8 @@ export class NotifyAnswerCardComponent implements OnInit {
       this.route.navigate(["/login"]);
     }
     else {
-      console.log('question upvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      console.log('questionNode upvote');
+      this.http.put("http://localhost:8090/api/v1/questionNode/upvote/" + this.present.questionId,{});
     }
   }
 
@@ -93,8 +93,8 @@ export class NotifyAnswerCardComponent implements OnInit {
       this.route.navigate(["/login"]);
     }
     else {
-      console.log('question downvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      console.log('questionNode downvote');
+      this.http.put("http://localhost:8090/api/v1/questionNode/downvote/"+this.present.questionId,{});
     }
   }
 
@@ -104,15 +104,15 @@ export class NotifyAnswerCardComponent implements OnInit {
       this.route.navigate(["/login"]);
     }
     else {
-      console.log('comment on question');
-      console.log(this.answer);
-      console.log('post answer for the question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
+      console.log('comment on questionNode');
+      console.log(this.answerNode);
+      console.log('post answerNode for the questionNode');
+      this.http.put("http://localhost:8090/api/v1/questionNode/answerNode/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
           "likes": 0,
-          "user": {
+          "userNode": {
             "email": "anjo@gmail.com",
             "firstName": "anjo",
             "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
@@ -145,8 +145,8 @@ replyQuestionComment(presentcomment:string) {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log('reply to comment of question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/reply/" + this.present.questionId,
+    console.log('reply to comment of questionNode');
+      this.http.put("http://localhost:8090/api/v1/questionNode/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -154,7 +154,7 @@ replyQuestionComment(presentcomment:string) {
                 "reply":this.QuestionCommentReply,
                 "likes":0,
                 "timestamp":64783,
-                "user":{
+                "userNode":{
                   "email":"anjo@gmail.com",
                   "firstName":"anjo",
                   "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
@@ -187,9 +187,9 @@ upvoteAnswer(ans1) {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log('answer upvote');
-    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
-      "answer": ans1
+    console.log('answerNode upvote');
+    this.http.put("http://localhost:8080/api/v1/questionNode/answerNode/upvote/"+this.present.questionId,{
+      "answerNode": ans1
     })
   }
 }
@@ -200,7 +200,7 @@ downvoteAnswer() {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log('downvote answer');
+    console.log('downvote answerNode');
   }
 }
 
@@ -210,16 +210,16 @@ commentAnswer(ans) {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log('comment on answer');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
+    console.log('comment on answerNode');
+      this.http.put("http://localhost:8090/api/v1/questionNode/answerNode/comment/" + this.present.questionId,
       {
-        "answer": ans,
+        "answerNode": ans,
         "comments": [
       {
         "comment":this.commentAnswer1,
         "timestamp":4373648,
         "likes": 0,
-        "user":{
+        "userNode":{
               "email":"aishu@gmail.com",
               "firstName":"aishu",
               "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
@@ -237,7 +237,7 @@ commentAnswer(ans) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added to answer successfully");
+            alert("Comment added to answerNode successfully");
           },
           error => {
 
@@ -253,10 +253,10 @@ replyAnswerComment(ans,comm) {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log('reply to comment of answer');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    console.log('reply to comment of answerNode');
+    this.http.put("http://localhost:8090/api/v1/questionNode/answerNode/comment/reply/" + this.present.questionId,
     {
-      "answer": ans,
+      "answerNode": ans,
       "comments": [
               {
                 "comment":comm,
@@ -265,7 +265,7 @@ replyAnswerComment(ans,comm) {
                       "reply":this.replyanswercomment,
                       "likes":0,
                       "timestamp":64783,
-                      "user":{
+                      "userNode":{
                           "email":"anjo@gmail.com",
                           "firstName":"anjo",
                           "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
@@ -300,16 +300,16 @@ postanswer() {
     this.route.navigate(["/login"]);
   }
   else {
-    console.log(this.answer);
-    console.log('post answer for the question');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
+    console.log(this.answerNode);
+    console.log('post answerNode for the questionNode');
+    this.http.put("http://localhost:8090/api/v1/questionNode/answerNode/" + this.present.questionId,
       {
-        "answer": this.answer,
+        "answerNode": this.answerNode,
         "accepted": "false",
         "upvotes": 0,
         "views": 0,
         "timestamp": 445678,
-        "user": {
+        "userNode": {
           "email": " angel@gmail.com",
           "firstName": "angel",
           "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
@@ -337,8 +337,8 @@ postanswer() {
 
 
 acceptedAnswer(answertoAccept){
-  this.http.put("http://52.66.134.21:8080/api/v1/question/answer/accept"+this.present.questionId,{
-    "answer": answertoAccept
+  this.http.put("http://localhost:8080/api/v1/questionNode/answerNode/accept"+this.present.questionId,{
+    "answerNode": answertoAccept
   })
 }
 

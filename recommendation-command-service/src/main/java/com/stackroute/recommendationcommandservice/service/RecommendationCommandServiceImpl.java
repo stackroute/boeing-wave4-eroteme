@@ -83,32 +83,16 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
-    public UserNode userFollowsTopic(String userName, List<String> Name) {
-        for (int i = 0; i < Name.size(); i++) {
-            log.info("username is {} and topics are {}", userName, Name.get(i));
-            UserNode userNode = userRepository.userFollowsTopicRelationship(userName, Name.get(i));
-            log.info("follows relationship  is created");
-        }
-        Optional<UserNode> user1 = userRepository.findById(userName);
-        return user1.get();
+    public UserNode userFollowsTopic(String userName, List<String> topicList) {
 
-
+        topicList.forEach(topic->{
+            log.info("username is {} and topics are {}", userName, topic);
+            UserNode user = userRepository.userFollowsTopicRelationship(userName, topic);
+            log.info("follows relationship  is created");});
+        return userRepository.findById(userName).orElse(new UserNode());
     }
 
-    //    //method to create relationship FOLLOWS between userDTO and topic//
-//    @Override
-//    public User userFollowsTopic(String userName, List<String> Name) {
-//        for(int i=0;i<Name.size();i++) {
-//            log.info("username is {} and topics are {}", userName, Name.get(i));
-//            User user = userRepository.userFollowsTopicRelationship(userName, Name.get(i));
-//            log.info("follows relationship  is created");
-//        }
-//        Optional<User> user1=userRepository.findById(userName);
-//
-//        return user1.get();
-//
-//
-//    }
+
     //method to get USERS by reputation//
     @Override
     public UserNode getByUser(int reputation) {

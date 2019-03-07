@@ -19,7 +19,7 @@
     <hr style="border: 1px solid white">
     <h5 style="padding-top: 5px;"> Views<i class="fas fa-eye fa-lg"></i>: {{User.views}}</h5>
     <h5 style="padding: 5px;margin-top: 0px;">Reputation <i class="fas fa-graduation-cap fa-lg"></i>:{{User.reputation}}</h5>
-    <h5 style="padding: 5px;margin-top: 0px;margin-right: 0px;">Reputation <i class="fas fa-user-friends fa-lg"></i>:Count</h5>
+    <h5 style="padding: 5px;margin-top: 0px;margin-right: 0px;">Reputation <i class="fas fa-userNode-friends fa-lg"></i>:Count</h5>
   </div>
 </div>
 <hr style="border: 1px solid whitesmoke;width: 90%;margin-left: 5%;">
@@ -39,16 +39,16 @@
   <div class="column5">
     <!--information-->
     <ul *ngIf='value==="My Questions"' style="list-style-type: none;margin-left: 0px;padding: 0px;">
-      <ul *ngFor="let question of User.questions" style="list-style-type: none;padding: 2px;">
+      <ul *ngFor="let questionNode of User.questions" style="list-style-type: none;padding: 2px;">
         <li style="margin-left: 0px;">
-          <app-my-questions [in]="question"></app-my-questions>
+          <app-my-questions [in]="questionNode"></app-my-questions>
         </li>
       </ul>
     </ul>
     <ul *ngIf='value==="My Answers"' style="list-style-type: none;margin-left: 0px;padding: 0px;">
-      <ul *ngFor="let answer of User.answers" style="list-style-type: none;padding: 2px;">
+      <ul *ngFor="let answerNode of User.answers" style="list-style-type: none;padding: 2px;">
         <li style="margin-left: 0px;">
-          <app-my-answers [in]="answer"></app-my-answers>
+          <app-my-answers [in]="answerNode"></app-my-answers>
         </li>
       </ul>
     </ul>

@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'app-post-question',
-  templateUrl: './post-question.component.html',
-  styleUrls: ['./post-question.component.css']
+  selector: 'app-post-questionNode',
+  templateUrl: './post-questionNode.component.html',
+  styleUrls: ['./post-questionNode.component.css']
 })
 export class PostQuestionComponent implements OnInit {
 
@@ -40,17 +40,17 @@ export class PostQuestionComponent implements OnInit {
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    this.http.post("http://52.66.134.21:8090/api/v1/question",
+    this.http.post("http://localhost:8090/api/v1/questionNode",
       {
-        "question": this.ques,
+        "questionNode": this.ques,
         "description": this.description,
         "topics": this.toSendList,
         "upvotes": 0,
         "timestamp": 82345,
         "downvotes": 0,
-        "user": null,
+        "userNode": null,
         "comment": null,
-        "answer": null
+        "answerNode": null
       },
       {
         headers: new HttpHeaders({
@@ -61,7 +61,7 @@ export class PostQuestionComponent implements OnInit {
   .subscribe(
     data  => {
     console.log("POST Request is successful ", data);
-    alert("Your question is posted successfully");
+    alert("Your questionNode is posted successfully");
     window.location.reload();
     },
     error  => {

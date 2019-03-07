@@ -11,7 +11,7 @@ export class AcceptedQuesComponent implements OnInit {
 
   questions;
   
-  //Here we have to take from the Accepted user section
+  //Here we have to take from the Accepted userNode section
   constructor(private trans:TransferServiceService,private app:AppComponent) {
     this.trans.LoggedInAcceptedQues(this.app.emailid).subscribe((data)=>{
       this.questions=data;

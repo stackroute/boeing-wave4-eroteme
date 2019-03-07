@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
 
   putSearchVal() {
     this.trans.searchValue = this.value;
-    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value,{responseType:"text"})
+    this.http.get("http://localhost/api/v1/"+this.value,{responseType:"text"})
     .subscribe(res=>{
       this.router.navigate(["/searchresult"]);
     });
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.token.signOut();
-    this.router.navigate([""]);
+    window.location.reload();
   }
 
 

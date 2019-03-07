@@ -2,9 +2,9 @@ import { Component, OnInit,Input } from '@angular/core';
 import {TransferServiceService} from '../transfer-service.service';
 import { __assign } from 'tslib';
 @Component({
-  selector: 'app-question-card',
-  templateUrl: './question-card.component.html',
-  styleUrls: ['./question-card.component.css']
+  selector: 'app-questionNode-card',
+  templateUrl: './questionNode-card.component.html',
+  styleUrls: ['./questionNode-card.component.css']
 })
 export class QuestionCardComponent implements OnInit {
 
