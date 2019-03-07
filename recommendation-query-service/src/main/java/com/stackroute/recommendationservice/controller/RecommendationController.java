@@ -32,6 +32,7 @@ public class RecommendationController {
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
 
+
     private RecommendationService recommendationService;
 
     @Autowired
@@ -40,8 +41,8 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the registered user
-     * @return Trending questions for the logged in user
+     * @param username Username of the registered userNode3
+     * @return Trending questions for the logged in userNode3
      */
     @GetMapping("/member/trending")
     public ResponseEntity<List<Question>> getTrendingQuestionsForRegisteredUser(@RequestParam String username) {
@@ -51,9 +52,9 @@ public class RecommendationController {
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
                     .peek(question -> log.info("Question node is {}", question))
-                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
+//                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
-                    .filter(questionRequested -> questionRequested.getAnswer().size() >= numberOfAnswersThreshold)
+//                    .filter(questionRequested -> questionRequested.getAnswer().size() >= numberOfAnswersThreshold)
                     .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
@@ -65,17 +66,18 @@ public class RecommendationController {
     }
 
     /**
-     * @return Trending questions for the guest user
+     * @return Trending questions for the guest userNode3
      */
     @GetMapping("/guest/trending")
     public ResponseEntity<List<Question>> getTrendingQuestionsForGuestUser() {
         ResponseEntity<List<Question>> responseEntity;
         try {
-            List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser()
-                    .stream()
-                    .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
-                            && document.getAnswer().size() >= numberOfAnswersThreshold)
-                    .collect(Collectors.toList());
+            List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser();
+//                    .stream()
+//                    .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
+//                            && document.getAnswer().size() >= numberOfAnswersThreshold
+//                            && DateTime.now().getMillis()<=timestampThreshold)
+//                    .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,8 +109,8 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the registered user
-     * @return List of unanswered questions for the logged in user
+     * @param username Username of the registered userNode3
+     * @return List of unanswered questions for the logged in userNode3
      */
     @GetMapping("/member/unanswered/{username}")
     public ResponseEntity<List<Question>> getAllUnansweredQuestionsForRegisteredUser(@PathVariable String username) {
@@ -127,7 +129,7 @@ public class RecommendationController {
     }
 
     /**
-     * @return List of unanswered questions for guest user
+     * @return List of unanswered questions for guest userNode3
      */
     @GetMapping("/guest/unanswered")
     public ResponseEntity<List<Question>> getAllUnansweredQuestionsForGuestUser() {
@@ -146,8 +148,8 @@ public class RecommendationController {
     }
 
     /**
-     * @param username Username of the loggedin user
-     * @return List of Accepted answers of the domain which user follows
+     * @param username Username of the loggedin userNode3
+     * @return List of Accepted answers of the domain which userNode3 follows
      */
     @GetMapping("/member/acceptedanswers")
     public ResponseEntity<List<Question>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {

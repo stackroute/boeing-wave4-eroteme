@@ -12,10 +12,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserNode {
     @Id
-//    private int userId;
-    private String userName;
-    //    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String username;
     private int reputation;
 }

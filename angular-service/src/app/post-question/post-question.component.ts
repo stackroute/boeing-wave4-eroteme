@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
 
 @Component({
-  selector: 'app-post-question',
-  templateUrl: './post-question.component.html',
-  styleUrls: ['./post-question.component.css']
+selector: 'app-post-question',
+templateUrl: './post-question.component.html',
+styleUrls: ['./post-question.component.css']
 })
 export class PostQuestionComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class PostQuestionComponent implements OnInit {
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    this.http.post("http://52.66.134.21:8090/api/v1/question",
+    this.http.post("http://localhost:8090/api/v1/question",
       {
         "question": this.ques,
         "description": this.description,

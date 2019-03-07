@@ -16,22 +16,16 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Answer {
+public class AnswerNode {
     @Id
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-//    private long answerId;
-    private String answerString;
+    private String answer;
     private boolean accepted;
     @Relationship(type = "answered", direction = Relationship.INCOMING)
-    private List<User> user;
-    //    @Relationship(type = "accepted", direction = Relationship.INCOMING)
-//    private List<User> user1;
+    private List<UserNode> userNode;
     @Relationship(type = "upvoted", direction = Relationship.INCOMING)
-    private List<User> user2;
+    private List<UserNode> userNode2;
     @Relationship(type = "downvoted", direction = Relationship.INCOMING)
-    private List<User> user3;
+    private List<UserNode> userNode3;
 
 }
 

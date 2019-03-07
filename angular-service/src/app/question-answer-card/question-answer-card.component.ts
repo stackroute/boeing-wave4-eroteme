@@ -5,9 +5,9 @@ import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-question-answer-card',
-  templateUrl: './question-answer-card.component.html',
-  styleUrls: ['./question-answer-card.component.css']
+selector: 'app-question-answer-card',
+templateUrl: './question-answer-card.component.html',
+styleUrls: ['./question-answer-card.component.css']
 })
 export class QuestionAnswerCardComponent implements OnInit {
 
@@ -20,7 +20,7 @@ export class QuestionAnswerCardComponent implements OnInit {
   comm;
   comm1;
   val1 = "";
-  answer;
+answer;
   questionComm;
   QuestionCommentReply;
   commentAnswer1:string;
@@ -35,7 +35,7 @@ export class QuestionAnswerCardComponent implements OnInit {
 
   ngOnInit() {
     this.present = this.trans.value;
-    this.vote = this.present.upvotes - this.present.downvote;
+    this.vote = this.present.upvotes - this.present.downvotes;
   }
 
   toggle(answer) {
@@ -82,7 +82,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      this.http.put("localhost:8090/api/v1/question/upvote/" + this.present.questionId,{});
     }
   }
 
@@ -93,7 +93,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question downvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      this.http.put("localhost:8090/api/v1/question/downvote/"+this.present.questionId,{});
     }
   }
 
@@ -106,7 +106,7 @@ export class QuestionAnswerCardComponent implements OnInit {
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
+      this.http.put("localhost:8090/api/v1/question/answer/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
@@ -145,7 +145,7 @@ replyQuestionComment(presentcomment:string) {
   }
   else {
     console.log('reply to comment of question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/reply/" + this.present.questionId,
+      this.http.put("localhost:8090/api/v1/question/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -187,7 +187,7 @@ upvoteAnswer(ans1) {
   }
   else {
     console.log('answer upvote');
-    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("localhost:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -200,7 +200,7 @@ downvoteAnswer() {
   }
   else {
     console.log('downvote answer');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
+    this.http.put("localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
@@ -211,7 +211,7 @@ commentAnswer(ans) {
   }
   else {
     console.log('comment on answer');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
+      this.http.put("localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -254,7 +254,7 @@ replyAnswerComment(ans,comm) {
   }
   else {
     console.log('reply to comment of answer');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    this.http.put("localhost:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
     {
       "answer": ans,
       "comments": [
@@ -302,7 +302,7 @@ postanswer() {
   else {
     console.log(this.answer);
     console.log('post answer for the question');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
+    this.http.put("localhost:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
         "accepted": "false",
