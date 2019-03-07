@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface UserRepository extends Neo4jRepository<User, String> {
 
@@ -21,5 +22,5 @@ public interface UserRepository extends Neo4jRepository<User, String> {
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Query("match (q:User),(t:parents) where q.userName={username} and t.name={name} create (q)-[r:follows]->(t)")
-    User userFollowsTopicRelationship(@Param("username") String userName, @Param("name") String name);
+    User userFollowsTopicRelationship(@Param("username") String userName, @Param("name") List<String> Name);
 }

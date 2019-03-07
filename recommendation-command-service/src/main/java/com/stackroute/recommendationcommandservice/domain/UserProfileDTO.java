@@ -1,4 +1,4 @@
-package com.stackroute.recommendationcommandservice.UserDomain;
+package com.stackroute.recommendationcommandservice.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDTO {
+public class UserProfileDTO {
      /*
     assigning the primary keys
      */
