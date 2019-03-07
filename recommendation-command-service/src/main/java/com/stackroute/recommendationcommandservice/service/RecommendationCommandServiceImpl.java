@@ -84,7 +84,8 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
     @Override
     public User userFollowsTopic(String userName, List<String> Name) {
 
-
+        log.info("User name is {}", userName);
+        log.info("Name");
         User user = userRepository.userFollowsTopicRelationship(userName, Name);
         log.info("follows relationship  is created");
         return user;
