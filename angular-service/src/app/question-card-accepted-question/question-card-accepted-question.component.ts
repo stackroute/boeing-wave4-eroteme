@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 
 @Component({
-  selector: 'app-questionNode-card-accepted-questionNode',
-  templateUrl: './questionNode-card-accepted-questionNode.component.html',
-  styleUrls: ['./questionNode-card-accepted-questionNode.component.css']
+selector: 'app-question-card-accepted-question',
+templateUrl: './question-card-accepted-question.component.html',
+styleUrls: ['./question-card-accepted-question.component.css']
 })
 export class QuestionCardAcceptedQuestionComponent implements OnInit {
 

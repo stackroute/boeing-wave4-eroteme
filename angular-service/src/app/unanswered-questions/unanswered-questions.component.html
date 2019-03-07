@@ -1,4 +1,5 @@
-
-<ul *ngFor='let questionNode of questions'>
-    <li><app-questionNode-card [passedQuestions]='questionNode'></app-questionNode-card></li>
+<ul *ngFor='let question of questions'>
+  <li>
+    <app-question-card [passedQuestions]='question'></app-question-card>
+  </li>
   </ul>

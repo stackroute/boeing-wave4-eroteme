@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { QuestionAnswerCardComponent } from '../questionNode-answerNode-card/questionNode-answerNode-card.component';
+import {QuestionAnswerCardComponent}from '../question-answer-card/question-answer-card.component';
 import { TransferServiceService } from '../transfer-service.service';
 
 @Component({
@@ -10,33 +10,33 @@ import { TransferServiceService } from '../transfer-service.service';
 export class ChildComponent implements OnInit {
   count : number =0;
   downcount : number=0;
-  //<app-child [title]=x.questionNode [description]=x.description [upvote]=x.upvotes [downvote]=x.downvote [answerNode]=y.answerNode [view]=y.views></app-child>
+//<app-child [title]=x.question [description]=x.description [upvote]=x.upvotes [downvote]=x.downvote [answer]=y.answer [view]=y.views></app-child>
 
   @Input()
-  questionNode;
+  question;
 
   title;
   description;
   upvote;
   downvote;
-  answerNode;
+answer;
   view;
 
   constructor(private trans:TransferServiceService) {
   }
 
   ngOnInit() {
-    console.log("in child component"+this.questionNode.toString());
-    this.title=this.questionNode.questionNode;
-    this.description=this.questionNode.description;
-    this.upvote=this.questionNode.upvotes;
-    this.downvote=this.questionNode.downvote;
-    this.answerNode=this.questionNode.answers[0].answerNode;
-    this.view=this.questionNode.answers[0].views;
+    console.log("in child component"+this.question.toString());
+    this.title=this.question.question;
+    this.description=this.question.description;
+    this.upvote=this.question.upvotes;
+    this.downvote=this.question.downvote;
+    this.answer=this.question.answers[0].answer;
+    this.view=this.question.answers[0].views;
   }
  
   putValue(){
-    this.trans.value=this.questionNode;
+    this.trans.value=this.question;
   }
 
  }
