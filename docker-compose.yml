@@ -45,7 +45,7 @@ services:
       test: "exit 0"
 
   neo4j:
-    image: neo4j:latest
+    image: neo4j:3.0
     ports:
       - 7474:7474
       - 7687:7687
@@ -56,9 +56,12 @@ services:
     hostname: localhost
     restart: always
     volumes:
-      - /DB/neo4j:/data/db
+      - ./neo4j/data:/data
+      - ./neo4j/import:/import
     healthcheck:
       test: "exit 0"
+    environment:
+      - NEO4J_AUTH=neo4j/marvel
 
   mysql:
     image: mysql:5.7
