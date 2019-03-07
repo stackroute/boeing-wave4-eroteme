@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 public class Question {
     //private member variable declaration//
+    private int questionId;
     private String question;
     private String description;
     private int upvotes;
