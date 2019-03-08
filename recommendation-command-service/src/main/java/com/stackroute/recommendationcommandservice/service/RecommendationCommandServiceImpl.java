@@ -95,20 +95,6 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     }
 
-    //    //method to create relationship FOLLOWS between userDTO and topic//
-//    @Override
-//    public User userFollowsTopic(String userName, List<String> Name) {
-//        for(int i=0;i<Name.size();i++) {
-//            log.info("username is {} and topics are {}", userName, Name.get(i));
-//            User user = userRepository.userFollowsTopicRelationship(userName, Name.get(i));
-//            log.info("follows relationship  is created");
-//        }
-//        Optional<User> user1=userRepository.findById(userName);
-//
-//        return user1.get();
-//
-//
-//    }
     //method to get USERS by reputation//
     @Override
     public UserNode getByUser(int reputation) {
