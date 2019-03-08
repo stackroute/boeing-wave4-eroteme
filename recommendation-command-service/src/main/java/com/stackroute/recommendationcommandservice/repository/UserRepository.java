@@ -21,5 +21,5 @@ public interface UserRepository extends Neo4jRepository<UserNode, String> {
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Query("match (q:UserNode),(t:parents) where q.username={username} and t.name={name} create (q)-[r:follows]->(t)")
-    UserNode userFollowsTopicRelationship(@Param("username") String userName, @Param("name") String Name);
+    UserNode userFollowsTopicRelationship(@Param("username") String userName, @Param("name") String topic);
 }

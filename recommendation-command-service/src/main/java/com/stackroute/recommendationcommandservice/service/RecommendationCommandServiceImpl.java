@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -83,17 +82,16 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship FOLLOWS between userDTO and topic//
     @Override
-    public UserNode userFollowsTopic(String userName, List<String> Name) {
-        for (int i = 0; i < Name.size(); i++) {
-            log.info("username is {} and topics are {}", userName, Name.get(i));
-            UserNode userNode = userRepository.userFollowsTopicRelationship(userName, Name.get(i));
+    public UserNode userFollowsTopic(String userName, List<String> topicList) {
+
+        topicList.forEach(topic -> {
+            log.info("username is {} and topics are {}", userName, topic);
+            UserNode user = userRepository.userFollowsTopicRelationship(userName, topic);
             log.info("follows relationship  is created");
-        }
-        Optional<UserNode> user1 = userRepository.findById(userName);
-        return user1.get();
-
-
+        });
+        return userRepository.findById(userName).orElse(new UserNode());
     }
+
 
     //method to get USERS by reputation//
     @Override
