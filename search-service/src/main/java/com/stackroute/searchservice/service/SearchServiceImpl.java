@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import com.stackroute.searchservice.model.Answer;
-
 
 @Service
 @Slf4j
@@ -65,6 +63,7 @@ public class SearchServiceImpl implements SearchService {
             question.setQuestion(questionDTO.getQuestion());
             question.setDescription(questionDTO.getDescription());
             question.setUpvotes(questionDTO.getUpvotes());
+            question.setQuestionId(questionDTO.getQuestionId());
 
             question.setTimestamp(questionDTO.getTimestamp());
             question.setDownvote(questionDTO.getDownvotes());
@@ -114,15 +113,15 @@ public class SearchServiceImpl implements SearchService {
             int flag = 0;
             Topic topicDoc = searchRepository.findById(topic).orElse(new Topic());
             for (int i = 0; i < topicDoc.getQuestions().size(); i++) {
-                System.out.println("inside if statement");
+                log.info("inside if statement");
                 System.out.println(topicDoc.getQuestions().get(i));
-//            flag=++flag;
-//            flag=1;
+
                 //checking if question exists in data if yes update it
                 if (topicDoc.getQuestions().get(i).getQuestion().equalsIgnoreCase(question.getQuestion())) {
                     System.out.println(topicDoc.getQuestions().get(i).getQuestion().equalsIgnoreCase(question.getQuestion()));
-                    System.out.println("I am in IF");
-                    System.out.println("print true here");
+                    log.info("I am in IF");
+                    log.info("print true here");
+                    topicDoc.getQuestions().get(i).setQuestionId(question.getQuestionId());
                     topicDoc.getQuestions().get(i).setDownvote(question.getDownvote());
                     topicDoc.getQuestions().get(i).setTimestamp(question.getTimestamp());
                     topicDoc.getQuestions().get(i).setComments(question.getComments());
@@ -133,14 +132,15 @@ public class SearchServiceImpl implements SearchService {
                     topicDoc.getQuestions().get(i).setUser(question.getUser());
                     searchRepository.save(topicDoc);
                     flag = 1;
-                    System.out.println("record is updated in DB");
+                    log.info("record is updated in DB");
                 }
             }
 
             //adding data to mongodb
 
             if (flag != 1) {
-                System.out.println("in else");
+                log.info("in else");
+                ques.setQuestionId((question.getQuestionId()));
                 ques.setDownvote(question.getDownvote());
                 ques.setTimestamp(question.getTimestamp());
                 ques.setComments(question.getComments());
@@ -149,10 +149,10 @@ public class SearchServiceImpl implements SearchService {
                 ques.setDescription(question.getDescription());
                 ques.setQuestion(question.getQuestion());
                 ques.setUser(question.getUser());
-                System.out.println("getting question " + ques);
+                log.info("getting question " + ques);
                 topicDoc.getQuestions().add(ques);
                 searchRepository.save(topicDoc);
-                System.out.println("new data saved");
+                log.info("new data saved");
             }
         });
         return "success";

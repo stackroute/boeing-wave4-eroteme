@@ -4,7 +4,6 @@ import com.stackroute.recommendationservice.domain.Question;
 import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -29,8 +28,9 @@ public class RecommendationController {
     private int questionUpvoteThreshold;
     @Value("${trending-number-of-answers-for-the-question}")
     private int numberOfAnswersThreshold;
-    @Value("${reputation-to-answerNode-the-question}")
+    @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
+
 
     private RecommendationService recommendationService;
 

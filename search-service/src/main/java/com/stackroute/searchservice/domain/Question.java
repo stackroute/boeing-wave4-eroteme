@@ -1,6 +1,9 @@
 package com.stackroute.searchservice.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -11,6 +14,7 @@ import java.util.List;
 @Builder
 public class Question {
     //private member variable declaration//
+    private int questionId;
     private String question;
     private String description;
     private int upvotes;

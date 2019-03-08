@@ -11,15 +11,15 @@ import { HomesectionComponent } from './homesection/homesection.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TrendingQuestionsComponent } from './trending-questions/trending-questions.component';
 import { UnansweredQuestionsComponent } from './unanswered-questions/unanswered-questions.component';
-import { QuestionAnswerCardComponent } from './question-answer-card/question-answer-card.component';
+import { QuestionAnswerCardComponent}from './question-answer-card/question-answer-card.component';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
-import { QuestionCardComponent } from './question-card/question-card.component';
+import {QuestionCardComponent}from './question-card/question-card.component';
 import { TransferServiceService } from './transfer-service.service';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchResultComponent } from './search-result/search-result.component';
-import { PostQuestionComponent } from './post-question/post-question.component';
+import {PostQuestionComponent}from './post-question/post-question.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -72,10 +72,11 @@ import { LoginComponent } from './login/login.component';
 import { NotifyComponent } from '../app/notify/notify.component';
 import { WebSocketService } from './web-socket-service.service';
 import { AcceptedQuesComponent } from './accepted-ques/accepted-ques.component';
-import { QuestionCardAcceptedQuestionComponent } from './question-card-accepted-question/question-card-accepted-question.component';
-import { NotifyAnswerCardComponent } from './notify-answer-card/notify-answer-card.component';
+import {QuestionCardAcceptedQuestionComponent}from './question-card-accepted-question/question-card-accepted-question.component';
+import {NotifyAnswerCardComponent} from './notify-answer-card/notify-answer-card.component';
 import { ChildComponent } from './child/child.component';
 import { ParentComponent } from './parent/parent.component';
+import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
 
 
 
@@ -110,7 +111,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     QuestionCardAcceptedQuestionComponent,
     NotifyAnswerCardComponent,
     ChildComponent,
-    ParentComponent
+    ParentComponent,
+    QuestioncardUnansComponent
   ],
   imports: [
     BrowserModule,
