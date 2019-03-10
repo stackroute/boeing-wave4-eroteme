@@ -1,8 +1,10 @@
 package com.stackroute.service;
 
+import com.stackroute.domain.Answer;
 import com.stackroute.domain.Question;
 import com.stackroute.domain.User;
 import com.stackroute.exceptions.QuestionAlreadyExistsException;
+import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.repository.QuestionRepository;
 import org.junit.After;
 import org.junit.Assert;
@@ -29,6 +31,8 @@ import static org.mockito.Mockito.*;
 public class QuestionServiceImplTest {
     private Question question;
 
+    private Answer answer;
+
     //Create a mock for QusetionRepository
     @Mock
     private QuestionRepository questionRepository;
@@ -49,6 +53,7 @@ public class QuestionServiceImplTest {
         List<String> topics = new ArrayList<>();
         topics.add("Angular");
         question = new Question(77, "What is the basics of angular?", null,topics, 0, 4578533, 0, user, null, null);
+        answer = new Answer("Angular",false,0,0,0,1234,user,null);
     }
 
     @After
@@ -59,6 +64,17 @@ public class QuestionServiceImplTest {
     public void testAddQuestionSuccess() throws QuestionAlreadyExistsException {
         when(questionRepository.save((Question) any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestion(question);
+        Assert.assertEquals(question, savedQuestion);
+
+        //verify here verifies that questionRepository save method is only called once
+        verify(questionRepository, times(1)).save(question);
+    }
+
+
+    @Test(expected = QuestionNotFoundException.class)
+    public void testAddAnswerFailure() throws QuestionNotFoundException{
+        when(questionRepository.save((Question) any())).thenReturn(question);
+        Question savedQuestion = questionService.addAnswer(77,answer);
         Assert.assertEquals(question, savedQuestion);
 
         //verify here verifies that questionRepository save method is only called once
