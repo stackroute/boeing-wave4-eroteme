@@ -1,7 +1,6 @@
-
-<mat-card class="example-card waves-effect waves-light" routerLink="/questionAnswerCard" (click)="put()" id="some">
+<mat-card (click)="put()" class="example-card waves-effect waves-light" id="some" routerLink="/questionAnswerCard">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
+    <div class="example-header-image" mat-card-avatar></div>
     <mat-card-title style="font-size: medium"><u>Asked By</u>: {{passedQuestions.user.firstName}}</mat-card-title>
     <mat-card-subtitle>{{passedQuestions.question}}</mat-card-subtitle>
   </mat-card-header>
@@ -14,7 +13,7 @@
       style="padding: 10px;display: inline-block;"></div><i class="fas fa-thumbs-down"></i> {{passedQuestions.downvotes}}</pre>
   </mat-card-content>
   <mat-card-actions id="butt">
-    <button mat-raised-button color="primary" routerLink="/questionAnswerCard" (click)="put()">Show more</button>
+    <button (click)="put()" color="primary" mat-raised-button routerLink="/questionAnswerCard">Show more</button>
   </mat-card-actions>
 </mat-card>
 <router-outlet></router-outlet>

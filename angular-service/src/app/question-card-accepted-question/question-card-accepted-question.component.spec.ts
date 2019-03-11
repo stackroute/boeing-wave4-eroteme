@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuestionCardAcceptedQuestionComponent } from './question-card-accepted-question.component';
+import { QuestionCardAcceptedQuestionComponent } from './questionNode-card-accepted-questionNode.component';
 
 describe('QuestionCardAcceptedQuestionComponent', () => {
   let component: QuestionCardAcceptedQuestionComponent;

@@ -60,10 +60,10 @@ export class AppComponent implements OnInit {
   // unansweredQues=[
 
   //   {
-  //     "question": "What are some of the important concepts in Angular?",
+  //     "questionNode": "What are some of the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answerNode": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -84,14 +84,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -116,21 +116,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -141,7 +141,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answer": "Directives are one of the most important concepts of angular",
+  //         "answerNode": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -152,7 +152,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -162,14 +162,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -184,7 +184,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -194,21 +194,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -220,7 +220,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "user": {
+  //     "userNode": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -231,15 +231,15 @@ export class AppComponent implements OnInit {
   //     "description": "iusdhf erfheri ehreoiuhreiu eh uierhf uer iue uerrier rfiuer ferfhuierhfhier fuerfhuerhfi erfhiuerf uerf ue rfuierfh iuehrfiuer rfureihfiuerf uier fiuer fiuer fiure fuierhfue iurf heiurf ieur hf",
   //     "comments": [
   //       {
-  //         "comment": "Can you state the question more clearly ?",
+  //         "comment": "Can you state the questionNode more clearly ?",
   //         "timestamp": 1550166529,
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answer the question",
+  //             "reply": "I think the details mentioned are enough to answerNode the questionNode",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -249,14 +249,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
   //       },
 
   //       {
-  //         "comment": "I think the question is not clear",
+  //         "comment": "I think the questionNode is not clear",
   //         "timestamp": 1550166531,
   //         "likes": 11,
   //         "replies": [
@@ -272,24 +272,24 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
   //             }
   //           },
   //           {
-  //             "reply": "Dude the question is crystal clear",
+  //             "reply": "Dude the questionNode is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -298,10 +298,10 @@ export class AppComponent implements OnInit {
   //     ]
   //   },
   //   {
-  //     "question": "What are some qqqof the important concepts in Angular?",
+  //     "questionNode": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answerNode": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -312,7 +312,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -322,14 +322,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -344,7 +344,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -354,21 +354,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -379,7 +379,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answer": "Directives are one of the most important concepts of angular",
+  //         "answerNode": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -390,7 +390,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -400,14 +400,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -422,7 +422,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -432,21 +432,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -458,7 +458,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "user": {
+  //     "userNode": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -469,15 +469,15 @@ export class AppComponent implements OnInit {
   //     "description": "iudh vuidgvufhreuf vpnesfghv wusfhv wnpiefhvvius dfv w",
   //     "comments": [
   //       {
-  //         "comment": "Can you state the question more clearly ?",
+  //         "comment": "Can you state the questionNode more clearly ?",
   //         "timestamp": 1550166529,
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answer the question",
+  //             "reply": "I think the details mentioned are enough to answerNode the questionNode",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -487,14 +487,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -502,7 +502,7 @@ export class AppComponent implements OnInit {
   //       },
 
   //       {
-  //         "comment": "I think the question is not clear",
+  //         "comment": "I think the questionNode is not clear",
   //         "timestamp": 1550166531,
   //         "likes": 11,
   //         "replies": [
@@ -510,24 +510,24 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //              "likes": 3,
   //             "timestamp": 1550166532,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
   //             }
   //           },
   //           {
-  //             "reply": "Dude the question is crystal clear",
+  //             "reply": "Dude the questionNode is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -539,10 +539,10 @@ export class AppComponent implements OnInit {
   //This is the list of Trending questions
   // trendingQues = [
   //   {
-  //     "question": "What are some qqqof the important concepts in Angular?",
+  //     "questionNode": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answerNode": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention1 other important topics ?",
@@ -553,7 +553,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -563,14 +563,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -585,7 +585,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -595,21 +595,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -620,7 +620,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answer": "Directives are one of the most important concepts of angular",
+  //         "answerNode": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -631,7 +631,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -641,14 +641,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -663,7 +663,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -673,21 +673,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -699,7 +699,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "user": {
+  //     "userNode": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -710,15 +710,15 @@ export class AppComponent implements OnInit {
   //     "description": "Loresdk vd kndf v joiro iohoijeoi 0gieh ue vuehueieuhe rhi i i jibuh bk jb i j jhb ruhrc 45giu ug 4tgugiuhgtgniu gtgtgiut guthg uirhg iruh rtughiruhgrgh ig tgiurhgrug iurgh iurh viurg hriug rtugriutghiugh hiurtghiurg itugh htg guihg iutg",
   //     "comments": [
   //       {
-  //         "comment": "Can you state the question more clearly ?",
+  //         "comment": "Can you state the questionNode more clearly ?",
   //         "timestamp": 1550166529,
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answer the question",
+  //             "reply": "I think the details mentioned are enough to answerNode the questionNode",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -728,14 +728,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -743,7 +743,7 @@ export class AppComponent implements OnInit {
   //       },
 
   //       {
-  //         "comment": "I think the question is not clear",
+  //         "comment": "I think the questionNode is not clear",
   //         "timestamp": 1550166531,
   //         "likes": 11,
   //         "replies": [
@@ -751,24 +751,24 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
   //             }
   //           },
   //           {
-  //             "reply": "Dude the question is crystal clear",
+  //             "reply": "Dude the questionNode is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -777,10 +777,10 @@ export class AppComponent implements OnInit {
   //     ]
   //   },
   //   {
-  //     "question": "What are some of the important concepts in Angular?",
+  //     "questionNode": "What are some of the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answerNode": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -791,7 +791,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -801,14 +801,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -823,7 +823,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -833,21 +833,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -858,7 +858,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answer": "Directives are one of the most important concepts of angular",
+  //         "answerNode": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -869,7 +869,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -879,14 +879,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -901,7 +901,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -911,21 +911,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -937,7 +937,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "user": {
+  //     "userNode": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -948,15 +948,15 @@ export class AppComponent implements OnInit {
   //     "description": "Loresdk vd kndf v joiro iohoijeoi 0gieh ue vuehueieuhe rhi i i jibuh bk jb i j jhb ruhrc 45giu ug 4tgugiuhgtgniu gtgtgiut guthg uirhg iruh rtughiruhgrgh ig tgiurhgrug iurgh iurh viurg hriug rtugriutghiugh hiurtghiurg itugh htg guihg iutg",
   //     "comments": [
   //       {
-  //         "comment": "Can you state the question more clearly ?",
+  //         "comment": "Can you state the questionNode more clearly ?",
   //         "timestamp": 1550166529,
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answer the question",
+  //             "reply": "I think the details mentioned are enough to answerNode the questionNode",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -966,14 +966,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -981,7 +981,7 @@ export class AppComponent implements OnInit {
   //       },
 
   //       {
-  //         "comment": "I think the question is not clear",
+  //         "comment": "I think the questionNode is not clear",
   //         "timestamp": 1550166531,
   //         "likes": 11,
   //         "replies": [
@@ -989,24 +989,24 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
   //             }
   //           },
   //           {
-  //             "reply": "Dude the question is crystal clear",
+  //             "reply": "Dude the questionNode is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""
@@ -1015,10 +1015,10 @@ export class AppComponent implements OnInit {
   //     ]
   //   },
   //   {
-  //     "question": "What are some qqqof the important concepts in Angular?",
+  //     "questionNode": "What are some qqqof the important concepts in Angular?",
   //     "answers": [
   //       {
-  //         "answer": "Some of the important concepts in angular are data binding and component interaction",
+  //         "answerNode": "Some of the important concepts in angular are data binding and component interaction",
   //         "comments": [
   //           {
   //             "comment": "Can you mention other important topics ?",
@@ -1029,7 +1029,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1039,14 +1039,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -1061,7 +1061,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1071,21 +1071,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -1096,7 +1096,7 @@ export class AppComponent implements OnInit {
   //         "timestamp": 1550166527
   //       },
   //       {
-  //         "answer": "Directives are one of the most important concepts of angular",
+  //         "answerNode": "Directives are one of the most important concepts of angular",
   //         "comments": [
   //           {
   //             "comment": "Are directives the most difficult ones ?",
@@ -1107,7 +1107,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1117,14 +1117,14 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
@@ -1139,7 +1139,7 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
@@ -1149,21 +1149,21 @@ export class AppComponent implements OnInit {
   //                 "reply": "Why don't you google ?",
   //                 "likes": 3,
   //                 "timestamp": 1550166526,
-  //                 "user": {
+  //                 "userNode": {
   //                   "firstname": "Akanksha",
   //                   "emailaddress": "akanksha@marvel.com",
   //                   "imageurl": ""
   //                 }
   //               }
   //             ],
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Antara",
   //               "emailaddress": "antara@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Anushka",
   //           "emailaddress": "anushka@marvel.com",
   //           "imageurl": ""
@@ -1175,7 +1175,7 @@ export class AppComponent implements OnInit {
   //       }
   //     ],
 
-  //     "user": {
+  //     "userNode": {
   //       "firstname": "Anjali",
   //       "emailaddress": "anjali@marvel.com",
   //       "imageurl": ""
@@ -1186,15 +1186,15 @@ export class AppComponent implements OnInit {
   //     "description": "Loresdk vd kndf v joiro iohoijeoi 0gieh ue vuehueieuhe rhi i i jibuh bk jb i j jhb ruhrc 45giu ug 4tgugiuhgtgniu gtgtgiut guthg uirhg iruh rtughiruhgrgh ig tgiurhgrug iurgh iurh viurg hriug rtugriutghiugh hiurtghiurg itugh htg guihg iutg",
   //     "comments": [
   //       {
-  //         "comment": "Can you state the question more clearly ?",
+  //         "comment": "Can you state the questionNode more clearly ?",
   //         "timestamp": 1550166529,
   //         "likes": 10,
   //         "replies": [
   //           {
-  //             "reply": "I think the details mentioned are enough to answer the question",
+  //             "reply": "I think the details mentioned are enough to answerNode the questionNode",
   //             "likes": 3,
   //             "timestamp": 1550166530,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Akanksha",
   //               "emailaddress": "akanksha@marvel.com",
   //               "imageurl": ""
@@ -1204,14 +1204,14 @@ export class AppComponent implements OnInit {
   //             "reply": "Some details maybe missing",
   //             "likes": 3,
   //             "timestamp": 1550166536,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Prachi",
   //               "emailaddress": "prachi@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Antara",
   //           "emailaddress": "antara@marvel.com",
   //           "imageurl": ""
@@ -1219,7 +1219,7 @@ export class AppComponent implements OnInit {
   //       },
 
   //       {
-  //         "comment": "I think the question is not clear",
+  //         "comment": "I think the questionNode is not clear",
   //         "timestamp": 1550166531,
   //         "likes": 11,
   //         "replies": [
@@ -1227,24 +1227,24 @@ export class AppComponent implements OnInit {
   //             "reply": "I think the details mentioned suffice",
   //             "likes": 3,
   //             "timestamp": 1550166532,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Shalmali",
   //               "emailaddress": "shalmali@marvel.com",
   //               "imageurl": ""
   //             }
   //           },
   //           {
-  //             "reply": "Dude the question is crystal clear",
+  //             "reply": "Dude the questionNode is crystal clear",
   //             "likes": 3,
   //             "timestamp": 1550166533,
-  //             "user": {
+  //             "userNode": {
   //               "firstname": "Kajal",
   //               "emailaddress": "kajal@marvel.com",
   //               "imageurl": ""
   //             }
   //           }
   //         ],
-  //         "user": {
+  //         "userNode": {
   //           "firstname": "Aarushi",
   //           "emailaddress": "aarushi@marvel.com",
   //           "imageurl": ""

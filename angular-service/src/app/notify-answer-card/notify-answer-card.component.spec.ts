@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotifyAnswerCardComponent } from './notify-answer-card.component';
+import { NotifyAnswerCardComponent } from './notify-answerNode-card.component';
 
 describe('NotifyAnswerCardComponent', () => {
   let component: NotifyAnswerCardComponent;

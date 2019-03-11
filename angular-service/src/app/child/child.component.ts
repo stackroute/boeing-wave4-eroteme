@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { QuestionAnswerCardComponent } from '../question-answer-card/question-answer-card.component';
+import {QuestionAnswerCardComponent}from '../question-answer-card/question-answer-card.component';
 import { TransferServiceService } from '../transfer-service.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { TransferServiceService } from '../transfer-service.service';
 export class ChildComponent implements OnInit {
   count : number =0;
   downcount : number=0;
-  //<app-child [title]=x.question [description]=x.description [upvote]=x.upvotes [downvote]=x.downvote [answer]=y.answer [view]=y.views></app-child>
+//<app-child [title]=x.question [description]=x.description [upvote]=x.upvotes [downvote]=x.downvote [answer]=y.answer [view]=y.views></app-child>
 
   @Input()
   question;
@@ -19,7 +19,7 @@ export class ChildComponent implements OnInit {
   description;
   upvote;
   downvote;
-  answer;
+answer;
   view;
 
   constructor(private trans:TransferServiceService) {

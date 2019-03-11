@@ -7,7 +7,7 @@ spring:
   data:
     neo4j:
       username: neo4j
-      password: secret
+      password: marvel
 jse:
   rabbitmq:
     queue: jse.queue1
