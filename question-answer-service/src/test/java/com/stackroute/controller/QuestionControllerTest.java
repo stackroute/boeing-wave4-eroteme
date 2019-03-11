@@ -189,6 +189,38 @@ public class QuestionControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void addAnswerAccept() throws Exception{
+        when(questionService.addQuestionAnswerAccepted(77,"abcd")).thenReturn(question);
+
+        when(questionService.addQuestionAnswerAccepted(anyInt(),anyString())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/answer/accept/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addQuestionCommentLikes() throws Exception{
+        when(questionService.addQuestionCommentLikes(77,"abcd")).thenReturn(question);
+
+        when(questionService.addQuestionCommentLikes(anyInt(),anyString())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/comment/reply/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addQuestionAnswerCommentLikes() throws Exception{
+        when(questionService.addAnswerCommentLikes(77,answer)).thenReturn(question);
+
+        when(questionService.addAnswerCommentLikes(anyInt(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/answer/comment/likes/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 
     private static String asJsonString(final Object obj) {
         try {
