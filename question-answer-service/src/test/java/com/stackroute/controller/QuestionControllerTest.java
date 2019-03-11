@@ -2,6 +2,7 @@ package com.stackroute.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stackroute.domain.*;
+import com.stackroute.exceptions.QuestionNotFoundException;
 import com.stackroute.service.QuestionService;
 import org.junit.After;
 import org.junit.Before;
@@ -44,6 +45,8 @@ public class QuestionControllerTest {
     private Answer answer;
     private Comment comment;
     private Replies reply;
+
+    private List<Question> list =null;
 
     //Any existing single bean of the same type defined in the context will be replaced by the mock.
     @MockBean
@@ -241,6 +244,35 @@ public class QuestionControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/answer/comment/reply/likes/77")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void getAllQuestions() throws Exception {
+        when(questionService.getAllQuestions()).thenReturn(list);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/questions")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    public void getByQuestionId() throws Exception {
+        when(questionService.getQuestion(anyInt())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isFound())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    public void getByTrackIdFailure() throws Exception {
+        when(questionService.getQuestion(anyInt())).thenThrow(QuestionNotFoundException.class);
+        mockMvc.perform(post("/api/v1/123")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isMethodNotAllowed())
                 .andDo(MockMvcResultHandlers.print());
     }
 
