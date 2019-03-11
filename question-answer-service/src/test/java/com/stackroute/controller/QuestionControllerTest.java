@@ -222,6 +222,28 @@ public class QuestionControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void addQuestionCommentReplyLikes() throws Exception{
+        when(questionService.addQuestionCommentReplyLikes(77,comment)).thenReturn(question);
+
+        when(questionService.addQuestionCommentReplyLikes(anyInt(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/comment/reply/likes/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addAnswerCommentReplyLikes() throws Exception{
+        when(questionService.addAnswerCommentReplyLikes(77,answer)).thenReturn(question);
+
+        when(questionService.addAnswerCommentReplyLikes(anyInt(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/answer/comment/reply/likes/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
     private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
