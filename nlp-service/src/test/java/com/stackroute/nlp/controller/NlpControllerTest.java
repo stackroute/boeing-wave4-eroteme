@@ -36,7 +36,8 @@ public class NlpControllerTest {
     private MockMvc mockMvc;
 
     private Nlp nlp;
-    @MockBean
+
+    @Mock
     private NlpService nlpService;
 
     @InjectMocks
