@@ -13,7 +13,7 @@ public class RabbitService {
     @RabbitListener(queues = "${jsd.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO msg) {
 
-        System.out.println("Received Message: " + msg);
+        
         if(msg.getAction()==Actions.QUESTION_ANSWER){
             notifications.generateAnswerNotification(msg.getUser().getEmail(),msg.getQuestion());
         }
