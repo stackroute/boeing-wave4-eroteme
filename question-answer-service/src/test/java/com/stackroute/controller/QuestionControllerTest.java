@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -80,6 +82,17 @@ public class QuestionControllerTest {
         mockMvc.perform(post("/api/v1/question")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addAnswerSuccess() throws Exception{
+        when(questionService.addAnswer(77,answer)).thenReturn(question);
+
+        when(questionService.addAnswer(anyInt(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/answer/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
     }
 
