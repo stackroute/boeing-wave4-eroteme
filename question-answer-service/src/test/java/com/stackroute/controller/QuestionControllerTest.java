@@ -119,6 +119,76 @@ public class QuestionControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void addAnswerCommentSuccess() throws Exception{
+        List<Comment> commentList = new ArrayList<>();
+        commentList.add(comment);
+        when(questionService.addAnswerComment(77,"abcd",commentList)).thenReturn(question);
+
+        when(questionService.addAnswerComment(anyInt(),anyString(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/answer/comment/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addAnswerCommentReplySuccess() throws Exception{
+        List<Comment> commentList = new ArrayList<>();
+        commentList.add(comment);
+        when(questionService.addAnswerCommentReply(77,"abcd",commentList)).thenReturn(question);
+
+        when(questionService.addAnswerCommentReply(anyInt(),anyString(),any())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/answer/comment/reply/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addQuestionUpvote() throws Exception{
+        when(questionService.addQuestionUpvote(77)).thenReturn(question);
+
+        when(questionService.addQuestionUpvote(anyInt())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/upvote/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addQuestionDownvote() throws Exception{
+        when(questionService.addQuestionDownvote(77)).thenReturn(question);
+
+        when(questionService.addQuestionDownvote(anyInt())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/question/downvote/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addAnswerUpvote() throws Exception{
+        when(questionService.addAnswerUpvote(77,"abcd")).thenReturn(question);
+
+        when(questionService.addAnswerUpvote(anyInt(),anyString())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/answer/upvote/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addAnswerDownvote() throws Exception{
+        when(questionService.addAnswerDownvote(77,"abcd")).thenReturn(question);
+
+        when(questionService.addAnswerDownvote(anyInt(),anyString())).thenReturn(question);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/answer/downvote/77")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(question)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 
     private static String asJsonString(final Object obj) {
         try {
