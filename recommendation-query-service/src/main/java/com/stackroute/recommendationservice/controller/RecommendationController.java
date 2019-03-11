@@ -5,6 +5,7 @@ import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -31,6 +32,15 @@ public class RecommendationController {
     private int numberOfAnswersThreshold;
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
+
+    @Value("${jst.rabbitmq.exchange}")
+    private String exchange1;
+
+    @Value("${jst.rabbitmq.routingkey}")
+    private String routingKey1;
 
     private RecommendationService recommendationService;
 
@@ -184,4 +194,5 @@ public class RecommendationController {
         return responseEntity;
     }
 }
+
 
