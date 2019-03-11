@@ -31,7 +31,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     @Value("${questionAndAnswerUrl}")
     private String questionAndAnswerUrl;
 
-
     @Autowired
     public RecommendationServiceImpl(UserRepository userRepository, RestTemplate restTemplate) {
         this.userRepository = userRepository;
@@ -77,7 +76,7 @@ public class RecommendationServiceImpl implements RecommendationService {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + QUESTIONS, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
-            }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
+            }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer() == null || questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -89,7 +88,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + QUESTIONS, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl +QUESTIONS , HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
             questions.forEach(question -> question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
             return questions.stream().
