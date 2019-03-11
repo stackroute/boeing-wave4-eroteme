@@ -8,6 +8,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
+//configuring websocket to endpoint '/socket'
 public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
@@ -15,7 +16,7 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
                 .setAllowedOrigins("*")
                 .withSockJS();
     }
-
+// adding destination prefix '/queue/app'
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/queue");

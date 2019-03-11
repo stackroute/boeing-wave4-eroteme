@@ -1,7 +1,7 @@
 package com.stackroute.nlp.exceptions;
 
 public class QuestionNotFoundException extends Exception {
-    public QuestionNotFoundException(){
+    public QuestionNotFoundException() {
         super();
     }
 }

@@ -48,11 +48,8 @@ public class NlpServiceImpl implements NlpService{
     private AmqpTemplate amqpTemplate;
 
 
-
-    public String setquestion(String question) throws QuestionNotFoundException
-    {
-        if(question==null)
-        {
+    public String setquestion(String question) throws QuestionNotFoundException {
+        if (question == null) {
             throw new QuestionNotFoundException();
         }
         this.question = question;
@@ -153,7 +150,7 @@ public class NlpServiceImpl implements NlpService{
         List<CoreMap> wordsList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
         for (CoreMap words : wordsList) {
             for (CoreLabel word : words.get(CoreAnnotations.TokensAnnotation.class)) {
-                lemmitizedConcetName.append(word.lemma()+" ");
+                lemmitizedConcetName.append(word.lemma() + " ");
             }
         }
         return lemmitizedConcetName.toString().trim();

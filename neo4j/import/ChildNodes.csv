@@ -1,63 +1,63 @@
-ID,Name,parentID,Type,Class,parentRelation,context
-ANGULAR:10,Pure and Impure Pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:11,Using the Built-in Pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:12,Parameterizing a pipe,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:13,Using Pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:14,Built-in pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:15,Chaining Pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:16,Custom Pipes,ANGULAR:2,concept,concept,subconcept_of,Pipes
-ANGULAR:17,Pure and Pure Functions,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:18,An Impure caching pipe,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:19,The impure AsyncPipe,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:20,Impure Pipe,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:21,Pure pipe,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:22,Json Pipe,ANGULAR:10,concept,concept,subconcept_of,Pure and Impure Pipes
-ANGULAR:23,Understanding Single Page App and Client Side routing,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:24,Routing,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:25,Configuring routes,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:26,Router Outlet,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:27,Route Links,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:28,Route Guards,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:29,Routing parameters,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:30,Authenticating Routes,ANGULAR:3,concept,concept,subconcept_of,Navigation
-ANGULAR:31,"Form state handling(dirty,pristine)",ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:32,Model Driven(reactive) vs Template Driven forms,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:33,Form Groups,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:34,ngForm,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:35,Form Controls,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:36,Dynamic Forms,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:37,Form validations,ANGULAR:4,concept,concept,subconcept_of,Forms
-ANGULAR:38,HTTP Client,ANGULAR:5,concept,concept,subconcept_of,Server Side Communication
-ANGULAR:39,Using Promises,ANGULAR:5,concept,concept,subconcept_of,Server Side Communication
-ANGULAR:40,Using AsyncPipes,ANGULAR:5,concept,concept,subconcept_of,Server Side Communication
-ANGULAR:41,Using RxJS Observables,ANGULAR:5,concept,concept,subconcept_of,Server Side Communication
-ANGULAR:42,HTTP Interceptor,ANGULAR:5,concept,concept,subconcept_of,Server Side Communication
-ANGULAR:43,Unit Testing,ANGULAR:6,concept,concept,subconcept_of,Testing
-ANGULAR:44,E2E Testing,ANGULAR:6,concept,concept,subconcept_of,Testing
-ANGULAR:45,Jasmine,ANGULAR:43,concept,concept,subconcept_of,Unit Testing
-ANGULAR:46,Karma,ANGULAR:43,concept,concept,subconcept_of,Unit Testing
-ANGULAR:47,Protactor,ANGULAR:44,concept,concept,subconcept_of,E2E Testing
-ANGULAR:48,Why Typescript,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:49,Compile to JS,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:50,Class,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:51,Decorators,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:52,Static Typing,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:53,Hello World using Typescript,ANGULAR:7,concept,concept,subconcept_of,Typescript
-ANGULAR:54,App bootstraping,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:55,Angular Module,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:56,What is Angular,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:57,Template,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:58,Services/Providers,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:59,RxJS,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:60,Componenets,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:61,Why Angular,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:62,Sngle Page Applications,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:63,Data Binding,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:64,Componenets and Directives,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:65,Modules,ANGULAR:8,concept,concept,subconcept_of,Fundamentals and Architecture
-ANGULAR:66,Linting,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:67,Scaffolding,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:68,Project Structure for Angular,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:69,Hot Module Loading,ANGULAR:9,concept,concept,subconcept_of,Getting Started
-ANGULAR:70,tslint,ANGULAR:66,concept,concept,subconcept_of,Linting
-ANGULAR:71,codelyser,ANGULAR:66,concept,concept,subconcept_of,Linting
+ID        ,Name                                                 ,parentID  ,Type   ,Class  ,parentRelation,context
+ANGULAR:10,Pure and Impure Pipes                                ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:11,Using the Built-in Pipes                             ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:12,Parameterizing a pipe                                ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:13,Using Pipes                                          ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:14,Built-in pipes                                       ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:15,Chaining Pipes                                       ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:16,Custom Pipes                                         ,ANGULAR:2 ,concept,concept,subconcept_of ,Pipes
+ANGULAR:17,Pure and Pure Functions                              ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:18,An Impure caching pipe                               ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:19,The impure AsyncPipe                                 ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:20,Impure Pipe                                          ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:21,Pure pipe                                            ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:22,Json Pipe                                            ,ANGULAR:10,concept,concept,subconcept_of ,Pure and Impure Pipes
+ANGULAR:23,Understanding Single Page App and Client Side routing,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:24,Routing                                              ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:25,Configuring routes                                   ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:26,Router Outlet                                        ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:27,Route Links                                          ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:28,Route Guards                                         ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:29,Routing parameters                                   ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:30,Authenticating Routes                                ,ANGULAR:3 ,concept,concept,subconcept_of ,Navigation
+ANGULAR:31,"Form state handling(dirty,pristine)"                ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:32,Model Driven(reactive) vs Template Driven forms      ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:33,Form Groups                                          ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:34,ngForm                                               ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:35,Form Controls                                        ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:36,Dynamic Forms                                        ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:37,Form validations                                     ,ANGULAR:4 ,concept,concept,subconcept_of ,Forms
+ANGULAR:38,HTTP Client                                          ,ANGULAR:5 ,concept,concept,subconcept_of ,Server Side Communication
+ANGULAR:39,Using Promises                                       ,ANGULAR:5 ,concept,concept,subconcept_of ,Server Side Communication
+ANGULAR:40,Using AsyncPipes                                     ,ANGULAR:5 ,concept,concept,subconcept_of ,Server Side Communication
+ANGULAR:41,Using RxJS Observables                               ,ANGULAR:5 ,concept,concept,subconcept_of ,Server Side Communication
+ANGULAR:42,HTTP Interceptor                                     ,ANGULAR:5 ,concept,concept,subconcept_of ,Server Side Communication
+ANGULAR:43,Unit Testing                                         ,ANGULAR:6 ,concept,concept,subconcept_of ,Testing
+ANGULAR:44,E2E Testing                                          ,ANGULAR:6 ,concept,concept,subconcept_of ,Testing
+ANGULAR:45,Jasmine                                              ,ANGULAR:43,concept,concept,subconcept_of ,Unit Testing
+ANGULAR:46,Karma                                                ,ANGULAR:43,concept,concept,subconcept_of ,Unit Testing
+ANGULAR:47,Protactor                                            ,ANGULAR:44,concept,concept,subconcept_of ,E2E Testing
+ANGULAR:48,Why Typescript                                       ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:49,Compile to JS                                        ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:50,Class                                                ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:51,Decorators                                           ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:52,Static Typing                                        ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:53,Hello World using Typescript                         ,ANGULAR:7 ,concept,concept,subconcept_of ,Typescript
+ANGULAR:54,App bootstraping                                     ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:55,Angular Module                                       ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:56,What is Angular                                      ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:57,Template                                             ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:58,Services/Providers                                   ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:59,RxJS                                                 ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:60,Componenets                                          ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:61,Why Angular                                          ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:62,Sngle Page Applications                              ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:63,Data Binding                                         ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:64,Componenets and Directives                           ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:65,Modules                                              ,ANGULAR:8 ,concept,concept,subconcept_of ,Fundamentals and Architecture
+ANGULAR:66,Linting                                              ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:67,Scaffolding                                          ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:68,Project Structure for Angular                        ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:69,Hot Module Loading                                   ,ANGULAR:9 ,concept,concept,subconcept_of ,Getting Started
+ANGULAR:70,tslint                                               ,ANGULAR:66,concept,concept,subconcept_of ,Linting
+ANGULAR:71,codelyser                                            ,ANGULAR:66,concept,concept,subconcept_of ,Linting

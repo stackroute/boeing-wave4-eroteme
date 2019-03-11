@@ -9,12 +9,12 @@ public class Notifications {
 
     @Autowired
     private SimpMessagingTemplate template;
-    final static String destination ="/queue/";
+    final static String destination = "/queue/";
 
     //notifies all the users sent by recommendation service regarding question which has been posted
     public void generateQuestionNotification(String[] user,String Question) {
         for (int i = 0; i < user.length; i++) {
-            template.convertAndSend(destination+ user[i], "Can you answer this:" + Question);
+            template.convertAndSend(destination + user[i], "Can you answer this:" + Question);
         }
     }
 

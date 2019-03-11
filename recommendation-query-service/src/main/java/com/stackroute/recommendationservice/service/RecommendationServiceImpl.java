@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RecommendationServiceImpl implements RecommendationService {
 
+    private static final String QUESTIONS = "questions";
     private UserRepository userRepository;
     private RestTemplate restTemplate;
     @Value("${questionAndAnswerUrl}")
@@ -61,7 +62,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            return restTemplate.exchange(questionAndAnswerUrl + QUESTIONS, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody();
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,7 +75,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            return Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + QUESTIONS, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()).stream().filter(questionRequested -> questionRequested.getAnswer() == null || questionRequested.getAnswer().isEmpty()).collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,7 +88,7 @@ public class RecommendationServiceImpl implements RecommendationService {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl + "questions", HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+            List<Question> questions = new ArrayList<>(Objects.requireNonNull(restTemplate.exchange(questionAndAnswerUrl +QUESTIONS , HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
             }).getBody()));
             questions.forEach(question -> question.setAnswer(question.getAnswer().stream().filter(Answer::isAccepted).collect(Collectors.toList())));
             return questions.stream().
