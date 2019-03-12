@@ -15,6 +15,11 @@ spring:
     username: guest
     password: guest
 questionAndAnswerUrl: http://localhost:8090/api/v1/
+jsf:
+  rabbitmq:
+    queue: jsf.queue1
+    exchange: jsf.direct1
+    routingkey: jsf.routingkey1
 jst:
   rabbitmq:
     queue: jst.queue1
