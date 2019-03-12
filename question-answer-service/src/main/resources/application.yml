@@ -1,7 +1,7 @@
 server:
   context-path: /question
   ports:
-    http: 8091
+    http: 8088
   port: 8090
   ssl:
     key-store: keystore.p12
