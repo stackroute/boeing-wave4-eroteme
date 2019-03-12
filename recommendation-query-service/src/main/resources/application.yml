@@ -20,3 +20,8 @@ jsf:
     queue: jsf.queue1
     exchange: jsf.direct1
     routingkey: jsf.routingkey1
+jst:
+  rabbitmq:
+    queue: jst.queue1
+    exchange: jst.direct1
+    routingkey: jst.routingkey1

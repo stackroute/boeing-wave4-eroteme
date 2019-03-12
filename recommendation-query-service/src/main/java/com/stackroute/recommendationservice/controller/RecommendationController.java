@@ -35,10 +35,10 @@ public class RecommendationController {
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
     private RabbitTemplate rabbitTemplate;
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jst.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jst.rabbitmq.routingkey}")
     private String routingKey;
 
 
