@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -49,6 +50,8 @@ public class RecommendationControllerTest {
     private RecommendationServiceImpl recommendationService;
     @MockBean
     private UserRepository userRepository;
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
     @Autowired
     private RecommendationController recommendationController;
     @Autowired
