@@ -38,6 +38,7 @@
         <module>nlp-service</module>
         <module>search-service</module>
         <module>my-profile-service</module>
+        <module>evaluation-service</module>
     </modules>
     <dependencies>
         <dependency>

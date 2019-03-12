@@ -51,13 +51,12 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method for posting a new question
     @Override
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException, IOException {
-        Timestamp timestamp = generateTimestamp();
-        String time = String.valueOf(timestamp);
-        System.out.println("added "+time);
+        long time = generateTimestamp();
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
             throw new QuestionAlreadyExistsException(questionObject.getQuestion()+" already exists");
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
+        questionObject.setTimestamp(time);
         Question savedQuestion = questionRepository.save(questionObject);
         QuestionDTO questionDTO = new QuestionDTO(Actions.POST_QUESTION, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
         produceMsg(questionDTO);
@@ -68,6 +67,8 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to add answer
     @Override
     public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException, IOException {
+        long time = generateTimestamp();
+        answer.setTimestamp(time);
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getAnswer() != null) {
@@ -103,6 +104,8 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to comment to a question
     @Override
     public Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.setTimestamp(time);
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getComment() != null) {
@@ -126,6 +129,8 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to add reply to question comment
     @Override
     public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException, CommentNotFoundException, IOException {
+        long time = generateTimestamp();
+        replies.get(0).setTimestamp(time);
         boolean flag = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
@@ -162,6 +167,8 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to add comment to answer
     @Override
     public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.get(0).setTimestamp(time);
         boolean flag = false;
         String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
@@ -199,6 +206,8 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to add reply for answer comment
     @Override
     public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.get(0).setTimestamp(time);
         boolean answerFlag = false;
         boolean commentFlag = false;
         String email = "";
@@ -584,16 +593,16 @@ public class QuestionServiceImpl implements QuestionService{
         return questionRepository.findAll();
     }
 
-    public Timestamp generateTimestamp(){
+    public long generateTimestamp(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         //via Date
-        Date date = new Date();
-        new Timestamp(date.getTime());
+//        Date date = new Date();
+//        new Timestamp(date.getTime());
 
         //return number of milliseconds since January 1, 1970, 00:00:00 GMT
-        timestamp.getTime();
-        return timestamp;
+        return timestamp.getTime();
+//        return timestamp;
 
     }
 
