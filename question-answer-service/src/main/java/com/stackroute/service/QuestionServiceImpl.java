@@ -593,19 +593,15 @@ public class QuestionServiceImpl implements QuestionService{
         return questionRepository.findAll();
     }
 
+    //finds the system current time
     public long generateTimestamp(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        //via Date
-//        Date date = new Date();
-//        new Timestamp(date.getTime());
-
         //return number of milliseconds since January 1, 1970, 00:00:00 GMT
         return timestamp.getTime();
-//        return timestamp;
-
     }
 
+    //To make rest call in my-profile service to add questions
     public void question(Question savedQuestion) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create("http://localhost:8091/question/" + savedQuestion.getUser().getEmail());
@@ -613,11 +609,12 @@ public class QuestionServiceImpl implements QuestionService{
         System.out.println("Worked");
     }
 
+    //To make rest call in my-profile service to answers
     public void answer(Question savedQuestion, String email) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create("http://localhost:8091/answer/" + email.trim());
         restTemplate.put(url,savedQuestion);
-        System.out.println("Worked");
+        log.info("Worked");
     }
 
     //RabbitMq message producer method
@@ -626,6 +623,6 @@ public class QuestionServiceImpl implements QuestionService{
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         amqpTemplate.convertAndSend(exchange1, routingKey1, msg);
         amqpTemplate.convertAndSend(exchange2, routingKey2, msg);
-        System.out.println("Send msg = " + msg);
+        log.info("Send msg = " + msg);
     }
 }
