@@ -4,6 +4,9 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import { AuthLoginInfo } from '../auth/login-info';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { RegisterComponent } from './../register/register.component';
+
 
 @Component({
   selector: 'app-login',
@@ -20,7 +23,7 @@ export class LoginComponent implements OnInit {
   email=new FormControl('',[Validators.required]);
   password=new FormControl('',Validators.required);
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private router :Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private router :Router,private dialog:MatDialog) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -28,6 +31,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+  open(){
+    this.dialog.open(RegisterComponent);
+  }
+  
   validate() {
     console.log(this.form);
 

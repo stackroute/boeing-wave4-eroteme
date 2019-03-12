@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService,private route:Router,private _formBuilder: FormBuilder) { }
   getErrorFnameMessage(){
-    return this.firstFormGroup.controls.FirstName.hasError('required') ? 'You must enter a value':'';
+    // return this.firstFormGroup.controls.FirstName.hasError('required') ? 'You must enter a value':'';
   }
  
   getpassErrorMessage(){
