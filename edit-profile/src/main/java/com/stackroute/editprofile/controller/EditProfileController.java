@@ -62,6 +62,7 @@ public class EditProfileController {
     @Autowired
     public EditProfileController(EditProfileService editProfileService) {
         this.editProfileService = editProfileService;
+        this.amqpTemplate = amqpTemplate;
     }
 
 
