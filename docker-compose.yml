@@ -268,6 +268,25 @@ services:
     healthcheck:
       test: "exit 0"
 
+  my-profile-service:
+    image: my-profile-service
+    build: ./my-profile-service/
+    container_name: my_profile_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8091:8091
+    expose:
+      - 8091
+    healthcheck:
+      test: "exit 0"
+
 #  json-server1:
 #    container_name: json-server1
 #    image: clue/json-server
