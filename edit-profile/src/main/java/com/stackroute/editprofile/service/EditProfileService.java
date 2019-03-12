@@ -6,5 +6,7 @@ public interface EditProfileService {
 
     UserCurrent updateUserDetails(UserCurrent userCurrent);
 
+    void produceEditedUser(UserCurrent userCurrent);
+
 
 }

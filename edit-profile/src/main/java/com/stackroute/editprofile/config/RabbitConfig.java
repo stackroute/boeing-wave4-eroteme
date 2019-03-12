@@ -7,7 +7,6 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitConfig {
     //Recommendation Command Service
     @Value("${jfa.rabbitmq.queue}")
-    private String queueNameRCS;
+    private String queueRCS;
 
     @Value("${jfa.rabbitmq.exchange}")
     private String exchangeRCS;
@@ -26,7 +25,7 @@ public class RabbitConfig {
 
     //User-Profile service
     @Value("${jfb.rabbitmq.queue}")
-    private String queueNameUP;
+    private String queueUP;
 
     @Value("${jfb.rabbitmq.exchange}")
     private String exchangeUP;
@@ -35,40 +34,40 @@ public class RabbitConfig {
     private String routingKeyUP;
 
     //Question and Answer Service
-    @Value("${jsc.rabbitmq.queue}")
-    private String queueNameQA;
+    @Value("${jfc.rabbitmq.queue}")
+    private String queueQA;
 
-    @Value("${jsc.rabbitmq.exchange}")
+    @Value("${jfc.rabbitmq.exchange}")
     private String exchangeQA;
 
-    @Value("${jsc.rabbitmq.routingkey}")
+    @Value("${jfc.rabbitmq.routingkey}")
     private String routingKeyQA;
 
     //Login Service
-    @Value("${jsd.rabbitmq.queue}")
-    private String queueNameLS;
+    @Value("${jfd.rabbitmq.queue}")
+    private String queueLS;
 
-    @Value("${jsd.rabbitmq.exchange}")
+    @Value("${jfd.rabbitmq.exchange}")
     private String exchangeLS;
 
-    @Value("${jsd.rabbitmq.routingkey}")
+    @Value("${jfd.rabbitmq.routingkey}")
     private String routingKeyLS;
 
     //Search Service
-    @Value("${jse.rabbitmq.queue}")
-    private String queueNameSS;
+    @Value("${jfe.rabbitmq.queue}")
+    private String queueSS;
 
-    @Value("${jse.rabbitmq.exchange}")
+    @Value("${jfe.rabbitmq.exchange}")
     private String exchangeSS;
 
-    @Value("${jse.rabbitmq.routingkey}")
+    @Value("${jfe.rabbitmq.routingkey}")
     private String routingKeySS;
 
 
     //Recommendation Command service
     @Bean
     Queue queueRCS() {
-        return new Queue(queueNameRCS, false);
+        return new Queue(queueRCS, false);
     }
 
     @Bean
@@ -77,14 +76,14 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding bindingRCS(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyRCS);
+    Binding bindingRCS(Queue queueRCS, DirectExchange exchangeRCS) {
+        return BindingBuilder.bind(queueRCS).to(exchangeRCS).with(routingKeyRCS);
     }
 
     //User-Profile Service
     @Bean
     Queue queueUP() {
-        return new Queue(queueNameUP, false);
+        return new Queue(queueUP, false);
     }
 
     @Bean
@@ -93,14 +92,14 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding bindingUP(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyUP);
+    Binding bindingUP(Queue queueUP, DirectExchange exchangeUP) {
+        return BindingBuilder.bind(queueUP).to(exchangeUP).with(routingKeyUP);
     }
 
     //Q&A service
     @Bean
     Queue queueQA() {
-        return new Queue(queueNameQA, false);
+        return new Queue(queueQA, false);
     }
 
     @Bean
@@ -109,14 +108,14 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding bindingQA(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyQA);
+    Binding bindingQA(Queue queueQA, DirectExchange exchangeQA) {
+        return BindingBuilder.bind(queueQA).to(exchangeQA).with(routingKeyQA);
     }
 
     //Login Service
     @Bean
     Queue queueLS() {
-        return new Queue(queueNameLS, false);
+        return new Queue(queueLS, false);
     }
 
     @Bean
@@ -125,14 +124,14 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding bindingLS(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeyLS);
+    Binding bindingLS(Queue queueLS, DirectExchange exchangeLS) {
+        return BindingBuilder.bind(queueLS).to(exchangeLS).with(routingKeyLS);
     }
 
     //Search Service
     @Bean
     Queue queueSS() {
-        return new Queue(queueNameSS, false);
+        return new Queue(queueSS, false);
     }
 
     @Bean
@@ -141,13 +140,13 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding bindingSS(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKeySS);
+    Binding bindingSS(Queue queueSS, DirectExchange exchangeSS) {
+        return BindingBuilder.bind(queueSS).to(exchangeSS).with(routingKeySS);
     }
 
 
     @Bean
-    public MessageConverter jsonMessageConverter() {
+    public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
