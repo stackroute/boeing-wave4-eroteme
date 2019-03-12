@@ -1,12 +1,13 @@
 server:
-    ports:
-        http: 8087
     port: 8086
-    ssl:
-        key-store: keystore.p12
-        key-store-password: root123
-        keyStoreType: PKCS12
-        keyAlias: tomcat
+#    ports:
+#        http: 8087
+#    port: 8086
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: root123
+#        keyStoreType: PKCS12
+#        keyAlias: tomcat
 
 security:
     require-ssl: true

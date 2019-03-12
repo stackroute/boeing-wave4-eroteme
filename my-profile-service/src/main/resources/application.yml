@@ -1,13 +1,14 @@
 server:
-  context-path: /myprofile
-  ports:
-    http: 8033
   port: 8091
-  ssl:
-    key-store: keystore.p12
-    key-store-password: root123
-    keyStoreType: PKCS12
-    keyAlias: tomcat
+#  context-path: /myprofile
+#  ports:
+#    http: 8033
+#  port: 8091
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: root123
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
 
 security:
   require-ssl: true

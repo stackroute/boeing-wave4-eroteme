@@ -3,14 +3,14 @@ grokonez:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
 server:
-    ports:
-        http: 8085
-    port: 8084
-    ssl:
-        key-store: keystore.p12
-        key-store-password: root123
-        keyStoreType: PKCS12
-        keyAlias: tomcat
+    ports: 8084
+#        http: 8085
+#    port: 8084
+#    ssl:
+#        key-store: keystore.p12
+#        key-store-password: root123
+#        keyStoreType: PKCS12
+#        keyAlias: tomcat
 
 security:
     require-ssl: true

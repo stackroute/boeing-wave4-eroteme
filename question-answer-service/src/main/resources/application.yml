@@ -1,16 +1,17 @@
 server:
-  context-path: /question
-  ports:
-    http: 8088
-  port: 8090
-  ssl:
-    key-store: keystore.p12
-    key-store-password: root123
-    keyStoreType: PKCS12
-    keyAlias: tomcat
-
-security:
-  require-ssl: true
+  port: 8088
+#  context-path: /question
+#  ports:
+#    http: 8090
+#  port: 8088
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: root123
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+#
+#security:
+#  require-ssl: true
 
 
 spring:
