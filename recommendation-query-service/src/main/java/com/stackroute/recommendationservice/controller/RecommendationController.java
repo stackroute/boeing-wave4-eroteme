@@ -1,9 +1,13 @@
 package com.stackroute.recommendationservice.controller;
 
+import com.stackroute.recommendationservice.domain.Notification;
 import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionDTO;
 import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -30,12 +34,19 @@ public class RecommendationController {
     private int numberOfAnswersThreshold;
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
+    private RabbitTemplate rabbitTemplate;
+    @Value("${jsa.rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${jsa.rabbitmq.routingkey}")
+    private String routingKey;
 
 
     private RecommendationService recommendationService;
 
     @Autowired
-    public RecommendationController(RecommendationService recommendationService) {
+    public RecommendationController(RecommendationService recommendationService, RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
         this.recommendationService = recommendationService;
     }
 
@@ -183,6 +194,15 @@ public class RecommendationController {
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @RabbitListener(queues = "${jsf.rabbitmq.queue}")
+    public void sendNotificationData(QuestionDTO questionDTO) {
+        List<String> emails = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestionId())
+                .stream().map(UserNode::getUsername)
+                .collect(Collectors.toList());
+        Notification notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
+        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
     }
 }
 
