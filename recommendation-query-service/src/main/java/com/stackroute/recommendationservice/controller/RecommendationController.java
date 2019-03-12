@@ -62,9 +62,7 @@ public class RecommendationController {
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
                     .peek(question -> log.info("Question node is {}", question))
-//                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
-//                    .filter(questionRequested -> questionRequested.getAnswer().size() >= numberOfAnswersThreshold)
                     .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
@@ -83,11 +81,6 @@ public class RecommendationController {
         ResponseEntity<List<Question>> responseEntity;
         try {
             List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser();
-//                    .stream()
-//                    .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
-//                            && document.getAnswer().size() >= numberOfAnswersThreshold
-//                            && DateTime.now().getMillis()<=timestampThreshold)
-//                    .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
