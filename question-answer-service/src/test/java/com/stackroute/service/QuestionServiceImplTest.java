@@ -14,7 +14,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,6 +36,10 @@ public class QuestionServiceImplTest {
     private Answer answer;
     private Comment comment;
     private Replies reply;
+
+    @Mock
+    private RestTemplate restTemplate;
+
     //Create a mock for QusetionRepository
     @Mock
     private QuestionRepository questionRepository;
@@ -58,8 +66,8 @@ public class QuestionServiceImplTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void testAddQuestionSuccess() throws QuestionAlreadyExistsException {
+    @Test(expected = ResourceAccessException.class)
+    public void testAddQuestionSuccess() throws QuestionAlreadyExistsException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestion(question);
         Assert.assertEquals(question, savedQuestion);
@@ -69,7 +77,7 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testAddQuestionFailure() throws QuestionAlreadyExistsException {
+    public void testAddQuestionFailure() throws QuestionAlreadyExistsException, IOException {
         when(questionRepository.save((Question) any())).thenReturn(null);
         Question savedQuestion = questionService.addQuestion(question);
         System.out.println(savedQuestion);
@@ -77,7 +85,7 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswer() throws QuestionNotFoundException {
+    public void testAddAnswer() throws QuestionNotFoundException, IOException {
         when(questionRepository.findById(anyInt())).thenReturn(Optional.of(question));
         when(questionRepository.save((Question) any())).thenReturn(question);
         List<Answer> answerList = new ArrayList<>();
@@ -102,13 +110,13 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionComment() throws QuestionNotFoundException {
+    public void testAddQuestionComment() throws QuestionNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionComment(77, comment);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionCommentReply() throws QuestionNotFoundException, CommentNotFoundException {
+    public void testAddQuestionCommentReply() throws QuestionNotFoundException, CommentNotFoundException, IOException {
         List<Replies> repliesList = new ArrayList<>();
         repliesList.add(reply);
         when(questionRepository.save(any())).thenReturn(question);
@@ -116,7 +124,7 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerComment() throws QuestionNotFoundException, AnswerNotFoundException {
+    public void testAddAnswerComment() throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         List<Comment> commentList = new ArrayList<>();
         commentList.add(comment);
         when(questionRepository.save(any())).thenReturn(question);
@@ -124,7 +132,7 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerCommentReply() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException {
+    public void testAddAnswerCommentReply() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
         List<Comment> commentList = new ArrayList<>();
         commentList.add(comment);
         when(questionRepository.save(any())).thenReturn(question);
@@ -132,55 +140,55 @@ public class QuestionServiceImplTest {
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionUpvote() throws QuestionNotFoundException {
+    public void testAddQuestionUpvote() throws QuestionNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionUpvote(77);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionDownvote() throws QuestionNotFoundException {
+    public void testAddQuestionDownvote() throws QuestionNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionDownvote(77);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerUpvote() throws QuestionNotFoundException, AnswerNotFoundException {
+    public void testAddAnswerUpvote() throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addAnswerUpvote(77, "abcd");
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerDownvote() throws QuestionNotFoundException, AnswerNotFoundException {
+    public void testAddAnswerDownvote() throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addAnswerDownvote(77, "abcd");
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionCommentLikes() throws QuestionNotFoundException, CommentNotFoundException {
+    public void testAddQuestionCommentLikes() throws QuestionNotFoundException, CommentNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionCommentLikes(77, "abcd");
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionCommentReplyLikes() throws QuestionNotFoundException, CommentNotFoundException, ReplyNotFoundException {
+    public void testAddQuestionCommentReplyLikes() throws QuestionNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionCommentReplyLikes(77, comment);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerCommentLikes() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException {
+    public void testAddAnswerCommentLikes() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addAnswerCommentLikes(77, answer);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddAnswerCommentReplyLikes() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, ReplyNotFoundException {
+    public void testAddAnswerCommentReplyLikes() throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addAnswerCommentReplyLikes(77, answer);
     }
 
     @Test(expected = QuestionNotFoundException.class)
-    public void testAddQuestionAnswerAccepted() throws QuestionNotFoundException, AnswerNotFoundException {
+    public void testAddQuestionAnswerAccepted() throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestionAnswerAccepted(77, "abcd");
     }
