@@ -202,8 +202,7 @@ public class NlpServiceImpl implements NlpService {
 
             conceptNameList.add(defaultConceptName);
         }
-        // System.out.println("concept name list");
-        System.out.println(conceptNameList);
+        log.info(String.valueOf(conceptNameList));
         produceMsg(conceptNameList);
         return conceptNameList;
     }
@@ -211,7 +210,7 @@ public class NlpServiceImpl implements NlpService {
 
     // RabbitMq message producer method
     public void produceMsg(List<String> msg) {
-        //log.info("Sending message");
+        log.info("Sending message");
         log.info("Send msg = " + msg);
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         log.info("Send msg = " + msg);
