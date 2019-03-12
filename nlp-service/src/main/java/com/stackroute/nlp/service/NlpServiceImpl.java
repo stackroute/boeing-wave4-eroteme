@@ -139,6 +139,7 @@ public class NlpServiceImpl implements NlpService {
         return wordsWithPOSTag;
     }
 
+
     public String getLemmitizedWord(String conceptName) {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
@@ -167,7 +168,7 @@ public class NlpServiceImpl implements NlpService {
             Matcher matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
             if (matcher.find()) {
                 conceptNameList.add(domainSpecificTopics.get(i).toLowerCase());
-                //log.info(domainSpecificTopics.get(i).toLowerCase());
+                log.info(domainSpecificTopics.get(i).toLowerCase());
             } else {
                 String originalDomainName = domainSpecificTopics.get(i).toLowerCase();
                 String modifiedDomainName = originalDomainName.replaceAll(" ", "");
