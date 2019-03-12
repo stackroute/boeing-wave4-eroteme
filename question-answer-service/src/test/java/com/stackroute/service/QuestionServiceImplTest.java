@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -58,7 +59,7 @@ public class QuestionServiceImplTest {
     }
 
     @Test
-    public void testAddQuestion() throws QuestionAlreadyExistsException {
+    public void testAddQuestionSuccess() throws QuestionAlreadyExistsException {
         when(questionRepository.save(any())).thenReturn(question);
         Question savedQuestion = questionService.addQuestion(question);
         Assert.assertEquals(question, savedQuestion);
@@ -67,17 +68,37 @@ public class QuestionServiceImplTest {
         verify(questionRepository, times(1)).save(question);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testAddQuestionFailure() throws QuestionAlreadyExistsException {
+        when(questionRepository.save((Question) any())).thenReturn(null);
+        Question savedQuestion = questionService.addQuestion(question);
+        System.out.println(savedQuestion);
+        Assert.assertEquals(null, savedQuestion);
+    }
 
     @Test(expected = QuestionNotFoundException.class)
     public void testAddAnswer() throws QuestionNotFoundException {
-        when(questionRepository.save(any())).thenReturn(question);
-        Question savedQuestion = questionService.addAnswer(77, answer);
+        when(questionRepository.findById(anyInt())).thenReturn(Optional.of(question));
+        when(questionRepository.save((Question) any())).thenReturn(question);
+        List<Answer> answerList = new ArrayList<>();
+        answerList.add(answer);
+        question.setAnswer(answerList);
+        Question savedQuestion = questionService.addAnswer(77,answer);
+        Assert.assertEquals(question,savedQuestion);
+
+        //verify here verifies that muzixRepository save method is only called once
+        verify(questionRepository, times(1)).save(question);
+
     }
 
     @Test(expected = NoSuchElementException.class)
     public void testGetQuestion() throws QuestionNotFoundException {
-        Question savedQuestion = questionService.getQuestion(77);
-        Assert.assertEquals(question, savedQuestion);
+        when(questionRepository.findByQuestionId((anyInt()))).thenReturn(question);
+        Question actualOutput = questionService.getQuestion(77);
+        Assert.assertEquals(question,actualOutput);
+
+        //verify here verifies that muzixRepository findbytrackname method is only called twice
+        verify(questionRepository, times(2)).findByQuestionId(77);
     }
 
     @Test(expected = QuestionNotFoundException.class)
@@ -166,7 +187,8 @@ public class QuestionServiceImplTest {
 
     @Test
     public void testgetAllQuestions() {
-        List<Question> questionList = null;
-        Assert.assertEquals(null, questionList);
+        when(questionRepository.findAll()).thenReturn(list);
+        List<Question> questionList = questionService.getAllQuestions();
+        Assert.assertEquals(list,questionList);
     }
 }
