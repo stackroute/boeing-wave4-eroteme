@@ -1,0 +1,2 @@
+questionAndAnswerUrl: http://localhost:8090/api/v1/
+recommendNotifyUrl: http://localhost:8091/member/notify

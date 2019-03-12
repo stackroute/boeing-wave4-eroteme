@@ -37,6 +37,7 @@
         <module>notification-service</module>
         <module>nlp-service</module>
         <module>search-service</module>
+        <module>evaluation-service</module>
     </modules>
     <dependencies>
         <dependency>

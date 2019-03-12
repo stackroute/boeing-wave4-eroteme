@@ -1,6 +1,18 @@
 server:
   context-path: /question
+  ports:
+    http: 8091
   port: 8090
+  ssl:
+    key-store: keystore.p12
+    key-store-password: root123
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+security:
+  require-ssl: true
+
+
 spring:
   application:
     name: BootMongo
@@ -27,3 +39,8 @@ jse:
     queue: jse.queue1
     exchange: jse.direct1
     routingkey: jse.routingkey1
+jsf:
+  rabbitmq:
+    queue: jsf.queue1
+    exchange: jsf.direct1
+    routingkey: jsf.routingkey1

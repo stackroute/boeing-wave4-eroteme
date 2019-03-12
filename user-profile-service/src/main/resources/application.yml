@@ -1,6 +1,17 @@
 server:
-#  context-path: /user
+    ports:
+        http: 8087
     port: 8086
+    ssl:
+        key-store: keystore.p12
+        key-store-password: root123
+        keyStoreType: PKCS12
+        keyAlias: tomcat
+
+security:
+    require-ssl: true
+
+
 spring:
     application:
         name: BootMongo
@@ -10,8 +21,8 @@ spring:
             host: localhost
             port: 27017
     rabbitmq:
-            host: localhost
-            port: 5672
+        host: localhost
+        port: 5672
 jsh:
     rabbitmq:
         queue: jsh.queuereg
