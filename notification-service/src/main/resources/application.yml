@@ -9,3 +9,8 @@ jsd:
     queue: jsd.queue1
     exchange: jsd.direct1
     routingkey: jsd.routingkey1
+jst:
+  rabbitmq:
+    queue: jst.queue1
+    exchange: jst.direct1
+    routingkey: jst.routingkey1
