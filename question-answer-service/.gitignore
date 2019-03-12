@@ -1,5 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+.neo4j
 
 ### STS ###
 .apt_generated

@@ -57,8 +57,15 @@ export class RegisterComponent implements OnInit {
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
+        alert("Registered Successfully!!!");
+        this.route.navigate(["/login"]);
+
       },
       error => {
+            if(error.status==201){
+                      alert("Registered Successfully!!!");
+                      this.route.navigate(["/login"]);
+            }
         console.log(error);
         this.errorMessage = error.error.message;
       }

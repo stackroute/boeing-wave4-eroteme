@@ -1,25 +1,25 @@
 package com.stackroute.recommendationcommandservice.repository;
 
-import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.model.UserNode;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 
-public interface UserRepository extends Neo4jRepository<User, String> {
+public interface UserRepository extends Neo4jRepository<UserNode, String> {
 
     //method to get USER//
-    @Query("MATCH (m:User) RETURN m")
-    Collection<User> getAllUsers();
+    @Query("MATCH (m:UserNode) RETURN m")
+    Collection<UserNode> getAllUsers();
 
 
     //method to get USER using REPUTATION//
-    @Query("match (m:User) where m.reputation={reputation} return m")
-    User getByUser(@Param("reputation") int reputation);
+    @Query("match (m:UserNode) where m.reputation={reputation} return m")
+    UserNode getByUser(@Param("reputation") int reputation);
 
 
-    //method to create relationship FOLLOWS between user and topic//
-    @Query("match (q:User),(t:parents) where q.userName={username} and t.name={name} create (q)-[r:follows]->(t)")
-    User userFollowsTopicRelationship(@Param("username") String userName, @Param("name") String name);
+    //method to create relationship FOLLOWS between userDTO and topic//
+    @Query("match (q:UserNode),(t:parents) where q.username={username} and t.name={name} create (q)-[r:follows]->(t)")
+    UserNode userFollowsTopicRelationship(@Param("username") String userName, @Param("name") String topic);
 }

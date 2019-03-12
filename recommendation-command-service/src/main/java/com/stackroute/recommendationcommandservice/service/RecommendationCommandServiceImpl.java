@@ -1,17 +1,20 @@
 package com.stackroute.recommendationcommandservice.service;
 
 
-import com.stackroute.recommendationcommandservice.model.Answer;
-import com.stackroute.recommendationcommandservice.model.Question;
-import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.model.AnswerNode;
+import com.stackroute.recommendationcommandservice.model.QuestionNode;
+import com.stackroute.recommendationcommandservice.model.UserNode;
 import com.stackroute.recommendationcommandservice.repository.AnswerRepository;
 import com.stackroute.recommendationcommandservice.repository.QuestionRepository;
 import com.stackroute.recommendationcommandservice.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
+@Slf4j
 @Service
 public class RecommendationCommandServiceImpl implements RecommendationCommandService {
     private UserRepository userRepository;
@@ -25,31 +28,34 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
         this.answerRepository = answerRepository;
     }
 
-    /*method to save user*/
+    /*method to save userDTO*/
     @Override
-    public User saveUserToDb(User user) {
-        userRepository.save(user);
-        return user;
+    public UserNode saveUserToDb(UserNode userNode) {
+        userRepository.save(userNode);
+        log.info("userNode node is created");
+        return userNode;
     }
+
 
     //method to get USERS//
     @Override
-    public Collection<User> getUsers() {
+    public Collection<UserNode> getUsers() {
         return userRepository.getAllUsers();
     }
 
 
     //method to add QUESTION//
     @Override
-    public Question saveQuestionToDb(Question question) {
-        questionRepository.save(question);
-        return question;
+    public QuestionNode saveQuestionToDb(QuestionNode questionNode) {
+        questionRepository.save(questionNode);
+        log.info("questionNode is posted and saved");
+        return questionNode;
     }
 
 
     //method to get QUESTIONS//
     @Override
-    public Collection<Question> getQuestions() {
+    public Collection<QuestionNode> getQuestions() {
 
         return questionRepository.getAllQuestions();
     }
@@ -57,32 +63,39 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to add ANSWER//
     @Override
-    public Answer saveAnswerToDb(Answer answer) {
+    public AnswerNode saveAnswerToDb(AnswerNode answerNode) {
 
-        answerRepository.save(answer);
-        return answer;
+
+        answerRepository.save(answerNode);
+        log.info("answerNode is posted and saved");
+        log.info("answerNode is set to accepted");
+        return answerNode;
     }
 
     //method to get ANSWERS//
     @Override
-    public Collection<Answer> getAnswers() {
+    public Collection<AnswerNode> getAnswers() {
 
         return answerRepository.getAllAnswers();
     }
 
 
-    //method to create relationship FOLLOWS between user and topic//
+    //method to create relationship FOLLOWS between userDTO and topic//
     @Override
-    public User userFollowsTopic(String userName, String Name) {
+    public UserNode userFollowsTopic(String userName, List<String> topicList) {
 
-        return userRepository.userFollowsTopicRelationship(userName, Name);
-
+        topicList.forEach(topic -> {
+            log.info("username is {} and topics are {}", userName, topic);
+            UserNode user = userRepository.userFollowsTopicRelationship(userName, topic);
+            log.info("follows relationship  is created");
+        });
+        return userRepository.findById(userName).orElse(new UserNode());
     }
 
 
     //method to get USERS by reputation//
     @Override
-    public User getByUser(int reputation) {
+    public UserNode getByUser(int reputation) {
 
         return userRepository.getByUser(reputation);
     }
@@ -90,85 +103,87 @@ public class RecommendationCommandServiceImpl implements RecommendationCommandSe
 
     //method to create relationship QUESTION_OF between question and topic//
     @Override
-    public Question questionBelongsTopic(int questionId, String Name) {
+    public QuestionNode questionBelongsTopic(int questionId, List<String> Name) {
+        log.info("question belongs to this topic relationship is created");
 
         return questionRepository.questionBelongsTopicRelationship(questionId, Name);
     }
 
 
-    //method to create relationship ANSWERED between user and answer//
+    //method to create relationship ANSWERED between userDTO and answerDTO//
     @Override
-    public User userAnsweredAnswer(String userName, int answerId) {
+    public UserNode userAnsweredAnswer(String userName, String answerString) {
 
-        return answerRepository.userAnsweredAnswerRelationship(userName, answerId);
+        return answerRepository.userAnsweredAnswerRelationship(userName, answerString);
     }
 
 
-    //method to create relationship VIEWED between user and question//
+    //method to create relationship VIEWED between userDTO and question//
     @Override
-    public User userViewedQuestion(String userName, int questionId) {
+    public UserNode userViewedQuestion(String userName, int questionId) {
 
         return questionRepository.userViewedQuestionRelationship(userName, questionId);
 
     }
 
 
-    //method to create relationship ANSWER_OF between answer and question//
+    //method to create relationship ANSWER_OF between answerDTO and question//
     @Override
-    public Answer answerIsAnswerOfQuestion(int answerId, int questionId) {
+    public AnswerNode answerIsAnswerOfQuestion(String answerString, int questionId) {
+        log.info("relationship answerNode of is created");
 
-        return questionRepository.answerIsAnswerOfQuestionRelationship(answerId, questionId);
+        return questionRepository.answerIsAnswerOfQuestionRelationship(answerString, questionId);
 
     }
 
 
-    //method to create relationship ASKED between user and question//
+    //method to create relationship ASKED between userDTO and question//
     @Override
-    public User userAskedQuestion(String userName, int questionId) {
+    public UserNode userAskedQuestion(String userName, int questionId) {
 
         return questionRepository.userAskedQuestionRelationship(userName, questionId);
 
     }
 
-    //method to create relationship ACCEPTED between user and answer//
+    //method to create relationship ACCEPTED between userDTO and answerDTO//
     @Override
-    public User userAcceptedAnswer(String userName, int answerId) {
+    public UserNode userAcceptedAnswer(String userName, String answerString) {
 
-        return answerRepository.userAcceptedAnswerRelationship(userName, answerId);
+        return answerRepository.userAcceptedAnswerRelationship(userName, answerString);
 
     }
 
 
-    //method to create relationship UPVOTED between user and answer//
+    //method to create relationship UPVOTED between userDTO and answerDTO//
     @Override
-    public User userUpvotedAnswer(String userName, int answerId) {
+    public UserNode userUpvotedAnswer(String userName, String answerString) {
 
-        return answerRepository.userUpvotedAnswerRelationship(userName, answerId);
+        return answerRepository.userUpvotedAnswerRelationship(userName, answerString);
 
     }
 
 
-    //method to create relationship DOWNVOTED between user and answer//
+    //method to create relationship DOWNVOTED between userDTO and answerDTO//
     @Override
-    public User userDownvotedAnswer(String userName, int answerId) {
+    public UserNode userDownvotedAnswer(String userName, String answerString) {
 
-        return answerRepository.userDownvotedAnswerRelationship(userName, answerId);
+        return answerRepository.userDownvotedAnswerRelationship(userName, answerString);
 
     }
 
 
-    //method to create relationship UPVOTE between user and question//
+    //method to create relationship UPVOTE between userDTO and question//
     @Override
-    public User userUpvoteQuestion(String userName, int questionId) {
+    public UserNode userUpvoteQuestion(String userName, int questionId) {
 
         return questionRepository.userUpvoteQuestionRelationship(userName, questionId);
 
     }
 
 
-    //method to create relationship DOWNVOTE between user and question//
+    //method to create relationship DOWNVOTE between userDTO and question//
     @Override
-    public User userDownvoteQuestion(String userName, int questionId) {
+    public UserNode userDownvoteQuestion(String userName, int questionId) {
 
         return questionRepository.userDownvoteQuestionRelationship(userName, questionId);
 

@@ -1,5 +1,5 @@
 server:
-    context-path: /user
+#  context-path: /user
     port: 8086
 spring:
     application:
@@ -12,3 +12,13 @@ spring:
     rabbitmq:
             host: localhost
             port: 5672
+jsh:
+    rabbitmq:
+        queue: jsh.queuereg
+        exchange: jsh.directreg
+        routingkey: jsh.routingkeyreg
+jsf:
+    rabbitmq:
+        queue: jsf.queuereg
+        exchange: jsf.directreg
+        routingkey: jsf.routingkeyreg

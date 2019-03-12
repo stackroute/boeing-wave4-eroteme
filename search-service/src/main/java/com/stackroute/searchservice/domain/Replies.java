@@ -12,8 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class Replies {
     //private member variable declaration//
-    private String replies;
+    private String reply;
     private int likes;
     private long timestamp;
-    User user;
+    private User user;
 }

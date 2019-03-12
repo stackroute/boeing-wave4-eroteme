@@ -1,28 +1,27 @@
 package com.stackroute.recommendationservice.service;
 
-import com.stackroute.recommendationservice.model.AnswerRequested;
-import com.stackroute.recommendationservice.model.Question;
-import com.stackroute.recommendationservice.model.QuestionRequested;
-import com.stackroute.recommendationservice.model.User;
-import org.springframework.stereotype.Service;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionNode;
+import com.stackroute.recommendationservice.domain.UserNode;
 
 import java.util.List;
 
-@Service
 public interface RecommendationService {
 
-    List<Question> getAllUnansweredQuestions(String userName);
+    List<QuestionNode> getAllUnansweredQuestionsForRegisteredUser(String userName);
 
-    QuestionRequested getDocumentByQuestionId(long questionId);
+    List<Question> getAllUnansweredQuestionsForGuestUser();
 
-    List<User> getAllUsersRelatedToQuestion(long questionID);
+    Question getDocumentByQuestionId(long questionId);
 
-    List<Question> getTrendingQuestionsForUser(String username);
+    List<UserNode> getAllUsersRelatedToQuestion(long questionID);
 
-    QuestionRequested insertIntoDb(QuestionRequested questionRequested);
+    List<QuestionNode> getTrendingQuestionsForRegisteredUser(String username);
 
-    List<AnswerRequested> getAllAcceptedAnswerOfDomain(String userName);
+    List<Question> getTrendingQuestionsForGuestUser();
 
+    List<QuestionNode> getAllAcceptedAnswersOfDomain(String username);
 
+    List<Question> getAllAcceptedAnswersForGuestUser();
 }
 

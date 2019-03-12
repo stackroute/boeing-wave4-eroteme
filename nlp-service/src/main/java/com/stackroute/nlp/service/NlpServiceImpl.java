@@ -1,6 +1,7 @@
 package com.stackroute.nlp.service;
 
-import com.stackroute.nlp.model.NLP;
+import com.stackroute.nlp.domain.Nlp;
+import com.stackroute.nlp.exceptions.QuestionNotFoundException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
@@ -9,16 +10,26 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
-public class NlpServiceImpl{
+public class NlpServiceImpl implements NlpService{
+
+    @Value("${jsb.rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${jsb.rabbitmq.routingkey}")
+    private String routingKey;
 
     private static final Logger log = LoggerFactory.getLogger(NlpServiceImpl.class);
     String question;
@@ -30,29 +41,22 @@ public class NlpServiceImpl{
             "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
             "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
             "theirs", "themselves", "who", "whom", "this", "that", "that'll", "these", "what", "why", "which",};
-    ArrayList<String> domainSpecificTopics = new ArrayList<>();
-    private RabbitTemplate rabbitTemplate;
 
+
+    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("Angular","pipes","Fundamentals and Architecture","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"));
     @Autowired
-    public NlpServiceImpl(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-    }
-
-    public NlpServiceImpl() {
-
-    }
-
-//    String[] domainSpecificTopics = {"Fundamentals and Architecture","pipes","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"};
-
-//    public static void main(String[] args) {
-//
-//    }
+    private AmqpTemplate amqpTemplate;
 
 
-    public void setquestion(String question) {
+    public String setquestion(String question) throws QuestionNotFoundException {
+        if (question == null) {
+            throw new QuestionNotFoundException();
+        }
         this.question = question;
+        getDomainSpecificTopicName();
+        return question;
     }
-
+    @Override
     public String getCleanQuestion() {
         String inputsentence = this.question;
         // Data Cleaning by removing extra spaces.
@@ -62,12 +66,15 @@ public class NlpServiceImpl{
         return inputsentence.trim();
     }
 
-    //removal of stop words from the lemmitizedWords
 
-    public ArrayList<String> getLemmitizedWords() {
+
+
+    //removal of stop words from the lemmitizedWords
+    @Override
+    public List<String> getLemmitizedWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
-        //predefined properties of NLP Stanford
+        //predefined properties of Nlp Stanford
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         // This annotations object gives the special meaning to the
         // string we used in propeties.put() method
@@ -88,76 +95,96 @@ public class NlpServiceImpl{
     }
 
     //removal of stop words from the sentence
-
-    public ArrayList<String> getremoveStopWords() {
-        ArrayList<String> removeStopwords = getLemmitizedWords();
+    @Override
+    public List<String> getRemoveStopWords() {
+        List<String> removeStopwords = getLemmitizedWords();
         for (int i = 0; i < stopwords.length; i++) {
             removeStopwords.remove(stopwords[i]);
         }
         return removeStopwords;
     }
-
+    //Removal of stopwords from the sentence
+    @Override
     public String getSentenceWithoutStopWords() {
-        ArrayList<String> removeStopwords = getremoveStopWords();
-        StringBuffer sentenceWithoutStopWords = new StringBuffer();
+        List<String> removeStopwords = getRemoveStopWords();
+        StringBuilder sentenceWithoutStopWords = new StringBuilder();
         for (int i = 0; i < removeStopwords.size(); i++) {
             sentenceWithoutStopWords.append(removeStopwords.get(i) + " ");
         }
         return sentenceWithoutStopWords.toString().trim();
     }
-
-    public ArrayList<NLP> getPOSWords() {
-        domainSpecificTopics.add("angular\",\"Angular\",\"pipes\",\"Fundamentals and Architecture\"\"Navigation\",\"server Side\",\"Using Promises\",\"Http Client\",\"Configuring Routes\",\"Routing\",\"Custom pipes\",\"using pipes\",\"Data Binding\",\"Templates");
+    @Override
+    //List of parts of speech words
+    public List<Nlp> getPOSWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "pos");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         CoreDocument coreDocument = new CoreDocument(getSentenceWithoutStopWords());
         pipeline.annotate(coreDocument);
         List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        ArrayList<NLP> wordsWithPOSTag = new ArrayList<>();
+        List<Nlp> wordsWithPOSTag = new ArrayList<>();
         for (CoreLabel coreLabel : coreLabelsList) {
 
             String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
             if (domainSpecificTopics.contains(coreLabel.originalText())) {
-                wordsWithPOSTag.add(new NLP(coreLabel.originalText(), "NN"));
+                wordsWithPOSTag.add(new Nlp(coreLabel.originalText(), "NN"));
             } else {
-                wordsWithPOSTag.add(new NLP(coreLabel.originalText(), partsOfSpeech));
+                wordsWithPOSTag.add(new Nlp(coreLabel.originalText(), partsOfSpeech));
             }
         }
         return wordsWithPOSTag;
     }
 
-    public void showAllResults() {
-        System.out.println("Get Cleared Paragraph");
-        String clearedParagraph = getCleanQuestion();
-        System.out.println(clearedParagraph);
-
-        System.out.println("Lemmitization");
-        ArrayList<String> allLemmas = new ArrayList<>(getLemmitizedWords());
-        System.out.println(allLemmas);
-
-        System.out.println("Stop Word Removal");
-        ArrayList<String> allStopWords = new ArrayList<>(getremoveStopWords());
-        System.out.println(allStopWords);
-
-        System.out.println("Stop Word Removal from sentence");
-        String allremovedWords = getSentenceWithoutStopWords();
-        System.out.println(allremovedWords);
-
-        System.out.println("POS TAGGING");
-        ArrayList<NLP> nlp = new ArrayList<>(getPOSWords());
-        System.out.println(nlp);
-//        sendProductMessage(nlp.toString());
-       // System.out.println(log);
+    public String getLemmitizedWord(String conceptName) {
+        Properties properties = new Properties();
+        properties.setProperty("annotator", "lemma");
+        //predefined properties of Nlp Stanford
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
+        // This annotations object gives the special meaning to the
+        // string we used in propeties.put() method
+        Annotation annotations = new Annotation(conceptName);
+        // pipeline.annotate(annotations)  provies the annotation to those particular objects.
+        pipeline.annotate(annotations);
+        // wordsList contains list of lemmetized words
+        StringBuilder lemmitizedConcetName = new StringBuilder();
+        List<CoreMap> wordsList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
+        for (CoreMap words : wordsList) {
+            for (CoreLabel word : words.get(CoreAnnotations.TokensAnnotation.class)) {
+                lemmitizedConcetName.append(word.lemma() + " ");
+            }
+        }
+        return lemmitizedConcetName.toString().trim();
     }
 
-//    public void sendProductMessage(String originalWord) {
-//        log.info("Sending the index request through queue message");
-//        rabbitTemplate.convertAndSend(NlpApplication.NLP_MESSAGE_QUEUE, originalWord);
-//    }
+    @Override
+    //  finding the DomainSpecificTopicnames in the given question
+    public List<String> getDomainSpecificTopicName() {
+        String sentenceWithoutStopWords = getSentenceWithoutStopWords();
+        List<String> conceptName= new ArrayList<>();
+        for (int i = 0; i < domainSpecificTopics.size(); i++) {
+            String pattenString = getLemmitizedWord(domainSpecificTopics.get(i).toLowerCase());
+            System.out.println(domainSpecificTopics.get(i));
+            Pattern pattern = Pattern.compile(pattenString);
+            Matcher matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
+//            System.out.println(sentenceWithoutStopWords);
+//            System.out.println("pattern String = "+pattenString);
+            if (matcher.find()) {
+//                System.out.println("I am in = "+domainSpecificTopics.get(i));
+//                System.out.println("Concept names = "+conceptName);
+                conceptName.add(domainSpecificTopics.get(i).toLowerCase());
+                log.info(domainSpecificTopics.get(i).toLowerCase());
+            }
+        }
+        produceMsg(conceptName);
+        return conceptName;
+    }
+
+
+    // RabbitMq message producer method
+    public void produceMsg(List<String> msg){
+        log.info("Sending message");
+        log.info("Send msg = " + msg);
+        amqpTemplate.convertAndSend(exchange, routingKey, msg);
+        log.info("Send msg = " + msg);
+    }
 }
-
-
-
-
-

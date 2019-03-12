@@ -1,66 +1,67 @@
 package com.stackroute.recommendationcommandservice.service;
 
 
-import com.stackroute.recommendationcommandservice.model.Answer;
-import com.stackroute.recommendationcommandservice.model.Question;
-import com.stackroute.recommendationcommandservice.model.User;
+import com.stackroute.recommendationcommandservice.model.AnswerNode;
+import com.stackroute.recommendationcommandservice.model.QuestionNode;
+import com.stackroute.recommendationcommandservice.model.UserNode;
 
 import java.util.Collection;
+import java.util.List;
 
 
 public interface RecommendationCommandService {
 
 
-    User saveUserToDb(User user);
+    UserNode saveUserToDb(UserNode userNode);
 
 
-    Collection<User> getUsers();
+    Collection<UserNode> getUsers();
 
 
-    Question saveQuestionToDb(Question question);
+    QuestionNode saveQuestionToDb(QuestionNode questionNode);
 
 
-    Collection<Question> getQuestions();
+    Collection<QuestionNode> getQuestions();
 
 
-    Answer saveAnswerToDb(Answer answer);
+    AnswerNode saveAnswerToDb(AnswerNode answerNode);
 
 
-    Collection<Answer> getAnswers();
+    Collection<AnswerNode> getAnswers();
 
 
-    User userFollowsTopic(String userName, String Name);
+    UserNode userFollowsTopic(String userName, List<String> Name);
 
 
-    User getByUser(int reputation);
+    UserNode getByUser(int reputation);
 
 
-    Question questionBelongsTopic(int questionId, String Name);
+    QuestionNode questionBelongsTopic(int questionId, List<String> Name);
 
 
-    User userAnsweredAnswer(String userName, int answerId);
+    UserNode userAnsweredAnswer(String userName, String answerString);
 
 
-    User userViewedQuestion(String userName, int questionId);
+    UserNode userViewedQuestion(String userName, int questionId);
 
 
-    Answer answerIsAnswerOfQuestion(int answerId, int questionId);
+    AnswerNode answerIsAnswerOfQuestion(String answerString, int questionId);
 
 
-    User userAskedQuestion(String userName, int questionId);
+    UserNode userAskedQuestion(String userName, int questionId);
 
 
-    User userAcceptedAnswer(String userName, int answerId);
+    UserNode userAcceptedAnswer(String userName, String answerString);
 
 
-    User userUpvotedAnswer(String userName, int answerId);
+    UserNode userUpvotedAnswer(String userName, String answerString);
 
 
-    User userDownvotedAnswer(String userName, int answerId);
+    UserNode userDownvotedAnswer(String userName, String answerString);
 
 
-    User userUpvoteQuestion(String userName, int questionId);
+    UserNode userUpvoteQuestion(String userName, int questionId);
 
-    User userDownvoteQuestion(String userName, int questionId);
+    UserNode userDownvoteQuestion(String userName, int questionId);
 
 }

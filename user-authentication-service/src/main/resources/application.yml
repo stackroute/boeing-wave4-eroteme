@@ -21,4 +21,9 @@ spring:
         port: 5672
 
     application:
-          name: user-authentication-service
+      name: user-authentication-service
+jsh:
+    rabbitmq:
+        queue: jsh.queuereg
+        exchange: jsh.directreg
+        routingkey: jsh.routingkeyreg

@@ -14,9 +14,9 @@ import java.util.List;
 @Builder
 public class Comments {
     //private member variable declaration//
-    private String comments;
+    private String comment;
     private long timestamp;
     private int likes;
-    List<Replies> replies;
-    User user;
+    private List<Replies> replies;
+    private User user;
 }

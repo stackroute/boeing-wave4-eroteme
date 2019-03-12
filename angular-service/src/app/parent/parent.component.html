@@ -1,0 +1,10 @@
+<ul *ngFor='let x of variable' id="mydiv">
+    <!-- <ol>
+        <ul *ngFor='let y of x.answers'  >
+            <app-child [title]=x.question [description]=x.description [upvote]=x.upvotes [downvote]=x.downvote [answer]=y.answer [view]=y.views></app-child>
+        </ul>
+    </ol> -->
+    <!-- <h1>{{x.description}}</h1> -->
+  <app-child [question]=x style="    margin-left: 20%;
+    min-width: 300px;"></app-child>
+</ul>

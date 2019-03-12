@@ -1,8 +1,9 @@
 package com.stackroute.searchservice.domain;
 
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -13,11 +14,13 @@ import java.util.List;
 @Builder
 public class Question {
     //private member variable declaration//
+    private int questionId;
     private String question;
     private String description;
     private int upvotes;
     private long timestamp;
-    private int downvotes;
-    List<Answers> answers;
-    List<Comments> comments;
+    private int downvote;
+    private List<Answer> answers;
+    private List<Comments> comments;
+    private User user;
 }

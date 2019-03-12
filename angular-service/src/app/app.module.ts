@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule,Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,15 +11,15 @@ import { HomesectionComponent } from './homesection/homesection.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TrendingQuestionsComponent } from './trending-questions/trending-questions.component';
 import { UnansweredQuestionsComponent } from './unanswered-questions/unanswered-questions.component';
-import { QuestionAnswerCardComponent } from './question-answer-card/question-answer-card.component';
+import { QuestionAnswerCardComponent}from './question-answer-card/question-answer-card.component';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
-import { QuestionCardComponent } from './question-card/question-card.component';
+import {QuestionCardComponent}from './question-card/question-card.component';
 import { TransferServiceService } from './transfer-service.service';
 import { CarouselComponent } from './carousel/carousel.component';
 import { CarouselModule } from 'ngx-bootstrap';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SearchResultComponent } from './search-result/search-result.component';
-import { PostQuestionComponent } from './post-question/post-question.component';
+import {PostQuestionComponent}from './post-question/post-question.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -60,7 +60,7 @@ import {
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule,
- } from '@angular/material';
+} from '@angular/material';
 import { A11yModule } from '@angular/cdk/a11y';
 import { CdkStepperModule } from '@angular/cdk/stepper';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -71,15 +71,23 @@ import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { LoginComponent } from './login/login.component';
 import { NotifyComponent } from '../app/notify/notify.component';
 import { WebSocketService } from './web-socket-service.service';
+import { AcceptedQuesComponent } from './accepted-ques/accepted-ques.component';
+import {QuestionCardAcceptedQuestionComponent}from './question-card-accepted-question/question-card-accepted-question.component';
+import {NotifyAnswerCardComponent} from './notify-answer-card/notify-answer-card.component';
+import { ChildComponent } from './child/child.component';
+import { ParentComponent } from './parent/parent.component';
+// import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
 
 
-const routes:Routes=[{path:'myprofile',component:ProfileComponent},
-                     {path:'questionAnswerCard',component:QuestionAnswerCardComponent},
-                    {path:'',component:HomesectionComponent},
-                    {path:'postQuestion',component:PostQuestionComponent},
-                    {path:'searchresult',component:SearchResultComponent},
-                    {path:'register', component:RegisterComponent},
-                    {path:'login',component:LoginComponent}]
+
+const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
+{ path: 'questionAnswerCard', component: QuestionAnswerCardComponent },
+{ path: '', component: HomesectionComponent },
+{ path: 'postQuestion', component: PostQuestionComponent },
+{ path: 'searchresult', component: ParentComponent },
+{ path: 'register', component: RegisterComponent },
+{ path: 'login', component: LoginComponent },
+{ path: 'notifyanswercard', component: NotifyAnswerCardComponent }]
 
 @NgModule({
   declarations: [
@@ -99,7 +107,12 @@ const routes:Routes=[{path:'myprofile',component:ProfileComponent},
     RegisterComponent,
     LoginComponent,
     NotifyComponent,
-    
+    AcceptedQuesComponent,
+    QuestionCardAcceptedQuestionComponent,
+    NotifyAnswerCardComponent,
+    ChildComponent,
+    ParentComponent,
+    QuestioncardUnansComponent
   ],
   imports: [
     BrowserModule,
@@ -166,8 +179,8 @@ const routes:Routes=[{path:'myprofile',component:ProfileComponent},
     ScrollingModule,
     HttpClientModule
   ],
-  providers: [TransferServiceService,httpInterceptorProviders,WebSocketService],
+  providers: [TransferServiceService, httpInterceptorProviders, WebSocketService],
   bootstrap: [AppComponent]
 })
 
-export class AppModule {}
+export class AppModule { }
