@@ -48,12 +48,12 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     /**
-     * @param questionId Question Id of the posted question
+     * @param question Question  of the posted question
      * @return List of eligible users who follow topics related to posted question
      */
     @Override
-    public List<UserNode> getAllUsersRelatedToQuestion(long questionId) {
-        return userRepository.findAllUsersRelatedToTopic(questionId);
+    public List<UserNode> getAllUsersRelatedToQuestion(String question) {
+        return userRepository.findAllUsersRelatedToTopic(question);
     }
 
     /**
