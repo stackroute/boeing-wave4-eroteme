@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment implements Serializable {
-    User user;
-    List<Reply> replies;
+    private User user;
+    private List<Reply> replies;
     private String reply;
     private long timestamp;
     private long likes;
