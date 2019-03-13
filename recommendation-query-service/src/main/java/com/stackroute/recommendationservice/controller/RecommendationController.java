@@ -190,10 +190,13 @@ public class RecommendationController {
     }
 
     @RabbitListener(queues = "${jsf.rabbitmq.queue}")
-    public void sendNotificationData(QuestionDTO questionDTO) {
+    public void sendNotificationData(QuestionDTO questionDTO) throws InterruptedException {
         log.info("Received {}", questionDTO);
         Notification notification;
+        Thread.sleep(2000);
         List<UserNode> allUsersRelatedToQuestion = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion());
+
+        log.info("Eligible users for notification are: {}", allUsersRelatedToQuestion);
         if (allUsersRelatedToQuestion == null || allUsersRelatedToQuestion.isEmpty()) {
             log.warn("No Users found following the topic");
             notification = Notification.builder().emails(Collections.emptyList()).question(questionDTO.getQuestion()).build();
@@ -206,9 +209,8 @@ public class RecommendationController {
                     .collect(Collectors.toList());
             notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
         }
-        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
-        rabbitTemplate.stop();
         log.info("Notification sent: {}", notification);
+        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
     }
 }
 

@@ -53,6 +53,7 @@ public class RecommendationServiceImpl implements RecommendationService {
      */
     @Override
     public List<UserNode> getAllUsersRelatedToQuestion(String question) {
+
         return userRepository.findAllUsersRelatedToTopic(question);
     }
 

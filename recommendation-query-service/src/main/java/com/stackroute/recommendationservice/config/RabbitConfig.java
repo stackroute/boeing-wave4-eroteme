@@ -57,8 +57,8 @@ public class RabbitConfig {
     }
 
     @Bean
-    Binding binding1(Queue queue, DirectExchange exchange1) {
-        return BindingBuilder.bind(queue).to(exchange1).with(routingKey1);
+    Binding binding1(Queue queue1, DirectExchange exchange1) {
+        return BindingBuilder.bind(queue1).to(exchange1).with(routingKey1);
     }
 
     @Bean
