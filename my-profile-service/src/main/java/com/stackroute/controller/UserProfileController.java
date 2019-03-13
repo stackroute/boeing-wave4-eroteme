@@ -38,7 +38,7 @@ public class UserProfileController {
 
     @GetMapping("/getall/{emailid}")
     public ResponseEntity<UserCurrent> getAllInfo(@PathVariable String emailid){
-        return new ResponseEntity<UserCurrent>(this.userProfileService.returnAllInfoFromDb(emailid),HttpStatus.FOUND);
+        return new ResponseEntity<UserCurrent>(this.userProfileService.returnAllInfoFromDb(emailid),HttpStatus.OK);
     }
 
 
