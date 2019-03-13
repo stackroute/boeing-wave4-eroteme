@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EvaluationConfig {
-    @Value("${jsa.rabbitmq.queue}")
+    @Value("${jst.rabbitmq.queue}")
     private String queueName;
 
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jst.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jst.rabbitmq.routingkey}")
     private String routingKey;
 
     @Bean

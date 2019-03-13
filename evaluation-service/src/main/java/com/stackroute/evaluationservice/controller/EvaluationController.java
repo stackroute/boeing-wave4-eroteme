@@ -21,10 +21,10 @@ import java.util.concurrent.CompletableFuture;
 public class EvaluationController {
     private EvaluationService evaluationService;
     private RabbitTemplate rabbitTemplate;
-    @Value("${jsa.rabbitmq.exchange}")
+    @Value("${jst.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${jsa.rabbitmq.routingkey}")
+    @Value("${jst.rabbitmq.routingkey}")
     private String routingKey;
 
     @Autowired
