@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 
@@ -14,9 +15,8 @@ export class ProfileComponent implements OnInit {
   value;
   User;
 
-  constructor(private trans:TransferServiceService) {
-    this.trans.GetUserData().subscribe((data) => {
-      console.log(data);
+  constructor(private trans:TransferServiceService,private app:AppComponent) {
+    this.trans.GetUserData(this.app.emailid).subscribe((data) => {
       this.User = data;
     });
   }

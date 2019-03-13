@@ -48,7 +48,11 @@ export class PostQuestionComponent implements OnInit {
         "upvotes": 0,
         "timestamp": 82345,
         "downvotes": 0,
-        "user":null,
+        "user": {
+          "email": this.app.emailid,
+          "firstName": this.app.emailid.split("@")[0],
+          "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
+        },
         "comment": null,
         "answer": null
       },

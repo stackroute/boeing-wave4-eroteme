@@ -20,7 +20,7 @@ export class QuestionAnswerCardComponent implements OnInit {
   comm;
   comm1;
   val1 = "";
-answer;
+  answer;
   questionComm;
   QuestionCommentReply;
   commentAnswer1:string;
@@ -112,8 +112,8 @@ answer;
           "timestamp": 9876543,
           "likes": 0,
           "user": {
-            "email": "anjo@gmail.com",
-            "firstName": "anjo",
+            "email": this.app.emailid,
+            "firstName": this.app.emailid.split("@")[0],
             "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
           },
           "replies": null
@@ -154,8 +154,8 @@ replyQuestionComment(presentcomment:string) {
                 "likes":0,
                 "timestamp":64783,
                 "user":{
-                  "email":"anjo@gmail.com",
-                  "firstName":"anjo",
+                  "email":this.app.emailid,
+                  "firstName":this.app.emailid.split("@")[0],
                   "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                 }
               }
@@ -220,8 +220,8 @@ commentAnswer(ans) {
         "timestamp":4373648,
         "likes": 0,
         "user":{
-              "email":"aishu@gmail.com",
-              "firstName":"aishu",
+              "email":this.app.emailid,
+              "firstName":this.app.emailid.split("@")[0],
               "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
             },
         "replies": null
@@ -266,8 +266,8 @@ replyAnswerComment(ans,comm) {
                       "likes":0,
                       "timestamp":64783,
                       "user":{
-                          "email":"anjo@gmail.com",
-                          "firstName":"anjo",
+                          "email":this.app.emailid,
+                          "firstName":this.app.emailid.split("@")[0],
                           "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                           }
                       }
@@ -310,8 +310,8 @@ postanswer() {
         "views": 0,
         "timestamp": 445678,
         "user": {
-          "email": " angel@gmail.com",
-          "firstName": "angel",
+          "email": this.app.emailid,
+          "firstName": this.app.emailid.split("@")[0],
           "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
         },
         "comments": null

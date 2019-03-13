@@ -4,6 +4,7 @@ import { SignUpInfo } from '../auth/signup-info';
 import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   toppingList: string[] = ['DataBinding', 'Pipes', 'Forms', 'Navigation', 'TypeScript', 'Testing','FundamentalArchitecture'];
 
 
-  constructor(private authService: AuthService,private route:Router,private _formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService,private route:Router,private _formBuilder: FormBuilder,private dialog:MatDialog) { }
   getErrorFnameMessage(){
     // return this.firstFormGroup.controls.FirstName.hasError('required') ? 'You must enter a value':'';
   }
@@ -112,6 +113,7 @@ export class RegisterComponent implements OnInit {
       error => {
             if(error.status==201){
                       alert("Registered Successfully!!!");
+                      this.dialog.closeAll();
                       this.route.navigate(["/login"]);
             }
         console.log(error);

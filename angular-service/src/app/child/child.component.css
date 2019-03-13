@@ -1,12 +1,12 @@
 .example-card {
     max-width: 300px;
-    height: 300px;
+    height: 350px;
           }
 
   #some {
         max-width: 300px;
         min-height: 300px;
-        max-height: 350px;
+        max-height: 370px;
         text-overflow: ellipsis;
       }
 
