@@ -30,7 +30,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         List<Question> mongoQues=userCurrent.getQuestions();
 
         for(int i=0;i<mongoQues.size();i++){
-            if(mongoQues.get(i).getQuestion()==givenQuestion) {
+            if(mongoQues.get(i).getQuestion().equals(givenQuestion)) {
                 mongoQues.set(i, question);
                 flag = false;
                 break;
@@ -41,30 +41,47 @@ public class UserProfileServiceImpl implements UserProfileService {
         }
         userCurrent.setQuestions(mongoQues);
         userProfileRepository.save(userCurrent);
+
+        List<Answer> answerList=question.getAnswer();
+        if(answerList.size()>0){
+            for (Answer answer:answerList){
+                addAnswerForMultipleUsers(answer.getUser().getEmail(),question);
+            }
+        }
         return "Success";
     }
 
     @Override
     public String addAnswerToDb(String emailid, Question question) {
+        String quesEmail=question.getUser().getEmail();
+        addQuestionToDB(quesEmail,question);
+        List<Answer> ansList=question.getAnswer();
+        for(Answer answer :ansList){
+            addAnswerForMultipleUsers(answer.getUser().getEmail(),question);
+        }
+        return "Success";
+    }
+
+    public void addAnswerForMultipleUsers(String emailid,Question question){
         boolean flag=true;
-        UserCurrent userCurrent=userProfileRepository.findById(emailid).get();
+        UserCurrent userCurrent=userProfileRepository.findById(emailid.trim()).get();
         String givenQuestion=question.getQuestion();
         List<Question> mongoAns=userCurrent.getAnswers();
-
+        System.out.println(mongoAns.size());
         for(int i=0;i<mongoAns.size();i++){
-            if(mongoAns.get(i).getQuestion()==givenQuestion) {
-                mongoAns.set(i, question);
+            if(mongoAns.get(i).getQuestion().equals(givenQuestion)) {
+                mongoAns.add(i,question);
                 flag = false;
-                break;
             }
         }
         if(flag==true){
             mongoAns.add(question);
         }
-        userCurrent.setQuestions(mongoAns);
+        userCurrent.setAnswers(mongoAns);
         userProfileRepository.save(userCurrent);
-        return "Success";
     }
+
+
 
     @Override
     public UserCurrent returnAllInfoFromDb(String emailid) {
