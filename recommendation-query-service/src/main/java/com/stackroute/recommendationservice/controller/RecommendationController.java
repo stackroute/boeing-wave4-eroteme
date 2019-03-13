@@ -90,16 +90,16 @@ public class RecommendationController {
     }
 
     /**
-     * @param questionId QuestionNode Id of the posted question
+     * @param question QuestionNode Id of the posted question
      * @return List of users who will be notified
      */
 
     @GetMapping("/member/notify")
-    public ResponseEntity<List<UserNode>> getAllUsersToBeNotified(@RequestParam long questionId) {
+    public ResponseEntity<List<UserNode>> getAllUsersToBeNotified(@RequestParam String question) {
         ResponseEntity<List<UserNode>> responseEntity;
         List<UserNode> userNodes;
         try {
-            userNodes = recommendationService.getAllUsersRelatedToQuestion(questionId)
+            userNodes = recommendationService.getAllUsersRelatedToQuestion(question)
                     .stream()
                     .filter(user -> user.getReputation() >= reputationNeeded)
                     .collect(Collectors.toList());
@@ -192,13 +192,22 @@ public class RecommendationController {
     @RabbitListener(queues = "${jsf.rabbitmq.queue}")
     public void sendNotificationData(QuestionDTO questionDTO) {
         log.info("Received {}", questionDTO);
-        List<String> emails = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestionId())
-                .stream()
-                .peek(userNode -> log.info("User is {}", userNode))
-                .map(UserNode::getUsername)
-                .collect(Collectors.toList());
-        Notification notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
+        Notification notification;
+        List<UserNode> allUsersRelatedToQuestion = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion());
+        if (allUsersRelatedToQuestion == null || allUsersRelatedToQuestion.isEmpty()) {
+            log.warn("No Users found following the topic");
+            notification = Notification.builder().emails(Collections.emptyList()).question(questionDTO.getQuestion()).build();
+        } else {
+
+            List<String> emails = allUsersRelatedToQuestion
+                    .stream()
+                    .peek(userNode -> log.info("User is {}", userNode))
+                    .map(UserNode::getUsername)
+                    .collect(Collectors.toList());
+            notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
+        }
         rabbitTemplate.convertAndSend(exchange, routingKey, notification);
+        rabbitTemplate.stop();
         log.info("Notification sent: {}", notification);
     }
 }
