@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question implements Serializable {
-    User user;
-    List<Comment> comment;
-    List<Answer> answer;
+    private User user;
+    private List<Comment> comment;
+    private List<Answer> answer;
     @Id
     private int questionId;
     private String question;

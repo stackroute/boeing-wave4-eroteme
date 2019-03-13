@@ -42,6 +42,13 @@ public class UserController {
     @Value("${jsf.rabbitmq.routingkey}")
     private String routingKey1;
 
+    //For my profile service
+    @Value("${jsi.rabbitmq.exchange}")
+    private String exchange2;
+
+    @Value("${jsi.rabbitmq.routingkey}")
+    private String routingKey2;
+
     /*
     saving userDTO in db
      */
@@ -51,6 +58,7 @@ public class UserController {
         User signUp = new User(user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName(), user.getInterests());
         amqpTemplate.convertAndSend(exchange, routingKey, signUp);
         amqpTemplate.convertAndSend(exchange1, routingKey1, signUp);
+        amqpTemplate.convertAndSend(exchange2, routingKey2, signUp);
 
         try{
             //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());

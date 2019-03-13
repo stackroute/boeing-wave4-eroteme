@@ -192,10 +192,13 @@ public class RecommendationController {
     @RabbitListener(queues = "${jsf.rabbitmq.queue}")
     public void sendNotificationData(QuestionDTO questionDTO) {
         List<String> emails = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestionId())
-                .stream().map(UserNode::getUsername)
+                .stream()
+                .peek(userNode -> log.info("User is {}", userNode))
+                .map(UserNode::getUsername)
                 .collect(Collectors.toList());
         Notification notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
         rabbitTemplate.convertAndSend(exchange, routingKey, notification);
+        log.info("Notification sent: {}", notification);
     }
 }
 

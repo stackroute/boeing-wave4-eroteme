@@ -3,7 +3,7 @@ grokonez:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
 server:
-    ports: 8084
+  port: 8084
 #        http: 8085
 #    port: 8084
 #    ssl:

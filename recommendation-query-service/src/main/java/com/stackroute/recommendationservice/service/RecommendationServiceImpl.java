@@ -37,26 +37,48 @@ public class RecommendationServiceImpl implements RecommendationService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * @param userName email address of the user
+     * @return returns all the unanswered questions related to topics  which user folllows
+     */
+
     @Override
     public List<QuestionNode> getAllUnansweredQuestionsForRegisteredUser(String userName) {
         return userRepository.findAllUnansweredQuestionsForRegisteredUser(userName);
     }
 
+    /**
+     * @param questionId Question Id of the posted question
+     * @return List of eligible users who follow topics related to posted question
+     */
     @Override
     public List<UserNode> getAllUsersRelatedToQuestion(long questionId) {
         return userRepository.findAllUsersRelatedToTopic(questionId);
     }
 
+    /**
+     * @param username username of the registered user
+     * @return trending questions for the registered user
+     */
     @Override
     public List<QuestionNode> getTrendingQuestionsForRegisteredUser(String username) {
         return userRepository.getAllTrendingQuestionsForRegisteredUser(username);
     }
 
+    /**
+     *
+     * @param username username of the registered user
+     * @return accepted questions related to the topic user follows
+     */
     @Override
     public List<QuestionNode> getAllAcceptedAnswersOfDomain(String username) {
         return userRepository.getAllAcceptedAnswersForDomain(username);
     }
 
+    /**
+     *
+     * @return trending questions for the guest user
+     */
     @Override
     public List<Question> getTrendingQuestionsForGuestUser() {
         try {
@@ -70,6 +92,10 @@ public class RecommendationServiceImpl implements RecommendationService {
         }
     }
 
+    /**
+     *
+     * @return unanswered questions for the guest user
+     */
     @Override
     public List<Question> getAllUnansweredQuestionsForGuestUser() {
         try {
@@ -83,6 +109,10 @@ public class RecommendationServiceImpl implements RecommendationService {
         }
     }
 
+    /**
+     *
+     * @return accepted questions for the guest user
+     */
     @Override
     public List<Question> getAllAcceptedAnswersForGuestUser() {
         try {
@@ -100,6 +130,11 @@ public class RecommendationServiceImpl implements RecommendationService {
         }
     }
 
+    /**
+     *
+     * @param questionId question id of the the required question
+     * @return question document
+     */
     @Override
     public Question getDocumentByQuestionId(long questionId) {
         try {

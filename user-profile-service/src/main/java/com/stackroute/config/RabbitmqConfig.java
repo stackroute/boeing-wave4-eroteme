@@ -32,6 +32,16 @@ public class RabbitmqConfig {
     @Value("${jsf.rabbitmq.routingkey}")
     private String routingKey1;
 
+    //For my profile service
+    @Value("${jsi.rabbitmq.queue}")
+    private String queueName2;
+
+    @Value("${jsi.rabbitmq.exchange}")
+    private String exchange2;
+
+    @Value("${jsi.rabbitmq.routingkey}")
+    private String routingKey2;
+
     @Bean
     Queue queue() {
         return new Queue(queueName, false);
@@ -61,6 +71,22 @@ public class RabbitmqConfig {
     Binding binding1(Queue queue1, DirectExchange exchange1) {
         return BindingBuilder.bind(queue1).to(exchange1).with(routingKey1);
     }
+
+    @Bean
+    Queue queue2() {
+        return new Queue(queueName2, false);
+    }
+
+    @Bean
+    DirectExchange exchange2() {
+        return new DirectExchange(exchange2);
+    }
+
+    @Bean
+    Binding binding2(Queue queue2, DirectExchange exchange2) {
+        return BindingBuilder.bind(queue2).to(exchange2).with(routingKey2);
+    }
+
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();

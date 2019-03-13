@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reply implements Serializable {
-    User user;
+    private User user;
     private String reply;
     private long likes;
     private long timestamp;
