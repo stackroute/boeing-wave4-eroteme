@@ -37,9 +37,9 @@ export class TransferServiceService {
     return this.http.get(this.env.acceptedAnswersLoggedIn+emailid)
   }
 
-  GetUserData() {
-  return this.http.get(this.env.User);
-}
+  GetUserData(emailid) {
+    return this.http.get(this.env.User+emailid);
+  }
 
   GetSearchResult(){
   return this.http.get(this.env.searchServiceQuestion);

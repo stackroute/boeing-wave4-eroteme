@@ -9,6 +9,6 @@ public class Notification {
 
     //Tell Notification Team about this model
 
-    List<String> emails;
-    String question;
+    private List<String> emails;
+    private String question;
 }
