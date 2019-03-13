@@ -191,6 +191,7 @@ public class RecommendationController {
 
     @RabbitListener(queues = "${jsf.rabbitmq.queue}")
     public void sendNotificationData(QuestionDTO questionDTO) {
+        log.info("Received {}", questionDTO);
         List<String> emails = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestionId())
                 .stream()
                 .peek(userNode -> log.info("User is {}", userNode))
