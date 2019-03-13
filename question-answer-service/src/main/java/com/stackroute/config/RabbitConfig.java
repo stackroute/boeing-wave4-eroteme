@@ -41,6 +41,16 @@ public class RabbitConfig {
     @Value("${jse.rabbitmq.routingkey}")
     private String routingKey2;
 
+    //Recommendation query service
+    @Value("${jsf.rabbitmq.queue}")
+    private String queueName3;
+
+    @Value("${jsf.rabbitmq.exchange}")
+    private String exchange3;
+
+    @Value("${jsf.rabbitmq.routingkey}")
+    private String routingKey3;
+
     @Bean
     Queue queue1() {
         return new Queue(queueName1, false);
@@ -69,6 +79,21 @@ public class RabbitConfig {
     @Bean
     Binding binding2(Queue queue2, DirectExchange exchange2) {
         return BindingBuilder.bind(queue2).to(exchange2).with(routingKey2);
+    }
+
+    @Bean
+    Queue queue3() {
+        return new Queue(queueName3, false);
+    }
+
+    @Bean
+    DirectExchange exchange3() {
+        return new DirectExchange(exchange3);
+    }
+
+    @Bean
+    Binding binding3(Queue queue3, DirectExchange exchange3) {
+        return BindingBuilder.bind(queue3).to(exchange3).with(routingKey3);
     }
 
     @Bean

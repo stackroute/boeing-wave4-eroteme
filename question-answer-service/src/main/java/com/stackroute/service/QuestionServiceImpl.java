@@ -41,6 +41,13 @@ public class QuestionServiceImpl implements QuestionService{
     @Value("${jse.rabbitmq.routingkey}")
     private String routingKey2;
 
+    //Recommendation query service
+    @Value("${jsf.rabbitmq.exchange}")
+    private String exchange3;
+
+    @Value("${jsf.rabbitmq.routingkey}")
+    private String routingKey3;
+
     private QuestionRepository questionRepository;
 
     @Autowired
@@ -623,6 +630,7 @@ public class QuestionServiceImpl implements QuestionService{
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         amqpTemplate.convertAndSend(exchange1, routingKey1, msg);
         amqpTemplate.convertAndSend(exchange2, routingKey2, msg);
+        amqpTemplate.convertAndSend(exchange3,routingKey3,msg);
         log.info("Send msg = " + msg);
     }
 }
