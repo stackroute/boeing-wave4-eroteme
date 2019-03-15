@@ -204,7 +204,7 @@ public class RecommendationController {
 
             List<String> emails = allUsersRelatedToQuestion
                     .stream()
-                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getUsername()))
+                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
                     .peek(userNode -> log.info("User is {}", userNode))
                     .map(UserNode::getUsername)
                     .collect(Collectors.toList());

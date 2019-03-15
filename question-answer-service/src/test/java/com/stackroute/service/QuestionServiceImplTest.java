@@ -64,16 +64,6 @@ public class QuestionServiceImplTest {
     public void tearDown() throws Exception {
     }
 
-//    @Test(expected = ResourceAccessException.class)
-//    public void testAddQuestionSuccess() throws QuestionAlreadyExistsException, IOException {
-//        when(questionRepository.save(any())).thenReturn(question);
-//        Question savedQuestion = questionService.addQuestion(question);
-//        Assert.assertEquals(question, savedQuestion);
-//
-//        //verify here verifies that questionRepository save method is only called once
-//        verify(questionRepository, times(1)).save(question);
-//    }
-
     @Test(expected = NullPointerException.class)
     public void testAddQuestionFailure() throws QuestionAlreadyExistsException, IOException {
         when(questionRepository.save(any())).thenReturn(null);

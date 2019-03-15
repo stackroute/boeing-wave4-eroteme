@@ -2,7 +2,6 @@
 [![codecov](https://codecov.io/gh/stackroute/boeing-wave4-eroteme/branch/v1.0.3/graph/badge.svg)](https://codecov.io/gh/stackroute/boeing-wave4-eroteme)
 ![](https://img.shields.io/codecov/c/github/stackroute/boeing-wave4-eroteme/v1.0.3.svg?style=flat)
 
-![](https://img.shields.io/snyk/vulnerabilities/github/stackroute/boeing-wave4-eroteme.svg?style=popout)
 ![](https://img.shields.io/github/issues/stackroute/boeing-wave4-eroteme.svg?style=popout)
 
 ![](https://img.shields.io/github/contributors/stackroute/boeing-wave4-eroteme.svg?style=popout)
