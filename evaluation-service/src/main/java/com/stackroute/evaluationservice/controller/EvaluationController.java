@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -34,24 +35,29 @@ public class EvaluationController {
     }
 
     @GetMapping("result")
-    public ResponseEntity<Question> getResultAfterEvaluation(@RequestParam String questionString) {
-        ResponseEntity<Question> responseEntity;
+    public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestParam String questionString) {
+        ResponseEntity<List<Question>> responseEntity;
         try {
             CompletableFuture<Question> questionCompletableFuture = evaluationService.searchInDb(questionString);
+            CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb(questionString);
             CompletableFuture<List<Notification>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionString);
-            CompletableFuture.allOf(questionCompletableFuture, userListCompletableFuture);
-            log.info("Recevied list of users and question document");
+            CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture, userListCompletableFuture);
+            log.info("Recevied list of eligible users, question document from db and web results");
             Question question = questionCompletableFuture.get();
             log.info("Question document found: {}", question);
             List<Notification> eligibleUsers = userListCompletableFuture.get();
             log.info("Eligible users for notification: {}", eligibleUsers);
-            if (question == null) {
+            List<Question> webResults = webResultCompletableFuture.get();
+            log.info("Web results are {}", webResults);
+            if (question == null || webResults == null || webResults.isEmpty()) {
                 rabbitTemplate.convertAndSend(exchange, routingKey, eligibleUsers);
+                return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
             }
-            responseEntity = new ResponseEntity<>(question, HttpStatus.OK);
+            webResults.add(question);
+            responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new Question(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
         }
         return responseEntity;
     }
