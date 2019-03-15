@@ -40,7 +40,7 @@ export class PostQuestionComponent implements OnInit {
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    this.http.post("http://localhost:8090/api/v1/question",
+    this.http.post("http://52.66.134.21:8090/api/v1/question",
       {
         "question": this.ques,
         "description": this.description,
@@ -48,7 +48,11 @@ export class PostQuestionComponent implements OnInit {
         "upvotes": 0,
         "timestamp": 82345,
         "downvotes": 0,
-        "user":null,
+        "user": {
+          "email": this.app.emailid,
+          "firstName": this.app.emailid.split("@")[0],
+          "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
+        },
         "comment": null,
         "answer": null
       },

@@ -76,6 +76,8 @@ import {QuestionCardAcceptedQuestionComponent}from './question-card-accepted-que
 import {NotifyAnswerCardComponent} from './notify-answer-card/notify-answer-card.component';
 import { ChildComponent } from './child/child.component';
 import { ParentComponent } from './parent/parent.component';
+import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
+//import { AesComponent } from './aes/aes.component';
 // import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
 
 
@@ -112,7 +114,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     NotifyAnswerCardComponent,
     ChildComponent,
     ParentComponent,
-    QuestioncardUnansComponent
+    QuestioncardUnansComponent,
+    //AesComponent
   ],
   imports: [
     BrowserModule,

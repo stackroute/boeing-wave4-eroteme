@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class NlpServiceImpl implements NlpService{
+public class NlpServiceImpl implements NlpService {
 
     @Value("${jsb.rabbitmq.exchange}")
     private String exchange;
@@ -34,19 +34,18 @@ public class NlpServiceImpl implements NlpService{
     private static final Logger log = LoggerFactory.getLogger(NlpServiceImpl.class);
     String question;
     String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "above", "below", "be", "what", "in", "on", "above",
-            "is", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "!", "@", "#", "$", "%", "^", "&", "*", "()", ".", "?",
-            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd",
-            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's",
+            "is", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "!", "@", "#", "$", "%", "^", "&", "*", "()", ".", "?", "-",
+            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "and", "what", "which", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's", "_",
             "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll",
             "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
             "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
             "theirs", "themselves", "who", "whom", "this", "that", "that'll", "these", "what", "why", "which",};
 
 
-    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("Angular","pipes","Fundamentals and Architecture","Navigation","server Side","Using Promises","Http Client","Configuring Routes","Routing","Custom pipes","using pipes","Data Binding","Templates"));
+    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
     @Autowired
     private AmqpTemplate amqpTemplate;
-
 
     public String setquestion(String question) throws QuestionNotFoundException {
         if (question == null) {
@@ -56,17 +55,20 @@ public class NlpServiceImpl implements NlpService{
         getDomainSpecificTopicName();
         return question;
     }
+
     @Override
     public String getCleanQuestion() {
         String inputsentence = this.question;
         // Data Cleaning by removing extra spaces.
         inputsentence = inputsentence.trim();
+        inputsentence = inputsentence.replaceAll("-", " ");
+        inputsentence = inputsentence.replaceAll(",", " ");
         inputsentence = inputsentence.replaceAll("\\s+", " ");
         inputsentence = inputsentence.replaceAll("\\t", " ");
+        System.out.println("inputsentence = ");
+        System.out.println(inputsentence);
         return inputsentence.trim();
     }
-
-
 
 
     //removal of stop words from the lemmitizedWords
@@ -103,6 +105,7 @@ public class NlpServiceImpl implements NlpService{
         }
         return removeStopwords;
     }
+
     //Removal of stopwords from the sentence
     @Override
     public String getSentenceWithoutStopWords() {
@@ -113,16 +116,17 @@ public class NlpServiceImpl implements NlpService{
         }
         return sentenceWithoutStopWords.toString().trim();
     }
+
     @Override
     //List of parts of speech words
-    public List<Nlp> getPOSWords() {
+    public ArrayList<Nlp> getPOSWords() {
         Properties properties = new Properties();
         properties.setProperty("annotator", "pos");
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
         CoreDocument coreDocument = new CoreDocument(getSentenceWithoutStopWords());
         pipeline.annotate(coreDocument);
         List<CoreLabel> coreLabelsList = coreDocument.tokens();
-        List<Nlp> wordsWithPOSTag = new ArrayList<>();
+        ArrayList<Nlp> wordsWithPOSTag = new ArrayList<>();
         for (CoreLabel coreLabel : coreLabelsList) {
 
             String partsOfSpeech = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
@@ -135,17 +139,13 @@ public class NlpServiceImpl implements NlpService{
         return wordsWithPOSTag;
     }
 
+
     public String getLemmitizedWord(String conceptName) {
         Properties properties = new Properties();
         properties.setProperty("annotator", "lemma");
-        //predefined properties of Nlp Stanford
         StanfordCoreNLP pipeline = new StanfordCoreNLP(properties);
-        // This annotations object gives the special meaning to the
-        // string we used in propeties.put() method
         Annotation annotations = new Annotation(conceptName);
-        // pipeline.annotate(annotations)  provies the annotation to those particular objects.
         pipeline.annotate(annotations);
-        // wordsList contains list of lemmetized words
         StringBuilder lemmitizedConcetName = new StringBuilder();
         List<CoreMap> wordsList = annotations.get(CoreAnnotations.SentencesAnnotation.class);
         for (CoreMap words : wordsList) {
@@ -159,29 +159,58 @@ public class NlpServiceImpl implements NlpService{
     @Override
     //  finding the DomainSpecificTopicnames in the given question
     public List<String> getDomainSpecificTopicName() {
+        String defaultConceptName = "angular";
         String sentenceWithoutStopWords = getSentenceWithoutStopWords();
-        List<String> conceptName= new ArrayList<>();
+        List<String> conceptNameList = new ArrayList<>();
         for (int i = 0; i < domainSpecificTopics.size(); i++) {
-            String pattenString = getLemmitizedWord(domainSpecificTopics.get(i).toLowerCase());
-            System.out.println(domainSpecificTopics.get(i));
+            String pattenString = domainSpecificTopics.get(i).toLowerCase();
             Pattern pattern = Pattern.compile(pattenString);
             Matcher matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
-//            System.out.println(sentenceWithoutStopWords);
-//            System.out.println("pattern String = "+pattenString);
             if (matcher.find()) {
-//                System.out.println("I am in = "+domainSpecificTopics.get(i));
-//                System.out.println("Concept names = "+conceptName);
-                conceptName.add(domainSpecificTopics.get(i).toLowerCase());
+                conceptNameList.add(domainSpecificTopics.get(i).toLowerCase());
                 log.info(domainSpecificTopics.get(i).toLowerCase());
+            } else {
+                String originalDomainName = domainSpecificTopics.get(i).toLowerCase();
+                String modifiedDomainName = originalDomainName.replaceAll(" ", "");
+                pattenString = modifiedDomainName;
+                pattern = Pattern.compile(pattenString);
+                matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
+                if (matcher.find()) {
+                    conceptNameList.add(domainSpecificTopics.get(i).toLowerCase());
+                    log.info(domainSpecificTopics.get(i).toLowerCase());
+                } else {
+                    pattenString = getLemmitizedWord(domainSpecificTopics.get(i).toLowerCase());
+                    pattern = Pattern.compile(pattenString);
+                    matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
+                    if (matcher.find()) {
+                        conceptNameList.add(domainSpecificTopics.get(i).toLowerCase());
+                        log.info(domainSpecificTopics.get(i).toLowerCase());
+                    } else {
+                        originalDomainName = domainSpecificTopics.get(i).toLowerCase();
+                        modifiedDomainName = getLemmitizedWord(originalDomainName.replaceAll(" ", ""));
+                        pattenString = modifiedDomainName;
+                        pattern = Pattern.compile(pattenString);
+                        matcher = pattern.matcher(sentenceWithoutStopWords.toLowerCase());
+                        if (matcher.find()) {
+                            conceptNameList.add(domainSpecificTopics.get(i).toLowerCase());
+                            log.info(domainSpecificTopics.get(i).toLowerCase());
+                        }
+                    }
+                }
             }
         }
-        produceMsg(conceptName);
-        return conceptName;
+        if (conceptNameList == null || conceptNameList.size() == 0) {
+
+            conceptNameList.add(defaultConceptName);
+        }
+        log.info(String.valueOf(conceptNameList));
+        produceMsg(conceptNameList);
+        return conceptNameList;
     }
 
 
     // RabbitMq message producer method
-    public void produceMsg(List<String> msg){
+    public void produceMsg(List<String> msg) {
         log.info("Sending message");
         log.info("Send msg = " + msg);
         amqpTemplate.convertAndSend(exchange, routingKey, msg);

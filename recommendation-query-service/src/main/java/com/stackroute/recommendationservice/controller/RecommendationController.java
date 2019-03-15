@@ -1,9 +1,13 @@
 package com.stackroute.recommendationservice.controller;
 
+import com.stackroute.recommendationservice.domain.Notification;
 import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionDTO;
 import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -30,12 +34,19 @@ public class RecommendationController {
     private int numberOfAnswersThreshold;
     @Value("${reputation-to-answer-the-question}")
     private int reputationNeeded;
+    private RabbitTemplate rabbitTemplate;
+    @Value("${jst.rabbitmq.exchange}")
+    private String exchange;
+
+    @Value("${jst.rabbitmq.routingkey}")
+    private String routingKey;
 
 
     private RecommendationService recommendationService;
 
     @Autowired
-    public RecommendationController(RecommendationService recommendationService) {
+    public RecommendationController(RecommendationService recommendationService, RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
         this.recommendationService = recommendationService;
     }
 
@@ -51,9 +62,7 @@ public class RecommendationController {
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
                     .peek(question -> log.info("Question node is {}", question))
-//                    .filter(question -> question.getUpvote() >= questionUpvoteThreshold && Math.abs(DateTime.now().getMillis() - question.getTimestamp()) <= timestampThreshold)
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
-//                    .filter(questionRequested -> questionRequested.getAnswer().size() >= numberOfAnswersThreshold)
                     .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
@@ -72,11 +81,6 @@ public class RecommendationController {
         ResponseEntity<List<Question>> responseEntity;
         try {
             List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser();
-//                    .stream()
-//                    .filter(document -> document.getUpvotes() >= questionUpvoteThreshold
-//                            && document.getAnswer().size() >= numberOfAnswersThreshold
-//                            && DateTime.now().getMillis()<=timestampThreshold)
-//                    .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,16 +90,16 @@ public class RecommendationController {
     }
 
     /**
-     * @param questionId QuestionNode Id of the posted question
+     * @param question QuestionNode Id of the posted question
      * @return List of users who will be notified
      */
 
     @GetMapping("/member/notify")
-    public ResponseEntity<List<UserNode>> getAllUsersToBeNotified(@RequestParam long questionId) {
+    public ResponseEntity<List<UserNode>> getAllUsersToBeNotified(@RequestParam String question) {
         ResponseEntity<List<UserNode>> responseEntity;
         List<UserNode> userNodes;
         try {
-            userNodes = recommendationService.getAllUsersRelatedToQuestion(questionId)
+            userNodes = recommendationService.getAllUsersRelatedToQuestion(question)
                     .stream()
                     .filter(user -> user.getReputation() >= reputationNeeded)
                     .collect(Collectors.toList());
@@ -183,6 +187,31 @@ public class RecommendationController {
             responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
         }
         return responseEntity;
+    }
+
+    @RabbitListener(queues = "${jsf.rabbitmq.queue}")
+    public void sendNotificationData(QuestionDTO questionDTO) throws InterruptedException {
+        log.info("Received {}", questionDTO);
+        Notification notification;
+        Thread.sleep(2000);
+        List<UserNode> allUsersRelatedToQuestion = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion());
+
+        log.info("Eligible users for notification are: {}", allUsersRelatedToQuestion);
+        if (allUsersRelatedToQuestion == null || allUsersRelatedToQuestion.isEmpty()) {
+            log.warn("No Users found following the topic");
+            notification = Notification.builder().emails(Collections.emptyList()).question(questionDTO.getQuestion()).build();
+        } else {
+
+            List<String> emails = allUsersRelatedToQuestion
+                    .stream()
+                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                    .peek(userNode -> log.info("User is {}", userNode))
+                    .map(UserNode::getUsername)
+                    .collect(Collectors.toList());
+            notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
+        }
+        log.info("Notification sent: {}", notification);
+        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
     }
 }
 

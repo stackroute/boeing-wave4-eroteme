@@ -16,6 +16,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RecommendationServiceImplTest {
+    private static final String TEST_QUESTION = "TEST_QUESTION";
     private static final String USERNAME = "USERNAME";
     private static final UserNode USER_NODE = UserNode.builder().username(USERNAME).reputation(234).build();
     private static final int QUESTION_ID = 10;
@@ -52,14 +53,14 @@ public class RecommendationServiceImplTest {
 
     @Test
     public void testForEligibleUsersNotPresentInDb() {
-        when(userRepository.findAllUsersRelatedToTopic(QUESTION_ID)).thenReturn(Collections.emptyList());
-        assertThat(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).isEmpty();
+        when(userRepository.findAllUsersRelatedToTopic(TEST_QUESTION)).thenReturn(Collections.emptyList());
+        assertThat(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).isEmpty();
     }
 
     @Test
     public void testForEligibleUsersPresentInDb() {
-        when(userRepository.findAllUsersRelatedToTopic(QUESTION_ID)).thenReturn(Collections.singletonList(USER_NODE));
-        assertThat(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).containsExactly(USER_NODE);
+        when(userRepository.findAllUsersRelatedToTopic(TEST_QUESTION)).thenReturn(Collections.singletonList(USER_NODE));
+        assertThat(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).containsExactly(USER_NODE);
     }
 
     @Test

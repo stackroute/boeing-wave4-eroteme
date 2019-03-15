@@ -20,7 +20,7 @@ export class QuestionAnswerCardComponent implements OnInit {
   comm;
   comm1;
   val1 = "";
-answer;
+  answer;
   questionComm;
   QuestionCommentReply;
   commentAnswer1:string;
@@ -82,7 +82,7 @@ answer;
     }
     else {
       console.log('question upvote');
-      this.http.put("localhost:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{});
     }
   }
 
@@ -93,7 +93,7 @@ answer;
     }
     else {
       console.log('question downvote');
-      this.http.put("localhost:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+this.present.questionId,{});
     }
   }
 
@@ -106,14 +106,14 @@ answer;
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("localhost:8090/api/v1/question/answer/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
           "likes": 0,
           "user": {
-            "email": "anjo@gmail.com",
-            "firstName": "anjo",
+            "email": this.app.emailid,
+            "firstName": this.app.emailid.split("@")[0],
             "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
           },
           "replies": null
@@ -145,7 +145,7 @@ replyQuestionComment(presentcomment:string) {
   }
   else {
     console.log('reply to comment of question');
-      this.http.put("localhost:8090/api/v1/question/comment/reply/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -154,8 +154,8 @@ replyQuestionComment(presentcomment:string) {
                 "likes":0,
                 "timestamp":64783,
                 "user":{
-                  "email":"anjo@gmail.com",
-                  "firstName":"anjo",
+                  "email":this.app.emailid,
+                  "firstName":this.app.emailid.split("@")[0],
                   "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                 }
               }
@@ -187,7 +187,7 @@ upvoteAnswer(ans1) {
   }
   else {
     console.log('answer upvote');
-    this.http.put("localhost:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -200,7 +200,7 @@ downvoteAnswer() {
   }
   else {
     console.log('downvote answer');
-    this.http.put("localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
@@ -211,7 +211,7 @@ commentAnswer(ans) {
   }
   else {
     console.log('comment on answer');
-      this.http.put("localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -220,8 +220,8 @@ commentAnswer(ans) {
         "timestamp":4373648,
         "likes": 0,
         "user":{
-              "email":"aishu@gmail.com",
-              "firstName":"aishu",
+              "email":this.app.emailid,
+              "firstName":this.app.emailid.split("@")[0],
               "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
             },
         "replies": null
@@ -254,7 +254,7 @@ replyAnswerComment(ans,comm) {
   }
   else {
     console.log('reply to comment of answer');
-    this.http.put("localhost:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
     {
       "answer": ans,
       "comments": [
@@ -266,8 +266,8 @@ replyAnswerComment(ans,comm) {
                       "likes":0,
                       "timestamp":64783,
                       "user":{
-                          "email":"anjo@gmail.com",
-                          "firstName":"anjo",
+                          "email":this.app.emailid,
+                          "firstName":this.app.emailid.split("@")[0],
                           "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                           }
                       }
@@ -302,7 +302,7 @@ postanswer() {
   else {
     console.log(this.answer);
     console.log('post answer for the question');
-    this.http.put("localhost:8090/api/v1/question/answer/" + this.present.questionId,
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
         "accepted": "false",
@@ -310,8 +310,8 @@ postanswer() {
         "views": 0,
         "timestamp": 445678,
         "user": {
-          "email": " angel@gmail.com",
-          "firstName": "angel",
+          "email": this.app.emailid,
+          "firstName": this.app.emailid.split("@")[0],
           "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
         },
         "comments": null

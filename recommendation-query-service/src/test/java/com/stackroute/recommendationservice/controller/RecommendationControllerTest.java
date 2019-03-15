@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,6 +33,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class RecommendationControllerTest {
+    private static final String TEST_QUESTION = "TEST_QUESTION";
     private static final int QUESTION_ID = 3;
     private static final QuestionNode QUESTION_NODE_ONE = QuestionNode.builder().questionId(QUESTION_ID).upvote(20).build();
     private static final QuestionNode QUESTION_NODE_TWO = QuestionNode.builder().questionId(QUESTION_ID).upvote(0).build();
@@ -49,6 +51,8 @@ public class RecommendationControllerTest {
     private RecommendationServiceImpl recommendationService;
     @MockBean
     private UserRepository userRepository;
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
     @Autowired
     private RecommendationController recommendationController;
     @Autowired
@@ -165,8 +169,8 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTopicRelatedUsersArePresent() throws Exception {
-        when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.singletonList(USER_NODE));
-        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?questionId=3")
+        when(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).thenReturn(Collections.singletonList(USER_NODE));
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER_NODE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -174,8 +178,8 @@ public class RecommendationControllerTest {
 
     @Test
     public void testForTopicRelatedUsersAreNotPresent() throws Exception {
-        when(recommendationService.getAllUsersRelatedToQuestion(QUESTION_ID)).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?questionId=3")
+        when(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).thenReturn(Collections.emptyList());
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER_NODE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());

@@ -1,0 +1,20 @@
+server:
+  port: 8091
+
+
+security:
+  require-ssl: true
+
+spring:
+  application:
+    name: BootMongo
+  data:
+    mongodb:
+      database: myprofile_db
+      host: localhost
+      port: 27017
+jsi:
+  rabbitmq:
+    queue: jsi.queuereg
+    exchange: jsi.directreg
+    routingkey: jsi.routingkeyreg

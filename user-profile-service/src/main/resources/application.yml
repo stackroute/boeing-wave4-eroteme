@@ -1,6 +1,6 @@
 server:
-#  context-path: /user
     port: 8086
+
 spring:
     application:
         name: BootMongo
@@ -10,8 +10,8 @@ spring:
             host: localhost
             port: 27017
     rabbitmq:
-            host: localhost
-            port: 5672
+        host: localhost
+        port: 5672
 jsh:
     rabbitmq:
         queue: jsh.queuereg
@@ -22,3 +22,8 @@ jsf:
         queue: jsf.queuereg
         exchange: jsf.directreg
         routingkey: jsf.routingkeyreg
+jsi:
+  rabbitmq:
+    queue: jsi.queuereg
+    exchange: jsi.directreg
+    routingkey: jsi.routingkeyreg

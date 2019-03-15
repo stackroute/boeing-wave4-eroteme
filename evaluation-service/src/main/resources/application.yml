@@ -1,0 +1,7 @@
+questionAndAnswerUrl: http://localhost:8090/api/v1/
+recommendNotifyUrl: http://localhost:8091/member/notify
+jst:
+  rabbitmq:
+    queue: jst.queue1
+    exchange: jst.direct1
+    routingkey: jst.routingkey1

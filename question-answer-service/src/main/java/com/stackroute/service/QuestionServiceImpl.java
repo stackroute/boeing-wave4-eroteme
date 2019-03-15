@@ -8,7 +8,10 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.net.URI;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,6 +41,13 @@ public class QuestionServiceImpl implements QuestionService{
     @Value("${jse.rabbitmq.routingkey}")
     private String routingKey2;
 
+    //Recommendation query service
+    @Value("${jsf.rabbitmq.exchange}")
+    private String exchange3;
+
+    @Value("${jsf.rabbitmq.routingkey}")
+    private String routingKey3;
+
     private QuestionRepository questionRepository;
 
     @Autowired
@@ -47,23 +57,25 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method for posting a new question
     @Override
-    public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException {
-        Timestamp timestamp = generateTimestamp();
-        String time = String.valueOf(timestamp);
-        System.out.println("added "+time);
+    public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException, IOException {
+        long time = generateTimestamp();
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
             throw new QuestionAlreadyExistsException(questionObject.getQuestion()+" already exists");
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
+        questionObject.setTimestamp(time);
         Question savedQuestion = questionRepository.save(questionObject);
         QuestionDTO questionDTO = new QuestionDTO(Actions.POST_QUESTION, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
         produceMsg(questionDTO);
+        question(savedQuestion);
         return savedQuestion;
     }
 
     //Overriden method to add answer
     @Override
-    public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException {
+    public Question addAnswer(int questionId, Answer answer) throws QuestionNotFoundException, IOException {
+        long time = generateTimestamp();
+        answer.setTimestamp(time);
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getAnswer() != null) {
@@ -79,6 +91,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_ANSWER, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
+            answer(savedQuestion,answer.getUser().getEmail());
             return savedQuestion;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -97,7 +110,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to comment to a question
     @Override
-    public Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException {
+    public Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.setTimestamp(time);
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             if (question.getComment() != null) {
@@ -112,6 +127,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
+            question(savedQuestion);
             return savedQuestion;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -119,7 +135,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add reply to question comment
     @Override
-    public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException,CommentNotFoundException {
+    public Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException, CommentNotFoundException, IOException {
+        long time = generateTimestamp();
+        replies.get(0).setTimestamp(time);
         boolean flag = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
@@ -140,6 +158,7 @@ public class QuestionServiceImpl implements QuestionService{
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
+                question(savedQuestion);
                 return savedQuestion;
             }
             else {
@@ -154,14 +173,18 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add comment to answer
     @Override
-    public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException,AnswerNotFoundException {
+    public Question addAnswerComment(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.get(0).setTimestamp(time);
         boolean flag = false;
+        String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
             for (Answer answer1: answers) {
                 if(answer1.getAnswer().equals(answer)){
                     flag = true;
+                    email = answer1.getUser().getEmail();
                     if (answer1.getComments()==null){
                         answer1.setComments(comment);
                     }
@@ -173,6 +196,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -188,9 +212,12 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add reply for answer comment
     @Override
-    public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment)throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException {
+    public Question addAnswerCommentReply(int questionId, String answer, List<Comment> comment) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
+        long time = generateTimestamp();
+        comment.get(0).setTimestamp(time);
         boolean answerFlag = false;
         boolean commentFlag = false;
+        String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
@@ -208,6 +235,7 @@ public class QuestionServiceImpl implements QuestionService{
                     for (Comment comment1:comments) {
                         if(comment1.getComment().equals(comment2.getComment())){
                             commentFlag = true;
+                            email = answer1.getUser().getEmail();
                             if(comment1.getReplies()==null){
                                 comment1.setReplies(comment2.getReplies());
                             }
@@ -222,6 +250,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -240,7 +269,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to upvote a question
     @Override
-    public Question addQuestionUpvote(int questionId) throws QuestionNotFoundException {
+    public Question addQuestionUpvote(int questionId) throws QuestionNotFoundException, IOException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int upvotes = question.getUpvotes();
@@ -248,6 +277,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
+            question(savedQuestion);
             return savedQuestion;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -255,7 +285,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to downvote a question
     @Override
-    public Question addQuestionDownvote(int questionId) throws QuestionNotFoundException {
+    public Question addQuestionDownvote(int questionId) throws QuestionNotFoundException, IOException {
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int downvotes = question.getDownvotes();
@@ -263,6 +293,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_DOWNVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
+            question(savedQuestion);
             return savedQuestion;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -270,8 +301,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to upvote an answer
     @Override
-    public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
+    public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
+        String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
@@ -281,12 +313,14 @@ public class QuestionServiceImpl implements QuestionService{
             for (Answer answer1: answers) {
                 if(answer1.getAnswer().equals(answer)){
                     flag = true;
+                    email = answer1.getUser().getEmail();
                     int upvotes = answer1.getUpvotes();
                     answer1.setUpvotes(upvotes+1);
                 }
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -301,8 +335,9 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question addAnswerDownvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException {
+    public Question addAnswerDownvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
+        String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
@@ -312,12 +347,14 @@ public class QuestionServiceImpl implements QuestionService{
             for (Answer answer1: answers) {
                 if(answer1.getAnswer().equals(answer)){
                     flag = true;
+                    email = answer1.getUser().getEmail();
                     int downvotes = answer1.getDownvotes();
                     answer1.setDownvotes(downvotes+1);
                 }
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_DOWNVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -333,7 +370,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add likes for question comment
     @Override
-    public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException,CommentNotFoundException{
+    public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException, CommentNotFoundException, IOException {
         boolean flag = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
@@ -352,6 +389,7 @@ public class QuestionServiceImpl implements QuestionService{
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
+                question(savedQuestion);
                 return savedQuestion;
             }
             else {
@@ -365,7 +403,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add likes for question comment reply
     @Override
-    public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException,CommentNotFoundException,ReplyNotFoundException{
+    public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         boolean commentFlag = false;
         boolean replyFlag  = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
@@ -397,6 +435,7 @@ public class QuestionServiceImpl implements QuestionService{
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
+                question(savedQuestion);
                 return savedQuestion;
             }
             else if (!replyFlag){
@@ -413,7 +452,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add likes for answer comment
     @Override
-    public Question addAnswerCommentLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException{
+    public Question addAnswerCommentLikes(int questionId, Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
         boolean answerFlag = false;
         boolean commentFlag = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
@@ -441,6 +480,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,answer.getUser().getEmail());
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -459,7 +499,7 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method to add likes for answer comment reply
     @Override
-    public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException,AnswerNotFoundException,CommentNotFoundException,ReplyNotFoundException {
+    public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         boolean answerFlag = false;
         boolean commentFlag = false;
         if (questionRepository.findByQuestionId(questionId)!= null) {
@@ -499,6 +539,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (answerFlag && commentFlag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,answer.getUser().getEmail());
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -517,8 +558,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     //Overriden method for adding accepted answer
     @Override
-    public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException,AnswerNotFoundException {
+    public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
+        String email = "";
         if (questionRepository.findByQuestionId(questionId)!= null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
@@ -527,6 +569,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             for (Answer answer1: answers) {
                 if(answer1.getAnswer().equals(answer)){
+                    email = answer1.getUser().getEmail();
                     flag = true;
                     if(!answer1.isAccepted()){
                         answer1.setAccepted(true);
@@ -538,6 +581,7 @@ public class QuestionServiceImpl implements QuestionService{
             }
             if (flag){
                 Question savedQuestion = questionRepository.save(question);
+                answer(savedQuestion,email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_ACCEPT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
@@ -556,17 +600,28 @@ public class QuestionServiceImpl implements QuestionService{
         return questionRepository.findAll();
     }
 
-    public Timestamp generateTimestamp(){
+    //finds the system current time
+    public long generateTimestamp(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        //via Date
-        Date date = new Date();
-        new Timestamp(date.getTime());
-
         //return number of milliseconds since January 1, 1970, 00:00:00 GMT
-        timestamp.getTime();
-        return timestamp;
+        return timestamp.getTime();
+    }
 
+    //To make rest call in my-profile service to add questions
+    public void question(Question savedQuestion) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = URI.create("http://localhost:8091/question/" + savedQuestion.getUser().getEmail());
+        restTemplate.put(url,savedQuestion);
+        System.out.println("Worked");
+    }
+
+    //To make rest call in my-profile service to answers
+    public void answer(Question savedQuestion, String email) throws IOException {
+        RestTemplate restTemplate = new RestTemplate();
+        URI url = URI.create("http://localhost:8091/answer/" + email.trim());
+        restTemplate.put(url,savedQuestion);
+        log.info("Worked");
     }
 
     //RabbitMq message producer method
@@ -575,6 +630,7 @@ public class QuestionServiceImpl implements QuestionService{
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         amqpTemplate.convertAndSend(exchange1, routingKey1, msg);
         amqpTemplate.convertAndSend(exchange2, routingKey2, msg);
-        System.out.println("Send msg = " + msg);
+        amqpTemplate.convertAndSend(exchange3,routingKey3,msg);
+        log.info("Send msg = " + msg);
     }
 }

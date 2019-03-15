@@ -8,8 +8,21 @@ eureka:
         register-with-eureka: true
         serviceUrl:
             defaultZone: http://localhost:9091/eureka/
+
 server:
+  ports:
+    http: 8087
   port: 8092
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: root123
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+security:
+  require-ssl: true
+
+
 spring:
     application:
         name: api-gateway
@@ -17,4 +30,5 @@ zuul:
     routes:
         user-authentication-service:
           url: http://localhost:8084
+
         sensitiveHeaders:

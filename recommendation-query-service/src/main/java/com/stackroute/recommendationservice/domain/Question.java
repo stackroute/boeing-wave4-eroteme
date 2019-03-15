@@ -25,6 +25,6 @@ public class Question implements Serializable {
     private long timestamp;
     private int downvotes;
     User user;
-    List<Comment> comment;
-    List<Answer> answer;
+    private List<Comment> comment;
+    private List<Answer> answer;
 }

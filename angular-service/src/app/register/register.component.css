@@ -1,4 +1,4 @@
-.my-form{
+/* .my-form{
     min-width: 100px;
     max-width: 600px;
     width: 98%;
@@ -28,4 +28,228 @@
     padding-top:5%; 
     padding-left: 20rem;
     padding-right: 30rem;
+  } */
+
+
+  .my-form{
+    /* min-width: 100px;
+    max-width: 600px;
+    width: 98%;
+    margin-left:10%; */
+    max-width: 500px;
+   
+    
+  }
+
+  .height
+  {
+    height: 430px;
+    max-width:600px;
+    background-color: #32A5B5;
+    padding: 10px;
+    min-width: 80px;
+   
+  }
+  .height1
+  {
+    height: 4%;
+    max-width:600px;
+    color: white;
+    background-color:black;
+    font-size: 1.5rem;
+    padding: 10px;
+    min-width: 100px;
+   
+  }
+
+  .form{
+    position: relative;
+    margin-left: 29%;
+    /* margin-right: 10%; */
+    align-content: center;
+  
+}
+.form1{
+  position: relative;
+  font-size: 25px;
+  margin-left: 25%;
+  /* margin-right: 10%; */
+  align-content: center;
+
+}
+.reg
+{
+  margin-left: 41%;
+  margin-top: 1%;
+}
+
+.btn{
+  background-color:#1847CE;
+  /* display:inline-block; */
+  display: inline-flex;
+  width: 50px;
+}
+
+
+.btn1{
+  background-color:#1847CE;
+  /* display:inline-block; */
+  width: 50px;
+  display: inline-flex;
+  /* float: right; */
+  margin-left: 20px;
+  /* display: flex; */
+}
+.btn2{
+  background-color:#1847CE; 
+  margin-left: 36%;
+  display: inline-flex;
+  width: 30px;
+  float: left;
+}
+
+.btn3{
+  background-color:#1847CE; 
+  width: 30px;
+  margin-left: 20px;
+}
+
+  .step{
+    max-width: 550px;
+    min-width:80px;
+  }
+  .mat-toolbar{
+    max-width: 600px;
+    margin-left:10%;
+    min-width: 100px;
+  }
+  .my-card{
+    /* padding-top: 6%;
+    padding-left:20%; 
+    padding-right:20%; 
+    padding-bottom: 8%; */
+     min-width: 100px;
+    max-width: 700px;
+    margin-top: 12%;
+    margin-right: 10%;
+    margin-left: 22%;
+  }
+/* 
+  *{
+    padding: 0;
+    margin: 0px;
+
+  
+  } */
+  .mat-dialog-container {
+    display: block;
+    padding: 5px;
+    border-radius: 11px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    max-height: inherit;
+}
+
+/*   
+  .full-width {
+    width: 100%;
+  }
+  .password
+  {
+    color: rgb(247, 18, 18);
+    font-size: 0.8rem;
+  }
+  .body{
+    padding-top:5%; 
+    padding-left: 20rem;
+    padding-right: 30rem;
+  } */
+
+
+  @media only screen and (max-width: 500px)
+  {
+
+
+    .height
+  {
+    height: 350px;
+    /* width:auto; */
+    background-color: #32A5B5;
+    padding: 1px;
+    min-width: 60px;
+   
+  }
+
+  .btn{
+    background-color:#1847CE;
+    display:inline-block;
+    width: 30px;
+  }
+  .btn1{
+    background-color:#1847CE;
+    /* display:inline-block; */
+    width: 30px;
+    float:right;
+    
+  }
+
+
+  .btn2{
+    background-color:#1847CE;
+    /* display:inline-block; */
+    width: 8px;
+    position: relative;
+    margin-left: 5%;
+  }
+  .btn3{
+    background-color:#1847CE;
+    display:inline-block;
+    width: 8px;
+   margin-left:4px;
+    
+  }
+
+  /* .btn{
+    background-color:#1847CE;
+    display: inline-flex;
+    width: 30px;
+  }
+  
+  
+  .btn1{
+    background-color:#1847CE;
+    display: inline-flex;
+        width: 30px;
+    
+    display: flex;
+  } */
+
+
+  .form{
+    position: relative;
+    margin-left: 5%;
+  
+    /* margin-right: 10%; */
+    align-content: center;
+  
+}
+.form1{
+  position: relative;
+  font-size: 10px;
+  margin-left: 5%;
+  /* margin-right: 10%; */
+  align-content: center;
+
+}
+.reg
+{
+  margin-left: 30%;
+  margin-top: 1%;
+}
+
+
   }

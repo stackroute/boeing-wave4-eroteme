@@ -12,8 +12,8 @@ public interface UserRepository extends Neo4jRepository<UserNode, String> {
     @Query("Match(u:UserNode),(c:children),(p:parents),(q:QuestionNode) WHERE u.username={UserName} AND (q)-[:question_of_topic]->(c)  AND (u)-[:follows]->(c) or (q)-[:question_of_topic]->(p) and (u)-[:follows]->(p) And NOT (q)<-[:answer_of ]-() Return q")
     List<QuestionNode> findAllUnansweredQuestionsForRegisteredUser(@Param("UserName") String username);
 
-    @Query("match (u:UserNode),(c:children),(p:parents),(q:QuestionNode) where q.questionId={questionID} and (q)-[:question_of_topic]->(c) and (u)-[:follows]->(c) or (q)-[:question_of_topic]->(p) and (u)-[:follows]->(p)  return u ")
-    List<UserNode> findAllUsersRelatedToTopic(@Param("questionID") long questionID);
+    @Query("match (u:UserNode),(c:children),(p:parents),(q:QuestionNode) where  (q)-[:question_of_topic]->(c) and (u)-[:follows]->(c) or (q)-[:question_of_topic]->(p) and (u)-[:follows]->(p) and q.question={question} return u")
+    List<UserNode> findAllUsersRelatedToTopic(@Param("question") String question);
 
     @Query("match (q:QuestionNode),(u:UserNode),(c:children),(p:parents) where u.username={username} and (u)-[:follows]->(c) and (q)-[:question_of_topic]->(c) or (u)-[:follows]->(p) and (q)-[:question_of_topic]->(p) return q")
     List<QuestionNode> getAllTrendingQuestionsForRegisteredUser(@Param("username") String username);

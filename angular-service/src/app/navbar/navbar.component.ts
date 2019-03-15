@@ -1,3 +1,4 @@
+import { RegisterComponent } from './../register/register.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { WebSocketService } from './../web-socket-service.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -5,6 +6,7 @@ import { TransferServiceService } from '../transfer-service.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +27,7 @@ export class NavbarComponent implements OnInit {
 
   public data: Array<any> = [];
 
-  constructor(private trans: TransferServiceService, private token: TokenStorageService, private authService: AuthService, private router: Router, private webSocketService: WebSocketService, private http: HttpClient) { }
+  constructor(private trans: TransferServiceService, private token: TokenStorageService, private authService: AuthService, private router: Router, private webSocketService: WebSocketService, private http: HttpClient,private dialog:MatDialog) { }
 
 
   ngOnInit() {
@@ -67,13 +69,21 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  open(){
+
+      this.dialog.open(RegisterComponent);
+  }
 
   putSearchVal() {
     this.trans.searchValue = this.value;
-    this.http.get("http://localhost:8070/api/v1/"+this.value,{responseType:"text"})
-    .subscribe(res=>{
-      this.router.navigate(["/searchresult"]);
+    console.log("abc    "+this.value);
+    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value).subscribe((data)=>{
+    console.log(data);
+    },error=>{
+    console.log(error);
     });
+      this.router.navigate(["/searchresult"]);
+
   }
 
   logout() {

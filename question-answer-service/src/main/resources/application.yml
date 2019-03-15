@@ -1,6 +1,6 @@
 server:
-  context-path: /question
   port: 8090
+
 spring:
   application:
     name: BootMongo
@@ -27,3 +27,8 @@ jse:
     queue: jse.queue1
     exchange: jse.direct1
     routingkey: jse.routingkey1
+jsf:
+  rabbitmq:
+    queue: jsf.queue1
+    exchange: jsf.direct1
+    routingkey: jsf.routingkey1
