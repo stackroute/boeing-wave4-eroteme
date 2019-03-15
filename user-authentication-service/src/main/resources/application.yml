@@ -4,13 +4,6 @@ grokonez:
         jwtSecret: jwtErotemeSecretKey
 server:
   port: 8084
-#        http: 8085
-#    port: 8084
-#    ssl:
-#        key-store: keystore.p12
-#        key-store-password: root123
-#        keyStoreType: PKCS12
-#        keyAlias: tomcat
 
 security:
     require-ssl: true

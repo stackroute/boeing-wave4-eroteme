@@ -1,13 +1,6 @@
 server:
   port: 8099
-#  ports:
-#    http: 8094
-#  port: 8099
-#  ssl:
-#    key-store: keystore.p12
-#    key-store-password: root123
-#    keyStoreType: PKCS12
-#    keyAlias: tomcat
+
 
 security:
   require-ssl: true
