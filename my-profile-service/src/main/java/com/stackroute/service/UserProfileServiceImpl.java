@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
 
-    UserProfileRepository userProfileRepository;
+    private UserProfileRepository userProfileRepository;
 
     @Autowired
     public UserProfileServiceImpl(UserProfileRepository userProfileRepository) {
@@ -62,7 +62,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         return "Success";
     }
 
-    public void addAnswerForMultipleUsers(String emailid,Question question){
+    private void addAnswerForMultipleUsers(String emailid, Question question) {
         boolean flag=true;
         UserCurrent userCurrent=userProfileRepository.findById(emailid.trim()).get();
         String givenQuestion=question.getQuestion();
@@ -70,7 +70,7 @@ public class UserProfileServiceImpl implements UserProfileService {
         System.out.println(mongoAns.size());
         for(int i=0;i<mongoAns.size();i++){
             if(mongoAns.get(i).getQuestion().equals(givenQuestion)) {
-                mongoAns.add(i,question);
+                mongoAns.set(i, question);
                 flag = false;
             }
         }
@@ -96,4 +96,5 @@ public class UserProfileServiceImpl implements UserProfileService {
         UserCurrent userCurrent = new UserCurrent(userDTO.getEmail(),userDTO.getFirstName(),0,userDTO.getInterests(),0,questionList,answerList,"imageurl");
         return userProfileRepository.save(userCurrent);
     }
+
 }

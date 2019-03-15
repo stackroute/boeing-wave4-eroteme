@@ -21,31 +21,31 @@ public class UserProfileController {
 
     @Autowired
     public UserProfileController(UserProfileService userProfileService) {
-        this.userProfileService=userProfileService;
+        this.userProfileService = userProfileService;
     }
 
 
     @PutMapping("/question/{emailid}")
-    public ResponseEntity<?> addQuestion(@PathVariable String emailid, @RequestBody Question question){
-        System.out.println(question);
-        return new ResponseEntity<String>(this.userProfileService.addQuestionToDB(emailid,question), HttpStatus.OK);
+    public ResponseEntity<?> addQuestion(@PathVariable String emailid, @RequestBody Question question) {
+        log.info("Question document is {}", question);
+        return new ResponseEntity<String>(userProfileService.addQuestionToDB(emailid, question), HttpStatus.OK);
     }
 
     @PutMapping("/answer/{emailid}")
-    public ResponseEntity<?> addAnswer(@PathVariable String emailid, @RequestBody Question question){
-        return new ResponseEntity<String>(this.userProfileService.addAnswerToDb(emailid,question),HttpStatus.OK);
+    public ResponseEntity<?> addAnswer(@PathVariable String emailid, @RequestBody Question question) {
+        return new ResponseEntity<String>(userProfileService.addAnswerToDb(emailid, question), HttpStatus.OK);
     }
 
     @GetMapping("/getall/{emailid}")
-    public ResponseEntity<UserCurrent> getAllInfo(@PathVariable String emailid){
-        return new ResponseEntity<UserCurrent>(this.userProfileService.returnAllInfoFromDb(emailid),HttpStatus.OK);
+    public ResponseEntity<UserCurrent> getAllInfo(@PathVariable String emailid) {
+        return new ResponseEntity<>(userProfileService.returnAllInfoFromDb(emailid), HttpStatus.OK);
     }
 
 
-   @RabbitListener(queues = "${jsi.rabbitmq.queue}")
+    @RabbitListener(queues = "${jsi.rabbitmq.queue}")
     public void receivedMessage(UserDTO userDTO) {
         log.info("Received Message: " + userDTO);
         userProfileService.addnewUser(userDTO);
     }
 
-    }
+}
