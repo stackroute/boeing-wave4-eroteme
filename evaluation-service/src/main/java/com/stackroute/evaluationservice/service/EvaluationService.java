@@ -3,6 +3,7 @@ package com.stackroute.evaluationservice.service;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.stackroute.evaluationservice.domain.Notification;
 import com.stackroute.evaluationservice.domain.Question;
+import com.stackroute.evaluationservice.domain.UserNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,11 +60,11 @@ public class EvaluationService {
 
     @Async
     @HystrixCommand(fallbackMethod = "notifyDefault")
-    public CompletableFuture<List<Notification>> notifyUsersForTheQuestion(String question) {
+    public CompletableFuture<List<UserNode>> notifyUsersForTheQuestion(String question) {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return completedFuture(restTemplate.exchange(recommendNotifyUrl.concat(question), HttpMethod.GET, null, new ParameterizedTypeReference<List<Notification>>() {
+            return completedFuture(restTemplate.exchange(recommendNotifyUrl.concat(question), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
             }).getBody());
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,8 +72,8 @@ public class EvaluationService {
         }
     }
 
-    public CompletableFuture<List<Notification>> notifyDefault() {
+    public CompletableFuture<Notification> notifyDefault() {
         log.info("Notification service has crashed!");
-        return completedFuture(Collections.emptyList());
+        return completedFuture(new Notification());
     }
 }
