@@ -27,6 +27,7 @@ export class TrendingQuestionsComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log(this.questions);
   }
 
 }

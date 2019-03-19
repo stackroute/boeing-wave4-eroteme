@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
 
 @Component({
 selector: 'app-question-answer-card',
@@ -28,13 +30,16 @@ export class QuestionAnswerCardComponent implements OnInit {
 
 
 
-  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient) {
+  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient,private dialog:MatDialog) {
     this.showAllCommentsQuestion = 'Show Details';
     this.showAllCommentsAnswer = 'Show Details';
   }
 
   ngOnInit() {
+    console.log(this.trans.value);
     this.present = this.trans.value;
+    console.log("assigned"+this.present);
+    //console.log(JSON.stringify(this.present));
     this.vote = this.present.upvotes - this.present.downvotes;
   }
 
@@ -77,36 +82,39 @@ export class QuestionAnswerCardComponent implements OnInit {
   upvoteQuestion() {
     console.log(this.app.checkLoggedIn);
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first"); 
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('question upvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{});
     }
   }
 
   downvoteQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('question downvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      this.http.put("http://localhost:8090/api/v1/question/downvote/"+this.present.questionId,{});
     }
   }
 
   commentQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/" + this.present.questionId,
+      this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
@@ -114,7 +122,7 @@ export class QuestionAnswerCardComponent implements OnInit {
           "user": {
             "email": this.app.emailid,
             "firstName": this.app.emailid.split("@")[0],
-            "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
+            "imageurl": "http://https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
           },
           "replies": null
         },
@@ -140,12 +148,12 @@ export class QuestionAnswerCardComponent implements OnInit {
 
 replyQuestionComment(presentcomment:string) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
   }
   else {
     console.log('reply to comment of question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/reply/" + this.present.questionId,
+      this.http.put("http://localhost:8090/api/v1/question/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -182,12 +190,13 @@ replyQuestionComment(presentcomment:string) {
 
 upvoteAnswer(ans1) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('answer upvote');
-    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("http://localhost:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -195,23 +204,25 @@ upvoteAnswer(ans1) {
 
 downvoteAnswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('downvote answer');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
+    this.http.put("http://localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
 commentAnswer(ans) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('comment on answer');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
+      this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -249,12 +260,13 @@ commentAnswer(ans) {
 
 replyAnswerComment(ans,comm) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('reply to comment of answer');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    this.http.put("http://localhost:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
     {
       "answer": ans,
       "comments": [
@@ -296,13 +308,15 @@ replyAnswerComment(ans,comm) {
 
 postanswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
   }
   else {
     console.log(this.answer);
     console.log('post answer for the question');
-    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
+    this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
         "accepted": "false",

@@ -1,4 +1,4 @@
-#some {
+/* #some {
     max-width: 300px;
     min-height: 300px;
     max-height: 300px;
@@ -11,7 +11,7 @@
   #some:hover{
     transform: scale(1.2,1.2);
     transition: transform 0.3s ease-out;
-  }
+  } */
 
   p{
       max-width: 200px;;
@@ -44,6 +44,64 @@
 #card{
   min-height: 85px;
 }
+
+.rotate-scale-up-diag-2 {
+  -webkit-animation: rotate-scale-up-diag-2 0.7s linear both;
+    animation: rotate-scale-up-diag-2 0.7s linear both;
+  /* transform: scale(1,1); */
+  /* transition: transform 0.2s ease-in;  */
+    /* max-width: 300px;
+    min-height: 300px;
+    max-height: 300px; */
+    width: 300px;
+    /* min-width: 295px; */
+    height: 295px;
+    /* max-height: 300px;  */
+    
+    text-overflow: ellipsis;
+    background-color: darkgray;
+    -webkit-transition: width 2s;
+  transition: width 2s;
+}
+
+.rotate-scale-up-diag-2:hover{
+  width: 310px;
+  height: 310px;
+  background-color: rgb(223, 211, 211);
+  /* transform: scale(1.5,1.5); */
+  /* transition: transform 0.3s ease-out; */
+}
+
+
+ @-webkit-keyframes rotate-scale-up-diag-2 {
+  0% {
+    -webkit-transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+            transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+  }
+  50% {
+    -webkit-transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+            transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+            transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+  }
+}
+@keyframes rotate-scale-up-diag-2 {
+  0% {
+    -webkit-transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+            transform: scale(1) rotate3d(-1, 1, 0, 0deg);
+  }
+  50% {
+    -webkit-transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+            transform: scale(2) rotate3d(-1, 1, 0, 180deg);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+            transform: scale(1) rotate3d(-1, 1, 0, 360deg);
+  }
+}
+
 
 
 @media screen and (max-width: 600px) {

@@ -1,7 +1,12 @@
+import { NavbarComponent } from './../navbar/navbar.component';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { MatDialog } from '@angular/material';
+import { RegisterComponent } from '../register/register.component';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
+import { LoginComponent } from '../login/login.component';
 import {TransferServiceService} from '../transfer-service.service';
 
 @Component({
@@ -11,10 +16,9 @@ import {TransferServiceService} from '../transfer-service.service';
 })
 export class PostQuestionComponent implements OnInit {
 
+  postValue;
 
-
-
-toSendList = [];
+  toSendList = [];
 
   ques: string;
 
@@ -29,20 +33,21 @@ toSendList = [];
   { "topic": "Dependency Injection" },
   { "topic": "Modules" }]
 
-constructor(private route: Router, private app: AppComponent, private http: HttpClient,private trans:TransferServiceService) { }
+  constructor(private router :Router, private app: AppComponent, private http: HttpClient,private dialog:MatDialog,private trans:TransferServiceService) { }
 
   ngOnInit() {
   }
 
   postQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      this.dialog.open(LoginpopupComponent);
+      // this.route.navigate(["/login"]);
     }else{
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    
+
     this.http.post("http://localhost:8082/result",
       {
         "question": this.ques,
@@ -76,7 +81,7 @@ constructor(private route: Router, private app: AppComponent, private http: Http
     console.log("Error", error);
     });
     this.route.navigate(['/evaluation']);
-    } 
+    }
 }
 
   addTopic(toadd) {

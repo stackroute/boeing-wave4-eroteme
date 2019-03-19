@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostQuestionComponent } from './post-questionNode.component';
+import { PostQuestionComponent } from './post-question.component';
 
 describe('PostQuestionComponent', () => {
   let component: PostQuestionComponent;

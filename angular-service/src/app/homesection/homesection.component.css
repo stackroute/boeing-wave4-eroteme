@@ -2,15 +2,49 @@
     text-align: center;
     padding: 10px;
     color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
 }
+.cent1{
+    text-align: center;
+    /* padding: 10px; */
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+}   
+
+.cent2{
+    margin-right: -45%;
+    font-size: 30px;
+    /* float: right; */
+}
+
+#heading{
+    margin-left: 40%;
+}
+
+.bloc{
+    transition:0.5s;
+}
+.bloc:hover{
+    transform: translateX(10px);
+
+}
+#heading{
+    box-align: center;
+}
+
+
+
 
 form{
     padding: 40px;
     color: white;
 }
+
 body{
     max-width: 100%;
-     background: url('../../assets/images/back.jpg'); 
+     background: url('../../assets/images/bg1.jpeg'); 
     background-attachment: fixed;
     background-size: cover;
     max-height: 100%;

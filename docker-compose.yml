@@ -29,6 +29,16 @@ services:
     healthcheck:
       test: "exit 0"
 
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /DB/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+
   mongo:
     image: mongo:3.4-jessie
     ports:
@@ -187,9 +197,55 @@ services:
       rabbitmq:
         condition: service_healthy
     ports:
+      - 8098:8090
+    expose:
+      - 8098
+    healthcheck:
+      test: "exit 0"
+
+  question-answer-service1:
+    image: question-answer-service
+    build: ./question-answer-service/
+    container_name: ques_docker1
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      apigateway:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
       - 8090:8090
     expose:
       - 8090
+    healthcheck:
+      test: "exit 0"
+
+  question-answer-service2:
+    image: question-answer-service
+    build: ./question-answer-service/
+    container_name: ques_docker2
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      mongo:
+        condition: service_healthy
+      apigateway:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - 8094:8090
+    expose:
+      - 8094
     healthcheck:
       test: "exit 0"
 

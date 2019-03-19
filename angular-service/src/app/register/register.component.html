@@ -47,15 +47,13 @@
 
 
     <div class="height1">
+      <br>
          <p>Registration</p>
        </div>
           <mat-horizontal-stepper linear #stepper class="height" >
-               <div style="color:rgb(0, 0, 0);">
-                <p>
-                   Registration
-                </p>
-               </div>
-                <mat-step [stepControl]="firstFormGroup" >
+
+
+            <mat-step [stepControl]="firstFormGroup" >
                       <form [formGroup]="firstFormGroup" class="form" >
                         <ng-template matStepLabel>About</ng-template>
                         <br>
@@ -71,6 +69,8 @@
                          </mat-form-field>
                         <div>
                           <button mat-button matStepperNext  class="btn">Next</button>
+                          <!-- <button mat-button matStepperNext  class="btn1" routerLink="/register">Cancel</button> -->
+
                         </div>
                       </form>
                     </mat-step> 
@@ -92,8 +92,8 @@
                 
                   <br>
                  <div>
-                   <button mat-button matStepperNext class="btn" >Next</button>
-                   <button mat-button matStepperPrevious  class="btn1">Back</button>
+                   <button mat-button matStepperPrevious class="btn">Back</button>
+                   <button mat-button matStepperNext class="btn1">Next</button>
                  </div>
                </form>
              </mat-step>
@@ -112,9 +112,8 @@
                          <br>
                          <br>
                      <div>
-                         <button mat-button matStepperNext class="btn">Next</button>
-                         <button mat-button matStepperPrevious class="btn1">Back</button>
-                       
+                       <button mat-button matStepperPrevious class="btn">Back</button>
+                       <button mat-button matStepperNext class="btn1">Next</button>
                      </div>
                    </form>
                  </mat-step>
@@ -140,4 +139,3 @@
                       </div>
                     </mat-step> 
               </mat-horizontal-stepper>
-       

@@ -15,7 +15,11 @@
     padding: 6px;
 }
 .container{
-    padding-top: 40px;
+    padding-top: 20px;
+    margin-left: 5%;
+}
+.container1{
+    padding-top: 20px;
     margin-left: 5%;
 }
 .votes{
@@ -23,8 +27,8 @@
 }
 .votes1{
     margin-left: 10%;
-    padding-top: 5%;
-    padding-bottom: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     margin-right: 8%;
 }
 .space{
@@ -149,6 +153,7 @@ body{
     background-color: white;
     margin-bottom: 2%;
 }
+
 
 @media screen and (max-width: 1018px){
     #divide1{
