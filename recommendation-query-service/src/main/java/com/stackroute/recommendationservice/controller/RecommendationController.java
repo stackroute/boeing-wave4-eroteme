@@ -1,9 +1,6 @@
 package com.stackroute.recommendationservice.controller;
 
-import com.stackroute.recommendationservice.domain.Notification;
-import com.stackroute.recommendationservice.domain.Question;
-import com.stackroute.recommendationservice.domain.QuestionDTO;
-import com.stackroute.recommendationservice.domain.UserNode;
+import com.stackroute.recommendationservice.domain.*;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -90,25 +87,25 @@ public class RecommendationController {
     }
 
     /**
-     * @param question QuestionNode Id of the posted question
+     * @param question posted question
+     * @param action Action enum
      * @return List of users who will be notified
      */
 
     @GetMapping("/member/notify")
-    public ResponseEntity<List<UserNode>> getAllUsersToBeNotified(@RequestParam String question) {
-        ResponseEntity<List<UserNode>> responseEntity;
-        List<UserNode> userNodes;
-        try {
-            userNodes = recommendationService.getAllUsersRelatedToQuestion(question)
-                    .stream()
-                    .filter(user -> user.getReputation() >= reputationNeeded)
-                    .collect(Collectors.toList());
-            responseEntity = new ResponseEntity<>(userNodes, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+    @ResponseBody
+    public List<UserNode> getAllUsersToBeNotified(@RequestParam String question, @RequestParam String action) {
+
+        List<UserNode> userNodes = new ArrayList<>();
+
+        if (action.equalsIgnoreCase(Actions.POST_QUESTION.name())) {
+            try {
+                userNodes = recommendationService.getAllUsersRelatedToQuestion(question);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return responseEntity;
+        return userNodes;
     }
 
     /**

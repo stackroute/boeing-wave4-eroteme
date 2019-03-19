@@ -77,8 +77,7 @@ import {NotifyAnswerCardComponent} from './notify-answer-card/notify-answer-card
 import { ChildComponent } from './child/child.component';
 import { ParentComponent } from './parent/parent.component';
 import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
-//import { AesComponent } from './aes/aes.component';
-// import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
+import {EvaluationComponent}from './evaluation/evaluation.component';
 
 
 
@@ -89,7 +88,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path: 'searchresult', component: ParentComponent },
 { path: 'register', component: RegisterComponent },
 { path: 'login', component: LoginComponent },
-{ path: 'notifyanswercard', component: NotifyAnswerCardComponent }]
+{path: 'notifyanswercard', component: NotifyAnswerCardComponent},
+{path: 'evaluation', component: EvaluationComponent}]
 
 @NgModule({
   declarations: [
@@ -115,7 +115,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     ChildComponent,
     ParentComponent,
     QuestioncardUnansComponent,
-    //AesComponent
+    EvaluationComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@
     text-overflow: ellipsis;
     transform: scale(1,1);
     transition: transform 0.2s ease-in;
+    margin-top: 50px;
   }
 
   #some:hover{

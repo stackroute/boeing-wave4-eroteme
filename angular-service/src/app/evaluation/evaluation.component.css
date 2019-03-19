@@ -1,0 +1,27 @@
+#mytemplate{
+margin-top: 50px;
+width: 500px;
+margin-left: 400px;
+margin-top: 200px;
+}
+#checkmark{
+    float: left;
+    position: relative;
+    top: -10px;
+
+}
+div.alert.alert-light{
+    height: 100px;
+    border: 1.5px solid green;
+}
+h4.alert-heading{
+    float: left;
+    position: relative;
+    top: 15px;
+    left: 50px;
+    color: green;
+}
+#closemark{
+    float: right;
+    position: relative;
+}

@@ -2,6 +2,7 @@ package com.stackroute.evaluationservice.controller;
 
 import com.stackroute.evaluationservice.domain.Notification;
 import com.stackroute.evaluationservice.domain.Question;
+import com.stackroute.evaluationservice.domain.QuestionDTO;
 import com.stackroute.evaluationservice.domain.UserNode;
 import com.stackroute.evaluationservice.service.EvaluationService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,35 +28,42 @@ import java.util.stream.Collectors;
 public class EvaluationController {
     private EvaluationService evaluationService;
     private RabbitTemplate rabbitTemplate;
+    private RestTemplate restTemplate;
     @Value("${jst.rabbitmq.exchange}")
     private String exchange;
 
     @Value("${jst.rabbitmq.routingkey}")
     private String routingKey;
 
+    @Value("${questionAndAnswerUrl}")
+    private String questionAndAnswerUrl;
+
     @Autowired
-    public EvaluationController(EvaluationService evaluationService, RabbitTemplate rabbitTemplate) {
+    public EvaluationController(EvaluationService evaluationService, RabbitTemplate rabbitTemplate, RestTemplate restTemplate) {
         this.evaluationService = evaluationService;
         this.rabbitTemplate = rabbitTemplate;
+        this.restTemplate = restTemplate;
     }
 
-    @GetMapping("result")
-    public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestParam String questionString, @RequestParam String username) {
+    @PostMapping("result")
+    public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestBody QuestionDTO questionDTO) {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            String questionString = questionDTO.getQuestion();
             CompletableFuture<Question> questionCompletableFuture = evaluationService.searchInDb(questionString);
             CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb(questionString);
-            CompletableFuture<List<UserNode>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionString);
+            CompletableFuture<List<UserNode>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionDTO);
             CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture, userListCompletableFuture);
 
             log.info("Recevied list of eligible users, question document from db and web results");
 
-            Question question = questionCompletableFuture.get();
-            log.info("Question document found: {}", question);
+            Question questionFromDb = questionCompletableFuture.get();
+            log.info("Question document found: {}", questionFromDb);
 
             List<String> eligibleUsers = userListCompletableFuture.get()
                     .stream()
-                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(username))
+                    .peek(userNode -> log.info("User node is {}", userNode))
+                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getUsername()))
                     .map(UserNode::getUsername)
                     .collect(Collectors.toList());
             log.info("Eligible users for notification: {}", eligibleUsers);
@@ -63,7 +72,8 @@ public class EvaluationController {
             log.info("Web results are {}", webResults);
 
 
-            if (question == null || webResults == null || webResults.isEmpty()) {
+            if ((questionFromDb.getQuestion() == null || questionFromDb.getQuestion().isEmpty()) && (webResults == null || webResults.isEmpty())) {
+                restTemplate.postForEntity(questionAndAnswerUrl.concat("question"), new ResponseEntity<>(questionDTO, HttpStatus.OK), Question.class);
                 Notification notification = new Notification();
                 notification.setEmails(eligibleUsers);
                 notification.setQuestion(questionString);
@@ -71,7 +81,7 @@ public class EvaluationController {
                 log.info("Sent notification: {}", notification);
                 return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
             }
-            webResults.add(question);
+            webResults.add(questionFromDb);
             responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

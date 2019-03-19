@@ -212,6 +212,25 @@ services:
     healthcheck:
       test: "exit 0"
 
+  evaluation-service:
+    image: evaluation-service
+    build: ./evaluation-service/
+    container_name: evaluation-service_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    ports:
+      - 8082:8082
+    expose:
+      - 8082
+    healthcheck:
+      test: "exit 0"
+
   angular-app:
     build: angular-service/
     image: angular

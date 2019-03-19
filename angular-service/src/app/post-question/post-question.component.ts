@@ -2,6 +2,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import {TransferServiceService} from '../transfer-service.service';
 
 @Component({
   selector: 'app-post-question',
@@ -10,9 +11,10 @@ import { AppComponent } from '../app.component';
 })
 export class PostQuestionComponent implements OnInit {
 
-  postValue;
 
-  toSendList = [];
+
+
+toSendList = [];
 
   ques: string;
 
@@ -27,7 +29,7 @@ export class PostQuestionComponent implements OnInit {
   { "topic": "Dependency Injection" },
   { "topic": "Modules" }]
 
-  constructor(private route: Router, private app: AppComponent, private http: HttpClient) { }
+constructor(private route: Router, private app: AppComponent, private http: HttpClient,private trans:TransferServiceService) { }
 
   ngOnInit() {
   }
@@ -40,9 +42,11 @@ export class PostQuestionComponent implements OnInit {
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    this.http.post("http://52.66.134.21:8090/api/v1/question",
+    
+    this.http.post("http://localhost:8082/result",
       {
         "question": this.ques,
+        "action":"POST_QUESTION",
         "description": this.description,
         "topics": this.toSendList,
         "upvotes": 0,
@@ -53,8 +57,8 @@ export class PostQuestionComponent implements OnInit {
           "firstName": this.app.emailid.split("@")[0],
           "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
         },
-        "comment": null,
-        "answer": null
+        "comment": [],
+        "answer": []
       },
       {
         headers: new HttpHeaders({
@@ -65,21 +69,17 @@ export class PostQuestionComponent implements OnInit {
   .subscribe(
     data  => {
     console.log("POST Request is successful ", data);
-    alert("Your question is posted successfully");
-    window.location.reload();
+    this.trans.result.next(data);
+    console.log("wer \n",this.trans.result);
     },
     error  => {
-
     console.log("Error", error);
-
-    }
-
-    );
-    }
+    });
+    this.route.navigate(['/evaluation']);
+    } 
 }
 
   addTopic(toadd) {
     this.toSendList.push(toadd);
   }
-
 }
