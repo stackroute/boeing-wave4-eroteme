@@ -23,9 +23,9 @@ services:
     network_mode: host
     hostname: localhost
     ports:
-      - 8093:8093
+      - 9091:9091
     expose:
-      - 8093
+      - 9091
     healthcheck:
       test: "exit 0"
 
