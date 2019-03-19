@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostQuestionComponent } from './post-question.component';
+import { ToptrendComponent } from './toptrend.component';
 
-describe('PostQuestionComponent', () => {
-  let component: PostQuestionComponent;
-  let fixture: ComponentFixture<PostQuestionComponent>;
+describe('ToptrendComponent', () => {
+  let component: ToptrendComponent;
+  let fixture: ComponentFixture<ToptrendComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostQuestionComponent ]
+      declarations: [ ToptrendComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostQuestionComponent);
+    fixture = TestBed.createComponent(ToptrendComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

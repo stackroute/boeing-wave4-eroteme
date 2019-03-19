@@ -19,7 +19,7 @@ export class MyQuestionsComponent implements OnInit {
   getOtherDataModel(){
     console.log("in");
     //Qadm=get req;
-    this.trans.value=this.in;
+    //this.trans.value=this.Qadm;
   }
 
 

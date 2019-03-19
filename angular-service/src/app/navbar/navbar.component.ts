@@ -77,11 +77,7 @@ export class NavbarComponent implements OnInit {
   putSearchVal() {
     this.trans.searchValue = this.value;
     console.log("abc    "+this.value);
-    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value).subscribe((data)=>{
-    console.log(data);
-    },error=>{
-    console.log(error);
-    });
+    this.http.post("http://52.66.134.21:8070/api/v1/"+this.value,{});
       this.router.navigate(["/searchresult"]);
 
   }

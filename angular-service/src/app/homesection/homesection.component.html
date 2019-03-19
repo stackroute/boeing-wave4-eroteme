@@ -6,9 +6,10 @@
       routerLink="/postQuestion" style="padding: 10px;border:0px solid white;color: white;">Click here to ask
       Question!</button>
   </form>
-  <div
-    style="background-color: white;background-color: rgba(0,0, 0, 0.6);color: white;margin-right: 3%;margin-left:3%;border-radius: 30px;">
-    <h2 style="margin-left: 2%;padding: 10px;font-family:cursive"><strong><u><em>Eroteme:</em></u></strong></h2>
+  <div class="bloc"
+       style="background-color: white;background-color: rgba(0,0, 0, 0.6);color: white;margin-right: 3%;margin-left:3%;border-radius: 30px;">
+    <h2 style="margin-left: 2%;padding: 10px;font-family:cursive"><strong><u id="heading"><em>Eroteme:</em></u></strong>
+    </h2>
     <p style="margin-left: 3%;margin-right: 3%;margin-bottom: 3%;padding-bottom: 27px;">Lorem ipsum dolor sit amet
       consectetur adipisicing elit. Molestias porro, officia quidem
       quasi voluptate dolore culpa laboriosam! Rerum reiciendis iure necessitatibus, cupiditate
@@ -24,20 +25,31 @@
       veritatis perferendis accusantium libero eaque.
     </p>
   </div>
+
   <h1 class="cent"><u>Top Trending Questions</u></h1>
   <br>
   <app-trending-questions></app-trending-questions>
   <br>
+  <h1 class="cent1">
+    <a class="cent2" routerLink="/toptrend">Next Page</a>
+  </h1>
   <br>
   <h1 class="cent"><u>Unanswered Questions</u></h1>
   <br>
   <app-unanswered-questions></app-unanswered-questions>
+  <br>
+  <h2 class="cent1">
+    <!-- <a class="cent2" routerLink="/unanswer">Next Page1</a> -->
+    <a class="cent2" routerLink="/unanswer">Next Page</a>
+
+  </h2>
   <div *ngIf="checkvalue">
 <br>
 <br>
 <h1 class="cent"><u><i class="fas fa-trophy"></i><i> Accepted Questions </i><i class="fas fa-trophy"></i></u></h1>
 <br>
 <app-accepted-ques></app-accepted-ques>
+
   </div>
   <br>
   <br>
@@ -83,3 +95,5 @@
   </div>
 </body>
 <router-outlet></router-outlet>
+
+<app-footer></app-footer>

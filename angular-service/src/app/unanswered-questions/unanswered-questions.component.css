@@ -2,6 +2,7 @@ ul{
     display: inline-flex;
     list-style-type: none;
     margin-left: 3%;
+    
 }
 
 @media screen and (max-width: 600px) {

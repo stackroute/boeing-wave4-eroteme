@@ -77,7 +77,13 @@ import {NotifyAnswerCardComponent} from './notify-answer-card/notify-answer-card
 import { ChildComponent } from './child/child.component';
 import { ParentComponent } from './parent/parent.component';
 import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
-//import { AesComponent } from './aes/aes.component';
+import { FooterComponent } from './footer/footer.component';
+import { ToptrendComponent } from './toptrend/toptrend.component';
+import { UnanswerComponent } from './unanswer/unanswer.component';
+import { LoginpopupComponent } from './loginpopup/loginpopup.component';
+import { SearchQuestionAnswerComponentComponent } from './search-question-answer-component/search-question-answer-component.component';
+// import { NgxPaginationModule } from 'ngx-pagination';
+
 // import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
 
 
@@ -89,7 +95,12 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path: 'searchresult', component: ParentComponent },
 { path: 'register', component: RegisterComponent },
 { path: 'login', component: LoginComponent },
-{ path: 'notifyanswercard', component: NotifyAnswerCardComponent }]
+{ path: 'notifyanswercard', component: NotifyAnswerCardComponent },
+{ path:'homesection',component:HomesectionComponent},
+{ path:'profile',component:ProfileComponent},
+{ path:'toptrend',component:ToptrendComponent},
+{ path:'unanswer',component:UnanswerComponent},
+{ path:'popup',component:LoginpopupComponent}]
 
 @NgModule({
   declarations: [
@@ -115,9 +126,14 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     ChildComponent,
     ParentComponent,
     QuestioncardUnansComponent,
-    //AesComponent
+    FooterComponent,
+    ToptrendComponent,
+    UnanswerComponent,
+    LoginpopupComponent,
+    SearchQuestionAnswerComponentComponent
   ],
   imports: [
+    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -181,6 +197,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     MatTreeModule,
     ScrollingModule,
     HttpClientModule
+    
   ],
   providers: [TransferServiceService, httpInterceptorProviders, WebSocketService],
   bootstrap: [AppComponent]

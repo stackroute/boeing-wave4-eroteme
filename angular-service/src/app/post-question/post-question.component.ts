@@ -1,7 +1,12 @@
+import { NavbarComponent } from './../navbar/navbar.component';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { MatDialog } from '@angular/material';
+import { RegisterComponent } from '../register/register.component';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-post-question',
@@ -27,15 +32,16 @@ export class PostQuestionComponent implements OnInit {
   { "topic": "Dependency Injection" },
   { "topic": "Modules" }]
 
-  constructor(private route: Router, private app: AppComponent, private http: HttpClient) { }
+  constructor(private router :Router, private app: AppComponent, private http: HttpClient,private dialog:MatDialog) { }
 
   ngOnInit() {
   }
 
   postQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      this.dialog.open(LoginpopupComponent);
+      // this.route.navigate(["/login"]);
     }else{
     console.log(this.ques);
     console.log(this.description);
