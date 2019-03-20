@@ -101,7 +101,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path:'profile',component:ProfileComponent},
 { path:'toptrend',component:ToptrendComponent},
 { path:'unanswer',component:UnanswerComponent},
-{ path:'popup',component:LoginpopupComponent}]
+{ path:'popup',component:LoginpopupComponent},
 {path: 'evaluation', component: EvaluationComponent}]
 
 @NgModule({
@@ -132,7 +132,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     ToptrendComponent,
     UnanswerComponent,
     LoginpopupComponent,
-    SearchQuestionAnswerComponentComponent
+    SearchQuestionAnswerComponentComponent,
     EvaluationComponent,
   ],
   imports: [

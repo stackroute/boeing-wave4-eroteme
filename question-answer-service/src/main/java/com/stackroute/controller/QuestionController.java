@@ -5,6 +5,7 @@ import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
 import com.stackroute.exceptions.*;
 import com.stackroute.service.QuestionService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/v1")
+@Api(value = "Musicstore", description = "Operations pertaining to tracks")
 public class QuestionController extends ResponseEntityExceptionHandler {
 
     private QuestionService questionService;
