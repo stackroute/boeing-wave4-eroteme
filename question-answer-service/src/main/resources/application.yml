@@ -1,9 +1,9 @@
 server:
-  port: 8090
+  port: ${PORT:0}
 
 spring:
   application:
-    name: BootMongo
+    name: questionanswerservice
   data:
     mongodb:
       database: ques_db
@@ -12,6 +12,13 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8093/eureka}
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
 jsa:
   rabbitmq:
     queue: jsa.queue1

@@ -85,6 +85,7 @@ import { SearchQuestionAnswerComponentComponent } from './search-question-answer
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 // import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
+import {EvaluationComponent}from './evaluation/evaluation.component';
 
 
 
@@ -101,6 +102,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path:'toptrend',component:ToptrendComponent},
 { path:'unanswer',component:UnanswerComponent},
 { path:'popup',component:LoginpopupComponent}]
+{path: 'evaluation', component: EvaluationComponent}]
 
 @NgModule({
   declarations: [
@@ -131,9 +133,9 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     UnanswerComponent,
     LoginpopupComponent,
     SearchQuestionAnswerComponentComponent
+    EvaluationComponent,
   ],
   imports: [
-    
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -197,7 +199,6 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     MatTreeModule,
     ScrollingModule,
     HttpClientModule
-    
   ],
   providers: [TransferServiceService, httpInterceptorProviders, WebSocketService],
   bootstrap: [AppComponent]

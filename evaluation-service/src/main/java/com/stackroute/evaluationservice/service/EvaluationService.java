@@ -1,8 +1,8 @@
 package com.stackroute.evaluationservice.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.stackroute.evaluationservice.domain.Notification;
 import com.stackroute.evaluationservice.domain.Question;
+import com.stackroute.evaluationservice.domain.QuestionDTO;
 import com.stackroute.evaluationservice.domain.UserNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -38,8 +39,8 @@ public class EvaluationService {
     @Async
     public CompletableFuture<Question> searchInDb(String question) {
         try {
-            //TODO add a method in controller to find document by question string after branch is merged
-            return completedFuture(restTemplate.getForObject(questionAndAnswerUrl.concat(question), Question.class));
+            log.info("Searching in Q&A database");
+            return completedFuture(restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class));
         } catch (Exception e) {
             e.printStackTrace();
             return completedFuture(new Question());
@@ -50,21 +51,25 @@ public class EvaluationService {
     @Async
     @HystrixCommand(fallbackMethod = "searchInWebDefault")
     public CompletableFuture<List<Question>> searchInWeb(String question) {
-        return null;
+        log.info("Searching in web");
+        List<Question> questions = new ArrayList<>();
+        questions.add(new Question());
+        return completedFuture(questions);
     }
 
-    public CompletableFuture<List<Question>> searchInWebDefault() {
+    public List<Question> searchInWebDefault(String question) {
         log.info("Web crawler has crashed!");
-        return completedFuture(Collections.emptyList());
+        return new ArrayList<>();
     }
 
     @Async
     @HystrixCommand(fallbackMethod = "notifyDefault")
-    public CompletableFuture<List<UserNode>> notifyUsersForTheQuestion(String question) {
+    public CompletableFuture<List<UserNode>> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
         try {
+            log.info("Getting eligible users for notification");
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return completedFuture(restTemplate.exchange(recommendNotifyUrl.concat(question), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
+            return completedFuture(restTemplate.exchange(recommendNotifyUrl.concat("?question=").concat(questionDTO.getQuestion()).concat("&action=").concat(questionDTO.getAction().name()), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
             }).getBody());
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,8 +77,8 @@ public class EvaluationService {
         }
     }
 
-    public CompletableFuture<Notification> notifyDefault() {
+    public List<UserNode> notifyDefault(QuestionDTO questionDTO) {
         log.info("Notification service has crashed!");
-        return completedFuture(new Notification());
+        return Collections.emptyList();
     }
 }

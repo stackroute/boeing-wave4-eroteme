@@ -1,5 +1,6 @@
 package com.stackroute.configuration;
 
+import com.stackroute.domain.Notifications;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -8,6 +9,8 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 
 @Configuration
 //Configuration class for rabbitmq
@@ -32,6 +35,18 @@ public class RabbitmqConfig {
 
     @Value("${jst.rabbitmq.routingkey}")
     private String routingKey1;
+
+    @Bean
+    JedisConnectionFactory jedisConnectionFactory() {
+        return new JedisConnectionFactory();
+    }
+
+    @Bean
+    RedisTemplate<String, Notifications> redisTemplate() {
+        RedisTemplate<String,Notifications> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(jedisConnectionFactory());
+        return redisTemplate;
+    }
 
     @Bean
     Queue queue() {

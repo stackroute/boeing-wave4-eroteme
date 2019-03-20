@@ -125,4 +125,16 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> getAllQuestions() {
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
     }
+
+    @GetMapping("getquestion")
+    public ResponseEntity<Question> getDocumentByQuestionString(@RequestParam String question) {
+        ResponseEntity<Question> responseEntity;
+        try {
+            responseEntity = new ResponseEntity<>(questionService.getByQuestionString(question), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
+    }
 }

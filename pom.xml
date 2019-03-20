@@ -39,6 +39,7 @@
         <module>search-service</module>
         <module>my-profile-service</module>
         <module>evaluation-service</module>
+        <module>automatic-answer-search-service</module>
     </modules>
     <dependencies>
         <dependency>

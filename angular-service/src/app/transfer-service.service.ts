@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EnviormentVariabelsService } from './enviorment-variabels.service';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,10 @@ export class TransferServiceService {
 
   unans;
 
-  
-  constructor(private http:HttpClient,private env:EnviormentVariabelsService) { }
+  public result:any= new Subject();
+
+
+constructor(private http:HttpClient,private env:EnviormentVariabelsService) { }
 
 
   GuestTrendingQues() {
