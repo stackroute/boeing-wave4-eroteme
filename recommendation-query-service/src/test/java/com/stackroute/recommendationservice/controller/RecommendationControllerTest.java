@@ -170,7 +170,7 @@ public class RecommendationControllerTest {
     @Test
     public void testForTopicRelatedUsersArePresent() throws Exception {
         when(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).thenReturn(Collections.singletonList(USER_NODE));
-        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION")
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION&action=POST_QUESTION")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER_NODE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -179,7 +179,7 @@ public class RecommendationControllerTest {
     @Test
     public void testForTopicRelatedUsersAreNotPresent() throws Exception {
         when(recommendationService.getAllUsersRelatedToQuestion(TEST_QUESTION)).thenReturn(Collections.emptyList());
-        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION")
+        mockMvc.perform(MockMvcRequestBuilders.get("/member/notify?question=TEST_QUESTION&action=POST_QUESTION")
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(USER_NODE)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
