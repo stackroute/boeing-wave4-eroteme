@@ -50,6 +50,15 @@ export class NavbarComponent implements OnInit {
         this.length1 = this.data.length - this.length2;
       })
     });
+    //hits the controller of notification service to recieve notifications
+        console.log("hit the controller")
+        setTimeout( () => { /*Your Code*/
+        this.http.get("http://52.66.134.21:8010/api/v1/"+this.token.getUsername()).subscribe((data2)=>{
+          console.log(data2);
+          },error=>{
+          console.log(error);
+        });
+      }, 2000 );
 
   }
 
