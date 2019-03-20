@@ -7,7 +7,7 @@ security:
 
 spring:
   application:
-    name: BootMongo
+    name: search-service
   data:
     mongodb:
       database: topic
@@ -27,4 +27,8 @@ jsb:
     exchange: jsb.direct
     routingkey: jsb.routingkey
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
 

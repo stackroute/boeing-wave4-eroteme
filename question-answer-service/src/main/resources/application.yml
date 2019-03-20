@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: questionanswerservice
+    name: question-answer-service
   data:
     mongodb:
       database: ques_db

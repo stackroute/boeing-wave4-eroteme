@@ -14,7 +14,12 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+  application:
+    name: recommendation-query-service
+
 questionAndAnswerUrl: http://localhost:8090/api/v1/
+
 jsf:
   rabbitmq:
     queue: jsf.queue1
@@ -25,3 +30,9 @@ jst:
     queue: jst.queue1
     exchange: jst.direct1
     routingkey: jst.routingkey1
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka

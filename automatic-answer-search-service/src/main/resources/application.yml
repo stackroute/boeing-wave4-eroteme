@@ -5,7 +5,14 @@ spring:
     type: redis
     redis:
       time-to-live: 600000
+
+  application:
+    name: automatic-answer-search-service
   redis:
     port: 6379
     host: localhost
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8093/eureka}

@@ -9,3 +9,12 @@ jsb:
     queue: jsb.queue
     exchange: jsb.direct
     routingkey: jsb.routingkey
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+
+spring:
+  application:
+    name: nlp-service

@@ -7,3 +7,13 @@ jst:
     routingkey: jst.routingkey1
 server:
   port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+
+
+spring:
+  application:
+    name: evaluation-service
