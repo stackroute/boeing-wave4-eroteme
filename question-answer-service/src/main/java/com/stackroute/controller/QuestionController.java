@@ -17,7 +17,7 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/v1")
-@Api(value = "Musicstore", description = "Operations pertaining to tracks")
+@Api(value = "Eroteme", description = "Operations on question and answer service")
 public class QuestionController extends ResponseEntityExceptionHandler {
 
     private QuestionService questionService;
