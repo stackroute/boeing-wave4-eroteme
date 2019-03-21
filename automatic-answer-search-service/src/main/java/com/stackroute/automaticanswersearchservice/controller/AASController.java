@@ -35,13 +35,11 @@ public class AASController {
             List<com.stackroute.StackOverflowAdaptor.domain.Items> itemsList = apiservice.getData();
             System.out.println("got the data" + itemsList);
 
-
             aasRepo.save(itemsList);
             responseEntity = new ResponseEntity<>("successfully saved", HttpStatus.OK);
         } catch (Exception ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
         }
-
         return responseEntity;
     }
 
@@ -49,6 +47,4 @@ public class AASController {
     public List<com.stackroute.StackOverflowAdaptor.domain.Items> all() {
         return aasRepo.findAll();
     }
-
-
 }
