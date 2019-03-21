@@ -9,7 +9,7 @@
     </parent>
     <artifactId>evaluation-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>evaluation-service</name>
     <description>Automatic Evaluation Service</description>
 
