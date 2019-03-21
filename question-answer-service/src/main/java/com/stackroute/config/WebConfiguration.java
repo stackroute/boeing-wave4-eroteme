@@ -30,12 +30,12 @@ public class WebConfiguration extends WebMvcConfigurationSupport {
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("Spring Boot REST API")
-                .description("\"Spring Boot REST API for Online Store\"")
+                .title("Question and answer service")
+                .description("\"Service to perform all operations on questions\"")
                 .version("1.0.0")
-                .license("Apache License Version 2.0")
+                .license("License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("Neethu K B", "https://springframework.guru/about/", "neethu@gmail.com"))
+                .contact(new Contact("Neethu K B", "https://github.com/neethu1993", "neethu@gmail.com"))
                 .build();
     }
 
