@@ -1,0 +1,6 @@
+
+<ul *ngFor="let question of questionss; let i=index">
+  <li *ngIf="i<6">
+    <app-questioncard-unans [passedQuestions]='question'></app-questioncard-unans>
+  </li>
+</ul>

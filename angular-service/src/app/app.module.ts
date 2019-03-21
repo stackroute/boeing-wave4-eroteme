@@ -83,9 +83,12 @@ import { UnanswerComponent } from './unanswer/unanswer.component';
 import { LoginpopupComponent } from './loginpopup/loginpopup.component';
 import { SearchQuestionAnswerComponentComponent } from './search-question-answer-component/search-question-answer-component.component';
 // import { NgxPaginationModule } from 'ngx-pagination';
-
 // import { QuestioncardUnansComponent } from './questioncard-unans/questioncard-unans.component';
 import {EvaluationComponent}from './evaluation/evaluation.component';
+import { HomeunansweredComponent } from './homeunanswered/homeunanswered.component';
+import { HometrendquestionsComponent } from './hometrendquestions/hometrendquestions.component';
+import { HomejumbotronComponent } from './homejumbotron/homejumbotron.component';
+import { HomequestioncardComponent } from './homequestioncard/homequestioncard.component';
 
 
 
@@ -134,6 +137,10 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     LoginpopupComponent,
     SearchQuestionAnswerComponentComponent,
     EvaluationComponent,
+    HomeunansweredComponent,
+    HometrendquestionsComponent,
+    HomejumbotronComponent,
+    HomequestioncardComponent,
   ],
   imports: [
     BrowserModule,

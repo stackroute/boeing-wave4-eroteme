@@ -88,10 +88,28 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
-      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      console.log("testing"+this.present.questionId); 
+      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          alert("upvote added successfully");
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+      console.log("hiiting the end point");
     }
   }
 
+  
   downvoteQuestion() {
     if (this.app.checkLoggedIn == null) {
       // alert("You need to login first");
@@ -99,8 +117,23 @@ export class QuestionAnswerCardComponent implements OnInit {
       this.dialog.open(LoginpopupComponent);
     }
     else {
-      console.log('question downvote');
-      this.http.put("http://localhost:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      console.log('question upvote');
+      console.log("testing"+this.present.questionId); 
+      this.http.put("http://localhost:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          alert("downvote added successfully");
+        },
+        error => {
+          console.log("Error", error);
+        })
+      console.log("hiiting the end point");
     }
   }
 

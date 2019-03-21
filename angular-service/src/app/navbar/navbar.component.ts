@@ -87,7 +87,9 @@ export class NavbarComponent implements OnInit {
     this.trans.searchValue = this.value;
     console.log("abc    "+this.value);
     this.http.post("http://52.66.134.21:8070/api/v1/"+this.value,{});
-      this.router.navigate(["/searchresult"]);
+      //this.router.navigate(["/searchresult"]);
+      this.router.navigateByUrl('/myprofile', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["/searchresult"]));
 
   }
 
