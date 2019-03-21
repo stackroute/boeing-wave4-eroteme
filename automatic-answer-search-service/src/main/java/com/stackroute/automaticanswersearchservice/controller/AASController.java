@@ -32,7 +32,7 @@ public class AASController {
     }
 
     @GetMapping("/data")
-    public ResponseEntity<?> getAllData() {
+    public ResponseEntity<?> saveData() {
         ResponseEntity responseEntity;
         try {
 
@@ -71,7 +71,7 @@ public class AASController {
     }
 
     @GetMapping("/all")
-    public List<Question> all() {
+    public List<Question> getalldata() {
         return aasRepo.findAll();
     }
 }

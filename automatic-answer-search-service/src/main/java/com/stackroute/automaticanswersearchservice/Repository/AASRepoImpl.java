@@ -26,7 +26,7 @@ public class AASRepoImpl implements AASRepo {
     @Override
     public void save(List<Question> question) {
 
-        hashOperations.put("APPLE", question, question);
+        hashOperations.put("SALT", question, question);
 
 
     }
@@ -34,7 +34,7 @@ public class AASRepoImpl implements AASRepo {
 
     @Override
     public List<Question> findAll() {
-        return hashOperations.values("APPLE");
+        return hashOperations.values("SALT");
     }
 
 
