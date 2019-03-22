@@ -1,9 +1,10 @@
 package com.stackroute.recommendationservice.controller;
 
-import com.stackroute.recommendationservice.domain.*;
+import com.stackroute.recommendationservice.domain.Actions;
+import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -186,29 +187,29 @@ public class RecommendationController {
         return responseEntity;
     }
 
-    @RabbitListener(queues = "${jsf.rabbitmq.queue}")
-    public void sendNotificationData(QuestionDTO questionDTO) throws InterruptedException {
-        log.info("Received {}", questionDTO);
-        Notification notification;
-        Thread.sleep(2000);
-        List<UserNode> allUsersRelatedToQuestion = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion());
-
-        log.info("Eligible users for notification are: {}", allUsersRelatedToQuestion);
-        if (allUsersRelatedToQuestion == null || allUsersRelatedToQuestion.isEmpty()) {
-            log.warn("No Users found following the topic");
-            notification = Notification.builder().emails(Collections.emptyList()).question(questionDTO.getQuestion()).build();
-        } else {
-
-            List<String> emails = allUsersRelatedToQuestion
-                    .stream()
-                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
-                    .peek(userNode -> log.info("User is {}", userNode))
-                    .map(UserNode::getUsername)
-                    .collect(Collectors.toList());
-            notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
-        }
-        log.info("Notification sent: {}", notification);
-        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
-    }
+//    @RabbitListener(queues = "${jsf.rabbitmq.queue}")
+//    public void sendNotificationData(QuestionDTO questionDTO) throws InterruptedException {
+//        log.info("Received {}", questionDTO);
+//        Notification notification;
+//        Thread.sleep(2000);
+//        List<UserNode> allUsersRelatedToQuestion = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion());
+//
+//        log.info("Eligible users for notification are: {}", allUsersRelatedToQuestion);
+//        if (allUsersRelatedToQuestion == null || allUsersRelatedToQuestion.isEmpty()) {
+//            log.warn("No Users found following the topic");
+//            notification = Notification.builder().emails(Collections.emptyList()).question(questionDTO.getQuestion()).build();
+//        } else {
+//
+//            List<String> emails = allUsersRelatedToQuestion
+//                    .stream()
+//                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+//                    .peek(userNode -> log.info("User is {}", userNode))
+//                    .map(UserNode::getUsername)
+//                    .collect(Collectors.toList());
+//            notification = Notification.builder().emails(emails).question(questionDTO.getQuestion()).build();
+//        }
+//        log.info("Notification sent: {}", notification);
+//        rabbitTemplate.convertAndSend(exchange, routingKey, notification);
+//    }
 }
 
