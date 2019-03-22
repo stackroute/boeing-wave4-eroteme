@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class RabbitService {
                 notify.add("Your question:" + msg.getQuestion() + "has been answered!");
                 note.setNotification(notify);
                 notificationRepository.update(note);
+                notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e) {
@@ -47,6 +49,7 @@ public class RabbitService {
                 notification.setNotification(notify);
                 log.info("saving" + notification);
                 notificationRepository.save(notification);
+                notify.clear();
                 log.info("notification saved");
             }
         }
@@ -61,6 +64,7 @@ public class RabbitService {
                 notify.add("Your Answer to the  question:" + msg.getQuestion() + "has been accepted!");
                 note.setNotification(notify);
                 notificationRepository.update(note);
+                notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e){
@@ -68,6 +72,7 @@ public class RabbitService {
                 notification.setEmail(msg.getAnswer().get(0).getUser().getEmail());
                 notification.setNotification(notify);
                 notificationRepository.save(notification);
+                notify.clear();
                 log.info("notification saved");
             }
         }
@@ -86,6 +91,7 @@ public class RabbitService {
                 notify.add("Can you answer this:" + msg.getQuestion());
                 note.setNotification(notify);
                 notificationRepository.update(note);
+                notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e){
@@ -93,6 +99,7 @@ public class RabbitService {
                 notification.setEmail(emailList.get(i));
                 notification.setNotification(notify);
                 notificationRepository.save(notification);
+                notify.clear();
                 log.info("notification saved");
             }
         }
