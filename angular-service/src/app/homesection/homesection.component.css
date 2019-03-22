@@ -1,23 +1,72 @@
+
+
 .cent{
+    display: block;
+    margin-left: 1%;
+    width: 35%;
     text-align: center;
+    background-color: aquamarine;
+    border-radius: 3px 140px 140px 3px;
     padding: 10px;
+    font-size: 1.3rem;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-style: italic;
+    
 }
+
 .cent1{
-    text-align: center;
-    /* padding: 10px; */
-    color: white;
+
+    float: right;
+    padding-right: 6%
+    /* text-align: center; */
+        /* color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-style: italic;
+    font-style: italic; */
 }   
 
-.cent2{
-    margin-right: -45%;
-    font-size: 30px;
-    /* float: right; */
+
+h1.cent1 {
+    font-family: 'Kersse',helvetica,sans-serif;
+    color: white;
+    text-decoration: none;
+    /* margin-right: 5%; */
+    font-size: 20px;
+    font-weight: lighter;
+    /*transition*/
+    -webkit-transition: 0.5s all ease;
+    -moz-transition: 0.5s all ease;
+    -o-transition: 0.5s all ease;
+    transition: 0.5s all ease;
 }
+
+h1.cent1:hover {
+    font-family: 'Kersse',helvetica,sans-serif;
+    color: aqua;
+    text-decoration: none;
+    text-shadow: 0 0 100px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 23px #000,                
+				 0 0 23px #000,                
+				 0 0 23px #000,               
+				 0 0 23px #000,                
+				 0 0 23px #000;
+}
+
+/* .cent2{
+    margin-right: -45%;
+    font-size: 20px;
+    transition: transform 0.2s ease-in;
+}
+.cent2:hover{
+    transition-delay: 50s;
+    color: red;
+    font-size: 25px;
+    text-underline-position: none;
+} */
 
 #heading{
     margin-left: 40%;
@@ -44,10 +93,11 @@ form{
 
 body{
     max-width: 100%;
-     background: url('../../assets/images/bg1.jpeg'); 
+     background: url('../../assets/images/back3.jpg'); 
     background-attachment: fixed;
     background-size: cover;
     max-height: 100%;
+    overflow: none;
 }
 button:hover{
     color: white;
@@ -66,6 +116,22 @@ button{
 
 
 @media screen and (max-width: 600px){
+
+
+    .cent{
+        display: block;
+        margin-left: 12%;
+        width: 60%;
+        text-align: center;
+        background-color: aquamarine;
+        border-radius: 3px 80px 80px 3px;
+        padding: 10px;
+        font-size: 1.1rem;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: italic;
+        
+    }
 
 }
 

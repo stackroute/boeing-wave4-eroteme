@@ -8,7 +8,7 @@ templateUrl: './evaluation.component.html',
 styleUrls: ['./evaluation.component.css']
 })
 export class EvaluationComponent implements OnInit {
-private response;
+response;
 
 constructor(private trans:TransferServiceService,private route:Router ) { }
 

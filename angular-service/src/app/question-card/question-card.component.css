@@ -1,4 +1,4 @@
-/* #some {
+#some {
     max-width: 300px;
     min-height: 300px;
     max-height: 300px;
@@ -11,7 +11,7 @@
   #some:hover{
     transform: scale(1.2,1.2);
     transition: transform 0.3s ease-out;
-  } */
+  }
 
   p{
       max-width: 200px;;
@@ -50,12 +50,13 @@
     animation: rotate-scale-up-diag-2 0.7s linear both;
   /* transform: scale(1,1); */
   /* transition: transform 0.2s ease-in;  */
-    /* max-width: 300px;
+     max-width: 300px;
+     min-width: 300px; 
     min-height: 300px;
-    max-height: 300px; */
+    max-height: 300px; 
     width: 300px;
     /* min-width: 295px; */
-    height: 295px;
+    /* height: 295px; */
     /* max-height: 300px;  */
     
     text-overflow: ellipsis;
@@ -65,8 +66,8 @@
 }
 
 .rotate-scale-up-diag-2:hover{
-  width: 310px;
-  height: 310px;
+  /* width: 310px;
+  height: 310px; */
   background-color: rgb(223, 211, 211);
   /* transform: scale(1.5,1.5); */
   /* transition: transform 0.3s ease-out; */

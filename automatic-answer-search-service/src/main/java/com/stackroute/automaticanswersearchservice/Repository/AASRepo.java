@@ -1,12 +1,14 @@
 package com.stackroute.automaticanswersearchservice.Repository;
 
+import com.stackroute.automaticanswersearchservice.model.Question;
+
 import java.util.List;
 
 public interface AASRepo {
 
-    void save(List<com.stackroute.StackOverflowAdaptor.domain.Items> items);
+    void save(List<Question> question);
 
-    List<com.stackroute.StackOverflowAdaptor.domain.Items> findAll();
+    List<Question> findAll();
 
 
 }

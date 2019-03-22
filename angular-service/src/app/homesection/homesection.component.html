@@ -1,12 +1,10 @@
 <body>
-  <br>
-  <form class="form-inline my-2 my-lg-0">
-    <!-- <pre></pre><button class="btn btn-dark" type="submit" routerLink="/postQuestion" style="margin-right:50%; padding: 10px;">Click here to ask a Question!</button> -->
+  <!-- <form class="form-inline my-2 my-lg-0">
     <button type="button" id="change" class="btn btn-outline-dark btn-lg btn-block" type="submit"
       routerLink="/postQuestion" style="padding: 10px;border:0px solid white;color: white;">Click here to ask
       Question!</button>
-  </form>
-  <div class="bloc"
+  </form> -->
+ <!--  <div class="bloc"
        style="background-color: white;background-color: rgba(0,0, 0, 0.6);color: white;margin-right: 3%;margin-left:3%;border-radius: 30px;">
     <h2 style="margin-left: 2%;padding: 10px;font-family:cursive"><strong><u id="heading"><em>Eroteme:</em></u></strong>
     </h2>
@@ -24,29 +22,28 @@
       Perspiciatis delectus officia neque? Quae modi nemo eius hic, veniam, nulla iure eveniet quod earum tempore harum
       veritatis perferendis accusantium libero eaque.
     </p>
-  </div>
+  </div> -->
+  <app-homejumbotron></app-homejumbotron>
 
-  <h1 class="cent"><u>Top Trending Questions</u></h1>
+  <h1 class="cent">Top Trending Questions</h1>
   <br>
-  <app-trending-questions></app-trending-questions>
+  <app-hometrendquestions></app-hometrendquestions>
   <br>
   <h1 class="cent1">
     <a class="cent2" routerLink="/toptrend">Next Page</a>
   </h1>
   <br>
-  <h1 class="cent"><u>Unanswered Questions</u></h1>
+  <h1 class="cent">Unanswered Questions</h1>
   <br>
-  <app-unanswered-questions></app-unanswered-questions>
+  <app-homeunanswered></app-homeunanswered>
   <br>
-  <h2 class="cent1">
-    <!-- <a class="cent2" routerLink="/unanswer">Next Page1</a> -->
+  <h1 class="cent1">
     <a class="cent2" routerLink="/unanswer">Next Page</a>
-
-  </h2>
+  </h1>
   <div *ngIf="checkvalue">
 <br>
 <br>
-<h1 class="cent"><u><i class="fas fa-trophy"></i><i> Accepted Questions </i><i class="fas fa-trophy"></i></u></h1>
+<h1 class="cent"><i class="fas fa-trophy"></i><i> Accepted Questions </i><i class="fas fa-trophy"></i></h1>
 <br>
 <app-accepted-ques></app-accepted-ques>
 
