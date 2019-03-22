@@ -286,21 +286,21 @@ services:
       - 8082
     healthcheck:
       test: "exit 0"
-#
-#  angular-app:
-#    build: angular-service/
-#    image: angular
-#    restart: always
-#    mem_limit: 1024m
-#    container_name: Angular
-#    network_mode: "host"
-#    hostname: localhost
-#    ports:
-#      - 8000:8000
-#    healthcheck:
-#      test: "exit 0"
-#    expose:
-#      - 8000
+
+  angular-app:
+    build: angular-service/
+    image: angular
+    restart: always
+    mem_limit: 1024m
+    container_name: Angular
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8000:8000
+    healthcheck:
+      test: "exit 0"
+    expose:
+      - 8000
 
   recommendation-command-service:
     build: ./recommendation-command-service/

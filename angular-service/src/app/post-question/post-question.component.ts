@@ -80,7 +80,7 @@ export class PostQuestionComponent implements OnInit {
     error  => {
     console.log("Error", error);
     });
-    this.route.navigate(['/evaluation']);
+    this.router.navigate(['/evaluation']);
     }
 }
 
