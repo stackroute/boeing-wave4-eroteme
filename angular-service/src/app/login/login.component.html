@@ -1,53 +1,71 @@
 <body>
-   <div class="division">
-      <div class="inner">
-         <div *ngIf="isLoggedIn==false" class="my-card" style="padding: 2px;">
+<div id='firstcolour'>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">SIGN IN</h5>
+      <img id="profile" src="https://img.icons8.com/color/48/000000/gender-neutral-user.png">
+      <div class="division">
+        <div class="inner">
+          <div *ngIf="isLoggedIn==false" class="my-card" style="padding: 2px;">
             <div style="background-color:rgb(43, 42, 42);border-radius: 10px">
-               <h3 style="padding: 5px;margin-top: 0%;text-align: center;color: white;">Login
-               </h3>
-            </div>
-            <!-- <mat-card-content>
-               <form class="my-form">
-                  <mat-form-field class="full-width">
-                     <mat-label>Email</mat-label><br>
-                     <input matInput placeholder="email" [formControl]="email" required>
-                  </mat-form-field><br>
-                  <mat-form-field class="full-width">
-                     <mat-label>Password</mat-label>
-                     <input matInput type="password" placeholder="password" [formControl]="password" required>
-                  </mat-form-field><br>
-                  <mat-card-actions>
-                     <button mat-raised-button (click)="validate()" color="primary">Login</button>
-                     <button mat-raised-button (click)="signup()" color="primary"> Signup </button>
-                  </mat-card-actions>
-               </form><br>
 
-            </mat-card-content>
-            <mat-toolbar *ngIf="this.isLoginFailed == true">
-               Invalid username or password
-            </mat-toolbar><br> -->
+            </div>
             <form>
-                  <div class="form-group" style="margin-top: 5%;">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [formControl]="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required>
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input [formControl]="password" class="form-control" id="exampleInputPassword1"
-                           placeholder="Enter password" required type="password">
-                    <small id="passwordHelp" class="form-text text-muted">Your password is safe with us.</small>
-                  </div>
-                  <button type="button" class="btn" (click)="validate()" style="background-color:rgb(43, 42, 42);color: white">Login</button>
-                  <button type="button" class="btn" (click)="open()" style="background-color:rgb(43, 42, 42);color: white;margin-left: 2%;">Signup</button>
-                </form>
-                <br>
-                <br>
-                <br>
-                <br>
-               </div>
+              <div class="form-group" style="margin-top: 5%;">
+                <input [formControl]="email" aria-describedby="emailHelp" class="form-control" id="exampleInputEmail1"
+                       pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
+                       placeholder="email" required type="email">
+              </div>
+              <div class="form-group">
+                <input [formControl]="password" class="form-control" id="exampleInputPassword1"
+                       placeholder="password" required type="password">
+              </div>
+              <button (click)="validate()" class="btn" id="loginbutton" type="button">SIGN IN</button>
+            </form>
+            <br>
+            <br>
+            <br>
+            <br>
+          </div>
+        </div>
       </div>
+      <form>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- <div class="division">
+   <div class="inner">
+      <div *ngIf="isLoggedIn==false" class="my-card" style="padding: 2px;">
+         <div style="background-color:rgb(43, 42, 42);border-radius: 10px">
+            <h3 style="padding: 5px;margin-top: 0%;text-align: center;color: white;">Login
+            </h3>
+         </div>
+         <form>
+               <div class="form-group" style="margin-top: 5%;">
+                 <label for="exampleInputEmail1">Email address</label>
+                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" [formControl]="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required>
+                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+               </div>
+               <div class="form-group">
+                 <label for="exampleInputPassword1">Password</label>
+                 <input [formControl]="password" class="form-control" id="exampleInputPassword1"
+                        placeholder="Enter password" required type="password">
+                 <small id="passwordHelp" class="form-text text-muted">Your password is safe with us.</small>
+               </div>
+               <button type="button" class="btn" (click)="validate()" style="background-color:rgb(43, 42, 42);color: white">Login</button>
+               <button type="button" class="btn" (click)="open()" style="background-color:rgb(43, 42, 42);color: white;margin-left: 2%;">Signup</button>
+             </form>
+             <br>
+             <br>
+             <br>
+             <br>
+            </div>
    </div>
-   <form>
-   </form>
+</div>
+<form>
+</form> -->
 </body>

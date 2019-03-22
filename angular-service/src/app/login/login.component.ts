@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
   
   validate() {
-    console.log(this.form);
+    console.log("nnn ",this.form);
 
     this.loginInfo = {
       "email":this.email.value,
@@ -72,4 +72,11 @@ export class LoginComponent implements OnInit {
     this.router.navigate([""]);
   }
 
+  getMyStyles() {
+    let myStyles = {
+       'background-image': 'url(\'assets/images/trust-tru-katsande-333658-unsplash.jpg \')'
+    };
+    return myStyles;
+
+}
 }

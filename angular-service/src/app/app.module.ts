@@ -88,7 +88,6 @@ import {EvaluationComponent}from './evaluation/evaluation.component';
 import { HomeunansweredComponent } from './homeunanswered/homeunanswered.component';
 import { HometrendquestionsComponent } from './hometrendquestions/hometrendquestions.component';
 import { HomejumbotronComponent } from './homejumbotron/homejumbotron.component';
-// import { HomequestioncardComponent } from './homequestioncard/homequestioncard.component';
 
 
 
@@ -139,8 +138,7 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     EvaluationComponent,
     HomeunansweredComponent,
     HometrendquestionsComponent,
-    HomejumbotronComponent,
-    // HomequestioncardComponent,
+    HomejumbotronComponent
   ],
   imports: [
     BrowserModule,
