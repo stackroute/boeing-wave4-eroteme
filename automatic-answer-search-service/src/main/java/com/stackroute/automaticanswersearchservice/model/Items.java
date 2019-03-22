@@ -21,6 +21,7 @@ import java.util.List;
 public class Items implements Serializable {
 
     @JsonUnwrapped
+    //private member variables for Items class
     private Owner owner;
     private int score;
     private String link;

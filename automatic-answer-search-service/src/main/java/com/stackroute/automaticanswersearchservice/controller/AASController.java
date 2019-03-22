@@ -1,6 +1,5 @@
 package com.stackroute.automaticanswersearchservice.controller;
 
-
 import com.stackroute.StackOverflowAdaptor.service.APIservice;
 import com.stackroute.automaticanswersearchservice.Repository.AASRepo;
 import com.stackroute.automaticanswersearchservice.model.Answer;
@@ -31,16 +30,16 @@ public class AASController {
         this.aasRepo = aasRepo;
     }
 
+    //Overided method to save the data
     @GetMapping("/data")
     public ResponseEntity<?> saveData() {
         ResponseEntity responseEntity;
         try {
-
             List<com.stackroute.StackOverflowAdaptor.domain.Items> itemsList = apiservice.getData();
-            System.out.println("got the data" + itemsList);
-            System.out.println("size" + itemsList.size());
-            System.out.println("owner name" + itemsList.get(0).getOwner().getDisplay_name());
+            System.out.println("List of Items" + itemsList);
+            System.out.println("Itemlist size" + itemsList.size());
             List<Question> questions = new ArrayList<>();
+            //Mapping of data obtained from StackExchange to Question and Answer service model
             for (int i = 0; i < itemsList.size(); i++) {
                 Question question = new Question();
                 question.setQuestionId((int) itemsList.get(i).getQuestion_id());
@@ -55,14 +54,11 @@ public class AASController {
                 Answer answer = new Answer();
                 answer.setAnswer(itemsList.get(i).getLink());
                 answers.add(answer);
-
                 question.setAnswer(answers);
                 questions.add(question);
             }
-            System.out.println("we get it" + questions);
+            System.out.println("Mapped data from StackExchange" + questions);
             aasRepo.save(questions);
-            System.out.println("we get it" + questions);
-
             responseEntity = new ResponseEntity<>("successfully saved", HttpStatus.OK);
         } catch (Exception ex) {
             responseEntity = new ResponseEntity<String>(ex.getMessage(), HttpStatus.CONFLICT);
@@ -70,6 +66,7 @@ public class AASController {
         return responseEntity;
     }
 
+    //Overided method to get all the mapped data
     @GetMapping("/all")
     public List<Question> getalldata() {
         return aasRepo.findAll();

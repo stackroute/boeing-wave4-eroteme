@@ -14,8 +14,7 @@ import java.io.Serializable;
 @Builder
 @Document
 public class User implements Serializable {
-
-    //Variables
+    //private member variables for User class
     private String email;
     private String firstName;
     private String imageUrl;

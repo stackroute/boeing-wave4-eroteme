@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Owner implements Serializable {
+    //private member variables for Owner class
     private String profile_image;
     private String display_name;
 

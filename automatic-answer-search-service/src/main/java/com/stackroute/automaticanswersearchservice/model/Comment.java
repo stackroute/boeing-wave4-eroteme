@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @Document
 public class Comment implements Serializable {
+    //private member variables for Comment class
     User user;
     List<Replies> replies;
     private String comment;

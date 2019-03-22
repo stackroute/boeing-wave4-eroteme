@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Question implements Serializable {
-
+    //private member variables for Question class
     User user;
     List<Comment> comment;
     List<Answer> answer;

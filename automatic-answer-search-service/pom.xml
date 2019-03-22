@@ -98,9 +98,8 @@
             </plugin>
         </plugins>
     </build>
-
+    <!--dependency obtained by publishing the StackOverflowAdapter in packagecloud-->
     <repositories>
-
         <repository>
             <id>eroteme-snapshot</id>
             <url>https://packagecloud.io/eroteme/snapshot/maven2</url>
@@ -111,7 +110,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-
         <repository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
@@ -141,6 +139,4 @@
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
-
-
 </project>

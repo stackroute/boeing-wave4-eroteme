@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Builder
 @Document
 public class Replies implements Serializable {
+    //private member variables for replies class
     User user;
     private String reply;
     private long likes;

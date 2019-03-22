@@ -10,5 +10,4 @@ public interface AASRepo {
 
     List<Question> findAll();
 
-
 }
