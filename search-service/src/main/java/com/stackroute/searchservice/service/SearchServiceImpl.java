@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -49,10 +48,91 @@ public class SearchServiceImpl implements SearchService {
         return topic.stream().flatMap(t -> searchRepository.findByTopic(t).stream()).collect(Collectors.toList());
     }
 
+
+
+
+       /*
+   method to get the search result in appropriate way
+    */
+
     @Override
-    public List<Question> questionOfTopic(String topic, String question) throws ConceptNotFoundException {
-        return null;
+    public List<Question> getQuestionInside(List<String> topic, String question) throws ConceptNotFoundException{
+        List<Topic> foundQuestion = topic.stream().flatMap(t -> searchRepository.findByTopic(t).stream()).collect(Collectors.toList());
+        log.info("question found... "+foundQuestion.get(0));
+
+
+        //dictionary
+
+        Map<String, Float> dictionary = new HashMap<String, Float>();
+        List<Question> resultList = new ArrayList<>();
+
+
+//        System.out.println("question found... "+foundQuestion.get(1).getQuestions().get(i).getQuestion());
+        for(int i=0;i<foundQuestion.get(0).getQuestions().size();i++) {
+            log.info("question found... "+foundQuestion.get(0).getQuestions().get(i).getQuestion());
+
+//            System.out.println("size of question found.. "+foundQuestion.size());
+
+            log.info("user input "+question);
+            int distFromLevenshtein = getLevenshteinDistance(foundQuestion.get(0).getQuestions().get(i).getQuestion(), question);
+//
+
+            log.info("distance param   "+distFromLevenshtein);
+//
+//            //getting size of question in db and from user
+
+            int lengthOne = foundQuestion.get(0).getQuestions().get(i).getQuestion().length();
+            log.info("db question length "+lengthOne);
+            int lengthTwo = question.length();
+            log.info("user question length "+lengthTwo);
+            float m;
+            float formula;
+
+
+            //comparing the lengths
+
+            if(lengthOne >= lengthTwo){
+                m = lengthOne;
+                log.info("size of question db: "+m);
+            }
+            else {
+                m = lengthTwo;
+                log.info("size of question from user "+m);
+            }
+
+
+
+            formula = (1-((float)distFromLevenshtein/m));
+            if(formula >= 0.25){
+                dictionary.put(foundQuestion.get(0).getQuestions().get(i).getQuestion(),formula);
+
+            }
+        }
+
+        //reversing the values in dict
+
+        LinkedHashMap<String, Float> reverseSortedMap = new LinkedHashMap<>();
+        dictionary.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+        log.info("reverse string: "+reverseSortedMap);
+        log.info("Reverse Sorted Dict  : " + reverseSortedMap.keySet());
+
+        //returing
+        reverseSortedMap.keySet().stream().forEach(key -> {
+            for(int i=0;i<foundQuestion.get(0).getQuestions().size();i++) {
+                if (foundQuestion.get(0).getQuestions().get(i).getQuestion().equalsIgnoreCase(key)) {
+                    System.out.println("in if.. "+foundQuestion.get(0).getQuestions().get(i));
+                    resultList.add(foundQuestion.get(0).getQuestions().get(i));
+                }
+            }
+        });
+
+        log.info("in result list  "+resultList);
+
+        return resultList;
     }
+
+
 
     @Override
     public String questionOfPost(QuestionDTO questionDTO) {
@@ -157,5 +237,67 @@ public class SearchServiceImpl implements SearchService {
         });
         return "success";
     }
+
+    // LevenshteinDistance algorithm
+
+
+    public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
+        if (s == null || t == null) {
+            throw new IllegalArgumentException("Strings must not be null");
+        }
+        int n = s.length(); // length of s
+        int m = t.length(); // length of t
+
+        if (n == 0) {
+            return m;
+        } else if (m == 0) {
+            return n;
+        }
+
+        if (n > m) {
+            // swap the input strings to consume less memory
+            CharSequence tmp = s;
+            s = t;
+            t = tmp;
+            n = m;
+            m = t.length();
+        }
+
+        int p[] = new int[n + 1]; //'previous' cost array, horizontally
+        int d[] = new int[n + 1]; // cost array, horizontally
+        int _d[]; //placeholder to assist in swapping p and d
+
+        // indexes into strings s and t
+        int i; // iterates through s
+        int j; // iterates through t
+
+        char t_j; // jth character of t
+        int cost; // cost
+
+        for (i = 0; i <= n; i++) {
+            p[i] = i;
+        }
+
+        for (j = 1; j <= m; j++) {
+            t_j = t.charAt(j - 1);
+            d[0] = j;
+
+            for (i = 1; i <= n; i++) {
+                cost = s.charAt(i - 1) == t_j ? 0 : 1;
+                // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
+                d[i] = Math.min(Math.min(d[i - 1] + 1, p[i] + 1), p[i - 1] + cost);
+            }
+
+            // copy current distance counts to 'previous row' distance counts
+            _d = p;
+            p = d;
+            d = _d;
+        }
+
+        // our last action in the above loop was to switch d and p, so p now
+        // actually has the most recent cost counts
+        return p[n];
+    }
+
 
 }

@@ -55,18 +55,17 @@ public class SearchController {
     }
 
 
-    @RequestMapping(path = "/topicz/{topic}/{question}", method = RequestMethod.GET)
-    public ResponseEntity<?> getQuestionInside(@PathVariable String topic, @PathVariable String question) {
+    @GetMapping(path = "topicz/{question}")
+    public ResponseEntity<?> getQuestionInside(@PathVariable String question) {
         ResponseEntity responseEntity;
         try {
 
-            return new ResponseEntity<List<Question>>(searchService.questionOfTopic(topic, question), HttpStatus.OK);
+            return new ResponseEntity<List<Question>>(searchService.getQuestionInside(rabbitService.topic, question), HttpStatus.OK);
 
         } catch (Exception ex) {
             return new ResponseEntity<String>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
-
 
 }
 

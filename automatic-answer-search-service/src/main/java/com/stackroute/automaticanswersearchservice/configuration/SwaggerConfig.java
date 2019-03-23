@@ -17,16 +17,21 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig extends WebMvcConfigurationSupport {
+    // docket bean to configure Swagger2 for the application.
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+//                select() method called on the docket bean instance returns an APISelectorBuilder,
+//                which provides the apis() and paths() methods
                 .select()
+//        RequestHandlerSelectors.basePackage predicate matches the current base package to filter the API
                 .apis(RequestHandlerSelectors.basePackage("com.stackroute.automaticanswersearchservice"))
                 .paths(regex("/rest/question.*"))
                 .build()
                 .apiInfo(metaData());
     }
 
+    //metaData() method provides the information about the api
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("Spring Boot REST API")
@@ -34,10 +39,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .version("1.0.0")
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("eroteme", "https://github.com/shaliniganesh330/", "shaliniganesh330"))
+                .contact(new Contact("eroteme", "https://github.com/stackroute/boeing-wave4-eroteme/", "shaliniganesh330"))
                 .build();
     }
-
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")

@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.util.List;
 
 @EnableAutoConfiguration
+//@ComponentScan scans the base package of StackOverflowAdapter and the current base package
 @ComponentScan({"com.stackroute.automaticanswersearchservice", "com.stackroute.StackOverflowAdaptor"})
 @Configuration
 @EnableCaching
@@ -28,6 +29,7 @@ public class AutomaticAnswerSearchServiceApplication {
         SpringApplication.run(AutomaticAnswerSearchServiceApplication.class, args);
     }
 
+    //Returns a Jedis instance to be used as a Redis connection.
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
@@ -39,5 +41,4 @@ public class AutomaticAnswerSearchServiceApplication {
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         return redisTemplate;
     }
-
 }
