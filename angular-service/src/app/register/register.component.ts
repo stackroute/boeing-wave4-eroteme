@@ -1,32 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Info } from '../auth/signup-info';
+import { SignUpInfo}from '../auth/signup-info';
 import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material';
+declare var $:JQueryStatic;
+
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+selector: 'app-register',
+templateUrl: './register.component.html',
+styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup:FormGroup;
-  isOptional = true;
+firstFormGroup: FormGroup;
+secondFormGroup: FormGroup;
+thirdFormGroup:FormGroup;
+isOptional = true;
 
 
-  form: any = {};
-  signupInfo: SignUpInfo;
-  errorMessage = '';
-  pass:string='';
-  conf:string;
+form: any = {};
+signupInfo: SignUpInfo;
+errorMessage = '';
+pass:string='';
+conf:string;
 
-  // FirstName:String;
-  // FirstName = new FormControl('', [Validators.required]);
+
+// FirstName:String;
+// FirstName = new FormControl('', [Validators.required]);
   // LastName=new FormControl('');
   // email = new FormControl('', [Validators.required, Validators.email]);
   // password=new FormControl('', [Validators.required]);
@@ -68,6 +71,8 @@ export class RegisterComponent implements OnInit {
     this.thirdFormGroup = this._formBuilder.group({
         toppings:['']
        });
+
+    
 
    }  
 
@@ -125,5 +130,4 @@ export class RegisterComponent implements OnInit {
   {
     this.route.navigate([""]);
   }
-
 }

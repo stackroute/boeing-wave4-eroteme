@@ -49,19 +49,25 @@
     padding: 10px;
     min-width: 80px;
     margin: auto;
+    border: 2px solid blue;
+    border-top: 0px;
+
    
   }
   .height1
   {
     margin: auto;
-  
-    height: 4%;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 2%;
     max-width:600px;
-    color: white;
-    background-color:black;
+    color: black;
     font-size: 1.5rem;
     padding: 0px;
     min-width: 100px;
+    border: 2px solid blue;
+    border-bottom: 0px;
+
    
   }
 
@@ -84,11 +90,11 @@
 {
   margin-left: 41%;
   margin-top: 1%;
-  background-color:rgb(74, 211, 211)
+  background-color:blue;
 }
 
 .btn{
-  background-color:rgb(74, 211, 211);
+  background-color:blue;
   /* display:inline-block; */
   display: inline-flex;
   width: 50px;
@@ -96,7 +102,7 @@
 
 
 .btn1{
-  background-color:rgb(74, 211, 211);
+  background-color:blue;
   /* display:inline-block; */
   width: 50px;
   display: inline-flex;
@@ -105,7 +111,7 @@
   /* display: flex; */
 }
 .btn2{
-  background-color:rgb(74, 211, 211); 
+  background-color:blue; 
   margin-left: 36%;
   display: inline-flex;
   width: 30px;
@@ -113,7 +119,7 @@
 }
 
 .btn3{
-  background-color:rgb(74, 211, 211); 
+  background-color:blue; 
   width: 30px;
   margin-left: 20px;
 }
@@ -128,10 +134,7 @@
     min-width: 100px;
   }
   .my-card{
-    /* padding-top: 6%;
-    padding-left:20%; 
-    padding-right:20%; 
-    padding-bottom: 8%; */
+
      min-width: 100px;
     max-width: 700px;
     margin-top: 12%;
@@ -184,21 +187,19 @@
     .height
   {
     height: 350px;
-    /* width:auto; */
-    background-color: rgb(168, 215, 247);;
+    background-color: blue(168, 215, 247);;
     padding: 1px;
     min-width: 60px;
    
   }
 
   .btn{
-    background-color:rgb(74, 211, 211);
+    background-color:blue(74, 211, 211);
     display:inline-block;
     width: 30px;
   }
   .btn1{
-    background-color:rgb(74, 211, 211);
-    /* display:inline-block; */
+    background-color:blue(74, 211, 211);
     width: 30px;
     float:right;
     
@@ -206,14 +207,13 @@
 
 
   .btn2{
-    background-color:rgb(74, 211, 211);
-    /* display:inline-block; */
+    background-color:blue(74, 211, 211);
     width: 8px;
     position: relative;
     margin-left: 5%;
   }
   .btn3{
-    background-color:rgb(74, 211, 211);
+    background-color:blue(74, 211, 211);
     display:inline-block;
     width: 8px;
    margin-left:4px;
@@ -256,7 +256,7 @@
 {
   margin-left: 30%;
   margin-top: 1%;
-  background-color:rgb(74, 211, 211)
+  background-color:blue(74, 211, 211)
 
 }
 

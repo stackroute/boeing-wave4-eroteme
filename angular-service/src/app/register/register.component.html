@@ -46,10 +46,10 @@
     </mat-card> -->
 
 
-    <div class="height1">
+<div class="height1">
       <br>
          <p class="RegHeader">Registration</p>
-       </div>
+</div>
           <mat-horizontal-stepper linear #stepper class="height" >
 
 
@@ -68,8 +68,7 @@
                            <input matInput placeholder="Last Name" formControlName="LastName" required>
                          </mat-form-field>
                         <div>
-                          <button mat-button matStepperNext  class="btn">Next</button>
-                          <!-- <button mat-button matStepperNext  class="btn1" routerLink="/register">Cancel</button> -->
+                          <button mat-button matStepperNext class="btn btn-primary">Next</button>
 
                         </div>
                       </form>
@@ -121,10 +120,7 @@
                  <mat-step  >
                       <ng-template matStepLabel>Final Step</ng-template>
                       <div class="form1">
-                       
-                         <br>
-                      Click Register to complete the registration!! 
-                   </div>
+                      </div>
                        
                          <br>
                          <br>
@@ -135,7 +131,7 @@
                       <br>
                    
                       <div>
-                        <button mat-raised-button  (click)="register()" color="primary" class="reg">Register</button>
+                        <button mat-raised-button (click)="register()" color="primary" class="reg">SIGN ME UP</button>
                       </div>
                     </mat-step> 
               </mat-horizontal-stepper>
