@@ -5,7 +5,6 @@ import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material';
-declare var $:JQueryStatic;
 
 
 @Component({
