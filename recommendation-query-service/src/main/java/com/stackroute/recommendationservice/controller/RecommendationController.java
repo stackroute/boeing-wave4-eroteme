@@ -60,7 +60,7 @@ public class RecommendationController {
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
                     .peek(question -> log.info("Question node is {}", question))
-                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestion()))
                     .peek(questionRequested -> log.info("Question document is {}", questionRequested))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(trendingDocuments, HttpStatus.OK);
@@ -119,7 +119,7 @@ public class RecommendationController {
         try {
             List<Question> unansweredQuestions = recommendationService.getAllUnansweredQuestionsForRegisteredUser(username)
                     .stream()
-                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestion()))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(unansweredQuestions, HttpStatus.OK);
         } catch (Exception e) {
@@ -158,7 +158,7 @@ public class RecommendationController {
         try {
             List<Question> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username)
                     .stream()
-                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestionId()))
+                    .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestion()))
                     .collect(Collectors.toList());
             responseEntity = new ResponseEntity<>(acceptedAnswers, HttpStatus.OK);
         } catch (Exception e) {

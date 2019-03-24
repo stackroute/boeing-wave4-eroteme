@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 @Component({
 selector: 'app-register',
 templateUrl: './register.component.html',
+
 styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
@@ -97,15 +98,11 @@ conf:string;
       this.thirdFormGroup.controls.toppings.value
         );
 
-      console.log(this.firstFormGroup.controls.FirstName.value);
-      console.log(this.firstFormGroup.controls.LastName.value);
-      console.log(this.secondFormGroup.controls.email.value);
-      console.log(this.secondFormGroup.controls.password.value);
-      console.log(this.thirdFormGroup.controls.toppings.value);
-
-
-
-
+      // console.log(this.firstFormGroup.controls.FirstName.value);
+      // console.log(this.firstFormGroup.controls.LastName.value);
+      // console.log(this.secondFormGroup.controls.email.value);
+      // console.log(this.secondFormGroup.controls.password.value);
+      // console.log(this.thirdFormGroup.controls.toppings.value);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
@@ -115,11 +112,10 @@ conf:string;
 
       },
       error => {
-            if(error.status==201){
                       alert("Registered Successfully!!!");
                       this.dialog.closeAll();
                       this.route.navigate(["/login"]);
-            }
+            
         console.log(error);
         this.errorMessage = error.error.message;
       }

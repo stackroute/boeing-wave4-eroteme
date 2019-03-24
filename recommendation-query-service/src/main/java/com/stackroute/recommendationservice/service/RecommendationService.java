@@ -12,7 +12,7 @@ public interface RecommendationService {
 
     List<Question> getAllUnansweredQuestionsForGuestUser();
 
-    Question getDocumentByQuestionId(long questionId);
+    Question getDocumentByQuestionId(String question);
 
     List<UserNode> getAllUsersRelatedToQuestion(String question);
 

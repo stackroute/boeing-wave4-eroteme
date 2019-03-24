@@ -51,8 +51,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.email);
         this.isLoginFailed = false;
-        this.isLoggedIn = true;  
-        // this.reloadPage();
+        this.isLoggedIn = true;          
         this.home();
       },
       error => {
@@ -68,8 +67,11 @@ export class LoginComponent implements OnInit {
   }
 
   home(){
-    window.location.reload();
-    this.router.navigate([""]);
+    console.log("reloaded after login")
+
+    this.router.navigate(['']);
+
+  
   }
 
   getMyStyles() {

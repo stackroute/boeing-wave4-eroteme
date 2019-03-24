@@ -603,7 +603,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question getByQuestionString(String questionString) {
+        log.info("Question String is : {}", questionString);
 
-        return questionRepository.findByQuestion(questionString).orElse(null);
+        Question byQuestion = questionRepository.findByQuestion(questionString);
+        log.info("Question doc by question string is : {}", byQuestion);
+        return byQuestion;
     }
 }

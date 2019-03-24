@@ -54,7 +54,7 @@ public class UserController {
      */
     private final static String QUEUE_NAME = "register";
     @PostMapping("signup")
-    public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
+    public ResponseEntity<User> saveUser(@RequestBody User user) throws Exception {
         User signUp = new User(user.getEmail(), encoder.encode(user.getPassword()), user.getFirstName(), user.getLastName(), user.getInterests());
         amqpTemplate.convertAndSend(exchange, routingKey, signUp);
         amqpTemplate.convertAndSend(exchange1, routingKey1, signUp);
@@ -63,9 +63,9 @@ public class UserController {
         try{
             //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());
             userService.saveUser(signUp);
-            return new ResponseEntity<String>("Successfully Created", HttpStatus.CREATED);
+            return new ResponseEntity<>(signUp, HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>("User Already Exist", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
         }
 
     }
