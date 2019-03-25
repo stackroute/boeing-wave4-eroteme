@@ -54,7 +54,6 @@ public class EvaluationService {
     public CompletableFuture<List<Question>> searchInWeb() {
         List<Question> questions;
         try {
-            restTemplate.getForObject("http://localhost:8094/rest/question/data", String.class);
             questions = restTemplate.exchange(webcrawlerurl, HttpMethod.GET, null, new ParameterizedTypeReference<List<List<Question>>>() {
             }).getBody().stream().flatMap(Collection::stream).collect(Collectors.toList());
             log.info("Results from web are : {}", questions);

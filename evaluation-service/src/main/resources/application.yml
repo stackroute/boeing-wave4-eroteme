@@ -1,6 +1,6 @@
 questionAndAnswerUrl: http://localhost:8092/question-answer-service/api/v1/
 recommendNotifyUrl: http://localhost:8081/member/notify
-webcrawlerurl: http://localhost:8094/rest/question/all/
+webcrawlerurl: http://localhost:8094/rest/question/webresults/
 jst:
   rabbitmq:
     queue: jst.queue1
