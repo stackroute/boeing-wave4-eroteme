@@ -32,7 +32,7 @@ public class RabbitService {
         log.info("received"+msg);
 
         if(msg.getAction()==Actions.QUESTION_ANSWER){
-            String send="Your question:" + msg.getQuestion() + "has been answered!";
+            String send="Your question:" +'"'+ msg.getQuestion()+'"' + "has been answered!";
             template.convertAndSend("/queue/" +msg.getUser().getEmail(),send);
             try {
                 Notifications note = notificationRepository.findById(msg.getUser().getEmail());
@@ -56,7 +56,7 @@ public class RabbitService {
 
         if(msg.getAction()==Actions.ANSWER_ACCEPT){
             log.info("received"+msg);
-            String send="Your Answer to the  question:" + msg.getQuestion() + "has been accepted!";
+            String send="Your Answer to the  question:" + '"'+msg.getQuestion()+'"' + "has been accepted!";
             template.convertAndSend("/queue/" +msg.getAnswer().get(0).getUser().getEmail(),send);
             try {
                 Notifications note = notificationRepository.findById(msg.getAnswer().get(0).getUser().getEmail());
@@ -84,7 +84,7 @@ public class RabbitService {
         log.info("received"+msg);
         emailList=msg.getEmails();
         for(int i=0;i<emailList.size();i++){
-            template.convertAndSend("/queue/" +emailList.get(i),"Can you answer this:" + msg.getQuestion());
+            template.convertAndSend("/queue/" +emailList.get(i),"Can you answer this:" +'"'+ msg.getQuestion()+'"');
             try {
                 Notifications note = notificationRepository.findById(emailList.get(i));
                 notify = note.getNotification();
