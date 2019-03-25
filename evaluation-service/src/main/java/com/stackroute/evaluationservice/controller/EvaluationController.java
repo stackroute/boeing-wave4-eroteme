@@ -52,36 +52,36 @@ public class EvaluationController {
             String questionString = questionDTO.getQuestion();
             CompletableFuture<Question> questionCompletableFuture = evaluationService.searchInDb(questionString);
             CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb();
-            CompletableFuture<List<UserNode>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionDTO);
-            CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture, userListCompletableFuture);
+            CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture);
 
             log.info("Recevied list of eligible users, question document from db and web results");
 
             Question questionFromDb = questionCompletableFuture.get();
             log.info("Question document found: {}", questionFromDb);
 
-            List<String> eligibleUsers = userListCompletableFuture.get()
-                    .stream()
-                    .peek(userNode -> log.info("User node is {}", userNode))
-                    .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getUsername()))
-                    .map(UserNode::getUsername)
-                    .collect(Collectors.toList());
-            log.info("Eligible users for notification: {}", eligibleUsers);
 
             List<Question> webResults = webResultCompletableFuture.get();
             log.info("Web results are {}", webResults);
 
 
-            if ((questionFromDb.getQuestion() == null || questionFromDb.getQuestion().isEmpty()) && (webResults == null || webResults.isEmpty())) {
-                restTemplate.postForEntity(questionAndAnswerUrl.concat("question"), new ResponseEntity<>(questionDTO, HttpStatus.OK), Question.class);
+            if ((questionFromDb == null || questionFromDb.getQuestion() == null || questionFromDb.getQuestion().isEmpty())) {
+                List<UserNode> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionDTO);
+                List<String> eligibleUsers = userListCompletableFuture
+                        .stream()
+                        .peek(userNode -> log.info("User node is {}", userNode))
+                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getUsername()))
+                        .map(UserNode::getUsername)
+                        .collect(Collectors.toList());
+                log.info("Eligible users for notification: {}", eligibleUsers);
                 Notification notification = new Notification();
                 notification.setEmails(eligibleUsers);
                 notification.setQuestion(questionString);
                 rabbitTemplate.convertAndSend(exchange, routingKey, notification);
                 log.info("Sent notification: {}", notification);
-                return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
+                return new ResponseEntity<>(webResults, HttpStatus.OK);
             }
-            webResults.add(questionFromDb);
+            webResults.add(0, questionFromDb);
+
             responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
