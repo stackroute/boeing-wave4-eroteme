@@ -4,6 +4,8 @@ import { TransferServiceService } from '../transfer-service.service';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
 
 @Component({
 selector: 'app-notify-answer-card',
@@ -27,18 +29,26 @@ export class NotifyAnswerCardComponent implements OnInit {
   commentAnswer1:string;
   replyanswercomment:string;
 
+  commentanswerbool:boolean;
+  postanswerbool:boolean;
 
 
-  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient) {
+
+
+
+  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient,private dialog:MatDialog) {
     this.showAllCommentsQuestion = 'Show Details';
     this.showAllCommentsAnswer = 'Show Details';
   }
 
   ngOnInit() {
+    this.postanswerbool=false;
+    this.commentanswerbool=false;
     this.present = this.trans.value;
     this.vote = this.present.upvotes - this.present.downvote;
   }
 
+ 
   toggle(answer) {
     this.ans = answer;
     if (this.showAllCommentsAnswer === 'Hide Details') {
@@ -78,30 +88,67 @@ export class NotifyAnswerCardComponent implements OnInit {
   upvoteQuestion() {
     console.log(this.app.checkLoggedIn);
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first"); 
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('question upvote');
-      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      this.present.vote=(this.present.vote)+1;
+      console.log("testing"+this.present.questionId); 
+      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          alert("upvote added successfully");
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+      console.log("hiiting the end point");
     }
   }
 
+  
   downvoteQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
-      console.log('question downvote');
-      this.http.put("http://localhost:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      console.log('question upvote');
+      console.log("testing"+this.present.questionId); 
+      this.http.put("http://localhost:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          alert("downvote added successfully");
+        },
+        error => {
+          console.log("Error", error);
+        })
+      console.log("hiiting the end point");
     }
   }
 
   commentQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('comment on question');
@@ -115,7 +162,7 @@ export class NotifyAnswerCardComponent implements OnInit {
           "user": {
             "email": this.app.emailid,
             "firstName": this.app.emailid.split("@")[0],
-            "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
+            "imageurl": "http://https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
           },
           "replies": null
         },
@@ -141,8 +188,8 @@ export class NotifyAnswerCardComponent implements OnInit {
 
 replyQuestionComment(presentcomment:string) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
   }
   else {
     console.log('reply to comment of question');
@@ -155,8 +202,8 @@ replyQuestionComment(presentcomment:string) {
                 "likes":0,
                 "timestamp":64783,
                 "user":{
-                  "email": this.app.emailid,
-                  "firstName": this.app.emailid.split("@")[0],
+                  "email":this.app.emailid,
+                  "firstName":this.app.emailid.split("@")[0],
                   "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                 }
               }
@@ -183,8 +230,9 @@ replyQuestionComment(presentcomment:string) {
 
 upvoteAnswer(ans1) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('answer upvote');
@@ -196,22 +244,27 @@ upvoteAnswer(ans1) {
 
 downvoteAnswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('downvote answer');
+    this.http.put("http://localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
 commentAnswer(ans) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
-    console.log('comment on answer');
-      this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
+    if(this.commentanswerbool==false)
+    {
+      this.commentanswerbool=true;
+         this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -220,14 +273,15 @@ commentAnswer(ans) {
         "timestamp":4373648,
         "likes": 0,
         "user":{
-          "email": this.app.emailid,
-          "firstName": this.app.emailid.split("@")[0],
+              "email":this.app.emailid,
+              "firstName":this.app.emailid.split("@")[0],
               "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
             },
         "replies": null
       }
   ]
-},
+}
+    ,
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -244,13 +298,20 @@ commentAnswer(ans) {
             console.log("Error", error);
 
           })
+    }
+    else{
+      this.commentanswerbool=false;
+    console.log('comment on answer');
   }
+}
+
 }
 
 replyAnswerComment(ans,comm) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('reply to comment of answer');
@@ -266,8 +327,8 @@ replyAnswerComment(ans,comm) {
                       "likes":0,
                       "timestamp":64783,
                       "user":{
-                        "email": this.app.emailid,
-                        "firstName": this.app.emailid.split("@")[0],
+                          "email":this.app.emailid,
+                          "firstName":this.app.emailid.split("@")[0],
                           "imageurl":"https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
                           }
                       }
@@ -294,10 +355,33 @@ replyAnswerComment(ans,comm) {
   }
 }
 
+
+postanswer1(){
+  if (this.app.checkLoggedIn == null) {
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
+  }
+  else{
+    if(this.postanswerbool==false)
+    {
+      this.postanswerbool=true;
+    }
+    else{
+      this.postanswerbool=false;
+    }
+
+  }
+
+}
+
 postanswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
   }
   else {
     console.log(this.answer);
@@ -332,15 +416,14 @@ postanswer() {
           console.log("Error", error);
 
         })
+      
   }
 }
-
 
 acceptedAnswer(answertoAccept){
   this.http.put("http://localhost:8080/api/v1/question/answer/accept"+this.present.questionId,{
     "answer": answertoAccept
   })
 }
-
 
 }

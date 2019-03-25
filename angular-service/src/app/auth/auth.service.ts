@@ -40,5 +40,4 @@ export class AuthService {
   signUp(info: SignUpInfo){
     return this.http.post(this.signupUrl, info, httpOptionsForRegistration);
   }
-  
 }

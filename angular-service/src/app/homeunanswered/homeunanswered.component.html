@@ -1,6 +1,15 @@
-
+<body>
+ <h1 class="cent"><strong>Unanswered Questions</strong></h1>
+  <br>
 <ul *ngFor="let question of questionss; let i=index">
   <li *ngIf="i<6">
     <app-questioncard-unans [passedQuestions]='question'></app-questioncard-unans>
   </li>
 </ul>
+<br>
+  <h1 class="cent1">
+    <a class="cent2" routerLink="/unanswer" style="border: 2px solid;
+    padding: 6px;
+    border-radius: 20px;">Show more</a>
+  </h1>
+  </body>

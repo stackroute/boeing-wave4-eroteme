@@ -1,3 +1,11 @@
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<div id="header" class="ribbon" >
+  <h1 class="bounce-top"><a>Unanswered Questions</a></h1>
+</div>
+<br>
+
 <ul *ngFor='let question of questions'>
   <li>
     <app-questioncard-unans [passedQuestions]='question'></app-questioncard-unans>

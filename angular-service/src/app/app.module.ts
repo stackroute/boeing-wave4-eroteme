@@ -88,6 +88,9 @@ import {EvaluationComponent}from './evaluation/evaluation.component';
 import { HomeunansweredComponent } from './homeunanswered/homeunanswered.component';
 import { HometrendquestionsComponent } from './hometrendquestions/hometrendquestions.component';
 import { HomejumbotronComponent } from './homejumbotron/homejumbotron.component';
+import { HomequestioncardComponent } from './homequestioncard/homequestioncard.component';
+import { WhyUsComponent } from './why-us/why-us.component';
+
 
 
 
@@ -104,7 +107,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path:'toptrend',component:ToptrendComponent},
 { path:'unanswer',component:UnanswerComponent},
 { path:'popup',component:LoginpopupComponent},
-{path: 'evaluation', component: EvaluationComponent}]
+{path: 'evaluation', component: EvaluationComponent},
+{path: 'whyus', component: WhyUsComponent}]
 
 @NgModule({
   declarations: [
@@ -138,7 +142,9 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     EvaluationComponent,
     HomeunansweredComponent,
     HometrendquestionsComponent,
-    HomejumbotronComponent
+    HomejumbotronComponent,
+    HomequestioncardComponent,
+    WhyUsComponent
   ],
   imports: [
     BrowserModule,

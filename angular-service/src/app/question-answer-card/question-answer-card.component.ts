@@ -28,6 +28,8 @@ export class QuestionAnswerCardComponent implements OnInit {
   commentAnswer1:string;
   replyanswercomment:string;
 
+  commentanswerbool:boolean;
+  postanswerbool:boolean;
 
 
   constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient,private dialog:MatDialog) {
@@ -36,11 +38,17 @@ export class QuestionAnswerCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.postanswerbool=false;
+    this.commentanswerbool=false;
     console.log(this.trans.value);
     this.present = this.trans.value;
     console.log("assigned"+this.present);
     //console.log(JSON.stringify(this.present));
     this.vote = this.present.upvotes - this.present.downvotes;
+
+
+
+    
   }
 
   toggle(answer) {
@@ -88,6 +96,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
+      this.present.vote=(this.present.vote)+1;
       console.log("testing"+this.present.questionId); 
       this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{},{
         headers: new HttpHeaders({
@@ -254,8 +263,10 @@ commentAnswer(ans) {
     this.dialog.open(LoginpopupComponent);
   }
   else {
-    console.log('comment on answer');
-      this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
+    if(this.commentanswerbool==false)
+    {
+      this.commentanswerbool=true;
+         this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -271,7 +282,8 @@ commentAnswer(ans) {
         "replies": null
       }
   ]
-},
+}
+    ,
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -288,7 +300,13 @@ commentAnswer(ans) {
             console.log("Error", error);
 
           })
+    }
+    else{
+      this.commentanswerbool=false;
+    console.log('comment on answer');
   }
+}
+
 }
 
 replyAnswerComment(ans,comm) {
@@ -339,6 +357,27 @@ replyAnswerComment(ans,comm) {
   }
 }
 
+
+postanswer1(){
+  if (this.app.checkLoggedIn == null) {
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
+  }
+  else{
+    if(this.postanswerbool==false)
+    {
+      this.postanswerbool=true;
+    }
+    else{
+      this.postanswerbool=false;
+    }
+
+  }
+
+}
+
 postanswer() {
   if (this.app.checkLoggedIn == null) {
     // alert("You need to login first");
@@ -379,6 +418,7 @@ postanswer() {
           console.log("Error", error);
 
         })
+      
   }
 }
 }

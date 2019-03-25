@@ -8,9 +8,14 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display first main heading', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to AngularService!');
+    expect(page.getTitleText()).toEqual('Top Trending Questions');
+  });
+
+  it('should display the product name', () => {
+    page.navigateTo();
+    expect(page.getProductText()).toEqual('Eroteme:');
   });
 
   afterEach(async () => {
