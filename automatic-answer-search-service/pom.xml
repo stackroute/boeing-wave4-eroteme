@@ -170,8 +170,8 @@
     <!--dependency obtained by publishing the StackOverflowAdapter in packagecloud-->
     <repositories>
         <repository>
-            <id>eroteme-snapshot</id>
-            <url>https://packagecloud.io/eroteme/snapshot/maven2</url>
+            <id>producteroteme-snapshot</id>
+            <url>https://packagecloud.io/producteroteme/snapshot/maven2</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
