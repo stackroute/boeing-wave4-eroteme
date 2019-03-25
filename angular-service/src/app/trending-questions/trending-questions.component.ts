@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 import { AppComponent } from '../app.component';
+import { pipe } from 'rxjs';
 
 
 @Component({
@@ -23,9 +24,8 @@ export class TrendingQuestionsComponent implements OnInit {
         this.questions=data;
       })
     }
-
-   }
-
+   
+    }
   ngOnInit() {
     console.log(this.questions);
   }

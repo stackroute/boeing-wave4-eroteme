@@ -1,10 +1,9 @@
 <br>
-
 <body>
   <div id="division">
     <form>
       <div id="question">
-        <div class="form-group">
+        <div class="form-group" style="margin-top: -4%;">
           <br>
           <br>
           <label for="exampleInputEmail1">Question:</label>
@@ -13,13 +12,24 @@
         </div>
       </div>
     </form>
-    <div style="font-size: large;text-align: center;margin-top: 5%;"><strong><u>Click on the topics to which the
+    <div id="topics"><strong><u>Click on the topics to which the
       question belongs:</u></strong></div>
     <div class="badges">
-      <ul *ngFor="let val of topiclist" style="list-style-type: none;display: inline-block;padding: 0px;cursor: pointer;margin-top: 2%;">
+      <ul *ngFor="let val of topiclist" style="list-style-type: none;display: inline-block;padding: 4px;cursor: pointer;margin-top: 1%; ">
+        <li>
+          <div class="chip">
+           <img src="../../assets/images/angular.png" alt="Person" width="96" height="96">
+           <span class="closebtn" onclick="this.parentElement.style.display='none'" (click)=addTopic(val.topic) id="smaller">{{val.topic}}  </span>
+         </div>
+      </li>
+        </ul>
+    </div>
+    <div id="topics2"><strong><u>You have selected following topics:</u></strong></div>
+    <div class="badges">
+      <ul *ngFor="let value of toSendList" style="list-style-type: none;display: inline-block;padding: 4px;cursor: pointer;margin-top: 1%;">
         <li><div class="chip">
           <img src="../../assets/images/angular.png" alt="Person" width="96" height="96">
-          <span class="closebtn" onclick="this.parentElement.style.display='none'" (click)=addTopic(val.topic) id="smaller">{{val.topic}}  &times;</span>
+          <span class="closebtn" onclick="this.parentElement.style.display='none'" (click)=delTopic(value) id="smaller">{{value}}  &times;</span>
         </div>
       </li>
         </ul>
@@ -36,7 +46,7 @@
     </div>
     <br>
     <br>
-    <button type="button" id="butt" class="btn btn-dark btn-lg" (click)="postQuestion()">Post your Question!</button>
+    <button type="button" id="butt" class="btn btn-light btn-lg" (click)="postQuestion()">Post your Question!</button>
   </div>
   <br>
   <br>

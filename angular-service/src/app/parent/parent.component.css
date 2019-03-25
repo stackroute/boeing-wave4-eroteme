@@ -1,3 +1,9 @@
+body{
+    background-image: url('../../assets/images/bulb.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
 #mydiv{
     display: inline-flex;
     padding-left:3px;

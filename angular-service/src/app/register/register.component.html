@@ -44,12 +44,11 @@
     </form>
      </mat-card-content>
     </mat-card> -->
-
-
-<div class="height1">
+<body>
+    <div class="height1" style="background-color: white;">
       <br>
-         <p class="RegHeader">Registration</p>
-</div>
+         <p style="background-color: white;text-align: center;">Registration</p>
+       </div>
           <mat-horizontal-stepper linear #stepper class="height" >
 
 
@@ -68,7 +67,8 @@
                            <input matInput placeholder="Last Name" formControlName="LastName" required>
                          </mat-form-field>
                         <div>
-                          <button mat-button matStepperNext class="btn btn-primary">Next</button>
+                          <button mat-button matStepperNext  class="btn">Next</button>
+                          <!-- <button mat-button matStepperNext  class="btn1" routerLink="/register">Cancel</button> -->
 
                         </div>
                       </form>
@@ -85,8 +85,7 @@
                  </mat-form-field>
                  <br>
                  <mat-form-field>
-                   <input type="password" matInput placeholder="Password(Min length 8)" formControlName="password"
-                          minlength="8">
+                    <input type="password" matInput placeholder="Password(Min lenght 8)" formControlName="password" minlength="8">
                   </mat-form-field>
                   <br>
                 
@@ -121,7 +120,10 @@
                  <mat-step  >
                       <ng-template matStepLabel>Final Step</ng-template>
                       <div class="form1">
-                      </div>
+                       
+                         <br>
+                      Click Register to complete the registration!! 
+                   </div>
                        
                          <br>
                          <br>
@@ -132,7 +134,8 @@
                       <br>
                    
                       <div>
-                        <button mat-raised-button (click)="register()" color="primary" class="reg">SIGN ME UP</button>
+                        <button mat-raised-button  (click)="register()" color="primary" class="reg">Register</button>
                       </div>
                     </mat-step> 
               </mat-horizontal-stepper>
+              </body>

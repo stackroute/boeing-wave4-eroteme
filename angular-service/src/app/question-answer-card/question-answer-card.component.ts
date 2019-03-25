@@ -28,6 +28,8 @@ export class QuestionAnswerCardComponent implements OnInit {
   commentAnswer1:string;
   replyanswercomment:string;
 
+  commentanswerbool:boolean;
+  postanswerbool:boolean;
 
 
   constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient,private dialog:MatDialog) {
@@ -36,11 +38,17 @@ export class QuestionAnswerCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.postanswerbool=false;
+    this.commentanswerbool=false;
     console.log(this.trans.value);
     this.present = this.trans.value;
     console.log("assigned"+this.present);
     //console.log(JSON.stringify(this.present));
     this.vote = this.present.upvotes - this.present.downvotes;
+
+
+
+    
   }
 
   toggle(answer) {
@@ -88,8 +96,9 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
+      this.present.vote=(this.present.vote)+1;
       console.log("testing"+this.present.questionId); 
-      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{},{
+      this.http.put("http://localhost:8092/question-answer-service/api/v1/question/upvote/" + this.present.questionId,{},{
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'my-auth-token'
@@ -119,7 +128,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     else {
       console.log('question upvote');
       console.log("testing"+this.present.questionId); 
-      this.http.put("http://localhost:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
+      this.http.put("http://localhost:8092/question-answer-service/api/v1/question/downvote/"+ this.present.questionId,{},{
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'my-auth-token'
@@ -147,7 +156,7 @@ export class QuestionAnswerCardComponent implements OnInit {
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
+      this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
@@ -186,7 +195,7 @@ replyQuestionComment(presentcomment:string) {
   }
   else {
     console.log('reply to comment of question');
-      this.http.put("http://localhost:8090/api/v1/question/comment/reply/" + this.present.questionId,
+      this.http.put("http://localhost:8092/question-answer-service/api/v1/question/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -229,7 +238,7 @@ upvoteAnswer(ans1) {
   }
   else {
     console.log('answer upvote');
-    this.http.put("http://localhost:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -243,7 +252,7 @@ downvoteAnswer() {
   }
   else {
     console.log('downvote answer');
-    this.http.put("http://localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
+    this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
@@ -254,8 +263,10 @@ commentAnswer(ans) {
     this.dialog.open(LoginpopupComponent);
   }
   else {
-    console.log('comment on answer');
-      this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
+    if(this.commentanswerbool==false)
+    {
+      this.commentanswerbool=true;
+         this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -271,7 +282,8 @@ commentAnswer(ans) {
         "replies": null
       }
   ]
-},
+}
+    ,
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -288,7 +300,13 @@ commentAnswer(ans) {
             console.log("Error", error);
 
           })
+    }
+    else{
+      this.commentanswerbool=false;
+    console.log('comment on answer');
   }
+}
+
 }
 
 replyAnswerComment(ans,comm) {
@@ -299,7 +317,7 @@ replyAnswerComment(ans,comm) {
   }
   else {
     console.log('reply to comment of answer');
-    this.http.put("http://localhost:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/comment/reply/" + this.present.questionId,
     {
       "answer": ans,
       "comments": [
@@ -339,6 +357,27 @@ replyAnswerComment(ans,comm) {
   }
 }
 
+
+postanswer1(){
+  if (this.app.checkLoggedIn == null) {
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
+  }
+  else{
+    if(this.postanswerbool==false)
+    {
+      this.postanswerbool=true;
+    }
+    else{
+      this.postanswerbool=false;
+    }
+
+  }
+
+}
+
 postanswer() {
   if (this.app.checkLoggedIn == null) {
     // alert("You need to login first");
@@ -349,7 +388,7 @@ postanswer() {
   else {
     console.log(this.answer);
     console.log('post answer for the question');
-    this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
+    this.http.put("http://localhost:8092/question-answer-service/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
         "accepted": "false",
@@ -379,6 +418,7 @@ postanswer() {
           console.log("Error", error);
 
         })
+      
   }
 }
 }
