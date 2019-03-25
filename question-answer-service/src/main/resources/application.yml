@@ -39,3 +39,9 @@ jsf:
     queue: jsf.queue1
     exchange: jsf.direct1
     routingkey: jsf.routingkey1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

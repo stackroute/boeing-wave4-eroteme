@@ -32,3 +32,9 @@ jsi:
     queue: jsi.queuereg
     exchange: jsi.directreg
     routingkey: jsi.routingkeyreg
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+            expose: '*'
