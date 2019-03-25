@@ -53,6 +53,7 @@ export class HomesectionComponent implements OnInit {
   myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
   }
+  
   navigateToPost(){
     this.router.navigate(['/postQuestion']);
   }

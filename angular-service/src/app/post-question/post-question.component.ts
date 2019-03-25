@@ -24,14 +24,19 @@ export class PostQuestionComponent implements OnInit {
 
   description: string;
 
-  topiclist = [{ "topic": "Components" },
-  { "topic": "Component interaction" },
+  topiclist = [{ "topic": "Fundamentals and Architecture" },
+  { "topic": "Typescript" },
+  { "topic": "Testing"},
+  { "topic": "Server Side Communication"},
+  { "topic": "Forms"},
+  { "topic": "Navigation"},
   { "topic": "Pipes" },
-  { "topic": "Services" },
-  { "topic": "Directives" },
-  { "topic": "Routing" },
-  { "topic": "Dependency Injection" },
-  { "topic": "Modules" }]
+  { "topic": "Data Binding"},
+  { "topic": "Getting Started"}]
+  selectedList=[];
+  index;
+  index1;
+  str;
 
   constructor(private router :Router, private app: AppComponent, private http: HttpClient,private dialog:MatDialog,private trans:TransferServiceService) { }
 
@@ -84,7 +89,19 @@ export class PostQuestionComponent implements OnInit {
     }
 }
 
-  addTopic(toadd) {
-    this.toSendList.push(toadd);
-  }
+addTopic(toadd) {
+  this.toSendList.push(toadd);
+  this.index1=this.topiclist.indexOf(toadd);
+  this.topiclist.splice(this.index,0);
+  console.log(this.toSendList);
+  
+}
+delTopic(topic){
+  this.index=this.toSendList.indexOf(topic);
+  this.toSendList.splice(this.index,1);
+  console.log(this.toSendList); 
+  this.str={"topic":topic};
+  this.topiclist.push(this.str);
+  
+}
 }

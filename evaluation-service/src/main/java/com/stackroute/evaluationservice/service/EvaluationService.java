@@ -1,6 +1,5 @@
 package com.stackroute.evaluationservice.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.stackroute.evaluationservice.domain.Question;
 import com.stackroute.evaluationservice.domain.QuestionDTO;
 import com.stackroute.evaluationservice.domain.UserNode;
@@ -8,17 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static java.util.concurrent.CompletableFuture.completedFuture;
 
@@ -30,6 +29,8 @@ public class EvaluationService {
     private String questionAndAnswerUrl;
     @Value("${recommendNotifyUrl}")
     private String recommendNotifyUrl;
+    @Value("${webcrawlerurl}")
+    private String webcrawlerurl;
 
     @Autowired
     public EvaluationService(RestTemplate restTemplate) {
@@ -39,41 +40,56 @@ public class EvaluationService {
     @Async
     public CompletableFuture<Question> searchInDb(String question) {
         try {
-            log.info("Searching in Q&A database");
-            return completedFuture(restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class));
+            Question questionFromDb = restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class);
+            log.info("Question from Q&A db is {}", questionFromDb);
+            return completedFuture(questionFromDb);
         } catch (Exception e) {
             e.printStackTrace();
             return completedFuture(new Question());
         }
     }
 
-    //TODO After AAS is ready
     @Async
-    @HystrixCommand(fallbackMethod = "searchInWebDefault")
-    public CompletableFuture<List<Question>> searchInWeb(String question) {
-        log.info("Searching in web");
-        List<Question> questions = new ArrayList<>();
-        questions.add(new Question());
+//    @HystrixCommand(fallbackMethod = "searchInWebDefault")
+    public CompletableFuture<List<Question>> searchInWeb() {
+        List<Question> questions;
+        try {
+            restTemplate.getForObject("http://localhost:8094/rest/question/data", String.class);
+            questions = restTemplate.exchange(webcrawlerurl, HttpMethod.GET, null, new ParameterizedTypeReference<List<List<Question>>>() {
+            }).getBody().stream().flatMap(Collection::stream).collect(Collectors.toList());
+            log.info("Results from web are : {}", questions);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            questions = new ArrayList<>();
+        }
+
         return completedFuture(questions);
     }
 
-    public List<Question> searchInWebDefault(String question) {
+    public List<Question> searchInWebDefault() {
         log.info("Web crawler has crashed!");
         return new ArrayList<>();
     }
 
-    @Async
-    @HystrixCommand(fallbackMethod = "notifyDefault")
-    public CompletableFuture<List<UserNode>> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
+    public List<UserNode> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
         try {
             log.info("Getting eligible users for notification");
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            return completedFuture(restTemplate.exchange(recommendNotifyUrl.concat("?question=").concat(questionDTO.getQuestion()).concat("&action=").concat(questionDTO.getAction().name()), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
-            }).getBody());
+            try {
+
+                restTemplate.postForEntity(questionAndAnswerUrl.concat("question"), new ResponseEntity<>(questionDTO, HttpStatus.OK), Question.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Thread.sleep(5000);
+            List<UserNode> userNodes = restTemplate.exchange(recommendNotifyUrl.concat("?question=").concat(questionDTO.getQuestion()).concat("&action=").concat(questionDTO.getAction().name()), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
+            }).getBody();
+            return userNodes;
         } catch (Exception e) {
             e.printStackTrace();
-            return completedFuture(Collections.emptyList());
+            return Collections.emptyList();
         }
     }
 
