@@ -36,8 +36,8 @@ public class AASController {
         ResponseEntity responseEntity;
         try {
             List<com.stackroute.StackOverflowAdaptor.domain.Items> itemsList = apiservice.getData();
-            System.out.println("List of Items" + itemsList);
-            System.out.println("Itemlist size" + itemsList.size());
+            log.info("List of Items" + itemsList);
+            log.info("Itemlist size" + itemsList.size());
             List<Question> questions = new ArrayList<>();
             //Mapping of data obtained from StackExchange to Question and Answer service model
             for (int i = 0; i < itemsList.size(); i++) {
@@ -57,7 +57,7 @@ public class AASController {
                 question.setAnswer(answers);
                 questions.add(question);
             }
-            System.out.println("Mapped data from StackExchange" + questions);
+            log.info("Mapped data from StackExchange" + questions);
             aasRepo.save(questions);
             responseEntity = new ResponseEntity<>("successfully saved", HttpStatus.OK);
         } catch (Exception ex) {
