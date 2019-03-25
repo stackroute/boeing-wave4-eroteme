@@ -51,7 +51,7 @@ public class EvaluationController {
         try {
             String questionString = questionDTO.getQuestion();
             CompletableFuture<Question> questionCompletableFuture = evaluationService.searchInDb(questionString);
-            CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb(questionString);
+            CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb();
             CompletableFuture<List<UserNode>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionDTO);
             CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture, userListCompletableFuture);
 

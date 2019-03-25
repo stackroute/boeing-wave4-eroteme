@@ -18,7 +18,7 @@ spring:
   application:
     name: recommendation-query-service
 
-questionAndAnswerUrl: http://localhost:8090/api/v1/
+questionAndAnswerUrl: http://localhost:8092/question-answer-service/api/v1/
 
 jsf:
   rabbitmq:

@@ -30,6 +30,8 @@ public class EvaluationService {
     private String questionAndAnswerUrl;
     @Value("${recommendNotifyUrl}")
     private String recommendNotifyUrl;
+    @Value("${webcrawlerurl}")
+    private String webcrawlerurl;
 
     @Autowired
     public EvaluationService(RestTemplate restTemplate) {
@@ -39,8 +41,9 @@ public class EvaluationService {
     @Async
     public CompletableFuture<Question> searchInDb(String question) {
         try {
-            log.info("Searching in Q&A database");
-            return completedFuture(restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class));
+            Question questionFromDb = restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class);
+            log.info("Question from Q&A db is {}", questionFromDb);
+            return completedFuture(questionFromDb);
         } catch (Exception e) {
             e.printStackTrace();
             return completedFuture(new Question());
@@ -50,14 +53,15 @@ public class EvaluationService {
     //TODO After AAS is ready
     @Async
     @HystrixCommand(fallbackMethod = "searchInWebDefault")
-    public CompletableFuture<List<Question>> searchInWeb(String question) {
-        log.info("Searching in web");
-        List<Question> questions = new ArrayList<>();
-        questions.add(new Question());
+    public CompletableFuture<List<Question>> searchInWeb() {
+        List<Question> questions = restTemplate.exchange(webcrawlerurl, HttpMethod.GET, null, new ParameterizedTypeReference<List<Question>>() {
+        }).getBody();
+        log.info("Results from web are : {}", questions);
+
         return completedFuture(questions);
     }
 
-    public List<Question> searchInWebDefault(String question) {
+    public List<Question> searchInWebDefault() {
         log.info("Web crawler has crashed!");
         return new ArrayList<>();
     }
