@@ -364,13 +364,13 @@ services:
   automatic-answer-search-service:
     build: ./automatic-answer-search-service/
     image: automatic-answer-search-service
-    container_name: automatic-answer-search-docker
+    container_name: automatic-answer-search_docker
     restart: always
     network_mode: host
     hostname: localhost
-    depends_on:
-      redis:
-        condition: service_healthy
+    #    depends_on:
+    #      redis:
+    #        condition: service_healthy
     ports:
       - 8094:8094
     expose:

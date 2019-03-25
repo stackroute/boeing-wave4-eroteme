@@ -23,11 +23,11 @@ public class AASRepoImpl implements AASRepo {
 
     @Override
     public void save(List<Question> question) {
-        hashOperations.put("SALT", question, question);
+        hashOperations.put("FOOD", question, question);
     }
 
     @Override
     public List<Question> findAll() {
-        return hashOperations.values("SALT");
+        return hashOperations.values("FOOD");
     }
 }
