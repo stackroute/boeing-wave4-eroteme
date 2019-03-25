@@ -16,8 +16,8 @@ import java.util.List;
 @Document
 public class Answer implements Serializable {
     //private member variables for Answer class
-    User user;
-    List<Comment> comments;
+    private User user;
+    private List<Comment> comments;
     private String answer;
     private boolean accepted;
     private int upvotes;

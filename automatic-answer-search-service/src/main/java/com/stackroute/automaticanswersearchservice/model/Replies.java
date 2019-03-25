@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Document
 public class Replies implements Serializable {
     //private member variables for replies class
-    User user;
+    private User user;
     private String reply;
     private long likes;
     private long timestamp;

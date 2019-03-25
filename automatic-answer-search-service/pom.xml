@@ -7,7 +7,6 @@
         <artifactId>boeing-wave4-eroteme</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <!--<groupId>com.stackroute</groupId>-->
     <artifactId>AutomaticAnswerSearchService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>AutomaticAnswerSearchService</name>
