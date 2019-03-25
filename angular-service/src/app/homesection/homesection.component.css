@@ -14,7 +14,7 @@ div.sticky {
   right: 2%;
   padding-bottom: 45px;
   /* border: 1.2px solid black */
-}
+} 
 
 .div.sticky:hover{
   background-color: black;
@@ -82,7 +82,7 @@ div.sticky {
       opacity: 1;
     }
   }
-
+  
 .text-pop-up-top {
     height: 145px;
     font-size: 50px;
@@ -142,7 +142,7 @@ div.sticky {
       text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 6px 0 #cccccc, 0 7px 0 #cccccc, 0 8px 0 #cccccc, 0 9px 0 #cccccc, 0 50px 30px rgba(0, 0, 0, 0.3);
     }
   }
-
+  
 .text-shadow-pop-right {
     padding: -1px;
     background-color: whitesmoke;
@@ -193,7 +193,7 @@ div.sticky {
               transform: translateX(-8px);
     }
   }
-
+    
 
 .tracking-in-expand-fwd {
     color: white;  margin-left: 33%;
@@ -246,7 +246,7 @@ div.sticky {
       opacity: 1;
     }
   }
-
+  
 
 .tracking-in-expand1 {
     color: white;  margin-left: 33%;
@@ -291,7 +291,7 @@ div.sticky {
       opacity: 1;
     }
   }
-
+  
 
 .tracking-in-expand {
     color: white;
@@ -336,7 +336,7 @@ div.sticky {
       opacity: 1;
     }
   }
-
+  
 
 .tracking-in-expand-fwd-bottom {
     color: white;  margin-left: 33%;
@@ -388,7 +388,7 @@ div.sticky {
       opacity: 1;
     }
   }
-
+  
 
 .kenburns-top {
     margin-top: 0.5%;
@@ -546,23 +546,6 @@ h1.cent1:hover {
     box-align: center;
 }
 
-#plusicon{
-    float: left;
-    position: relative;
-    left: -5px;
-}
-#postbutton{
-    background-color: white;
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
-    box-shadow: 0 0px 10px 0 rgba(0.5,0.5,0.5,0.2 );
-
-}
-
 
 
 
@@ -571,14 +554,15 @@ form{
     color: white;
 }
 
-body{
+/* body{
     max-width: 100%;
-     background: url('../../assets/images/back3.jpg'); 
+     background: url('../../assets/images/bulb.jpeg'); 
     background-attachment: fixed;
     background-size: cover;
     max-height: 100%;
     overflow: none;
-}
+} */
+
 button:hover{
     color: white;
 }
