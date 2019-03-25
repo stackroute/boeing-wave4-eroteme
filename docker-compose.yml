@@ -342,7 +342,6 @@ services:
       - 8099
     healthcheck:
       test: "exit 0"
-
   my-profile-service:
     image: my-profile-service
     build: ./my-profile-service/
@@ -359,6 +358,20 @@ services:
       - 8091:8091
     expose:
       - 8091
+    healthcheck:
+      test: "exit 0"
+
+  automatic-answer-search-service:
+    build: ./automatic-answer-search-service/
+    image: automatic-answer-search-service
+    container_name: automatic-answer-search-docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 8094:8094
+    expose:
+      - 8094
     healthcheck:
       test: "exit 0"
 
