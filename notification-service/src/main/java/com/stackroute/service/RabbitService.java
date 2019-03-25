@@ -37,14 +37,14 @@ public class RabbitService {
             try {
                 Notifications note = notificationRepository.findById(msg.getUser().getEmail());
                 notify = note.getNotification();
-                notify.add("Your question:" + msg.getQuestion() + "has been answered!");
+                notify.add("Your question:" + '"' + msg.getQuestion() + '"' + "has been answered!");
                 note.setNotification(notify);
                 notificationRepository.update(note);
                 notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e) {
-                notify.add("Your question:" + msg.getQuestion() + "has been answered!");
+                notify.add("Your question:" + '"' + msg.getQuestion() + '"' + "has been answered!");
                 notification.setEmail(msg.getUser().getEmail());
                 notification.setNotification(notify);
                 log.info("saving" + notification);
@@ -61,14 +61,14 @@ public class RabbitService {
             try {
                 Notifications note = notificationRepository.findById(msg.getAnswer().get(0).getUser().getEmail());
                 notify = note.getNotification();
-                notify.add("Your Answer to the  question:" + msg.getQuestion() + "has been accepted!");
+                notify.add("Your Answer to the  question:" + '"' + msg.getQuestion() + '"' + "has been accepted!");
                 note.setNotification(notify);
                 notificationRepository.update(note);
                 notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e){
-                notify.add("Your Answer to the  question:" + msg.getQuestion() + "has been accepted!");
+                notify.add("Your Answer to the  question:" + '"' + msg.getQuestion() + '"' + "has been accepted!");
                 notification.setEmail(msg.getAnswer().get(0).getUser().getEmail());
                 notification.setNotification(notify);
                 notificationRepository.save(notification);
@@ -88,14 +88,14 @@ public class RabbitService {
             try {
                 Notifications note = notificationRepository.findById(emailList.get(i));
                 notify = note.getNotification();
-                notify.add("Can you answer this:" + msg.getQuestion());
+                notify.add("Can you answer this:" + '"' + msg.getQuestion() + '"');
                 note.setNotification(notify);
                 notificationRepository.update(note);
                 notify.clear();
                 log.info("notification updated");
             }
             catch(Exception e){
-                notify.add("Can you answer this:" + msg.getQuestion());
+                notify.add("Can you answer this:" + '"' + msg.getQuestion() + '"');
                 notification.setEmail(emailList.get(i));
                 notification.setNotification(notify);
                 notificationRepository.save(notification);

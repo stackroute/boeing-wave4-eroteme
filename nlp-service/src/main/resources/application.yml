@@ -18,3 +18,9 @@ eureka:
 spring:
   application:
     name: nlp-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

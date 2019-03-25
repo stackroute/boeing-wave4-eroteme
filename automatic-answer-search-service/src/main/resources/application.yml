@@ -8,3 +8,9 @@ spring:
   redis:
     port: 6379
     host: localhost
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'
