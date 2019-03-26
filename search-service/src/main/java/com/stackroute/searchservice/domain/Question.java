@@ -19,8 +19,10 @@ public class Question {
     private String description;
     private int upvotes;
     private long timestamp;
-    private int downvote;
-    private List<Answer> answers;
-    private List<Comments> comments;
+    private int downvotes;
+    private List<Answer> answer;
+    private List<Comments> comment;
+
+
     private User user;
 }

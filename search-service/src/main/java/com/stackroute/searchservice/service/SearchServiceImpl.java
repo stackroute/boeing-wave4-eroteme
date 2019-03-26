@@ -67,18 +67,16 @@ public class SearchServiceImpl implements SearchService {
         List<Question> resultList = new ArrayList<>();
 
 
-//        System.out.println("question found... "+foundQuestion.get(1).getQuestions().get(i).getQuestion());
         for(int i=0;i<foundQuestion.get(0).getQuestions().size();i++) {
             log.info("question found... "+foundQuestion.get(0).getQuestions().get(i).getQuestion());
 
-//            System.out.println("size of question found.. "+foundQuestion.size());
 
             log.info("user input "+question);
             int distFromLevenshtein = getLevenshteinDistance(foundQuestion.get(0).getQuestions().get(i).getQuestion(), question);
-//
+
 
             log.info("distance param   "+distFromLevenshtein);
-//
+
 //            //getting size of question in db and from user
 
             int lengthOne = foundQuestion.get(0).getQuestions().get(i).getQuestion().length();
@@ -146,23 +144,23 @@ public class SearchServiceImpl implements SearchService {
             question.setQuestionId(questionDTO.getQuestionId());
 
             question.setTimestamp(questionDTO.getTimestamp());
-            question.setDownvote(questionDTO.getDownvotes());
+            question.setDownvotes(questionDTO.getDownvotes());
             List<Comment> commentList = questionDTO.getComment();
             List<Comments> commentsList = new ArrayList<>();
             if (commentList != null) {
                 for (Comment comment : commentList) {
                     List<Replies> replies = new ArrayList<>();
                     for (com.stackroute.searchservice.model.Replies reply : comment.getReplies()) {
-                        User user = new User(reply.getUser().getEmailaddress(), reply.getUser().getFirstname(), reply.getUser().getImageurl());
+                        User user = new User(reply.getUser().getEmail(), reply.getUser().getFirstName(), reply.getUser().getImageUrl());
                         Replies replies1 = new Replies(reply.getReply(), reply.getLikes(), reply.getTimestamp(), user);
                         replies.add(replies1);
                     }
-                    User user = new User(questionDTO.getUser().getEmailaddress(), questionDTO.getUser().getFirstname(), questionDTO.getUser().getImageurl());
+                    User user = new User(questionDTO.getUser().getEmail(), questionDTO.getUser().getFirstName(), questionDTO.getUser().getImageUrl());
                     Comments comments = new Comments(comment.getComment(), comment.getTimestamp(), comment.getLikes(), replies, user);
                     commentsList.add(comments);
                 }
             }
-            question.setComments(commentsList);
+            question.setComment(commentsList);
             List<Answer> answerList = new ArrayList<>();
             if (questionDTO.getAnswer() != null) {
                 for (com.stackroute.searchservice.model.Answer answer : questionDTO.getAnswer()) {
@@ -172,22 +170,22 @@ public class SearchServiceImpl implements SearchService {
                         for (Comment comment : commentList) {
                             List<Replies> replies = new ArrayList<>();
                             for (com.stackroute.searchservice.model.Replies reply : comment.getReplies()) {
-                                User user = new User(reply.getUser().getEmailaddress(), reply.getUser().getFirstname(), reply.getUser().getImageurl());
+                                User user = new User(reply.getUser().getEmail(), reply.getUser().getFirstName(), reply.getUser().getImageUrl());
                                 Replies replies1 = new Replies(reply.getReply(), reply.getLikes(), reply.getTimestamp(), user);
                                 replies.add(replies1);
                             }
-                            User user = new User(questionDTO.getUser().getEmailaddress(), questionDTO.getUser().getFirstname(), questionDTO.getUser().getImageurl());
+                            User user = new User(questionDTO.getUser().getEmail(), questionDTO.getUser().getFirstName(), questionDTO.getUser().getImageUrl());
                             Comments comments = new Comments(comment.getComment(), comment.getTimestamp(), comment.getLikes(), replies, user);
                             answerCommentsList.add(comments);
                         }
                     }
-                    User userAnswer = new User(answer.getUser().getEmailaddress(), answer.getUser().getFirstname(), answer.getUser().getImageurl());
-                    Answer answerDomain = new Answer(answer.getAnswer(), answer.isAccepted(), answerCommentsList, answer.getUpvotes(), answer.getViews(), answer.getTimestamp(), userAnswer);
+                    User userAnswer = new User(answer.getUser().getEmail(), answer.getUser().getFirstName(), answer.getUser().getImageUrl());
+                    Answer answerDomain = new Answer(answer.getAnswer(), answer.isAccepted(), answerCommentsList, answer.getUpvotes(),answer.getDownvotes(),answer.getViews(), answer.getTimestamp(), userAnswer);
                     answerList.add(answerDomain);
                 }
             }
-            question.setAnswers(answerList);
-            User user = new User(questionDTO.getUser().getEmailaddress(), questionDTO.getUser().getFirstname(), questionDTO.getUser().getImageurl());
+            question.setAnswer(answerList);
+            User user = new User(questionDTO.getUser().getEmail(), questionDTO.getUser().getFirstName(), questionDTO.getUser().getImageUrl());
             question.setUser(user);
             Question ques = new Question();
             int flag = 0;
@@ -202,10 +200,10 @@ public class SearchServiceImpl implements SearchService {
                     log.info("I am in IF");
                     log.info("print true here");
                     topicDoc.getQuestions().get(i).setQuestionId(question.getQuestionId());
-                    topicDoc.getQuestions().get(i).setDownvote(question.getDownvote());
+                    topicDoc.getQuestions().get(i).setDownvotes(question.getDownvotes());
                     topicDoc.getQuestions().get(i).setTimestamp(question.getTimestamp());
-                    topicDoc.getQuestions().get(i).setComments(question.getComments());
-                    topicDoc.getQuestions().get(i).setAnswers(question.getAnswers());
+                    topicDoc.getQuestions().get(i).setComment(question.getComment());
+                    topicDoc.getQuestions().get(i).setAnswer(question.getAnswer());
                     topicDoc.getQuestions().get(i).setUpvotes(question.getUpvotes());
                     topicDoc.getQuestions().get(i).setDescription(question.getDescription());
                     topicDoc.getQuestions().get(i).setQuestion(question.getQuestion());
@@ -221,10 +219,10 @@ public class SearchServiceImpl implements SearchService {
             if (flag != 1) {
                 log.info("in else");
                 ques.setQuestionId((question.getQuestionId()));
-                ques.setDownvote(question.getDownvote());
+                ques.setDownvotes(question.getDownvotes());
                 ques.setTimestamp(question.getTimestamp());
-                ques.setComments(question.getComments());
-                ques.setAnswers(question.getAnswers());
+                ques.setComment(question.getComment());
+                ques.setAnswer(question.getAnswer());
                 ques.setUpvotes(question.getUpvotes());
                 ques.setDescription(question.getDescription());
                 ques.setQuestion(question.getQuestion());
