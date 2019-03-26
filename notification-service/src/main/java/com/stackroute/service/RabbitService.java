@@ -1,36 +1,38 @@
 package com.stackroute.service;
 
-import com.stackroute.domain.NotificationDTO;
+import com.stackroute.DTO.NotificationDTO;
 import com.stackroute.domain.Notifications;
-import com.stackroute.domain.QuestionDTO;
+import com.stackroute.DTO.QuestionDTO;
 import com.stackroute.repository.NotificationRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Slf4j
-public class RabbitService {
-    @Autowired
-    private SimpMessagingTemplate template;
-    @Autowired
-    NotificationRepository notificationRepository;
+public class RabbitService implements RabbitServiceInterface{
 
-    Notifications notification=new Notifications();
-    List<String> emailList=new ArrayList<>();
-    List<String> notify=new ArrayList<>();
+    private SimpMessagingTemplate template;
+    private NotificationRepository notificationRepository;
+    private Notifications notification=new Notifications();
+    private List<String> emailList=new ArrayList<>();
+    private List<String> notify=new ArrayList<>();
+
+    @Autowired
+    public RabbitService(SimpMessagingTemplate template, NotificationRepository notificationRepository) {
+        this.template = template;
+        this.notificationRepository = notificationRepository;
+    }
 
     //Rabbit Listener listening to Question and answer service
     @RabbitListener(queues = "${jsd.rabbitmq.queue}")
     public void receivedMessage(QuestionDTO msg) {
-
         log.info("received"+msg);
-
+// saves the notification when an answer is posted
         if(msg.getAction()==Actions.QUESTION_ANSWER){
             String send="Your question:" +'"'+ msg.getQuestion()+'"' + "has been answered!";
             template.convertAndSend("/queue/" +msg.getUser().getEmail(),send);
@@ -53,7 +55,7 @@ public class RabbitService {
                 log.info("notification saved");
             }
         }
-
+//saves the notification when an answer is accepted
         if(msg.getAction()==Actions.ANSWER_ACCEPT){
             log.info("received"+msg);
             String send="Your Answer to the  question:" + '"'+msg.getQuestion()+'"' + "has been accepted!";
@@ -83,6 +85,7 @@ public class RabbitService {
     public void receivedMessage1(NotificationDTO msg) {
         log.info("received"+msg);
         emailList=msg.getEmails();
+//saves the notification when the question is posted
         for(int i=0;i<emailList.size();i++){
             template.convertAndSend("/queue/" +emailList.get(i),"Can you answer this:" +'"'+ msg.getQuestion()+'"');
             try {
@@ -104,5 +107,4 @@ public class RabbitService {
             }
         }
     }
-
 }

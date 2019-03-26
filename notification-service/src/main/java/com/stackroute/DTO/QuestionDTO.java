@@ -1,4 +1,4 @@
-package com.stackroute.domain;
+package com.stackroute.DTO;
 
 import com.stackroute.service.Actions;
 import lombok.AllArgsConstructor;
@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+//Question DTO sent from question and answer service to notify when answer has been posted or answer has been accepted
 public class QuestionDTO {
     private Actions action;
     private int questionId;
