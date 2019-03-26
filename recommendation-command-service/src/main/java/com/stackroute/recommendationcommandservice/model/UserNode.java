@@ -14,6 +14,6 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @AllArgsConstructor
 public class UserNode {
     @Id
-    private String username;
+    private String email;
     private int reputation;
 }
