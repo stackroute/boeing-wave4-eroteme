@@ -58,6 +58,7 @@ public class RecommendationController {
         ResponseEntity<List<Question>> responseEntity;
         List<Question> questionDocuments = new ArrayList<>();
         try {
+            log.info("Fetching trending questions for registered user: {}", username);
             List<Question> trendingDocuments = recommendationService.getTrendingQuestionsForRegisteredUser(username)
                     .stream()
                     .peek(question -> log.info("Question node is {}", question))
@@ -79,6 +80,7 @@ public class RecommendationController {
     public ResponseEntity<List<Question>> getTrendingQuestionsForGuestUser() {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            log.info("Fetching trending questions for guest user");
             List<Question> questionDocuments = recommendationService.getTrendingQuestionsForGuestUser();
             responseEntity = new ResponseEntity<>(questionDocuments, HttpStatus.OK);
         } catch (Exception e) {
@@ -101,6 +103,7 @@ public class RecommendationController {
 
         if (questionDTO.getAction().name().equalsIgnoreCase(Actions.POST_QUESTION.name())) {
             try {
+                log.info("Fetching eligible users");
                 userNodes = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion())
                         .stream()
                         .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
@@ -122,6 +125,7 @@ public class RecommendationController {
     public ResponseEntity<List<Question>> getAllUnansweredQuestionsForRegisteredUser(@PathVariable String username) {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            log.info("Fetching unanswered questions for registered user {}", username);
             List<Question> unansweredQuestions = recommendationService.getAllUnansweredQuestionsForRegisteredUser(username)
                     .stream()
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestion()))
@@ -141,6 +145,7 @@ public class RecommendationController {
     public ResponseEntity<List<Question>> getAllUnansweredQuestionsForGuestUser() {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            log.info("Fetching unanswered questions for guest user");
             List<Question> question = recommendationService.getAllUnansweredQuestionsForGuestUser()
                     .stream()
                     .sorted(Comparator.comparing(Question::getTimestamp))
@@ -161,6 +166,7 @@ public class RecommendationController {
     public ResponseEntity<List<Question>> getAllAcceptedAnswersOfDomain(@RequestParam String username) {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            log.info("Fetching accepted questions for registered user {}", username);
             List<Question> acceptedAnswers = recommendationService.getAllAcceptedAnswersOfDomain(username)
                     .stream()
                     .map(question -> recommendationService.getDocumentByQuestionId(question.getQuestion()))
@@ -180,6 +186,7 @@ public class RecommendationController {
     public ResponseEntity<List<Question>> getAcceptedAnswersForGuest() {
         ResponseEntity<List<Question>> responseEntity;
         try {
+            log.info("Fetching unanswered questions for guest user");
             List<Question> question = recommendationService.getAllAcceptedAnswersForGuestUser()
                     .stream()
                     .sorted(Comparator.comparing(Question::getTimestamp))
