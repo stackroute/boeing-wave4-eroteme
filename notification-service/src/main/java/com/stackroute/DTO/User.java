@@ -1,4 +1,4 @@
-package com.stackroute.domain;
+package com.stackroute.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Replies{
-    private String reply;
-    private long likes;
-    private long timestamp;
-    User user;
+public class User{
+
+    //Variables
+    private String email;
+    private String firstName;
+    private  String imageUrl;
 }

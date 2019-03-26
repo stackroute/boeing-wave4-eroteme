@@ -36,6 +36,7 @@ public class RabbitmqConfig {
     @Value("${jst.rabbitmq.routingkey}")
     private String routingKey1;
 
+    //Redis Template for using redis database
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
@@ -48,6 +49,7 @@ public class RabbitmqConfig {
         return redisTemplate;
     }
 
+    //Queue,Exchange and binding key for question and answer service
     @Bean
     Queue queue() {
         return new Queue(queueName, false);
@@ -62,6 +64,8 @@ public class RabbitmqConfig {
     Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
+
+    //Queue,exchange and binding key for recommendation query service
     @Bean
     Queue queue1() {
         return new Queue(queueName1, false);
@@ -76,11 +80,14 @@ public class RabbitmqConfig {
     Binding binding1(Queue queue1, DirectExchange exchange1) {
         return BindingBuilder.bind(queue1).to(exchange1).with(routingKey1);
     }
+
+    //message converter used for deserialization of DTO
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
+    //RabbitTemplate being used for message transfer
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);

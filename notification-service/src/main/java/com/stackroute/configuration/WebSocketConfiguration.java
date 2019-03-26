@@ -16,6 +16,7 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
                 .setAllowedOrigins("*")
                 .withSockJS();
     }
+
 // adding destination prefix '/queue/app'
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {

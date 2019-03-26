@@ -1,5 +1,6 @@
 package com.stackroute.service;
 
+//Actions that says for what event the questionDTO is sent through rabbitmq
 public enum Actions {
     QUESTION_COMMENT,
     ANSWER_COMMENT,
@@ -16,7 +17,6 @@ public enum Actions {
     ANSWER_COMMENT_LIKE,
     ANSWER_COMMENT_REPLY_LIKE,
     ANSWER_ACCEPT;
-
 
     Actions() {
     }
