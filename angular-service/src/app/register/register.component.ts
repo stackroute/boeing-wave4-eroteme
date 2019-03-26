@@ -112,10 +112,12 @@ conf:string;
 
       },
       error => {
+
+            if(error.status==201){
                       alert("Registered Successfully!!!");
                       this.dialog.closeAll();
                       this.route.navigate(["/login"]);
-            
+            }
         console.log(error);
         this.errorMessage = error.error.message;
       }

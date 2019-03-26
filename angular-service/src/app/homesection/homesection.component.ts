@@ -4,6 +4,7 @@ import { AuthService } from './../auth/auth.service';
 import { TokenStorageService } from './../auth/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { window } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-homesection',
@@ -22,7 +23,8 @@ export class HomesectionComponent implements OnInit {
   
   public data: Array < any >= [];
 
-  constructor(private token: TokenStorageService,private authService: AuthService,private router :Router,private webSocketService:WebSocketService,private app:AppComponent) { }
+  constructor(private token: TokenStorageService,private authService: AuthService,private router :Router,private webSocketService:WebSocketService,private app:AppComponent) {
+   }
 
 
   ngOnInit() {
