@@ -7,7 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -68,16 +71,17 @@ public class EvaluationService {
     public List<UserNode> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
         try {
             log.info("Getting eligible users for notification");
+            log.info("Received QuestionDTO inside notification function {}", questionDTO);
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             try {
 
-                restTemplate.postForEntity(questionAndAnswerUrl.concat("question"), new ResponseEntity<>(questionDTO, HttpStatus.OK), Question.class);
+                restTemplate.postForEntity(questionAndAnswerUrl.concat("question"), new HttpEntity<>(questionDTO), Question.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             Thread.sleep(5000);
-            List<UserNode> userNodes = restTemplate.exchange(recommendNotifyUrl.concat("?question=").concat(questionDTO.getQuestion()).concat("&action=").concat(questionDTO.getAction().name()), HttpMethod.GET, null, new ParameterizedTypeReference<List<UserNode>>() {
+            List<UserNode> userNodes = restTemplate.exchange(recommendNotifyUrl, HttpMethod.POST, new HttpEntity<>(questionDTO), new ParameterizedTypeReference<List<UserNode>>() {
             }).getBody();
             return userNodes;
         } catch (Exception e) {

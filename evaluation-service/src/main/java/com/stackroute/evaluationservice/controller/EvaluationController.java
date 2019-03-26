@@ -47,6 +47,8 @@ public class EvaluationController {
 
     @PostMapping("result")
     public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestBody QuestionDTO questionDTO) {
+        log.info("Received QuestionDTO {}", questionDTO);
+
         ResponseEntity<List<Question>> responseEntity;
         try {
             String questionString = questionDTO.getQuestion();
@@ -69,7 +71,7 @@ public class EvaluationController {
                 List<String> eligibleUsers = userListCompletableFuture
                         .stream()
                         .peek(userNode -> log.info("User node is {}", userNode))
-                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getUsername()))
+                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
                         .map(UserNode::getUsername)
                         .collect(Collectors.toList());
                 log.info("Eligible users for notification: {}", eligibleUsers);

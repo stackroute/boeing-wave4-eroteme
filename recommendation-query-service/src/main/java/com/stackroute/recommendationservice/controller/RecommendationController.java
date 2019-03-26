@@ -2,6 +2,7 @@ package com.stackroute.recommendationservice.controller;
 
 import com.stackroute.recommendationservice.domain.Actions;
 import com.stackroute.recommendationservice.domain.Question;
+import com.stackroute.recommendationservice.domain.QuestionDTO;
 import com.stackroute.recommendationservice.domain.UserNode;
 import com.stackroute.recommendationservice.service.RecommendationService;
 import lombok.extern.slf4j.Slf4j;
@@ -88,20 +89,22 @@ public class RecommendationController {
     }
 
     /**
-     * @param question posted question
-     * @param action Action enum
+     * @param questionDTO DTO of posted question
      * @return List of users who will be notified
      */
 
-    @GetMapping("/member/notify")
+    @PostMapping("/member/notify")
     @ResponseBody
-    public List<UserNode> getAllUsersToBeNotified(@RequestParam String question, @RequestParam String action) {
+    public List<UserNode> getAllUsersToBeNotified(@RequestBody QuestionDTO questionDTO) {
 
         List<UserNode> userNodes = new ArrayList<>();
 
-        if (action.equalsIgnoreCase(Actions.POST_QUESTION.name())) {
+        if (questionDTO.getAction().name().equalsIgnoreCase(Actions.POST_QUESTION.name())) {
             try {
-                userNodes = recommendationService.getAllUsersRelatedToQuestion(question);
+                userNodes = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion())
+                        .stream()
+                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                        .collect(Collectors.toList());
                 log.info("User Nodes are {}", userNodes);
             } catch (Exception e) {
                 e.printStackTrace();
