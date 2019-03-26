@@ -50,11 +50,9 @@ public class EvaluationService {
     }
 
     @Async
-//    @HystrixCommand(fallbackMethod = "searchInWebDefault")
     public CompletableFuture<List<Question>> searchInWeb() {
         List<Question> questions;
         try {
-            restTemplate.getForObject("http://localhost:8094/rest/question/data", String.class);
             questions = restTemplate.exchange(webcrawlerurl, HttpMethod.GET, null, new ParameterizedTypeReference<List<List<Question>>>() {
             }).getBody().stream().flatMap(Collection::stream).collect(Collectors.toList());
             log.info("Results from web are : {}", questions);
@@ -65,11 +63,6 @@ public class EvaluationService {
         }
 
         return completedFuture(questions);
-    }
-
-    public List<Question> searchInWebDefault() {
-        log.info("Web crawler has crashed!");
-        return new ArrayList<>();
     }
 
     public List<UserNode> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
@@ -91,10 +84,5 @@ public class EvaluationService {
             e.printStackTrace();
             return Collections.emptyList();
         }
-    }
-
-    public List<UserNode> notifyDefault(QuestionDTO questionDTO) {
-        log.info("Notification service has crashed!");
-        return Collections.emptyList();
     }
 }

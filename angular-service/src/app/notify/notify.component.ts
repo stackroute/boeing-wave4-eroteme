@@ -23,7 +23,7 @@ export class NotifyComponent implements OnInit {
     let note=this.notification.split('\"');
     console.log(note[1]);
     console.log("making get request");
-    this.http.get("http://localhost:8092/question-answer-service/api/v1/"+note[1]).subscribe(
+    this.http.get("http://localhost:8090/api/v1/"+note[1]).subscribe(
       (data) => {
         console.log("POST Request is successful ", data);
         this.mydata=data;

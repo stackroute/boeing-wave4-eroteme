@@ -6,25 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Service
 @Slf4j
-public class Notifications {
+public class Notifications implements NotificationsInterface {
 
-    @Autowired
     private SimpMessagingTemplate template;
+    private NotificationRepository notificationRepository;
+    private com.stackroute.domain.Notifications notifications=new com.stackroute.domain.Notifications();
+    private List<String> notify=new ArrayList<String>();
+    private String note="";
 
     @Autowired
-    private NotificationRepository notificationRepository;
+    public Notifications(SimpMessagingTemplate template, NotificationRepository notificationRepository) {
+        this.template = template;
+        this.notificationRepository = notificationRepository;
+    }
 
-    com.stackroute.domain.Notifications notifications=new com.stackroute.domain.Notifications();
-    List<String> notify=new ArrayList<String>();
-    String note="";
-
+//method to generate notifications when the user is logged in
     public void generateNotifications(String email){
         //extract notification from repo for this email
         try{
@@ -35,11 +37,12 @@ public class Notifications {
             template.convertAndSend("/queue/" +notifications.getEmail(),note);
             log.info("notified "+email);
         }
+        //delete those mails once sent to the client
         notificationRepository.delete(email);
         log.info("deleted "+email);
         }
         catch(Exception e){
-            System.out.println("exception in generate notifications ");
+            System.out.println("No Notications for the user:"+email);
         }
     }
 

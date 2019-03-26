@@ -24,10 +24,11 @@ public class ScheduleService {
     @Autowired
     private APIservice apiservice;
 
-    @Scheduled(cron = "0 0 1 * * ?")
     public void scheduleservice() {
+
+        log.info("Fetching results from web");
         try {
-            List<Items> itemsList = apiservice.getData();
+            List<Items> itemsList = getDataFromWeb();
             log.info("List of Items" + itemsList);
             log.info("Itemlist size" + itemsList.size());
             List<Question> questions = new ArrayList<>();
@@ -54,5 +55,10 @@ public class ScheduleService {
         } catch (Exception ex) {
             log.info("exception:" + ex);
         }
+    }
+
+    @Scheduled(cron = "* */5 * * * *")
+    private List<Items> getDataFromWeb() {
+        return apiservice.getData();
     }
 }

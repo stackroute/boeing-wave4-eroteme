@@ -102,8 +102,10 @@ public class RecommendationController {
         if (action.equalsIgnoreCase(Actions.POST_QUESTION.name())) {
             try {
                 userNodes = recommendationService.getAllUsersRelatedToQuestion(question);
+                log.info("User Nodes are {}", userNodes);
             } catch (Exception e) {
                 e.printStackTrace();
+                userNodes = Collections.emptyList();
             }
         }
         return userNodes;
