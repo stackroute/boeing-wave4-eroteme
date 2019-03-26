@@ -52,8 +52,8 @@ export class PostQuestionComponent implements OnInit {
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-
-    this.http.post("http://localhost:8082/result",
+    console.log("this is the email "+this.app.emailid);
+    this.http.post("http://52.66.134.21:8082/result",
       {
         "question": this.ques,
         "action":"POST_QUESTION",

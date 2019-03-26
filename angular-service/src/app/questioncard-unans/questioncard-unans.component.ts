@@ -20,6 +20,7 @@ constructor(private trans:TransferServiceService) {
    }
 
   ngOnInit() {
+    console.log(this.passedQuestions);
     this.desc=(this.passedQuestions.description ? this.passedQuestions.description : '(No Description)');
     //this.assign();
   }

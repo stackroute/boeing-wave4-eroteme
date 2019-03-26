@@ -21,19 +21,22 @@ export class NotifyComponent implements OnInit {
   navigate(){
     //do your any operations
     let note=this.notification.split('\"');
-    console.log(note[1]);
+    console.log("question"+note[1]);
     console.log("making get request");
-    this.http.get("http://localhost:8090/api/v1/"+note[1]).subscribe(
+    this.http.get("http://52.66.134.21:8090/api/v1/getquestion?question="+note[1]).subscribe(
       (data) => {
         console.log("POST Request is successful ", data);
         this.mydata=data;
+        console.log("this is mydata"+this.mydata);
+        this.trans.value=this.mydata;
+        this.router.navigate(['/notifyanswercard']);
       },
       (error) => {
 
         console.log("Error", error);
         this.mydata=error;
         console.log(this.mydata.error);
-        this.router.navigate(['/questionAnswerCard']);
+        this.router.navigate(['/notifyanswercard']);
         this.trans.value=this.mydata.error;
 
       });

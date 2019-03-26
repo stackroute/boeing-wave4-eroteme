@@ -45,6 +45,7 @@ export class NotifyAnswerCardComponent implements OnInit {
     this.postanswerbool=false;
     this.commentanswerbool=false;
     this.present = this.trans.value;
+    console.log(this.present);
     this.vote = this.present.upvotes - this.present.downvote;
   }
 
@@ -96,7 +97,7 @@ export class NotifyAnswerCardComponent implements OnInit {
       console.log('question upvote');
       this.present.vote=(this.present.vote)+1;
       console.log("testing"+this.present.questionId); 
-      this.http.put("http://localhost:8090/api/v1/question/upvote/" + this.present.questionId,{},{
+      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{},{
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'my-auth-token'
@@ -126,7 +127,7 @@ export class NotifyAnswerCardComponent implements OnInit {
     else {
       console.log('question upvote');
       console.log("testing"+this.present.questionId); 
-      this.http.put("http://localhost:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
+      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': 'my-auth-token'
@@ -154,7 +155,7 @@ export class NotifyAnswerCardComponent implements OnInit {
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
@@ -193,7 +194,7 @@ replyQuestionComment(presentcomment:string) {
   }
   else {
     console.log('reply to comment of question');
-      this.http.put("http://localhost:8090/api/v1/question/comment/reply/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/reply/" + this.present.questionId,
       {
         "comment":presentcomment,
             "replies":[
@@ -236,7 +237,7 @@ upvoteAnswer(ans1) {
   }
   else {
     console.log('answer upvote');
-    this.http.put("http://localhost:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -250,7 +251,7 @@ downvoteAnswer() {
   }
   else {
     console.log('downvote answer');
-    this.http.put("http://localhost:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/downvote/"+this.present.questionId,{});
   }
 }
 
@@ -264,7 +265,7 @@ commentAnswer(ans) {
     if(this.commentanswerbool==false)
     {
       this.commentanswerbool=true;
-         this.http.put("http://localhost:8090/api/v1/question/answer/comment/" + this.present.questionId,
+         this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -315,7 +316,7 @@ replyAnswerComment(ans,comm) {
   }
   else {
     console.log('reply to comment of answer');
-    this.http.put("http://localhost:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/reply/" + this.present.questionId,
     {
       "answer": ans,
       "comments": [
@@ -386,7 +387,7 @@ postanswer() {
   else {
     console.log(this.answer);
     console.log('post answer for the question');
-    this.http.put("http://localhost:8090/api/v1/question/answer/" + this.present.questionId,
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
         "accepted": "false",
@@ -421,9 +422,18 @@ postanswer() {
 }
 
 acceptedAnswer(answertoAccept){
-  this.http.put("http://localhost:8080/api/v1/question/answer/accept"+this.present.questionId,{
+  console.log("checkbox changed");
+  this.http.put("http://52.66.134.21:8090/api/v1/question/answer/accept/"+this.present.questionId,{
     "answer": answertoAccept
-  })
-}
+  },
+  {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'my-auth-token'
+    })
+}).subscribe(data=>{
+  console.log("changed");
+})
 
+}
 }

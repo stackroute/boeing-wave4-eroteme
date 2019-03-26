@@ -32,9 +32,9 @@ export class ChildComponent implements OnInit {
     this.description=this.question.description;
     this.upvote=this.question.upvotes;
     this.downvote=this.question.downvote;
-    this.answer=this.question.answers[0].answer;
+    this.answer=this.question.answer[0].answer;
     // console.log("uu testing"+this.answer);
-    this.view=this.question.answers[0].views;
+    this.view=this.question.answer[0].views;
   }
  
   putValue(){
