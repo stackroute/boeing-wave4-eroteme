@@ -19,6 +19,7 @@ public class Answer {
     private boolean accepted;
     List<Comments> comments;
     private int upvotes;
+    private int downvotes;
     private int views;
     private long timestamp;
     private User user;

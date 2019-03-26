@@ -14,6 +14,7 @@ public class Answer {
     private String answer;
     private boolean accepted;
     private int upvotes;
+    private int downvotes;
     private int views;
     private long timestamp;
 
