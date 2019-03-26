@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit {
     //hits the controller of notification service to recieve notifications
         console.log("hit the controller")
         setTimeout( () => { /*Your Code*/
-        this.http.get("http://localhost:8010/api/v1/"+this.token.getUsername()).subscribe((data2)=>{
+        this.http.get("http://52.66.134.21:8010/api/v1/"+this.token.getUsername()).subscribe((data2)=>{
           console.log(data2);
           },error=>{
           console.log(error);
@@ -76,10 +76,10 @@ export class NavbarComponent implements OnInit {
   putSearchVal() {
     this.trans.searchValue = this.value;
     console.log("abc    "+this.value);
-    this.http.post("http://localhost:8070/api/v1/"+this.value,{});
-      //this.router.navigate(["/searchresult"]);
-      this.router.navigateByUrl('/myprofile', {skipLocationChange: true}).then(()=>
-      this.router.navigate(["/searchresult"]));
+    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value);
+      this.router.navigate(["/searchresult"]);
+      // this.router.navigateByUrl('/myprofile', {skipLocationChange: true}).then(()=>
+      // this.router.navigate(["/searchresult"]));
 
   }
 

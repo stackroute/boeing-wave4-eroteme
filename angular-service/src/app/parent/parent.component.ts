@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
+import { typeSourceSpan } from '@angular/compiler';
 
 @Component({
   selector: 'app-parent',
@@ -19,8 +20,9 @@ export class ParentComponent implements OnInit, OnChanges{
       console.log(data);
       //console.log("inside parent");
       //console.log(data[0].questions, "Data taht we r getting form the backend");
-      // console.log(data[0]["questions"]);
-      this.variable = data[0].questions;
+      console.log(typeof data);
+      //console.log("checking data"+data[0]);
+      this.variable = data;
       console.log("this is variable", this.variable);
     }) 
   }

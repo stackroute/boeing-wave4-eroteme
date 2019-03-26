@@ -366,31 +366,43 @@ body{
 #upvote{
     border-radius: 25px;
     width:120px;
-}
-
-#upvote:hover{
-color: green;
-}
-
-#upvote1{
+ }
+ 
+ #upvote:hover{
+ color: green;
+ }
+ 
+ #upvote:focus{
+    color: rgb(204, 196, 196);
+    }
+ 
+ 
+ #upvote1{
     margin-top: 4px;
     border-radius: 25px;
     width:120px;
-}
-#upvote1:hover{
+ }
+ #upvote1:hover{
     color: green;
-}
-
-
-#downvote{
+ }
+ #upvote1:focus{
+    color: rgb(204, 196, 196);
+ }
+ 
+ 
+ #downvote{
     border-radius: 25px;
     width:120px;
-}
-
-#downvote:hover{
+ }
+ 
+ #downvote:hover{
     color: red;
-   
-}
+ }
+ 
+ #downvote:focus{
+    color: rgb(204, 196, 196);
+ 
+ }
 
 #by{
     margin-left:50%;
