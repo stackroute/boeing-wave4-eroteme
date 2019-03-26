@@ -33,15 +33,8 @@ public class NlpServiceImpl implements NlpService {
 
     private static final Logger log = LoggerFactory.getLogger(NlpServiceImpl.class);
     String question;
-    String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "above", "below", "be", "what", "in", "on", "above",
-            "is", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "!", "@", "#", "$", "%", "^", "&", "*", "()", ".", "?", "-",
-            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "and", "what", "which", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's", "_",
-            "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll",
-            "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
-            "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
-            "theirs", "themselves", "who", "whom", "this", "that", "that'll", "these", "what", "why", "which",};
-
+    @Value("${stopwords}")
+String[] stopwords;
 
     ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
     @Autowired
