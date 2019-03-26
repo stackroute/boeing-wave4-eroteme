@@ -1,6 +1,7 @@
 package com.stackroute.nlp.service;
 
 import com.stackroute.nlp.domain.Nlp;
+import com.stackroute.nlp.domain.SearchData;
 import com.stackroute.nlp.exceptions.QuestionNotFoundException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -204,9 +205,11 @@ String[] stopwords;
 
     // RabbitMq message producer method
     public void produceMsg(List<String> msg) {
-        log.info("Sending message");
-        log.info("Send msg = " + msg);
-        amqpTemplate.convertAndSend(exchange, routingKey, msg);
-        log.info("Send msg = " + msg);
+//        log.info("Sending message");
+//        log.info("Send msg = " + msg);
+
+        SearchData searchData = SearchData.builder().question(question).topics(msg).build();
+        amqpTemplate.convertAndSend(exchange, routingKey, searchData);
+        log.info("Send msg = " + searchData);
     }
 }
