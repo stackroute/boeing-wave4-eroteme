@@ -45,6 +45,10 @@ public class EvaluationController {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * @param questionDTO Question DTO of the posted question
+     * @return Returns list of questions as response
+     */
     @PostMapping("result")
     public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestBody QuestionDTO questionDTO) {
         log.info("Received QuestionDTO {}", questionDTO);
@@ -87,7 +91,7 @@ public class EvaluationController {
             responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
         return responseEntity;
     }

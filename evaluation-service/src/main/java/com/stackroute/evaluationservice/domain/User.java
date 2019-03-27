@@ -2,6 +2,7 @@ package com.stackroute.evaluationservice.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User implements Serializable {
     @Id
     private String email;

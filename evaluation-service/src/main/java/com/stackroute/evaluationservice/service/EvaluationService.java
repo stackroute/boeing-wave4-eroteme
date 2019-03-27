@@ -40,6 +40,10 @@ public class EvaluationService {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * @param question Question to be searched in db
+     * @return Returns a future object of Question
+     */
     @Async
     public CompletableFuture<Question> searchInDb(String question) {
         try {
@@ -52,6 +56,10 @@ public class EvaluationService {
         }
     }
 
+    /**
+     *
+     * @return Returns list of questions obtained from web
+     */
     @Async
     public CompletableFuture<List<Question>> searchInWeb() {
         List<Question> questions;
@@ -68,6 +76,11 @@ public class EvaluationService {
         return completedFuture(questions);
     }
 
+    /**
+     *
+     * @param questionDTO Question DTO of the posted question
+     * @return returns list of usernodes
+     */
     public List<UserNode> notifyUsersForTheQuestion(QuestionDTO questionDTO) {
         try {
             log.info("Getting eligible users for notification");
