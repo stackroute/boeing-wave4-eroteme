@@ -106,7 +106,7 @@ public class RecommendationController {
                 log.info("Fetching eligible users");
                 userNodes = recommendationService.getAllUsersRelatedToQuestion(questionDTO.getQuestion())
                         .stream()
-                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                        .filter(userNode -> !userNode.getEmail().equalsIgnoreCase(questionDTO.getUser().getEmail()))
                         .collect(Collectors.toList());
                 log.info("User Nodes are {}", userNodes);
             } catch (Exception e) {
