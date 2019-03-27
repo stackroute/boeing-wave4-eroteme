@@ -1,20 +1,20 @@
 version: "2.1"
 services:
 
-  apigateway:
-    image: zuul-service
-    build: zuul-gatewayservice/
-    restart: always
-    network_mode: host
-    hostname: localhost
-    depends_on:
-      - eurekaserver
-    ports:
-      - 8092:8092
-    expose:
-      - 8092
-    healthcheck:
-      test: "exit 0"
+  #  apigateway:
+  #    image: zuul-service
+  #    build: zuul-gatewayservice/
+  #    restart: always
+  #    network_mode: host
+  #    hostname: localhost
+  #    depends_on:
+  #      - eurekaserver
+  #    ports:
+  #      - 8092:8092
+  #    expose:
+  #      - 8092
+  #    healthcheck:
+  #      test: "exit 0"
 
   eurekaserver:
     image: eureka-service:latest
@@ -139,8 +139,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-      apigateway:
-        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
       eurekaserver:
         condition: service_healthy
       rabbitmq:
@@ -213,8 +213,8 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-      apigateway:
-        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
       eurekaserver:
         condition: service_healthy
       rabbitmq:
