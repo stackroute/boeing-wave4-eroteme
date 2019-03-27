@@ -2,10 +2,6 @@ server:
   port: 8081
 spring:
   data:
-    mongodb:
-      database: documents
-      host: localhost
-      port: 27017
     neo4j:
       username: neo4j
       password: marvel
