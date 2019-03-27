@@ -37,7 +37,7 @@ public class NlpServiceImpl implements NlpService {
     @Value("${stopwords}")
 String[] stopwords;
 
-    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
+    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Typescript"," static typing"," Decorators"," Testing"," E2E Testing"," Unit testing","Forms","ng Forms","Form Controls","Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
     @Autowired
     private AmqpTemplate amqpTemplate;
 
