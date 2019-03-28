@@ -6,4 +6,4 @@ and BI and analytics of unstructured and semi-structured content.
 In our product NLP is used to extract the keyword from the question string and that extracted keyword is 
 given to the serach service through rabbitmq
 
-NLP service is running on the port 8070
+
