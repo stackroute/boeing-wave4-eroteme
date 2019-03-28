@@ -45,6 +45,10 @@ public class EvaluationController {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * @param questionDTO Question DTO of the posted question
+     * @return Returns list of questions as response
+     */
     @PostMapping("result")
     public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestBody QuestionDTO questionDTO) {
         log.info("Received QuestionDTO {}", questionDTO);
@@ -71,8 +75,8 @@ public class EvaluationController {
                 List<String> eligibleUsers = userListCompletableFuture
                         .stream()
                         .peek(userNode -> log.info("User node is {}", userNode))
-                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
-                        .map(UserNode::getUsername)
+                        .filter(userNode -> !userNode.getEmail().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                        .map(UserNode::getEmail)
                         .collect(Collectors.toList());
                 log.info("Eligible users for notification: {}", eligibleUsers);
                 Notification notification = new Notification();
@@ -87,7 +91,7 @@ public class EvaluationController {
             responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
         return responseEntity;
     }

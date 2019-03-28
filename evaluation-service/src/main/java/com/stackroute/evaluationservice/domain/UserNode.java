@@ -12,6 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserNode implements Serializable {
-    String username;
+    String email;
     int reputation;
 }

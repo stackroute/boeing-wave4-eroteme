@@ -31,9 +31,6 @@ public class AASController {
     public ResponseEntity<?> saveData() {
         scheduleService.scheduleservice();
         ResponseEntity responseEntity = new ResponseEntity<>(aasRepo.findAll(), HttpStatus.OK);
-
         return responseEntity;
     }
-
-
 }
