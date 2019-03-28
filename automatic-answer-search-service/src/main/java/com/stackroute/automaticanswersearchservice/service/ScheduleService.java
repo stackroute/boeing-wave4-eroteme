@@ -8,7 +8,6 @@ import com.stackroute.automaticanswersearchservice.model.Question;
 import com.stackroute.automaticanswersearchservice.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class ScheduleService {
 
         log.info("Fetching results from web");
         try {
-            List<Items> itemsList = getDataFromWeb();
+            List<Items> itemsList = apiservice.getData();
             log.info("List of Items" + itemsList);
             log.info("Itemlist size" + itemsList.size());
             List<Question> questions = new ArrayList<>();
@@ -52,13 +51,9 @@ public class ScheduleService {
             }
             log.info("Mapped data from StackExchange" + questions);
             aasRepo.save(questions);
+            log.info("Saved web results in redis");
         } catch (Exception ex) {
             log.info("exception:" + ex);
         }
-    }
-
-    @Scheduled(cron = "* */5 * * * *")
-    private List<Items> getDataFromWeb() {
-        return apiservice.getData();
     }
 }
