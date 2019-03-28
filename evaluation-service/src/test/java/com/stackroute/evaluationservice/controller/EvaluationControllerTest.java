@@ -70,7 +70,7 @@ public class EvaluationControllerTest {
     public void testForNotifyingUsers() throws Exception {
         List<Question> webResults = new ArrayList<>();
         List<UserNode> userNodes = new ArrayList<>();
-        userNodes.add(UserNode.builder().username("EMAIL").reputation(12).build());
+        userNodes.add(UserNode.builder().email("EMAIL").reputation(12).build());
         when(evaluationService.searchInDb(TEST_QUESTION)).thenReturn(CompletableFuture.completedFuture(null));
         when(evaluationService.searchInWeb()).thenReturn(CompletableFuture.completedFuture(webResults));
         when(evaluationService.notifyUsersForTheQuestion(QUESTION_DTO)).thenReturn(userNodes);

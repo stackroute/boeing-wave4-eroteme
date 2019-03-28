@@ -75,8 +75,8 @@ public class EvaluationController {
                 List<String> eligibleUsers = userListCompletableFuture
                         .stream()
                         .peek(userNode -> log.info("User node is {}", userNode))
-                        .filter(userNode -> !userNode.getUsername().equalsIgnoreCase(questionDTO.getUser().getEmail()))
-                        .map(UserNode::getUsername)
+                        .filter(userNode -> !userNode.getEmail().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                        .map(UserNode::getEmail)
                         .collect(Collectors.toList());
                 log.info("Eligible users for notification: {}", eligibleUsers);
                 Notification notification = new Notification();
