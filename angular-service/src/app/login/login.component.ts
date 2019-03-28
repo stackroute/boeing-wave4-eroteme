@@ -70,9 +70,7 @@ export class LoginComponent implements OnInit {
   home(){
     console.log("reloaded after login")
 
-    this.router.navigate(['']);
-
-  
+    this.router.navigate(['']);  
   }
 
   getMyStyles() {

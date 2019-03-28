@@ -18,7 +18,7 @@ public interface QuestionRepository extends Neo4jRepository<QuestionNode, Intege
     Collection<QuestionNode> getAllQuestions();
 
     //method to create relationship VIEWED between userDTO and question//
-    @Query("match (q:UserNode),(t:QuestionNode) where q.username={username} and t.questionId={questionid} create (q)-[r:viewed]->(t)")
+    @Query("match (q:UserNode),(t:QuestionNode) where q.email={username} and t.questionId={questionid} create (q)-[r:viewed]->(t)")
     UserNode userViewedQuestionRelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
@@ -28,17 +28,17 @@ public interface QuestionRepository extends Neo4jRepository<QuestionNode, Intege
 
 
     //method to create relationship ASKED between userDTO and question//
-    @Query("match (q:UserNode),(t:QuestionNode) where q.username={username} and t.questionId={questionid} create (q)-[r:asked]->(t)")
+    @Query("match (q:UserNode),(t:QuestionNode) where q.email={username} and t.questionId={questionid} create (q)-[r:asked]->(t)")
     UserNode userAskedQuestionRelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     //method to create relationship UPVOTE between userDTO and question//
-    @Query("match (q:UserNode),(t:QuestionNode) where q.username={username} and t.questionId={questionid} create (q)-[r:upvoted]->(t)")
+    @Query("match (q:UserNode),(t:QuestionNode) where q.email={username} and t.questionId={questionid} create (q)-[r:upvoted]->(t)")
     UserNode userUpvoteQuestionRelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 
     //method to create relationship DOWNVOTE between userDTO and question//
-    @Query("match (q:UserNode),(t:QuestionNode) where q.username={username} and t.questionId={questionid} create (q)-[r:downvoted]->(t)")
+    @Query("match (q:UserNode),(t:QuestionNode) where q.email={username} and t.questionId={questionid} create (q)-[r:downvoted]->(t)")
     UserNode userDownvoteQuestionRelationship(@Param("username") String userName, @Param("questionid") int questionId);
 
 

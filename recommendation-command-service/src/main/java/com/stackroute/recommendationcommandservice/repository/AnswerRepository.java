@@ -16,22 +16,22 @@ public interface AnswerRepository extends Neo4jRepository<AnswerNode, String> {
 
 
     //method to create relationship ANSWERED between userDTO and answerDTO//
-    @Query("match (q:UserNode),(t:AnswerNode) where q.username={username} and t.answer={answerstring} create (q)-[r:answered]->(t) return q")
+    @Query("match (q:UserNode),(t:AnswerNode) where q.email={username} and t.answer={answerstring} create (q)-[r:answered]->(t) return q")
     UserNode userAnsweredAnswerRelationship(@Param("username") String userName, @Param("answerstring") String answerString);
 
 
     //    //method to create relationship ACCEPTED between userDTO and answerDTO//
-    @Query("match (q:UserNode),(t:AnswerNode) where q.username={username} and t.answer={answerstring} create (q)-[r:accepted]->(t)")
+    @Query("match (q:UserNode),(t:AnswerNode) where q.email={username} and t.answer={answerstring} create (q)-[r:accepted]->(t)")
     UserNode userAcceptedAnswerRelationship(@Param("username") String userName, @Param("answerstring") String answerString);
 
 
     //method to create relationship UPVOTED between userDTO and answerDTO//
-    @Query("match (q:UserNode),(t:AnswerNode) where q.username={username} and t.answer={answerstring} create (q)-[r:upvoted]->(t)")
+    @Query("match (q:UserNode),(t:AnswerNode) where q.email={username} and t.answer={answerstring} create (q)-[r:upvoted]->(t)")
     UserNode userUpvotedAnswerRelationship(@Param("username") String userName, @Param("answerstring") String answerString);
 
 
     //method to create relationship DOWNVOTED between userDTO and answerDTO//
-    @Query("match (q:UserNode),(t:AnswerNode) where q.username={username} and t.answer={answerstring} create (q)-[r:downvoted]->(t)")
+    @Query("match (q:UserNode),(t:AnswerNode) where q.email={username} and t.answer={answerstring} create (q)-[r:downvoted]->(t)")
     UserNode userDownvotedAnswerRelationship(@Param("username") String userName, @Param("answerstring") String answerString);
 }
 

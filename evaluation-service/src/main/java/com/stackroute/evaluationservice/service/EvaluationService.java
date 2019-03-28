@@ -65,7 +65,7 @@ public class EvaluationService {
         List<Question> questions;
         try {
             questions = restTemplate.exchange(webcrawlerurl, HttpMethod.GET, null, new ParameterizedTypeReference<List<List<Question>>>() {
-            }).getBody().stream().flatMap(Collection::stream).collect(Collectors.toList());
+            }).getBody().stream().flatMap(Collection::stream).limit(20).collect(Collectors.toList());
             log.info("Results from web are : {}", questions);
 
         } catch (Exception e) {
