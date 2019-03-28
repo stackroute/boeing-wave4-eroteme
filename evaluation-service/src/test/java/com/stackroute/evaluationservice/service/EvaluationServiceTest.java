@@ -26,10 +26,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EvaluationServiceTest {
-    public static final String EMAIL = "EMAIL";
-    public static final UserNode USER_NODE = UserNode.builder().username(EMAIL).reputation(1).build();
+    private static final String EMAIL = "EMAIL";
+    private static final UserNode USER_NODE = UserNode.builder().username(EMAIL).reputation(1).build();
     private static final String TEST_QUESTION = "TEST_QUESTION";
-    public static final QuestionDTO QUESTION_DTO = QuestionDTO.builder().question(TEST_QUESTION).user(User.builder().email(EMAIL).build()).build();
+    private static final QuestionDTO QUESTION_DTO = QuestionDTO.builder().question(TEST_QUESTION).user(User.builder().email(EMAIL).build()).build();
     private static final Question QUESTION = Question.builder().question(TEST_QUESTION).questionId(1).build();
     private static final String Q_A_URL = "Q&A_URL";
     private static final String RECOMMEND_URL = "RECOMMEND_URL";
@@ -60,8 +60,6 @@ public class EvaluationServiceTest {
         List<Question> questionList = new ArrayList<>();
         questionList.add(QUESTION);
         questions.add(questionList);
-        when(restTemplate.exchange(WEB_URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<List<Question>>>() {
-        }).getBody()).thenReturn(questions);
         assertThat(evaluationService.searchInWeb()).isCompleted();
     }
 
