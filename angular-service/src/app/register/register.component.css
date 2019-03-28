@@ -148,12 +148,14 @@
   background-color:blue;
   /* display:inline-block; */
   display: inline-flex;
+  color: white;
   width: 50px;
 }
 
 
 .btn1{
   background-color:blue;
+  color: white;
   /* display:inline-block; */
   width: 50px;
   display: inline-flex;
@@ -163,6 +165,7 @@
 }
 .btn2{
   background-color:blue; 
+  color: white;
   margin-left: 36%;
   display: inline-flex;
   width: 30px;
@@ -171,6 +174,7 @@
 
 .btn3{
   background-color:blue; 
+  color: white;
   width: 30px;
   margin-left: 20px;
 }
@@ -247,11 +251,13 @@
     background-color:blue(74, 211, 211);
     display:inline-block;
     width: 30px;
+    color: white;
   }
   .btn1{
     background-color:blue(74, 211, 211);
     width: 30px;
     float:right;
+    color: white;
     
   }
 
@@ -259,11 +265,13 @@
   .btn2{
     background-color:blue(74, 211, 211);
     width: 8px;
+    color: white;
     position: relative;
     margin-left: 5%;
   }
   .btn3{
     background-color:blue(74, 211, 211);
+    color: white;
     display:inline-block;
     width: 8px;
    margin-left:4px;

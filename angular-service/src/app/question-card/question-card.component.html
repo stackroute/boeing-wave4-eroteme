@@ -1,8 +1,9 @@
 <mat-card (click)="put()" class="example-card waves-effect waves-light hvrbox" id="some" routerLink="/questionAnswerCard">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <!-- <mat-card-title style="font-size: medium"><u>Asked By</u>: {{passedQuestions.user.firstName}}</mat-card-title> -->
-    <mat-card-subtitle class="replyQuestion">{{passedQuestions.question}}</mat-card-subtitle>
+    <mat-card-title class="replyQuestion" style="font-size: medium;font-weight: 630;">{{passedQuestions.question}}</mat-card-title>
+    <mat-card-subtitle style="font-size: small;font-weight: 570;color: black"><u>Asked By</u>: {{passedQuestions.user.firstName}}</mat-card-subtitle>
+    
   </mat-card-header>
   <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
   <mat-card-content id="card">

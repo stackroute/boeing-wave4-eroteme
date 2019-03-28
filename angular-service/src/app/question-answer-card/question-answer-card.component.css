@@ -304,7 +304,7 @@ body{
 
 
 .question{
-    font-size: 18px;
+    font-size: 25px;
     font-style: normal;
     font-weight:700;
 }
@@ -365,7 +365,8 @@ body{
 
 #upvote{
     border-radius: 25px;
-    width:120px;
+    /* width:120px; */
+    width: unset;
  }
  
  #upvote:hover{
@@ -380,7 +381,9 @@ body{
  #upvote1{
     margin-top: 4px;
     border-radius: 25px;
-    width:120px;
+    /* width:120px; */
+    width: unset;
+
  }
  #upvote1:hover{
     color: green;
@@ -392,7 +395,9 @@ body{
  
  #downvote{
     border-radius: 25px;
-    width:120px;
+    /* width:120px; */
+    width: unset;
+
  }
  
  #downvote:hover{
@@ -411,7 +416,14 @@ body{
 ul{
     list-style-type: none;
 }
-
+.tab { 
+    display:inline-block; 
+    margin-left: 20px; 
+}
+.tab1 { 
+    display:inline-block; 
+    margin-left: 30px; 
+}
 .spacing{
     margin-left: 5%;
 }
@@ -428,13 +440,15 @@ ul{
 #bord{
     border: 1px solid whitesmoke;
     border-radius: 10px;
-    background-color:rgb(231, 227, 227,0.9);
+    /* background-color:rgb(255,255, 200); */
+
     margin-left: -12%;
     margin-right: 12%;
     max-width: 100%;
+    /* background-color: rgb(231, 209, 209); */
 }
 #ron{
-    margin-left: 2%;
+    margin-left: 5%;
     font-size: 14px;
     font-family: sans-serif;
 }
@@ -490,6 +504,7 @@ ul{
 }
 
 body{
+    background-color: whitesmoke;
     max-width: 100%;
     /* background: url('../../assets/images/wall2.jpg'); */
     padding-left: 20%;

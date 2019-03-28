@@ -132,3 +132,29 @@ button{
         margin-left: 0%;
     }
 }
+
+
+@media screen and (max-width: 600px){
+
+
+    .cent{
+        margin-top: 3%;
+        display: block;
+        margin-left: -1%;
+        width: 90%;
+        text-align: center;
+        background-color: white;
+        border-radius: 3px 80px 80px 3px;
+        padding: 10px;
+        font-size: 1.1rem;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: italic;
+        
+    }
+
+    body{
+        padding-left: 3%;
+    }
+
+}

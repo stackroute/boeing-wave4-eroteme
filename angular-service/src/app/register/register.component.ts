@@ -5,6 +5,7 @@ import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { RegistersuccessComponent } from '../registersuccess/registersuccess.component';
 
 
 @Component({
@@ -107,16 +108,18 @@ conf:string;
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
-        alert("Registered Successfully!!!");
+        // alert("Registered Successfully!!!");
+        this.dialog.open(RegistersuccessComponent);
         this.route.navigate(["/login"]);
 
       },
       error => {
 
             if(error.status==201){
-                      alert("Registered Successfully!!!");
-                      this.dialog.closeAll();
-                      this.route.navigate(["/login"]);
+                      // alert("Registered Successfully!!!");
+                      this.dialog.open(RegistersuccessComponent);
+                      // this.dialog.closeAll();
+                      // this.route.navigate(["/login"]);
             }
         console.log(error);
         this.errorMessage = error.error.message;

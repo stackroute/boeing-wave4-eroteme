@@ -44,6 +44,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     this.present = this.trans.value;
     console.log("passed"+this.trans.value);
     console.log("assigned"+this.present);
+    //console.log("user:"+this.present.user.firstName);
     //console.log(JSON.stringify(this.present));
     this.vote = this.present.upvotes - this.present.downvotes;
 
@@ -97,7 +98,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
-      this.present.vote=(this.present.vote)+1;
+      this.present.upvotes=(this.present.upvotes)+1;
       console.log("testing"+this.present.questionId); 
       this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{},{
         headers: new HttpHeaders({
@@ -108,7 +109,7 @@ export class QuestionAnswerCardComponent implements OnInit {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("upvote added successfully");
+          // alert("upvote added successfully");
         },
         error => {
 
@@ -129,6 +130,7 @@ export class QuestionAnswerCardComponent implements OnInit {
     else {
       console.log('question upvote');
       console.log("testing"+this.present.questionId); 
+      this.present.downvotes=(this.present.downvotes)+1;
       this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -138,7 +140,7 @@ export class QuestionAnswerCardComponent implements OnInit {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("downvote added successfully");
+          // alert("downvote added successfully");
         },
         error => {
           console.log("Error", error);
@@ -238,6 +240,7 @@ upvoteAnswer(ans1) {
     this.dialog.open(LoginpopupComponent);
   }
   else {
+    // this.present.answers[0].upvote=(this.present.answers[0].upvote)+1;
     console.log('answer upvote');
     this.http.put("http://52.66.134.21:8090/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1

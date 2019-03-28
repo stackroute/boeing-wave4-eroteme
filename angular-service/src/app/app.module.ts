@@ -90,6 +90,7 @@ import { HometrendquestionsComponent } from './hometrendquestions/hometrendquest
 import { HomejumbotronComponent } from './homejumbotron/homejumbotron.component';
 import { HomequestioncardComponent } from './homequestioncard/homequestioncard.component';
 import { WhyUsComponent } from './why-us/why-us.component';
+import { RegistersuccessComponent } from './registersuccess/registersuccess.component';
 
 
 
@@ -108,7 +109,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path:'unanswer',component:UnanswerComponent},
 { path:'popup',component:LoginpopupComponent},
 {path: 'evaluation', component: EvaluationComponent},
-{path: 'whyus', component: WhyUsComponent}]
+{path: 'whyus', component: WhyUsComponent},
+{path:'regsitrationSuccess',component:RegistersuccessComponent}]
 
 @NgModule({
   declarations: [
@@ -144,7 +146,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     HometrendquestionsComponent,
     HomejumbotronComponent,
     HomequestioncardComponent,
-    WhyUsComponent
+    WhyUsComponent,
+    RegistersuccessComponent
   ],
   imports: [
     BrowserModule,

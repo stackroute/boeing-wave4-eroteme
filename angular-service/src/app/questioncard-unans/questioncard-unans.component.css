@@ -1,7 +1,7 @@
 #some {
   max-width: 300px;
-  min-width: 240px;
-  min-height: 240px;
+  min-width: 300px;
+  min-height: 300px;
   max-height: 300px;
   text-overflow: ellipsis;
   transform: scale(1,1);
