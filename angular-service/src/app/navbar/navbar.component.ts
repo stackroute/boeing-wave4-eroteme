@@ -89,4 +89,9 @@ export class NavbarComponent implements OnInit {
   }
 
 
+  LoginTutorial(){
+    console.log("inside tutorial");
+  }
+
+
 }
