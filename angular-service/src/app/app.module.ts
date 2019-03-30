@@ -92,6 +92,7 @@ import { HomequestioncardComponent } from './homequestioncard/homequestioncard.c
 import { WhyUsComponent } from './why-us/why-us.component';
 import { RegistersuccessComponent } from './registersuccess/registersuccess.component';
 import { NotificationalertComponent } from './notificationalert/notificationalert.component';
+import { PostalertComponent } from './postalert/postalert.component';
 
 
 
@@ -112,7 +113,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 {path: 'evaluation', component: EvaluationComponent},
 {path: 'whyus', component: WhyUsComponent},
 {path:'regsitrationSuccess',component:RegistersuccessComponent},
-{path:'notifyalert',component:NotificationalertComponent}]
+{path:'notifyalert',component:NotificationalertComponent},
+{path:'postalert',component:PostalertComponent}]
 
 @NgModule({
   declarations: [
@@ -150,7 +152,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     HomequestioncardComponent,
     WhyUsComponent,
     RegistersuccessComponent,
-    NotificationalertComponent
+    NotificationalertComponent,
+    PostalertComponent
   ],
   imports: [
     BrowserModule,

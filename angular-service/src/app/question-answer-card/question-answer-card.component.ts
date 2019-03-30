@@ -5,6 +5,7 @@ import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
+import { PostalertComponent } from '../postalert/postalert.component';
 
 @Component({
 selector: 'app-question-answer-card',
@@ -392,6 +393,7 @@ postanswer() {
   else {
     console.log(this.answer);
     console.log('post answer for the question');
+    this.dialog.open(PostalertComponent);
     this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
