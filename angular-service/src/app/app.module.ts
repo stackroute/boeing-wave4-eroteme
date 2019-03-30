@@ -91,6 +91,7 @@ import { HomejumbotronComponent } from './homejumbotron/homejumbotron.component'
 import { HomequestioncardComponent } from './homequestioncard/homequestioncard.component';
 import { WhyUsComponent } from './why-us/why-us.component';
 import { RegistersuccessComponent } from './registersuccess/registersuccess.component';
+import { NotificationalertComponent } from './notificationalert/notificationalert.component';
 
 
 
@@ -110,7 +111,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
 { path:'popup',component:LoginpopupComponent},
 {path: 'evaluation', component: EvaluationComponent},
 {path: 'whyus', component: WhyUsComponent},
-{path:'regsitrationSuccess',component:RegistersuccessComponent}]
+{path:'regsitrationSuccess',component:RegistersuccessComponent},
+{path:'notifyalert',component:NotificationalertComponent}]
 
 @NgModule({
   declarations: [
@@ -147,7 +149,8 @@ const routes: Routes = [{ path: 'myprofile', component: ProfileComponent },
     HomejumbotronComponent,
     HomequestioncardComponent,
     WhyUsComponent,
-    RegistersuccessComponent
+    RegistersuccessComponent,
+    NotificationalertComponent
   ],
   imports: [
     BrowserModule,

@@ -30,4 +30,5 @@ export class ParentComponent implements OnInit, OnChanges{
   ngOnChanges() {
    
   }
+ 
 }

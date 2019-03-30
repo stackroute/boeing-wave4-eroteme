@@ -1,15 +1,40 @@
 body{
-    background-image: url('../../assets/images/bulb.jpeg');
+    /* background-image: url('../../assets/images/bulb.jpeg'); */
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: inherit;
+    background-color: antiquewhite;
 }
 
+
 #mydiv{
+     background-image: url('../../assets/images/bulb.jpeg');
+     background-size: cover;
+     background-attachment: fixed;
     display: inline-flex;
     padding-left:3px;
     padding-right: 5px;
     list-style-type: none;
         }
+
+
+ #web{
+ margin-right: 20px;
+margin-left: 20px;
+margin-top: 30px;   
+        }
+
+img
+{
+width: 100px;
+height: 100px;
+margin-left: auto;
+margin-right: auto;
+display: block;
+margin-top: 300px;
+margin-bottom: 20%;
+    }
+
         
         @media screen and (max-width: 600px) {
             ul{

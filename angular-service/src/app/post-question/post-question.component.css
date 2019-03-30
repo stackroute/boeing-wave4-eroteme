@@ -1,5 +1,5 @@
 body{
-    background:url('../../assets/images/paris.jpeg');
+    background:url('../../assets/images/postquestion.jpeg');
     background-attachment: fixed;
     background-size: cover;
     max-height: 100%;
@@ -139,6 +139,7 @@ body{
     transition-timing-function: ease-in-out;
 
 }
+
 
 @media screen and (max-width: 600px) {
     #butt{

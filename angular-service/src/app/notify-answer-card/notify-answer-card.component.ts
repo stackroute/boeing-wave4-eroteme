@@ -95,7 +95,7 @@ export class NotifyAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
-      this.present.vote=(this.present.vote)+1;
+      this.present.upvotes=(this.present.upvotes)+1;
       console.log("testing"+this.present.questionId); 
       this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{},{
         headers: new HttpHeaders({
@@ -106,7 +106,7 @@ export class NotifyAnswerCardComponent implements OnInit {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("upvote added successfully");
+          // alert("upvote added successfully");
         },
         error => {
 
@@ -126,6 +126,7 @@ export class NotifyAnswerCardComponent implements OnInit {
     }
     else {
       console.log('question upvote');
+      this.present.downvotes=this.present.downvotes+1;
       console.log("testing"+this.present.questionId); 
       this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
         headers: new HttpHeaders({
@@ -136,7 +137,7 @@ export class NotifyAnswerCardComponent implements OnInit {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("downvote added successfully");
+          // alert("downvote added successfully");
         },
         error => {
           console.log("Error", error);
@@ -176,7 +177,7 @@ export class NotifyAnswerCardComponent implements OnInit {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added successfully");
+            // alert("Comment added successfully");
           },
           error => {
 
@@ -219,7 +220,7 @@ replyQuestionComment(presentcomment:string) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Reply made successfully");
+            // alert("Reply made successfully");
           },
           error => {
 
@@ -292,7 +293,7 @@ commentAnswer(ans) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added to answer successfully");
+            // alert("Comment added to answer successfully");
           },
           error => {
 
@@ -346,7 +347,7 @@ replyAnswerComment(ans,comm) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Reply made successfully");
+            // alert("Reply made successfully");
           },
           error => {
 
@@ -410,7 +411,7 @@ postanswer() {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("ANswer updated successfully");
+          // alert("ANswer updated successfully");
         },
         error => {
 

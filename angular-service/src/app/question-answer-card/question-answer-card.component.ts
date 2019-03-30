@@ -180,7 +180,7 @@ export class QuestionAnswerCardComponent implements OnInit {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added successfully");
+            // alert("Comment added successfully");
           },
           error => {
 
@@ -297,7 +297,7 @@ commentAnswer(ans) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added to answer successfully");
+            // alert("Comment added to answer successfully");
           },
           error => {
 
@@ -351,7 +351,7 @@ replyAnswerComment(ans,comm) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Reply made successfully");
+            // alert("Reply made successfully");
           },
           error => {
 
@@ -415,7 +415,7 @@ postanswer() {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("ANswer updated successfully");
+          // alert("ANswer updated successfully");
         },
         error => {
 
