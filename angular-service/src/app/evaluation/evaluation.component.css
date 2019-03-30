@@ -26,14 +26,22 @@ h4.alert-heading{
     position: relative;
 }
 #outerbox{
+    display: block;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+#webbox{
     display: inline-block;
     margin-right: 20px;
+    margin-top: 20px;
+
 }
 #web{
     margin-right: 20px;
     margin-left: 20px;
     margin-top: 30px;   
 }
+
 img{
     width: 100px;
     height: 100px;
@@ -42,3 +50,54 @@ img{
     display: block;
     margin-top: 300px;
 }
+#internalbadge{
+    float: left;
+    position: relative;
+    width: 150px;
+    background-color: indigo;
+    height: 22px;
+    font-size: 0.9em;
+}
+#externalbadge{
+    float: left;
+    position: relative;
+    width: 150px;
+    background-color: blue;
+    height: 22px;
+    font-size: 0.9em;
+}
+
+#rest{
+    display: block;
+}
+div.sticky {
+    position: -webkit-sticky;
+    position: fixed;
+    width: 80px;
+    border-radius: 80px;
+    top: 75%;
+    bottom: 34%;
+    right: 0px;
+    background-color: gainsboro;
+    padding: 38px;
+    font-size: 20px;
+    right: 2%;
+    padding-bottom: 45px;
+    /* border: 1.2px solid black */
+  } 
+  
+  .div.sticky:hover{
+    background-color: black;
+  }
+  
+  #plusicon:focus{
+    background-color: black;
+  }
+  
+  
+  #plusicon{
+    position: relative;
+    margin-left: -148%;
+    margin-top: -58%;
+    padding-right: 2px;
+  }

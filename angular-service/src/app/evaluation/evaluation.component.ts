@@ -15,7 +15,6 @@ constructor(private trans:TransferServiceService,private route:Router ) { }
   ngOnInit() {
     this.trans.result.subscribe((data)=>{
       this.response=data;
-      console.log("mmm\n",data);
       console.log("jjj\n",this.response);
     }
     );
@@ -25,6 +24,9 @@ constructor(private trans:TransferServiceService,private route:Router ) { }
   redirectToHomePage(){
     this.route.navigate(['/']);
 
+  }
+  navigateToPost(){
+    this.route.navigate(['/postQuestion'])
   }
 
   
