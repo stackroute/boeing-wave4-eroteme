@@ -1,5 +1,5 @@
 body{
-    /* background-image: url('../../assets/images/bulb.jpeg'); */
+    background-image: url('../../assets/images/bulb.jpeg');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: inherit;
@@ -8,7 +8,7 @@ body{
 
 
 #mydiv{
-     background-image: url('../../assets/images/bulb.jpeg');
+     /* background-image: url('../../assets/images/bulb.jpeg'); */
      background-size: cover;
      background-attachment: fixed;
     display: inline-flex;
