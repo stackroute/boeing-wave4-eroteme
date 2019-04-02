@@ -1,0 +1,66 @@
+{
+"question": " what is a routeroutlet?",
+"description":"common question about angular-Routing",
+"upvotes":10,
+"timestamp":456900,
+"downvote":1,
+"answers":[
+	  {
+	   "answer":"routeroutlet is a substitution for templates rendering the components. In other words, it represents or renders the components on a template at a particular location.",
+           "accepted":"true",
+	   "comments":[
+		     {
+			"comment":"okay answer",
+			"timestamp":234342,
+			"likes":7,
+			"replies":[
+				 {
+				  "reply":"elaborate more",
+				   "likes":5,
+				   "timestamp":789000,
+                                   "user":{
+                                        "firstname":"uday",
+                                        "emailaddress":"uady@gmail.com",
+                                        "imageurl":"https://cdn.pixabay.com/photo/2012/04/12/12/32/router-29825__340.png"
+                                        }
+				 }
+				],
+                        "user":{
+                             "firstname":"zakir",
+                             "emailaddress":"zakir@gmail.com",
+                             "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                             }
+		     }
+		    ],
+	   "upvotes":6,
+	   "views":2,
+	   "timestamp":6789023,
+           "user":{
+                "firstname":"pardhu",
+                "emailaddress":"pardhu@gmail.com",
+                "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                }
+
+			}
+			],
+
+"comments":[
+	  {
+	   "comment":"helpful",
+	   "timestamp":456600,
+	   "likes":4,
+	   "replies":[
+		    {
+		    "reply":2,
+		    "likes":7,
+		    "timestamp":234200
+		    }
+		   ]
+	  }
+	],
+"user":{
+     "firstname":"mounika",
+     "emailaddress":"mounika@gmail.com",
+     "imageurl":"https://www.w3schools.com/angular/pic_angular.jpg"
+     }
+}
