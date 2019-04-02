@@ -1,0 +1,205 @@
+{
+"topic":"routing",
+"questions":[
+{
+"question": "what is routing in angular?",
+"description":"common question about angular-routing",
+"upvotes":7,
+"timestamp":456101,
+"downvote":5,
+"answers":[
+	  {
+	   "answer":"AngularJS directives are extended HTML attributes with the prefix ng-.The ng-app directive initializes an AngularJS application.The ng-init directive initializes application data.The ng-model directive binds the value of HTML controls (input, select, textarea) to application data.",
+           "accepted":"true",
+	   "comments":[
+		     {
+			"comment":"okay answer",
+			"timestamp":234201,
+			"likes":9,
+			"replies":[
+				 {
+				  "reply":"elaborate more",
+				   "likes":21,
+				   "timestamp":789801,
+                                   "user":{
+                                        "firstname":"vani",
+                                        "emailaddress":"vani@gmail.com",
+                                        "imageurl":"https://cdn.pixabay.com/photo/2012/04/12/12/32/router-29825__340.png"
+                                        }
+				 }
+				],
+                        "user":{
+                             "firstname":"ravi",
+                             "emailaddress":"ravi@gmail.com",
+                             "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                             }
+		     }
+		    ],
+	   "upvotes":23,
+	   "views":27,
+	   "timestamp":6789323,
+           "user":{
+                "firstname":"abhishek",
+                "emailaddress":"abhishek@gmail.com",
+                "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                }
+
+			}
+			],
+
+"comments":[
+	  {
+	   "comment":"helpful",
+	   "timestamp":456212,
+	   "likes":56,
+	   "replies":[
+		    {
+		    "reply":98,
+		    "likes":87,
+		    "timestamp":234301
+		    }
+		   ]
+	  }
+	],
+"user":{
+     "firstname":"komal",
+     "emailaddress":"komal@gmail.com",
+     "imageurl":"https://www.w3schools.com/angular/pic_angular.jpg"
+     }
+},
+  {
+"question":"What is the difference between routerLink and href",
+"description":"commanly asked question about directives",
+"upvotes":5,
+"timestamp":678291,
+"downvote":121,
+"answers":[
+	  {
+	   "answer":"AngularJS provides support to create custom directives for the following:Element directives − Directive activates when a matching element is encountered.Attribute − Directive activates when a matching attribute is encountered.CSS − Directive activates when a matching css style is encountered.Comment − Directive activates when a matching comment is encountered.",
+           "accepted":"true",
+	   "comments":[
+		     {
+			"comment":"okay answer",
+			"timestamp":234411,
+			"likes":16,
+			"replies":[
+				 {
+				  "reply":"elaborate more",
+				   "likes":5,
+				   "timestamp":789101,
+                                   "user":{
+                                        "firstname":"urvasi",
+                                        "emailaddress":"urvasi@gmail.com",
+                                        "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                                        }
+				 }
+				],
+                        "user":{
+                             "firstname":"neethu",
+                             "emailaddress":"neetu@gmail.com",
+                             "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                             }
+		     }
+		    ],
+	   "upvotes":17,
+	   "views":100,
+	   "timestamp":6789221,
+           "user":{
+                "firstname":"ramya",
+                "emailaddress":"ramya@gmail.com",
+                "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                }
+
+			}
+			],
+
+"comments":[
+	  {
+	   "comment":"helpful",
+	   "timestamp":456700,
+	   "likes":1,
+	   "replies":[
+		    {
+		    "reply":4,
+		    "likes":4,
+		    "timestamp":234567
+		    }
+		   ]
+	  }
+	],
+"user":{
+     "firstname":"meghana",
+     "emailaddress":"meghannivetia@gmail.com",
+     "imageurl":"https://www.w3schools.com/angular/pic_angular.jpg"
+     }
+
+},
+ {
+"question": "Explain ng-bind directive.",
+"description":"commanly asked question about directives",
+"upvotes":10,
+"timestamp":678905,
+"downvote":12,
+"answers":[
+	  {
+	   "answer":"The ng-bind directive tells AngularJS to replace the content of an HTML element with the value of a given variable, or expression.",
+           "accepted":"false",
+	   "comments":[
+		     {
+			"comment":"okay answer",
+			"timestamp":234501,
+			"likes":5,
+			"replies":[
+				 {
+				  "reply":"elaborate more",
+				   "likes":2,
+				   "timestamp":789065,
+                                   "user":{
+                                        "firstname":"ashuthosh",
+                                        "emailaddress":"ashuthosh@gmail.com",
+                                        "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                                        }
+				 }
+				],
+                        "user":{
+                             "firstname":"shilpa",
+                             "emailaddress":"shilpa@gmail.com",
+                             "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                             }
+		     }
+		    ],
+	   "upvotes":13,
+	   "views":23,
+	   "timestamp":6789213,
+           "user":{
+                "firstname":"shalini",
+                "emailaddress":"shalini@gmail.com",
+                "imageurl":"https://i.ebayimg.com/images/g/vlUAAOxyx0JTf9Cg/s-l300.jpg"
+                }
+
+			}
+			],
+
+"comments":[
+	  {
+	   "comment":"helpful",
+	   "timestamp":456210,
+	   "likes":8,
+	   "replies":[
+		    {
+		    "reply":23,
+		    "likes":8,
+		    "timestamp":234450
+		    }
+		   ]
+	  }
+	],
+"user":{
+     "firstname":"aishwarya",
+     "emailaddress":"asihwarya@gmail.com",
+     "imageurl":"https://www.w3schools.com/angular/pic_angular.jpg"
+     }
+
+}
+]
+}
