@@ -33,7 +33,7 @@ export class EnviormentVariabelsService {
   
     this.User="http://52.66.134.21:8091/getall/";
 
-    this.searchServiceQuestion="http://52.66.134.21:8099/api/v1/topic";
+    this.searchServiceQuestion="http://52.66.134.21:8099/api/v1/relevant";
 
    }
 }

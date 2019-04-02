@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 public class RecommendationServiceImplTest {
     private static final String TEST_QUESTION = "TEST_QUESTION";
     private static final String USERNAME = "USERNAME";
-    private static final UserNode USER_NODE = UserNode.builder().username(USERNAME).reputation(234).build();
+    private static final UserNode USER_NODE = UserNode.builder().email(USERNAME).reputation(234).build();
     private static final int QUESTION_ID = 10;
     private static final QuestionNode QUESTION_NODE = QuestionNode.builder().questionId(QUESTION_ID)
             .question("").timestamp(213).upvote(12431).downvote(12).build();

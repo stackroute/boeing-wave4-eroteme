@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { TransferServiceService } from '../transfer-service.service';
 import { AppComponent } from '../app.component';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
+import { PostalertComponent } from '../postalert/postalert.component';
 
 @Component({
 selector: 'app-question-answer-card',
@@ -26,16 +29,29 @@ export class QuestionAnswerCardComponent implements OnInit {
   commentAnswer1:string;
   replyanswercomment:string;
 
+  commentanswerbool:boolean;
+  postanswerbool:boolean;
 
 
-  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient) {
+  constructor(private trans: TransferServiceService, private app: AppComponent, private route: Router, private http: HttpClient,private dialog:MatDialog) {
     this.showAllCommentsQuestion = 'Show Details';
     this.showAllCommentsAnswer = 'Show Details';
   }
 
   ngOnInit() {
+    this.postanswerbool=false;
+    this.commentanswerbool=false;
+    console.log(this.trans.value);
     this.present = this.trans.value;
+    console.log("passed"+this.trans.value);
+    console.log("assigned"+this.present);
+    //console.log("user:"+this.present.user.firstName);
+    //console.log(JSON.stringify(this.present));
     this.vote = this.present.upvotes - this.present.downvotes;
+
+
+
+    
   }
 
   toggle(answer) {
@@ -77,36 +93,74 @@ export class QuestionAnswerCardComponent implements OnInit {
   upvoteQuestion() {
     console.log(this.app.checkLoggedIn);
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first"); 
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('question upvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{});
+      this.present.upvotes=(this.present.upvotes)+1;
+      console.log("testing"+this.present.questionId); 
+      this.http.put("http://52.66.134.21:8090/api/v1/question/upvote/" + this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          // alert("upvote added successfully");
+        },
+        error => {
+
+          console.log("Error", error);
+
+        })
+      console.log("hiiting the end point");
     }
   }
 
+  
   downvoteQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
-      console.log('question downvote');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+this.present.questionId,{});
+      console.log('question upvote');
+      console.log("testing"+this.present.questionId); 
+      this.present.downvotes=(this.present.downvotes)+1;
+      this.http.put("http://52.66.134.21:8090/api/v1/question/downvote/"+ this.present.questionId,{},{
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'my-auth-token'
+        })
+      })
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+          // alert("downvote added successfully");
+        },
+        error => {
+          console.log("Error", error);
+        })
+      console.log("hiiting the end point");
     }
   }
 
   commentQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      // this.route.navigate(["/login"]);
+      this.dialog.open(LoginpopupComponent);
     }
     else {
       console.log('comment on question');
       console.log(this.answer);
       console.log('post answer for the question');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/comment/" + this.present.questionId,
+      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
         {
           "comment": this.questionComm,
           "timestamp": 9876543,
@@ -114,7 +168,7 @@ export class QuestionAnswerCardComponent implements OnInit {
           "user": {
             "email": this.app.emailid,
             "firstName": this.app.emailid.split("@")[0],
-            "imageurl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
+            "imageurl": "http://https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
           },
           "replies": null
         },
@@ -127,7 +181,7 @@ export class QuestionAnswerCardComponent implements OnInit {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added successfully");
+            // alert("Comment added successfully");
           },
           error => {
 
@@ -140,8 +194,8 @@ export class QuestionAnswerCardComponent implements OnInit {
 
 replyQuestionComment(presentcomment:string) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
   }
   else {
     console.log('reply to comment of question');
@@ -182,12 +236,14 @@ replyQuestionComment(presentcomment:string) {
 
 upvoteAnswer(ans1) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
+    // this.present.answers[0].upvote=(this.present.answers[0].upvote)+1;
     console.log('answer upvote');
-    this.http.put("http://52.66.134.21:8080/api/v1/question/answer/upvote/"+this.present.questionId,{
+    this.http.put("http://52.66.134.21:8090/api/v1/question/answer/upvote/"+this.present.questionId,{
       "answer": ans1
     })
   }
@@ -195,8 +251,9 @@ upvoteAnswer(ans1) {
 
 downvoteAnswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('downvote answer');
@@ -206,12 +263,15 @@ downvoteAnswer() {
 
 commentAnswer(ans) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
-    console.log('comment on answer');
-      this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
+    if(this.commentanswerbool==false)
+    {
+      this.commentanswerbool=true;
+         this.http.put("http://52.66.134.21:8090/api/v1/question/answer/comment/" + this.present.questionId,
       {
         "answer": ans,
         "comments": [
@@ -227,7 +287,8 @@ commentAnswer(ans) {
         "replies": null
       }
   ]
-},
+}
+    ,
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -237,20 +298,27 @@ commentAnswer(ans) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Comment added to answer successfully");
+            // alert("Comment added to answer successfully");
           },
           error => {
 
             console.log("Error", error);
 
           })
+    }
+    else{
+      this.commentanswerbool=false;
+    console.log('comment on answer');
   }
+}
+
 }
 
 replyAnswerComment(ans,comm) {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
   }
   else {
     console.log('reply to comment of answer');
@@ -284,7 +352,7 @@ replyAnswerComment(ans,comm) {
         .subscribe(
           data => {
             console.log("POST Request is successful ", data);
-            alert("Reply made successfully");
+            // alert("Reply made successfully");
           },
           error => {
 
@@ -294,14 +362,38 @@ replyAnswerComment(ans,comm) {
   }
 }
 
+
+postanswer1(){
+  if (this.app.checkLoggedIn == null) {
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
+  }
+  else{
+    if(this.postanswerbool==false)
+    {
+      this.postanswerbool=true;
+    }
+    else{
+      this.postanswerbool=false;
+    }
+
+  }
+
+}
+
 postanswer() {
   if (this.app.checkLoggedIn == null) {
-    alert("You need to login first");
-    this.route.navigate(["/login"]);
+    // alert("You need to login first");
+    // this.route.navigate(["/login"]);
+    this.dialog.open(LoginpopupComponent);
+
   }
   else {
     console.log(this.answer);
     console.log('post answer for the question');
+    this.dialog.open(PostalertComponent);
     this.http.put("http://52.66.134.21:8090/api/v1/question/answer/" + this.present.questionId,
       {
         "answer": this.answer,
@@ -325,13 +417,14 @@ postanswer() {
       .subscribe(
         data => {
           console.log("POST Request is successful ", data);
-          alert("ANswer updated successfully");
+          // alert("ANswer updated successfully");
         },
         error => {
 
           console.log("Error", error);
 
         })
+      
   }
 }
 }

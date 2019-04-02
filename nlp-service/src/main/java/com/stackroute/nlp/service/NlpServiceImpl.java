@@ -1,6 +1,7 @@
 package com.stackroute.nlp.service;
 
 import com.stackroute.nlp.domain.Nlp;
+import com.stackroute.nlp.domain.SearchData;
 import com.stackroute.nlp.exceptions.QuestionNotFoundException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -33,17 +34,10 @@ public class NlpServiceImpl implements NlpService {
 
     private static final Logger log = LoggerFactory.getLogger(NlpServiceImpl.class);
     String question;
-    String[] stopwords = {"i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "above", "below", "be", "what", "in", "on", "above",
-            "is", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "could", "he'd", "!", "@", "#", "$", "%", "^", "&", "*", "()", ".", "?", "-",
-            "he'll", "he's", "here's", "how's", "ought", "she'd", "she'll", "that's", "there's", "they'd", "and", "what", "which", "=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "they'll", "they're", "they've", "we'd", "we'll", "we're", "we've", "what's", "when's", "where's", "_",
-            "who's", "why's", "would", "i'd", "i'll", "i'm", "i've", "you", "you're", "you've", "you'll",
-            "you'd", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she",
-            "she's", "her", "hers", "herself", "it", "it's", "its", "itself", "they", "them", "their",
-            "theirs", "themselves", "who", "whom", "this", "that", "that'll", "these", "what", "why", "which",};
+    @Value("${stopwords}")
+String[] stopwords;
 
-
-    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
+    ArrayList<String> domainSpecificTopics = new ArrayList<>(Arrays.asList("pipes", "Typescript"," static typing"," Decorators"," Testing"," E2E Testing"," Unit testing","Forms","ng Forms","Form Controls","Fundamentals and Architecture", "Navigation", "server Side", "Using Promises", "Http Client", "Configuring Routes", "Routing", "Custom pipes", "using pipes", "Data Binding", "Templates", "angular"));
     @Autowired
     private AmqpTemplate amqpTemplate;
 
@@ -211,9 +205,11 @@ public class NlpServiceImpl implements NlpService {
 
     // RabbitMq message producer method
     public void produceMsg(List<String> msg) {
-        log.info("Sending message");
-        log.info("Send msg = " + msg);
-        amqpTemplate.convertAndSend(exchange, routingKey, msg);
-        log.info("Send msg = " + msg);
+//        log.info("Sending message");
+//        log.info("Send msg = " + msg);
+
+        SearchData searchData = SearchData.builder().question(question).topics(msg).build();
+        amqpTemplate.convertAndSend(exchange, routingKey, searchData);
+        log.info("Send msg = " + searchData);
     }
 }

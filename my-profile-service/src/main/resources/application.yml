@@ -7,7 +7,7 @@ security:
 
 spring:
   application:
-    name: BootMongo
+    name: my-profile-service
   data:
     mongodb:
       database: myprofile_db
@@ -18,3 +18,14 @@ jsi:
     queue: jsi.queuereg
     exchange: jsi.directreg
     routingkey: jsi.routingkeyreg
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

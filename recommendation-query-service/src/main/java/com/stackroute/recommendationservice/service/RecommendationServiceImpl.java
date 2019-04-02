@@ -133,13 +133,13 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     /**
      *
-     * @param questionId question id of the the required question
+     * @param question question id of the the required question
      * @return question document
      */
     @Override
-    public Question getDocumentByQuestionId(long questionId) {
+    public Question getDocumentByQuestionId(String question) {
         try {
-            return restTemplate.getForObject(questionAndAnswerUrl.concat(Long.toString(questionId)), Question.class);
+            return restTemplate.getForObject(questionAndAnswerUrl.concat("getquestion?question=").concat(question), Question.class);
         } catch (Exception e) {
             e.printStackTrace();
             return new Question();

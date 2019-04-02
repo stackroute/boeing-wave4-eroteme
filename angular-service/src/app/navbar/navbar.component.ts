@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   public data: Array<any> = [];
 
   constructor(private trans: TransferServiceService, private token: TokenStorageService, private authService: AuthService, private router: Router, private webSocketService: WebSocketService, private http: HttpClient,private dialog:MatDialog) { }
-
+  str;
 
   ngOnInit() {
     this.info = {
@@ -47,26 +47,25 @@ export class NavbarComponent implements OnInit {
         // let arr = new Array<any>(2);
         this.data.push(notifications.body);
         console.log("length is " + this.data.length);
-        this.length1 = this.data.length - this.length2;
+        if(this.data.length>0){
+          this.str='!';
+        }
       })
     });
+    //hits the controller of notification service to recieve notifications
+        console.log("hit the controller")
+        setTimeout( () => { /*Your Code*/
+        this.http.get("http://52.66.134.21:8010/api/v1/"+this.token.getUsername()).subscribe((data2)=>{
+          console.log(data2);
+          },error=>{
+          console.log(error);
+        });
+      }, 2000 );
 
   }
 
   myfunction() {
-    if (this.data.length < 6) {
-      //this.data.splice(0,this.data.length-5);
-      // this.length2=this.length1;
-      this.length2 = this.length1;
-      this.length1 = 0;
-      console.log("lenght1 is " + this.data.length);
-      console.log("lenght2 is " + this.length2);
-    }
-    else {
-      this.data.splice(0, this.data.length - 5);
-      this.length2 = 5;
-      this.length1 = 0;
-    }
+    this.str='';
   }
 
   open(){
@@ -77,18 +76,21 @@ export class NavbarComponent implements OnInit {
   putSearchVal() {
     this.trans.searchValue = this.value;
     console.log("abc    "+this.value);
-    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value).subscribe((data)=>{
-    console.log(data);
-    },error=>{
-    console.log(error);
-    });
+    this.http.get("http://52.66.134.21:8070/api/v1/"+this.value).subscribe();
       this.router.navigate(["/searchresult"]);
+      // this.router.navigateByUrl('/myprofile', {skipLocationChange: true}).then(()=>
+      // this.router.navigate(["/searchresult"]));
 
   }
 
   logout() {
     this.token.signOut();
     window.location.reload();
+  }
+
+
+  LoginTutorial(){
+    console.log("inside tutorial");
   }
 
 

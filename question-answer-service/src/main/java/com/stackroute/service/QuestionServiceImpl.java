@@ -14,12 +14,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
 @Service
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
@@ -60,7 +59,7 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addQuestion(Question questionObject) throws QuestionAlreadyExistsException, IOException {
         long time = generateTimestamp();
         if (questionRepository.existsByQuestion(questionObject.getQuestion())) {
-            throw new QuestionAlreadyExistsException(questionObject.getQuestion()+" already exists");
+            throw new QuestionAlreadyExistsException(questionObject.getQuestion() + " already exists");
         }
         questionObject.setQuestionId(questionRepository.findAll().size() + 1);
         questionObject.setTimestamp(time);
@@ -82,8 +81,7 @@ public class QuestionServiceImpl implements QuestionService{
                 List<Answer> answers = question.getAnswer();
                 answers.add(answer);
                 question.setAnswer(answers);
-            }
-            else {
+            } else {
                 List<Answer> answers = new ArrayList<>();
                 answers.add(answer);
                 question.setAnswer(answers);
@@ -91,7 +89,7 @@ public class QuestionServiceImpl implements QuestionService{
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_ANSWER, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
-            answer(savedQuestion,answer.getUser().getEmail());
+            answer(savedQuestion, answer.getUser().getEmail());
             return savedQuestion;
         } else
             throw new QuestionNotFoundException("Question does not exists");
@@ -100,10 +98,9 @@ public class QuestionServiceImpl implements QuestionService{
     //Overriden method to get a particular question
     @Override
     public Question getQuestion(int questionId) throws QuestionNotFoundException {
-        if(questionRepository.findById(questionId)==null){
+        if (questionRepository.findById(questionId) == null) {
             throw new QuestionNotFoundException("Question not found");
-        }
-        else {
+        } else {
             return questionRepository.findById(questionId).get();
         }
     }
@@ -139,33 +136,30 @@ public class QuestionServiceImpl implements QuestionService{
         long time = generateTimestamp();
         replies.get(0).setTimestamp(time);
         boolean flag = false;
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Comment> comments = question.getComment();
-            for (Comment comment1: comments) {
-                if(comment1.getComment().equals(comment)){
+            for (Comment comment1 : comments) {
+                if (comment1.getComment().equals(comment)) {
                     flag = true;
-                    if (comment1.getReplies()==null){
+                    if (comment1.getReplies() == null) {
                         comment1.setReplies(replies);
-                    }
-                    else {
+                    } else {
                         replies.addAll(comment1.getReplies());
                         comment1.setReplies(replies);
                     }
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 question(savedQuestion);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new CommentNotFoundException("Comment does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
 
@@ -178,34 +172,31 @@ public class QuestionServiceImpl implements QuestionService{
         comment.get(0).setTimestamp(time);
         boolean flag = false;
         String email = "";
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer)){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer)) {
                     flag = true;
                     email = answer1.getUser().getEmail();
-                    if (answer1.getComments()==null){
+                    if (answer1.getComments() == null) {
                         answer1.setComments(comment);
-                    }
-                    else {
+                    } else {
                         comment.addAll(answer1.getComments());
                         answer1.setComments(comment);
                     }
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,email);
+                answer(savedQuestion, email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -218,28 +209,27 @@ public class QuestionServiceImpl implements QuestionService{
         boolean answerFlag = false;
         boolean commentFlag = false;
         String email = "";
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if (answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not found");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer)){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer)) {
                     answerFlag = true;
                     List<Comment> comments = answer1.getComments();
-                    if (comments==null){
+                    if (comments == null) {
                         throw new CommentNotFoundException("Comment not found");
                     }
                     Comment comment2 = comment.get(0);
-                    for (Comment comment1:comments) {
-                        if(comment1.getComment().equals(comment2.getComment())){
+                    for (Comment comment1 : comments) {
+                        if (comment1.getComment().equals(comment2.getComment())) {
                             commentFlag = true;
                             email = answer1.getUser().getEmail();
-                            if(comment1.getReplies()==null){
+                            if (comment1.getReplies() == null) {
                                 comment1.setReplies(comment2.getReplies());
-                            }
-                            else{
+                            } else {
                                 List<Replies> repliesList = comment1.getReplies();
                                 repliesList.addAll(comment2.getReplies());
                                 comment1.setReplies(repliesList);
@@ -248,21 +238,18 @@ public class QuestionServiceImpl implements QuestionService{
                     }
                 }
             }
-            if (answerFlag && commentFlag){
+            if (answerFlag && commentFlag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,email);
+                answer(savedQuestion, email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else if (!commentFlag){
+            } else if (!commentFlag) {
                 throw new CommentNotFoundException("Comment not found");
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -273,7 +260,7 @@ public class QuestionServiceImpl implements QuestionService{
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int upvotes = question.getUpvotes();
-            question.setUpvotes(upvotes+1);
+            question.setUpvotes(upvotes + 1);
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
@@ -289,7 +276,7 @@ public class QuestionServiceImpl implements QuestionService{
         if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             int downvotes = question.getDownvotes();
-            question.setDownvotes(downvotes+1);
+            question.setDownvotes(downvotes + 1);
             Question savedQuestion = questionRepository.save(question);
             QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_DOWNVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
             produceMsg(questionDTO);
@@ -304,32 +291,30 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addAnswerUpvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
         String email = "";
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if(answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not exists");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer)){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer)) {
                     flag = true;
                     email = answer1.getUser().getEmail();
                     int upvotes = answer1.getUpvotes();
-                    answer1.setUpvotes(upvotes+1);
+                    answer1.setUpvotes(upvotes + 1);
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,email);
+                answer(savedQuestion, email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_UPVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -338,32 +323,30 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addAnswerDownvote(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
         String email = "";
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if(answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not exists");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer)){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer)) {
                     flag = true;
                     email = answer1.getUser().getEmail();
                     int downvotes = answer1.getDownvotes();
-                    answer1.setDownvotes(downvotes+1);
+                    answer1.setDownvotes(downvotes + 1);
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,email);
+                answer(savedQuestion, email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_DOWNVOTE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -372,31 +355,29 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public Question addQuestionCommentLikes(int questionId, String comment) throws QuestionNotFoundException, CommentNotFoundException, IOException {
         boolean flag = false;
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Comment> comments = question.getComment();
-            if (comments==null){
+            if (comments == null) {
                 throw new CommentNotFoundException("Comment does not exists");
             }
-            for (Comment comment1: comments) {
-                if(comment1.getComment().equals(comment)){
+            for (Comment comment1 : comments) {
+                if (comment1.getComment().equals(comment)) {
                     flag = true;
                     long likes = comment1.getLikes();
-                    comment1.setLikes(likes+1);
+                    comment1.setLikes(likes + 1);
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 question(savedQuestion);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new CommentNotFoundException("Comment does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -405,47 +386,43 @@ public class QuestionServiceImpl implements QuestionService{
     @Override
     public Question addQuestionCommentReplyLikes(int questionId, Comment comment) throws QuestionNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         boolean commentFlag = false;
-        boolean replyFlag  = false;
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        boolean replyFlag = false;
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Comment> comments = question.getComment();
-            if (comments==null){
+            if (comments == null) {
                 throw new CommentNotFoundException("Comment not found");
             }
-            for (Comment comment1: comments) {
-                if(comment1.getComment().equals(comment.getComment())){
+            for (Comment comment1 : comments) {
+                if (comment1.getComment().equals(comment.getComment())) {
                     commentFlag = true;
-                    if (comment1.getReplies()==null){
+                    if (comment1.getReplies() == null) {
                         throw new ReplyNotFoundException("Reply not found");
-                    }
-                    else {
+                    } else {
                         List<Replies> repliesList = comment1.getReplies();
                         Replies replies = comment.getReplies().get(0);
-                        for (Replies reply:repliesList) {
-                            if(reply.getReply().equals(replies.getReply())) {
+                        for (Replies reply : repliesList) {
+                            if (reply.getReply().equals(replies.getReply())) {
                                 replyFlag = true;
                                 long likes = reply.getLikes();
-                                reply.setLikes(likes+1);
+                                reply.setLikes(likes + 1);
                             }
                         }
                     }
                 }
             }
-            if (commentFlag && replyFlag){
+            if (commentFlag && replyFlag) {
                 Question savedQuestion = questionRepository.save(question);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.QUESTION_COMMENT_REPLY_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 question(savedQuestion);
                 return savedQuestion;
-            }
-            else if (!replyFlag){
+            } else if (!replyFlag) {
                 throw new ReplyNotFoundException("Reply not found");
-            }
-            else {
+            } else {
                 throw new CommentNotFoundException("Comment does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -455,44 +432,41 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addAnswerCommentLikes(int questionId, Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, IOException {
         boolean answerFlag = false;
         boolean commentFlag = false;
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if (answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not found");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer.getAnswer())){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer.getAnswer())) {
                     answerFlag = true;
                     List<Comment> comments = answer1.getComments();
-                    if (comments==null){
+                    if (comments == null) {
                         throw new CommentNotFoundException("Comment not found");
                     }
                     Comment comment2 = comments.get(0);
-                    for (Comment comment1:comments) {
-                        if(comment1.getComment().equals(comment2.getComment())){
+                    for (Comment comment1 : comments) {
+                        if (comment1.getComment().equals(comment2.getComment())) {
                             commentFlag = true;
                             long likes = comment1.getLikes();
-                            comment1.setLikes(likes+1);
+                            comment1.setLikes(likes + 1);
                         }
                     }
                 }
             }
-            if (answerFlag && commentFlag){
+            if (answerFlag && commentFlag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,answer.getUser().getEmail());
+                answer(savedQuestion, answer.getUser().getEmail());
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else if (!commentFlag){
+            } else if (!commentFlag) {
                 throw new CommentNotFoundException("Comment not found");
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -502,34 +476,33 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addAnswerCommentReplyLikes(int questionId, Answer answer) throws QuestionNotFoundException, AnswerNotFoundException, CommentNotFoundException, ReplyNotFoundException, IOException {
         boolean answerFlag = false;
         boolean commentFlag = false;
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if (answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not found");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer.getAnswer())){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer.getAnswer())) {
                     answerFlag = true;
                     List<Comment> comments = answer1.getComments();
-                    if (comments==null){
+                    if (comments == null) {
                         throw new CommentNotFoundException("Comment not found");
                     }
                     Comment comment2 = comments.get(0);
-                    for (Comment comment1:comments) {
-                        if(comment1.getComment().equals(comment2.getComment())){
+                    for (Comment comment1 : comments) {
+                        if (comment1.getComment().equals(comment2.getComment())) {
                             commentFlag = true;
                             List<Replies> repliesList = comment1.getReplies();
-                            if (repliesList==null){
+                            if (repliesList == null) {
                                 throw new ReplyNotFoundException("Reply not found");
-                            }
-                            else {
+                            } else {
                                 List<Replies> replies = comment2.getReplies();
                                 Replies reply = replies.get(0);
-                                for (Replies replies1 : repliesList){
-                                    if (replies1.getReply().equals(reply.getReply())){
+                                for (Replies replies1 : repliesList) {
+                                    if (replies1.getReply().equals(reply.getReply())) {
                                         long likes = replies1.getLikes();
-                                        replies1.setLikes(likes+1);
+                                        replies1.setLikes(likes + 1);
                                     }
                                 }
                             }
@@ -537,21 +510,18 @@ public class QuestionServiceImpl implements QuestionService{
                     }
                 }
             }
-            if (answerFlag && commentFlag){
+            if (answerFlag && commentFlag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,answer.getUser().getEmail());
+                answer(savedQuestion, answer.getUser().getEmail());
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_COMMENT_REPLY_LIKE, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else if (!commentFlag){
+            } else if (!commentFlag) {
                 throw new CommentNotFoundException("Comment not found");
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -561,36 +531,33 @@ public class QuestionServiceImpl implements QuestionService{
     public Question addQuestionAnswerAccepted(int questionId, String answer) throws QuestionNotFoundException, AnswerNotFoundException, IOException {
         boolean flag = false;
         String email = "";
-        if (questionRepository.findByQuestionId(questionId)!= null) {
+        if (questionRepository.findByQuestionId(questionId) != null) {
             Question question = questionRepository.findByQuestionId(questionId);
             List<Answer> answers = question.getAnswer();
-            if(answers==null){
+            if (answers == null) {
                 throw new AnswerNotFoundException("Answer not exists");
             }
-            for (Answer answer1: answers) {
-                if(answer1.getAnswer().equals(answer)){
+            for (Answer answer1 : answers) {
+                if (answer1.getAnswer().equals(answer)) {
                     email = answer1.getUser().getEmail();
                     flag = true;
-                    if(!answer1.isAccepted()){
+                    if (!answer1.isAccepted()) {
                         answer1.setAccepted(true);
-                    }
-                    else{
+                    } else {
                         answer1.setAccepted(false);
                     }
                 }
             }
-            if (flag){
+            if (flag) {
                 Question savedQuestion = questionRepository.save(question);
-                answer(savedQuestion,email);
+                answer(savedQuestion, email);
                 QuestionDTO questionDTO = new QuestionDTO(Actions.ANSWER_ACCEPT, savedQuestion.getQuestionId(), savedQuestion.getQuestion(), savedQuestion.getDescription(), savedQuestion.getTopics(), savedQuestion.getUpvotes(), savedQuestion.getTimestamp(), savedQuestion.getDownvotes(), savedQuestion.getUser(), savedQuestion.getComment(), savedQuestion.getAnswer());
                 produceMsg(questionDTO);
                 return savedQuestion;
-            }
-            else {
+            } else {
                 throw new AnswerNotFoundException("Answer does not exists");
             }
-        }
-        else {
+        } else {
             throw new QuestionNotFoundException("Question does not exists");
         }
     }
@@ -601,7 +568,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     //finds the system current time
-    public long generateTimestamp(){
+    public long generateTimestamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
         //return number of milliseconds since January 1, 1970, 00:00:00 GMT
@@ -612,7 +579,7 @@ public class QuestionServiceImpl implements QuestionService{
     public void question(Question savedQuestion) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create("http://localhost:8091/question/" + savedQuestion.getUser().getEmail());
-        restTemplate.put(url,savedQuestion);
+        restTemplate.put(url, savedQuestion);
         System.out.println("Worked");
     }
 
@@ -620,17 +587,26 @@ public class QuestionServiceImpl implements QuestionService{
     public void answer(Question savedQuestion, String email) throws IOException {
         RestTemplate restTemplate = new RestTemplate();
         URI url = URI.create("http://localhost:8091/answer/" + email.trim());
-        restTemplate.put(url,savedQuestion);
+        restTemplate.put(url, savedQuestion);
         log.info("Worked");
     }
 
     //RabbitMq message producer method
-    public void produceMsg(QuestionDTO msg){
+    public void produceMsg(QuestionDTO msg) {
         log.info("Sending message");
         amqpTemplate.convertAndSend(exchange, routingKey, msg);
         amqpTemplate.convertAndSend(exchange1, routingKey1, msg);
         amqpTemplate.convertAndSend(exchange2, routingKey2, msg);
-        amqpTemplate.convertAndSend(exchange3,routingKey3,msg);
+        amqpTemplate.convertAndSend(exchange3, routingKey3, msg);
         log.info("Send msg = " + msg);
+    }
+
+    @Override
+    public Question getByQuestionString(String questionString) {
+        log.info("Question String is : {}", questionString);
+
+        Question byQuestion = questionRepository.findByQuestion(questionString);
+        log.info("Question doc by question string is : {}", byQuestion);
+        return byQuestion;
     }
 }

@@ -8,12 +8,12 @@
   <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
   <mat-card-content>
     <p><em>Answer:</em></p>
-    <ul *ngFor="let answer of in.answers">
+    <ul *ngFor="let answer of in.answer">
       <p>{{answer.answer}}</p>
       <mat-card-content>
         <pre><i class="fas fa-thumbs-up"></i>{{answer.upvotes}}<div
           style="padding: 10px;display: inline-block;"></div><i class="fas fa-eye"></i>{{answer.views}}<div
-          style="padding: 10px;display: inline-block;"></div><i class="fas fa-clock"></i>{{answer.timestamp}}</pre>
+          style="padding: 10px;display: inline-block;"></div><i class="fas fa-clock"></i>{{answer.timestamp | date: 'dd-MM-yyyy'}}</pre>
       </mat-card-content>
     </ul>
   </mat-card-content>

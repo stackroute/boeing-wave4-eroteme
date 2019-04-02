@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class User {
    //private member variable declaration//
-   private String  firstname;
-   private String emailaddress;
-   private String imageurl;
+   private String  firstName;
+   private String email;
+   private String imageUrl;
 }

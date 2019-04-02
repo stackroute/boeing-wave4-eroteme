@@ -1,0 +1,32 @@
+
+<div *ngIf="response else ack" id="web">
+
+  <div *ngFor="let question of response; let i=index" id="outerbox">
+    <div *ngIf="i<1 && question['user'].email" style="display:block; margin-right:50px">
+      <span class="badge badge-pill badge-primary" id="internalbadge">Eroteme</span>
+      <br>
+      <app-question-card [passedQuestions]="question"></app-question-card>
+    </div>
+  </div>
+  <span class="badge badge-pill badge-primary" id="externalbadge">Web</span>
+  <br>
+  <div *ngFor="let question of response; let i=index" id="webbox">
+    <div *ngIf="i>=1">
+      <app-question-card [passedQuestions]="question"></app-question-card>
+
+    </div>
+  </div>
+  <div cdkDrag class="sticky">
+    <button (dblclick)="navigateToPost()" class="btn" id="postbutton" type="button">
+      <i class="fas fa-plus fa-3x" id="plusicon"></i>
+    </button>
+  </div>
+</div>
+<ng-template #ack>
+
+  <div>
+    <img src="../assets/images/load.gif">
+  </div>
+
+
+</ng-template>

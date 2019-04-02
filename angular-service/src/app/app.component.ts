@@ -1,7 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { TransferServiceService } from './transfer-service.service';
 import { TokenStorageService } from './auth/token-storage.service';
-
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
@@ -30,13 +30,19 @@ export class AppComponent implements OnInit {
 
       //Below is the JWT Token
     this.checkLoggedIn= this.info.token;
-   // this.checkLoggedIn= "eurbg";
+    //this.checkLoggedIn= "eurbg";
    this.emailid=this.info.email;
+   this.spinner.show();
+ 
+    // setTimeout(() => {
+    //     /** spinner ends after 5 seconds */
+    //     this.spinner.hide();
+    // }, 5000);
 
 
   }
 
-  constructor(private trans:TransferServiceService,private toke: TokenStorageService){
+  constructor(private trans:TransferServiceService,private toke: TokenStorageService,private spinner: NgxSpinnerService){
    
   }
 

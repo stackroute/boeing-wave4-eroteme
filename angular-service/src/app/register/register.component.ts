@@ -1,32 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { SignUpInfo } from '../auth/signup-info';
+import { SignUpInfo}from '../auth/signup-info';
 import { FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { RegistersuccessComponent } from '../registersuccess/registersuccess.component';
+
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+selector: 'app-register',
+templateUrl: './register.component.html',
+
+styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  thirdFormGroup:FormGroup;
-  isOptional = true;
+firstFormGroup: FormGroup;
+secondFormGroup: FormGroup;
+thirdFormGroup:FormGroup;
+isOptional = true;
 
 
-  form: any = {};
-  signupInfo: SignUpInfo;
-  errorMessage = '';
-  pass:string='';
-  conf:string;
+form: any = {};
+signupInfo: SignUpInfo;
+errorMessage = '';
+pass:string='';
+conf:string;
 
-  // FirstName:String;
-  // FirstName = new FormControl('', [Validators.required]);
+
+// FirstName:String;
+// FirstName = new FormControl('', [Validators.required]);
   // LastName=new FormControl('');
   // email = new FormControl('', [Validators.required, Validators.email]);
   // password=new FormControl('', [Validators.required]);
@@ -69,6 +73,8 @@ export class RegisterComponent implements OnInit {
         toppings:['']
        });
 
+    
+
    }  
 
    onSubmit(){
@@ -93,28 +99,27 @@ export class RegisterComponent implements OnInit {
       this.thirdFormGroup.controls.toppings.value
         );
 
-      console.log(this.firstFormGroup.controls.FirstName.value);
-      console.log(this.firstFormGroup.controls.LastName.value);
-      console.log(this.secondFormGroup.controls.email.value);
-      console.log(this.secondFormGroup.controls.password.value);
-      console.log(this.thirdFormGroup.controls.toppings.value);
-
-
-
-
+      // console.log(this.firstFormGroup.controls.FirstName.value);
+      // console.log(this.firstFormGroup.controls.LastName.value);
+      // console.log(this.secondFormGroup.controls.email.value);
+      // console.log(this.secondFormGroup.controls.password.value);
+      // console.log(this.thirdFormGroup.controls.toppings.value);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
-        alert("Registered Successfully!!!");
+        // alert("Registered Successfully!!!");
+        this.dialog.open(RegistersuccessComponent);
         this.route.navigate(["/login"]);
 
       },
       error => {
+
             if(error.status==201){
-                      alert("Registered Successfully!!!");
-                      this.dialog.closeAll();
-                      this.route.navigate(["/login"]);
+                      // alert("Registered Successfully!!!");
+                      this.dialog.open(RegistersuccessComponent);
+                      // this.dialog.closeAll();
+                      // this.route.navigate(["/login"]);
             }
         console.log(error);
         this.errorMessage = error.error.message;
@@ -125,5 +130,4 @@ export class RegisterComponent implements OnInit {
   {
     this.route.navigate([""]);
   }
-
 }

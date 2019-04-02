@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class RecommendationCommandServiceImplTest {
 
-    private static final UserNode USER_NODE = UserNode.builder().username("kate").reputation(1).build();
+    private static final UserNode USER_NODE = UserNode.builder().email("kate").reputation(1).build();
     private static final QuestionNode QUESTION_NODE = QuestionNode.builder().questionId(12).question("what is java").timestamp(34544).upvote(32).downvote(1).build();
     private static final AnswerNode ANSWER_NODE = AnswerNode.builder().answer("Dont do it").accepted(true).build();
 

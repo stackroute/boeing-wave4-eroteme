@@ -74,7 +74,7 @@ public class RabbitService {
             answerNode.setAnswer(answerDTO.getAnswer());
             String answerString = answerNode.getAnswer();
             UserNode userNode = new UserNode();
-            userNode.setUsername(answerDTO.getUser().getEmail());
+            userNode.setEmail(answerDTO.getUser().getEmail());
             answerNode.setUserNode(Collections.singletonList(userNode));
 
             recommendationCommandServiceImpl.saveAnswerToDb(answerNode);
@@ -98,7 +98,7 @@ public class RabbitService {
             answerNode.setAccepted(answerDTO.isAccepted());
             String answerString = answerNode.getAnswer();
             UserNode userNode = new UserNode();
-            userNode.setUsername(answerDTO.getUser().getEmail());
+            userNode.setEmail(answerDTO.getUser().getEmail());
             answerNode.setUserNode(Collections.singletonList(userNode));
 
             recommendationCommandServiceImpl.saveAnswerToDb(answerNode);
@@ -123,8 +123,8 @@ public class RabbitService {
         user.setEmail(user.getEmail());
         user.setInterests(user.getInterests());
         UserNode userNode1 = new UserNode();
-        userNode1.setUsername(user.getEmail());
-        String userName = userNode1.getUsername();
+        userNode1.setEmail(user.getEmail());
+        String userName = userNode1.getEmail();
         List<String> Name = user.getInterests();
         UserNode userNode2 = userNode1;
 

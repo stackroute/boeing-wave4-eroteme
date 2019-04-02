@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: BootMongo
+    name: question-answer-service
   data:
     mongodb:
       database: ques_db
@@ -12,6 +12,13 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8093/eureka}
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
 jsa:
   rabbitmq:
     queue: jsa.queue1
@@ -32,3 +39,9 @@ jsf:
     queue: jsf.queue1
     exchange: jsf.direct1
     routingkey: jsf.routingkey1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

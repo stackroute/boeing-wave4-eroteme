@@ -1,33 +1,43 @@
 version: "2.1"
 services:
 
-  apigateway:
-    image: zuul-service
-    build: zuul-gatewayservice/
-    restart: always
-    network_mode: host
-    hostname: localhost
-    depends_on:
-      - eurekaserver
-    ports:
-      - 8092:8092
-    expose:
-      - 8092
-    healthcheck:
-      test: "exit 0"
+  #  apigateway:
+  #    image: zuul-service
+  #    build: zuul-gatewayservice/
+  #    restart: always
+  #    network_mode: host
+  #    hostname: localhost
+  #    depends_on:
+  #      - eurekaserver
+  #    ports:
+  #      - 8092:8092
+  #    expose:
+  #      - 8092
+  #    healthcheck:
+  #      test: "exit 0"
 
-  eurekaserver:
-    image: eureka-service:latest
-    build: eureka-server/
-    restart: always
-    network_mode: host
-    hostname: localhost
+  #  eurekaserver:
+  #    image: eureka-service:latest
+  #    build: eureka-server/
+  #    restart: always
+  #    network_mode: host
+  #    hostname: localhost
+  #    ports:
+  #      - 8093:8093
+  #    expose:
+  #      - 8093
+  #    healthcheck:
+  #      test: "exit 0"
+
+  redis:
+    container_name: redis
+    image: redis:latest
     ports:
-      - 8093:8093
-    expose:
-      - 8093
-    healthcheck:
-      test: "exit 0"
+      - "6379:6379"
+    volumes:
+      - /DB/redis:/usr/local/etc/redis/redis.conf
+    entrypoint: redis-server --appendonly yes
+    restart: always
 
   mongo:
     image: mongo:3.4-jessie
@@ -129,10 +139,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-      apigateway:
-        condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
+      #      eurekaserver:
+      #        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     ports:
@@ -170,6 +180,29 @@ services:
     healthcheck:
       test: "exit 0"
 
+#   question-answer-service:
+#     image: question-answer-service
+#     build: ./question-answer-service/
+#     container_name: ques_docker
+#     restart: always
+#     network_mode: host
+#     hostname: localhost
+#     depends_on:
+#       mongo:
+#         condition: service_healthy
+#       apigateway:
+#         condition: service_healthy
+#       eurekaserver:
+#         condition: service_healthy
+#       rabbitmq:
+#         condition: service_healthy
+#     ports:
+#       - 8098:8090
+#     expose:
+#       - 8098
+#     healthcheck:
+#       test: "exit 0"
+
   question-answer-service:
     image: question-answer-service
     build: ./question-answer-service/
@@ -180,10 +213,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
-      apigateway:
-        condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
+      #      apigateway:
+      #        condition: service_healthy
+      #      eurekaserver:
+      #        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     ports:
@@ -192,6 +225,29 @@ services:
       - 8090
     healthcheck:
       test: "exit 0"
+
+#   question-answer-service2:
+#     image: question-answer-service
+#     build: ./question-answer-service/
+#     container_name: ques_docker2
+#     restart: always
+#     network_mode: host
+#     hostname: localhost
+#     depends_on:
+#       mongo:
+#         condition: service_healthy
+#       apigateway:
+#         condition: service_healthy
+#       eurekaserver:
+#         condition: service_healthy
+#       rabbitmq:
+#         condition: service_healthy
+#     ports:
+#       - 8094:8090
+#     expose:
+#       - 8094
+#     healthcheck:
+#       test: "exit 0"
 
   recommendation-query-service:
     image: recommendation-query-service
@@ -209,6 +265,25 @@ services:
       - 8081:8081
     expose:
       - 8081
+    healthcheck:
+      test: "exit 0"
+
+  evaluation-service:
+    image: evaluation-service
+    build: ./evaluation-service/
+    container_name: evaluation-service_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    ports:
+      - 8082:8082
+    expose:
+      - 8082
     healthcheck:
       test: "exit 0"
 
@@ -267,7 +342,6 @@ services:
       - 8099
     healthcheck:
       test: "exit 0"
-
   my-profile-service:
     image: my-profile-service
     build: ./my-profile-service/
@@ -287,31 +361,48 @@ services:
     healthcheck:
       test: "exit 0"
 
-#  json-server1:
-#    container_name: json-server1
-#    image: clue/json-server
-#    volumes:
-#      - ${DIR}/trendingQues.json:/data/db.json
-#    ports:
-#      - 8050:80
+  automatic-answer-search-service:
+    build: ./automatic-answer-search-service/
+    image: automatic-answer-search-service
+    container_name: automatic-answer-search_docker
+    restart: always
+    network_mode: host
+    hostname: localhost
+    #    depends_on:
+    #      redis:
+    #        condition: service_healthy
+    ports:
+      - 8094:8094
+    expose:
+      - 8094
+    healthcheck:
+      test: "exit 0"
 #
-#  json-server2:
-#    container_name: json-server2
-#    image: clue/json-server
-#    volumes:
-#      - ${DIR}/unansweredQues.json:/data/db.json
-#    ports:
-#      - 8051:80
-#
-#  json-server3:
-#    container_name: json-server3
-#    image: clue/json-server
-#    volumes:
-#      - ${DIR}/User.json:/data/db.json
-#    ports:
-#      - 8052:80
-#    healthcheck:
-#      test: "exit 0"
+##  json-server1:
+##    container_name: json-server1
+##    image: clue/json-server
+##    volumes:
+##      - ${DIR}/trendingQues.json:/data/db.json
+##    ports:
+##      - 8050:80
+##
+##  json-server2:
+##    container_name: json-server2
+##    image: clue/json-server
+##    volumes:
+##      - ${DIR}/unansweredQues.json:/data/db.json
+##    ports:
+##      - 8051:80
+##
+##  json-server3:
+##    container_name: json-server3
+##    image: clue/json-server
+##    volumes:
+##      - ${DIR}/User.json:/data/db.json
+##    ports:
+##      - 8052:80
+##    healthcheck:
+##      test: "exit 0"
 
 
 

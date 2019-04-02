@@ -1,10 +1,11 @@
-<mat-card (click)="put()" class="example-card waves-effect waves-light" id="some" routerLink="/questionAnswerCard">
+<mat-card (click)="put()" class="example-card waves-effect waves-light hvrbox" id="some" routerLink="/questionAnswerCard">
   <mat-card-header>
     <div class="example-header-image" mat-card-avatar></div>
-    <mat-card-title style="font-size: medium"><u>Asked By</u>: {{passedQuestions.user.firstName}}</mat-card-title>
-    <mat-card-subtitle>{{passedQuestions.question}}</mat-card-subtitle>
+    <mat-card-title style="font-size: medium;font-weight:630;">{{passedQuestions.question}}</mat-card-title>
+    <mat-card-subtitle style="font-size: small;font-weight:570;color:black;"><u>Asked By</u>: {{passedQuestions.user.firstName}}</mat-card-subtitle>
+    
   </mat-card-header>
-  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+  <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
   <mat-card-content id="card">
     <p class="replyMessage">{{desc}}</p>
   </mat-card-content>
@@ -12,8 +13,8 @@
     <pre><i class="fas fa-thumbs-up"></i> {{passedQuestions.upvotes}}<div
       style="padding: 10px;display: inline-block;"></div><i class="fas fa-thumbs-down"></i> {{passedQuestions.downvotes}}</pre>
   </mat-card-content>
-  <mat-card-actions id="butt">
-    <button (click)="put()" color="primary" mat-raised-button routerLink="/questionAnswerCard">Show more</button>
+  <mat-card-actions class="hvrbox-layer_top hvrbox-layer_slideup" id="butt">
+    <button class="btn btn-dark" mat-raised-button routerLink="/questionAnswerCard" (click)="put()" style="margin-left: 30%;margin-top: 40%;">Show more</button>
   </mat-card-actions>
 </mat-card>
 <router-outlet></router-outlet>

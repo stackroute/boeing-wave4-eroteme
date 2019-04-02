@@ -2,25 +2,27 @@ grokonez:
     app:
         jwtExpiration: 86400
         jwtSecret: jwtErotemeSecretKey
+
+
 eureka:
-    client:
-        fetch-registry: true
-        register-with-eureka: true
-        serviceUrl:
-            defaultZone: http://localhost:9091/eureka/
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8093/eureka}
 
+#server:
+#  ports:
+#    http: 8087
+#  port: 8092
+#  ssl:
+#    key-store: classpath:keystore.p12
+#    key-store-password: root123
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+#
+#security:
+#  require-ssl: true
 server:
-  ports:
-    http: 8087
   port: 8092
-  ssl:
-    key-store: classpath:keystore.p12
-    key-store-password: root123
-    keyStoreType: PKCS12
-    keyAlias: tomcat
-
-security:
-  require-ssl: true
 
 
 spring:
@@ -29,6 +31,34 @@ spring:
 zuul:
     routes:
         user-authentication-service:
-          url: http://localhost:8084
+#          url: http://localhost:8084
+          serviceId: user-authentication-service
+        user-profile-service:
+          serviceId: user-profile-service
+        search-service:
+          serviceId: search-service
+        recommendation-query-service:
+          serviceId: recommendation-query-service
+        recommendation-command-service:
+          serviceId: recommendation-command-service
+        question-answer-service:
+          serviceId: question-answer-service
+        notification-service:
+          serviceId: notification-service
+        nlp-service:
+          seviceId:  nlp-service
+        my-profile-service:
+          serviceId: my-profile-service
+        evaluation-service:
+          serviceId: evaluation-service
+        automatic-answer-search-service:
+          serviceId: automatic-answer-search-service
+
+
+
+
+
+
+
 
         sensitiveHeaders:

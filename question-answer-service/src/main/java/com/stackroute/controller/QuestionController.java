@@ -5,6 +5,7 @@ import com.stackroute.domain.Comment;
 import com.stackroute.domain.Question;
 import com.stackroute.exceptions.*;
 import com.stackroute.service.QuestionService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/v1")
+@Api(value = "Eroteme", description = "Operations on question and answer service")
 public class QuestionController extends ResponseEntityExceptionHandler {
 
     private QuestionService questionService;
@@ -124,5 +126,17 @@ public class QuestionController extends ResponseEntityExceptionHandler {
     @GetMapping("questions")
     public ResponseEntity<?> getAllQuestions() {
         return new ResponseEntity<>(questionService.getAllQuestions(), HttpStatus.OK);
+    }
+
+    @GetMapping("getquestion")
+    public ResponseEntity<Question> getDocumentByQuestionString(@RequestParam String question) {
+        ResponseEntity<Question> responseEntity;
+        try {
+            responseEntity = new ResponseEntity<>(questionService.getByQuestionString(question), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
+        }
+        return responseEntity;
     }
 }

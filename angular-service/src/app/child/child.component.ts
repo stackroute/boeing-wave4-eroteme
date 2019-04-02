@@ -14,29 +14,33 @@ export class ChildComponent implements OnInit {
 
   @Input()
   question;
+  
 
   title;
   description;
   upvote;
   downvote;
-answer;
+  answer;
   view;
 
   constructor(private trans:TransferServiceService) {
   }
 
   ngOnInit() {
-    console.log("in child component"+this.question.toString());
+    console.log(this.question);
     this.title=this.question.question;
     this.description=this.question.description;
     this.upvote=this.question.upvotes;
     this.downvote=this.question.downvote;
-    this.answer=this.question.answers[0].answer;
-    this.view=this.question.answers[0].views;
+    this.answer=this.question.answer[0].answer;
+    // console.log("uu testing"+this.answer);
+    this.view=this.question.answer[0].views;
   }
  
   putValue(){
+    console.log(this.question);
     this.trans.value=this.question;
+    // console.log("testig the child" +this.question);
   }
 
  }

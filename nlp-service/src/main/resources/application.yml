@@ -9,3 +9,26 @@ jsb:
     queue: jsb.queue
     exchange: jsb.direct
     routingkey: jsb.routingkey
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+
+spring:
+  application:
+    name: nlp-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'
+
+stopwords: i, me, my, myself, we, our, ours, ourselves, could, he'd, above, below, be, what, in, on, "above",
+      is,i, me, my, myself, we, our, ours, ourselves,could, he'd, !, @,
+      they'll, they're, they've, we'd, we'll, we're, we've, what's, when's, where's, _,
+      who's, why's, would, i'd, i'll, i'm, i've, you, you're,you've,you'll,
+      you'd, your, yours, yourself, yourselves, he, him, his, himself,she,
+      she's, her, hers, herself, it, it's, its, itself, they, them, their,
+      theirs, themselves, who, whom, this, that, that'll,these, what,why, which

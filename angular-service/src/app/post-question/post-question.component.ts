@@ -1,7 +1,13 @@
+import { NavbarComponent } from './../navbar/navbar.component';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppComponent } from '../app.component';
+import { MatDialog } from '@angular/material';
+import { RegisterComponent } from '../register/register.component';
+import { LoginpopupComponent } from '../loginpopup/loginpopup.component';
+import { LoginComponent } from '../login/login.component';
+import {TransferServiceService} from '../transfer-service.service';
 
 @Component({
   selector: 'app-post-question',
@@ -18,31 +24,39 @@ export class PostQuestionComponent implements OnInit {
 
   description: string;
 
-  topiclist = [{ "topic": "Components" },
-  { "topic": "Component interaction" },
+  topiclist = [{ "topic": "Fundamentals and Architecture" },
+  { "topic": "Typescript" },
+  { "topic": "Testing"},
+  { "topic": "Server Side Communication"},
+  { "topic": "Forms"},
+  { "topic": "Navigation"},
   { "topic": "Pipes" },
-  { "topic": "Services" },
-  { "topic": "Directives" },
-  { "topic": "Routing" },
-  { "topic": "Dependency Injection" },
-  { "topic": "Modules" }]
+  { "topic": "Data Binding"},
+  { "topic": "Getting Started"}]
+  selectedList=[];
+  index;
+  index1;
+  str;
 
-  constructor(private route: Router, private app: AppComponent, private http: HttpClient) { }
+  constructor(private router :Router, private app: AppComponent, private http: HttpClient,private dialog:MatDialog,private trans:TransferServiceService) { }
 
   ngOnInit() {
   }
 
   postQuestion() {
     if (this.app.checkLoggedIn == null) {
-      alert("You need to login first");
-      this.route.navigate(["/login"]);
+      // alert("You need to login first");
+      this.dialog.open(LoginpopupComponent);
+      // this.route.navigate(["/login"]);
     }else{
     console.log(this.ques);
     console.log(this.description);
     console.log(this.toSendList);
-    this.http.post("http://52.66.134.21:8090/api/v1/question",
+    console.log("this is the email "+this.app.emailid);
+    this.http.post("http://52.66.134.21:8082/result",
       {
         "question": this.ques,
+        "action":"POST_QUESTION",
         "description": this.description,
         "topics": this.toSendList,
         "upvotes": 0,
@@ -53,8 +67,8 @@ export class PostQuestionComponent implements OnInit {
           "firstName": this.app.emailid.split("@")[0],
           "imageUrl": "https://i.pinimg.com/originals/0c/de/1f/0cde1ffe66ebf04eda41a30a4ef05a26.jpg"
         },
-        "comment": null,
-        "answer": null
+        "comment": [],
+        "answer": []
       },
       {
         headers: new HttpHeaders({
@@ -65,21 +79,29 @@ export class PostQuestionComponent implements OnInit {
   .subscribe(
     data  => {
     console.log("POST Request is successful ", data);
-    alert("Your question is posted successfully");
-    window.location.reload();
+    this.trans.result.next(data);
+    console.log("wer \n",this.trans.result);
     },
     error  => {
-
     console.log("Error", error);
-
-    }
-
-    );
+    });
+    this.router.navigate(['/evaluation']);
     }
 }
 
-  addTopic(toadd) {
-    this.toSendList.push(toadd);
-  }
-
+addTopic(toadd) {
+  this.toSendList.push(toadd);
+  this.index1=this.topiclist.indexOf(toadd);
+  this.topiclist.splice(this.index,0);
+  console.log(this.toSendList);
+  
+}
+delTopic(topic){
+  this.index=this.toSendList.indexOf(topic);
+  this.toSendList.splice(this.index,1);
+  console.log(this.toSendList); 
+  this.str={"topic":topic};
+  this.topiclist.push(this.str);
+  
+}
 }

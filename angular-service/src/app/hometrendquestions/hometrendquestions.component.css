@@ -1,0 +1,157 @@
+ul{
+    display: inline-flex;
+    list-style-type: none;
+    margin-left: 3%;
+}
+.cent{
+    margin-top: 3%;
+    display: block;
+    margin-left: 0.5%;
+    width: 38%;
+    text-align: center;
+    background-color: white;
+    border-radius: 3px 140px 140px 3px;
+    padding: 10px;
+    font-size: 1.6rem;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    
+}
+
+.cent1{
+
+    float: right;
+    padding-right: 6%;
+    margin-top: 3%;
+    /* text-align: center; */
+        /* color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic; */
+}   
+
+
+h1.cent1 {
+    margin-bottom: 3%;
+    font-family: 'Kersse',helvetica,sans-serif;
+    margin-top: 3%;
+    color: white;
+    text-decoration: none;
+    /* margin-right: 5%; */
+    font-size: 20px;
+    font-weight: lighter;
+    /*transition*/
+    -webkit-transition: 0.5s all ease;
+    -moz-transition: 0.5s all ease;
+    -o-transition: 0.5s all ease;
+    transition: 0.5s all ease;
+}
+h1.cent1:hover {
+    margin-top: 3%;
+    font-family: 'Kersse',helvetica,sans-serif;
+    color: aqua;
+    text-decoration: none;
+    text-shadow: 0 0 100px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 60px #666,                
+				 0 0 23px #000,                
+				 0 0 23px #000,                
+				 0 0 23px #000,               
+				 0 0 23px #000,                
+				 0 0 23px #000;
+}
+
+/* .cent2{
+    margin-right: -45%;
+    font-size: 20px;
+    transition: transform 0.2s ease-in;
+}
+.cent2:hover{
+    transition-delay: 50s;
+    color: red;
+    font-size: 25px;
+    text-underline-position: none;
+} */
+
+#heading{
+    margin-left: 40%;
+}
+
+.bloc{
+    transition:0.5s;
+}
+.bloc:hover{
+    transform: translateX(10px);
+
+}
+#heading{
+    box-align: center;
+}
+
+
+
+
+form{
+    padding: 40px;
+    color: white;
+}
+
+body{
+    max-width: 100%;
+     background: url('../../assets/images/books.jpeg'); 
+    background-attachment: fixed;
+    background-size: cover;
+    max-height: 100%;
+    overflow: none;
+}
+button:hover{
+    color: white;
+}
+button{
+    color: black;
+}
+
+.biglist{
+    list-style-type:none;
+    padding:-4px;
+    margin-right: -18px;
+    width: 100%;
+
+}
+
+@media screen and (max-width: 600px) {
+    ul{
+        display: inline-flex;
+        list-style-type: none;
+        margin-left: 0%;
+    }
+}
+
+
+@media screen and (max-width: 600px){
+
+
+    .cent{
+        margin-top: 3%;
+        display: block;
+        margin-left: -1%;
+        width: 90%;
+        text-align: center;
+        background-color: white;
+        border-radius: 3px 80px 80px 3px;
+        padding: 10px;
+        font-size: 1.1rem;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: italic;
+        
+    }
+
+
+    body{
+        padding-left: 3%;
+    }
+
+}

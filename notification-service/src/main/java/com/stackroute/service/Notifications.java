@@ -1,35 +1,49 @@
 package com.stackroute.service;
 
+import com.stackroute.repository.NotificationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-
+import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
-//methods for various types of notifications
-public class Notifications {
+@Service
+@Slf4j
+public class Notifications implements NotificationsInterface {
+
+    private SimpMessagingTemplate template;
+    private NotificationRepository notificationRepository;
+    private com.stackroute.domain.Notifications notifications=new com.stackroute.domain.Notifications();
+    private List<String> notify=new ArrayList<String>();
+    private String note="";
 
     @Autowired
-    private SimpMessagingTemplate template;
+    public Notifications(SimpMessagingTemplate template, NotificationRepository notificationRepository) {
+        this.template = template;
+        this.notificationRepository = notificationRepository;
+    }
 
-    //notifies all the users sent by recommendation service regarding question which has been posted
-    public void generateQuestionNotification(List< String> user,String Question) {
-        for (int i = 0; i < user.size(); i++) {
-            template.convertAndSend("/queue/" + user.get(i), "Can you answer this:" + Question);
+//method to generate notifications when the user is logged in
+    public void generateNotifications(String email){
+        //extract notification from repo for this email
+        try{
+        notifications=notificationRepository.findById(email);
+        notify=notifications.getNotification();
+        for(int i=0;i<notify.size();i++) {
+            note=notify.get(i);
+            template.convertAndSend("/queue/" +notifications.getEmail(),note);
+            log.info("notified "+email);
+        }
+        //delete those mails once sent to the client
+        notificationRepository.delete(email);
+        log.info("deleted "+email);
+        }
+        catch(Exception e){
+            System.out.println("No Notications for the user:"+email);
         }
     }
-
-    //notifies the user that your question has been answered
-    public void generateAnswerNotification(String user,String Question) {
-        template.convertAndSend("/queue/" + user, "Your question:" + Question + "has been answered!");
-    }
-
-    //notifies the user that thier answer has been accepted
-    public void generateLikedNotification(String user,String Question) {
-        template.convertAndSend("/queue/" + user, "Your Answer to the  question:" + Question + "has been accepted!");
-    }
-
-
 
 }

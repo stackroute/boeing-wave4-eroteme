@@ -48,9 +48,6 @@ import javax.validation.Valid;
             //jwtresponse with all the credentials is returned.
             return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
         }
-
-
-
         }
 
 

@@ -60,6 +60,14 @@ public class UserController {
         amqpTemplate.convertAndSend(exchange1, routingKey1, signUp);
         amqpTemplate.convertAndSend(exchange2, routingKey2, signUp);
 
+//        try{
+//            //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());
+//            userService.saveUser(signUp);
+//            return new ResponseEntity<>(signUp, HttpStatus.OK);
+//        }catch (Exception e){
+//            return new ResponseEntity<>(null, HttpStatus.BAD_GATEWAY);
+//        }
+
         try{
             //User signUp1 = new User(userDTO.getFirstName(),userDTO.getLastName(),userDTO.getEmail(),encoder.encode(userDTO.getPassword()),userDTO.getInterests());
             userService.saveUser(signUp);

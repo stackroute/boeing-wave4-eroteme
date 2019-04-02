@@ -1,0 +1,103 @@
+#mytemplate{
+margin-top: 50px;
+width: 500px;
+margin-left: 400px;
+margin-top: 200px;
+}
+#checkmark{
+    float: left;
+    position: relative;
+    top: -10px;
+
+}
+div.alert.alert-light{
+    height: 100px;
+    border: 1.5px solid green;
+}
+h4.alert-heading{
+    float: left;
+    position: relative;
+    top: 15px;
+    left: 50px;
+    color: green;
+}
+#closemark{
+    float: right;
+    position: relative;
+}
+#outerbox{
+    display: block;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+#webbox{
+    display: inline-block;
+    margin-right: 20px;
+    margin-top: 20px;
+
+}
+#web{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 30px;   
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: 300px;
+}
+#internalbadge{
+    float: left;
+    position: relative;
+    width: 150px;
+    background-color: indigo;
+    height: 22px;
+    font-size: 0.9em;
+}
+#externalbadge{
+    float: left;
+    position: relative;
+    width: 150px;
+    background-color: blue;
+    height: 22px;
+    font-size: 0.9em;
+}
+
+#rest{
+    display: block;
+}
+div.sticky {
+    position: -webkit-sticky;
+    position: fixed;
+    width: 80px;
+    border-radius: 80px;
+    top: 75%;
+    bottom: 34%;
+    right: 0px;
+    background-color: gainsboro;
+    padding: 38px;
+    font-size: 20px;
+    right: 2%;
+    padding-bottom: 45px;
+    /* border: 1.2px solid black */
+  } 
+  
+  .div.sticky:hover{
+    background-color: black;
+  }
+  
+  #plusicon:focus{
+    background-color: black;
+  }
+  
+  
+  #plusicon{
+    position: relative;
+    margin-left: -148%;
+    margin-top: -58%;
+    padding-right: 2px;
+  }

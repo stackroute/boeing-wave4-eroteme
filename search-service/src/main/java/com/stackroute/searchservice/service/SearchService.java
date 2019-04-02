@@ -17,9 +17,10 @@ public interface SearchService {
 
     List<Topic> getQuestion(List<String> topic) throws ConceptNotFoundException;
 
-    List<Question> questionOfTopic(String topic, String question) throws ConceptNotFoundException;
-
     String questionOfPost(QuestionDTO question);
+
+    List<Question> getQuestionInside(List<String> topic, String question) throws ConceptNotFoundException;
+
 
 }
 

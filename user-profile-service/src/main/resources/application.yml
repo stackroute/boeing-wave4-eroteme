@@ -1,9 +1,14 @@
 server:
     port: 8086
 
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8093/eureka
+
 spring:
     application:
-        name: BootMongo
+        name: user-profile-service
     data:
         mongodb:
             database: signup
@@ -27,3 +32,9 @@ jsi:
     queue: jsi.queuereg
     exchange: jsi.directreg
     routingkey: jsi.routingkeyreg
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+            expose: '*'

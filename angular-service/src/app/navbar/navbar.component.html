@@ -2,7 +2,7 @@
     <!--Here below is the image of the website-->
     <a class="navbar-brand" href="#">
       <div class="w3-container">
-        <img src="../../assets/images/t5.jpeg" class="w3-circle" alt="Logo" style="width:40px">
+        <img alt="Logo" class="w3-circle" src="../../assets/images/logo1.jpg" style="width:40px">
       </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -14,12 +14,30 @@
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+          <div class="dropdown">
+            <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle"
+                    data-toggle="dropdown" id="dropdownMenuButton" type="button">
+              Site Tour
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="https://www.iorad.com/player/1558011/Eroteme--Registration-and-Login-tutorial" target="_blank" style="text-align: center;">Login & Signup</a>
+              <a class="dropdown-item" href="https://www.iorad.com/player/1558017/Eroteme--How-to-post-a-question" style="text-align: center;" target="_blank">Post Question</a>
+              <a class="dropdown-item" href="https://www.iorad.com/player/1558024/Eroteme--How-to-search-a-question" style="text-align: center;" target="_blank">Search Quesion</a>
+            </div>
+          </div>
+        </li>
         <pre id="rep">                        </pre>
         <form class="form-inline my-2 my-lg-0">
           <input type="text" class="form-control" type="search" name="value" [(ngModel)]="value" placeholder="Search"
             aria-label="Search" size="46">
-          <pre></pre><button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="putSearchVal()">Search</button>
+          <pre></pre>
+          <button (click)="putSearchVal()" class="btn btn-outline-light" id="search1" type="submit">Search</button>
         </form>
+
+        <!-- <form>
+            <input type="text" name="search"  placeholder="Search.." [(ngModel)]="value">
+          </form> -->
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
@@ -30,7 +48,7 @@
             <div class="dropdown" >
                 <button   class="btn btn-dark dropdown-toggle" data-toggle="dropdown" (click)=myfunction()>
                     <i class="far fa-bell" style="color: white;"></i>
-                    <span class="badge" style="color: white;">{{length1}}</span>
+                    <span class="badge" style="color: white;">{{str}}</span>
                 </button>
                 <div class="dropdown-menu" >
                   <div id="myDropdown" class="dropdown-content">
@@ -65,7 +83,7 @@
           </li>
           <pre> </pre>
           <li>
-            <button type="button" class="btn btn-outline-light" *ngIf="!check1" (click)="open()">Sign Up</button>
+            <button *ngIf="!check1" class="btn btn-outline-light" routerLink="/register" type="button">Sign Up</button>
           </li>
         </ul>
       </form>
@@ -73,5 +91,5 @@
   </nav>
   <br>
   <br>
-  
-  <router-outlet></router-outlet> 
+
+<router-outlet></router-outlet>

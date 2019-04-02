@@ -1,7 +1,26 @@
 questionAndAnswerUrl: http://localhost:8090/api/v1/
-recommendNotifyUrl: http://localhost:8091/member/notify
+recommendNotifyUrl: http://localhost:8081/member/notify
+webcrawlerurl: http://localhost:8094/rest/question/webresults/
 jst:
   rabbitmq:
     queue: jst.queue1
     exchange: jst.direct1
     routingkey: jst.routingkey1
+server:
+  port: 8082
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+
+
+spring:
+  application:
+    name: evaluation-service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

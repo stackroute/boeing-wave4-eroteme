@@ -16,6 +16,8 @@ public interface QuestionService {
 
     Question getQuestion(int questionId) throws QuestionNotFoundException;
 
+    Question getByQuestionString(String questionString);
+
     Question addQuestionComment(int questionId, Comment comment) throws QuestionNotFoundException, IOException;
 
     Question addQuestionCommentReply(int questionId, String comment, List<Replies> replies) throws QuestionNotFoundException, CommentNotFoundException, IOException;

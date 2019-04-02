@@ -30,3 +30,14 @@ jsh:
         queue: jsh.queuereg
         exchange: jsh.directreg
         routingkey: jsh.routingkeyreg
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      expose: '*'

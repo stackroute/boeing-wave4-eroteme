@@ -1,0 +1,31 @@
+
+
+<body>
+   
+  <div class="jumbotron"  id="jumbo">
+    <div class="container for-about">
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-dark btn-lg btn-block" id="change" routerLink="/postQuestion" style="padding: 10px;border:0px solid white;color: white;"
+              type="button" type="submit">Click here to ask
+              Question!</button>
+          </form>
+    <h1 class="jumboh">Eroteme is a Question and Answer based Platform</h1>
+    <br>
+    <button (click)="show()" class="btn btn-outline-secondary"  style="margin-left: 14%;" type="button">{{toggle}}</button>
+    <!-- <h3><a class="id" (click)="show()">{{toggle}}</a></h3> -->
+             
+            <div *ngIf="modal"  class="modall">
+              <br>
+                <p style="font-size: large;">Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Molestias porro, officia quidem
+                quasi voluptate dolore culpa laboriosam! Rerum reiciendis iure necessitatibus, cupiditate
+                eligendi accusantium assumenda! Ducimus ipsa maiores accusantium cupiditate!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam veritatis quidem deserunt assumenda molestiae
+                consectetur laboriosam hic magni, enim mollitia maxime, nesciunt repudiandae! Culpa ad voluptatem sequi soluta
+                assumenda expedita!</p>
+            </div>
+            <!-- The Modal -->
+       
+    </div>
+    </div>
+  </body>

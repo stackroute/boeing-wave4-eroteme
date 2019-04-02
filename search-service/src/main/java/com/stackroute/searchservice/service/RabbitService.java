@@ -1,6 +1,7 @@
 package com.stackroute.searchservice.service;
 
 import com.stackroute.searchservice.model.QuestionDTO;
+import com.stackroute.searchservice.model.SearchData;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,8 @@ import java.util.List;
 
 @Component
     public class  RabbitService {
- public List<String> topic;
+    private List<String> topic;
+    private String question;
         @Autowired
         SearchServiceImpl searchService;
 
@@ -28,13 +30,20 @@ import java.util.List;
         }
 
         @RabbitListener(queues = "${jsb.rabbitmq.queue}")
-        public void receivedMessage(List<String> topic) {
-            System.out.println("Received Message: " + topic);
-            this.topic=topic;
-            System.out.println(this.topic);
-
+        public void receivedMessage(SearchData searchData) {
+            System.out.println("Received Message: " + searchData);
+            this.topic = searchData.getTopics();
+            this.question = searchData.getQuestion();
         }
+
+    public List<String> getTopic() {
+        return topic;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+}
 
 
 

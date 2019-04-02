@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class User {
-    private String firstname;
-    private String emailaddress;
-    private String imageurl;
+    private String firstName;
+    private String email;
+    private String imageUrl;
 }
 
 

@@ -2,6 +2,8 @@ package com.stackroute.evaluationservice.controller;
 
 import com.stackroute.evaluationservice.domain.Notification;
 import com.stackroute.evaluationservice.domain.Question;
+import com.stackroute.evaluationservice.domain.QuestionDTO;
+import com.stackroute.evaluationservice.domain.UserNode;
 import com.stackroute.evaluationservice.service.EvaluationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -9,49 +11,87 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
+@CrossOrigin("*")
 public class EvaluationController {
     private EvaluationService evaluationService;
     private RabbitTemplate rabbitTemplate;
+    private RestTemplate restTemplate;
     @Value("${jst.rabbitmq.exchange}")
     private String exchange;
 
     @Value("${jst.rabbitmq.routingkey}")
     private String routingKey;
 
+    @Value("${questionAndAnswerUrl}")
+    private String questionAndAnswerUrl;
+
     @Autowired
-    public EvaluationController(EvaluationService evaluationService, RabbitTemplate rabbitTemplate) {
+    public EvaluationController(EvaluationService evaluationService, RabbitTemplate rabbitTemplate, RestTemplate restTemplate) {
         this.evaluationService = evaluationService;
         this.rabbitTemplate = rabbitTemplate;
+        this.restTemplate = restTemplate;
     }
 
-    @GetMapping("result")
-    public ResponseEntity<Question> getResultAfterEvaluation(@RequestParam String questionString) {
-        ResponseEntity<Question> responseEntity;
+    /**
+     * @param questionDTO Question DTO of the posted question
+     * @return Returns list of questions as response
+     */
+    @PostMapping("result")
+    public ResponseEntity<List<Question>> getResultAfterEvaluation(@RequestBody QuestionDTO questionDTO) {
+        log.info("Received QuestionDTO {}", questionDTO);
+
+        ResponseEntity<List<Question>> responseEntity;
         try {
+            String questionString = questionDTO.getQuestion();
             CompletableFuture<Question> questionCompletableFuture = evaluationService.searchInDb(questionString);
-            CompletableFuture<List<Notification>> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionString);
-            CompletableFuture.allOf(questionCompletableFuture, userListCompletableFuture);
-            log.info("Recevied list of users and question document");
-            Question question = questionCompletableFuture.get();
-            log.info("Question document found: {}", question);
-            List<Notification> eligibleUsers = userListCompletableFuture.get();
-            log.info("Eligible users for notification: {}", eligibleUsers);
-            if (question == null) {
-                rabbitTemplate.convertAndSend(exchange, routingKey, eligibleUsers);
+            CompletableFuture<List<Question>> webResultCompletableFuture = evaluationService.searchInWeb();
+            CompletableFuture.allOf(questionCompletableFuture, webResultCompletableFuture);
+
+            log.info("Recevied list of eligible users, question document from db and web results");
+
+            Question questionFromDb = questionCompletableFuture.get();
+            log.info("Question document found: {}", questionFromDb);
+
+
+            List<Question> webResults = webResultCompletableFuture.get();
+            log.info("Web results are {}", webResults);
+
+
+            if ((questionFromDb == null || questionFromDb.getQuestion() == null || questionFromDb.getQuestion().isEmpty())) {
+                List<UserNode> userListCompletableFuture = evaluationService.notifyUsersForTheQuestion(questionDTO);
+                List<String> eligibleUsers = userListCompletableFuture
+                        .stream()
+                        .peek(userNode -> log.info("User node is {}", userNode))
+                        .filter(userNode -> !userNode.getEmail().equalsIgnoreCase(questionDTO.getUser().getEmail()))
+                        .map(UserNode::getEmail)
+                        .collect(Collectors.toList());
+                log.info("Eligible users for notification: {}", eligibleUsers);
+                Notification notification = new Notification();
+                notification.setEmails(eligibleUsers);
+                notification.setQuestion(questionString);
+                rabbitTemplate.convertAndSend(exchange, routingKey, notification);
+                log.info("Sent notification: {}", notification);
+                return new ResponseEntity<>(webResults, HttpStatus.OK);
             }
-            responseEntity = new ResponseEntity<>(question, HttpStatus.OK);
+            webResults.add(0, questionFromDb);
+
+            responseEntity = new ResponseEntity<>(webResults, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new Question(), HttpStatus.BAD_GATEWAY);
+            responseEntity = new ResponseEntity<>(Collections.emptyList(), HttpStatus.NO_CONTENT);
         }
         return responseEntity;
     }

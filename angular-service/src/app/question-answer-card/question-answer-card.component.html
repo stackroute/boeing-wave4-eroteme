@@ -1,5 +1,193 @@
-<!-- <pre><img src="{{present.user.imageurl}}"/><h3>{{present.question}}</h3></pre> -->
 
+<body>
+    <br>
+    <div id="bord" style="border: 1px solid black">
+        <div class="container" >
+            <h3 class="question">Question: <span class="tab">{{present.question}} 
+             <!-- <pre id="space1"> -->
+              <!-- <button   id="upvote" type="button" class="btn btn-light" (click)="upvoteQuestion()" ><strong>Upvote--{{present.vote}}</strong></button> <button id="downvote" type="button" class="btn btn-light" (click)="downvoteQuestion()"><strong>Downvote</strong></button></pre> -->
+              <span class="tab1"> <button id="upvote" type="button" class="btn btn-light" (click)="upvoteQuestion()" ><strong><i class="fas fa-thumbs-up"></i> {{present.upvotes}}</strong></button><button id="downvote" type="button" class="btn btn-light" (click)="downvoteQuestion()"><strong><i class="fas fa-thumbs-down"></i> {{present.downvotes}}</strong></button>
+            </span></span></h3>
+              <!-- </pre> -->
+            <!-- <img  id="photo" src="../../assets/images/bob.jpg"><span class="spaci"></span> -->
+            <div  id="circle">
+                <strong> By:</strong> {{present.user.firstName}}       
+            <h6 id="ron" style="display:inline-block;"><i class="fas fa-calendar-alt"></i>:{{present.timestamp | date: 'dd-MM-yyyy'}}</h6>
+            </div>
+        </div>
+        <div style="font-weight: 600; display: inline-block;padding-left: 6.5%;">Topics  :<li *ngFor="let topic of present.topics"  style="display: inline-block;position: relative;  font-weight: 100;padding-top: 0px;"><span class="tab">{{topic}}</span> </li>
+        </div>
+        <h4 class="votes1" style="margin-left: 6.5%;font-size:15px; "><b>Description:</b>
+            <h5 class="descript" style="display: contents; font-style: italic;"><span class="tab">{{present.description}}</span></h5>
+        </h4>
+
+        <!-- <h6 class="votes"><span class="space">Upvotes:</span>{{present.vote}}<span class="space"></span></h6> -->
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                  <button (click)="postanswer1()" class="btn btn-dark" style="position: absolute; margin-left: 39%;border-radius: 30px; " type="button">Click here to answer the question
+                  </button>
+                </div>
+              </div>
+              <br>
+              <br>
+
+            <form *ngIf="postanswerbool">
+                <div class="form-group" style="margin-right: 8%;">
+                  <label for="exampleFormControlTextarea1" style="font-size: 20px;border-radius: 30px;">  Post the answer below :</label>
+                  <textarea [(ngModel)]="answer" class="form-control" id="exampleFormControlTextarea1" name="answer"
+                            placeholder="Enter your answer here......." rows="6"></textarea>
+                </div>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <button (click)="postanswer()" class="btn btn-dark" style="position: absolute; margin-left: 39%; " type="button">Click here to post your answer
+                      </button>
+                    </div>
+                  </div>
+
+              </form>
+              <br>
+              <br>
+              <br>
+              <br>
+
+
+
+            <ul *ngFor='let first of present.answer' id="ans" style="margin-left: 5%;">
+                    <h3 class="question">Answer:
+                      <!-- <pre id="this"><h4>By:{{first.user.firstname}}</h4></pre> -->
+                    </h3>
+                <li class="answer" style="font-weight:600;font-style:small;">{{first.answer}}</li>
+                    <li>
+                        <mat-chip-list>
+                                <span class="tab1"> <button id="upvote" type="button" class="btn btn-light" (click)="upvoteAnswer(first.answer)" ><strong><i class="fas fa-thumbs-up"></i> 
+                                    <!-- {{first.upvotes}} -->
+                                </strong></button>
+                                </span>   
+                                <button id="downvote" type="button" class="btn btn-light" (click)="downvoteAnswer(first.answer)"><strong><i class="fas fa-thumbs-down"></i> 
+                                    <!-- {{first.downvotes}} -->
+                                </strong></button>
+                                
+                            <!-- Upvote:{{first.upvotes}} -->
+                            <!-- <button   id="upvote1" type="button" class="btn btn-light" (click)="upvoteAnswer(first.answer)" ><strong>Upvote--{{present.vote}}</strong></button> -->
+                            <li > <i class="fas fa-eye" style="margin-left:25px;margin-right: 4px;"></i>{{first.views}} <i class="fas fa-clock" style="margin-left:25px;"></i>{{first.timestamp | date: 'dd-MM-yyyy'}}</li>
+
+                          <!-- <mat-chip (click)="upvoteAnswer(first.answer)" color="primary" selected>Upvote It--{{first.upvotes}}</mat-chip> -->
+    
+                        </mat-chip-list>
+                        <pre id="this" ><h4 style="font-style:inherit;">Answered By:{{first.user.firstName}}</h4></pre>
+
+                    </li>
+               
+                    <br>
+                    <li>
+                        <div class="input-group mb-3">
+                                <button (click)="commentAnswer(first.answer)" class="btn btn-dark" type="button">Add
+                                        Comments
+                                      </button>
+                            <input *ngIf='commentanswerbool' type="text" id="butt2" class="form-control" placeholder="Enter comments here"
+                                aria-label="Enter comments here" aria-describedby="basic-addon2" name="commentAnswer1" [(ngModel)]="commentAnswer1">
+                            <div class="input-group-append">
+                              
+                            </div>
+                        </div>
+                    </li>
+                    <br>
+                <button (click)="toggle(first.answer)" class="btn btn-dark" type="button"
+                        id="viewMore">View More</button>
+                <ul *ngIf="first.answer==ans" id="divide">
+                        <ul *ngIf="showAllCommentsAnswer==='Hide Details'" id="divide1" style=" margin-right: -12%;margin-bottom: -4%;">
+                            <ul *ngFor="let second of first.comments" id="comment1">
+                                <h5><u><em>Comment:</em></u>
+                                    <pre
+                                      id="this"><h5>By:{{second.user.firstName}}</h5><i class="fas fa-user-clock"></i><h6>{{second.timestamp | date: 'dd-MM-yyyy'}}</h6></pre>
+                                </h5>
+                                <li>{{second.comment}}</li>
+                                <li><i class="fas fa-heart"></i>{{second.likes}}</li>
+                                <br>
+                                <br>
+                                <ul *ngFor='let third of second.replies' id="border">
+                                    <h6><u><em>Replies:</em></u></h6>
+                                  <li id="reply1">By:{{third.user.firstName}}</li>
+                                    <li>Reply:{{third.reply}}</li>
+                                    <li><i class="far fa-clock"></i>:{{third.timestamp}}<i
+                                            class="far fa-heart"></i>:{{third.likes}}</li>
+                                </ul>
+                                <br>
+                                <button type="button" class="btn btn-outline-dark"
+                                    (click)="putval1(second.comment)">Reply</button>
+                                <ul *ngIf="comm1==second.comment">
+                                    <form class="form-inline my-2 my-lg-0" *ngIf="val1">
+                                        <input class="form-control mr-sm-2" type="text" placeholder="Reply to this comment"
+                                            aria-label="Reply to this comment" name="replyanswercomment" [(ngModel)]="replyanswercomment">
+                                        <button type="button" class="btn btn-outline-success"
+                                                (click)="replyAnswerComment(first.answer,second.comment)">Click here to
+                                          reply
+                                         </button>
+                                    </form>
+                                </ul>
+                            </ul>
+                        </ul>
+                    </ul>
+                    <br>
+                    <br>
+                    <br>
+                </ul>
+            
+        <div class="input-group mb-3" style="width:90%;margin-left:5%;">
+            <input type="text" class="form-control" id="butt" placeholder="Enter comments here" aria-label="Enter comments here"
+                aria-describedby="basic-addon2" name="questionComm" [(ngModel)]="questionComm">
+            <div>
+                <button type="button" class="btn btn-dark" (click)="commentQuestion()">Add comments</button>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-dark" style="float: right;"
+            (click)="toggle1()">{{showAllCommentsQuestion}}</button>
+            <br>
+        <div id="baap">
+            <ul *ngIf="showAllCommentsQuestion==='Hide Details'" id="smaller">
+              <ul *ngFor="let first1 of present.comment" id="comment">
+                    <h5><u><em>Comment:</em></u>
+                        <pre
+                          id="this"><h5>By:{{first1.user.firstName}}</h5><i class="fas fa-user-clock"></i><h6>{{first1.timestamp | date: 'dd-MM-yyyy'}}</h6></pre>
+                    </h5>
+                    <li>{{first1.comment}}</li>
+                    <li><i class="fas fa-heart"></i>{{first1.likes}}</li>
+                    <br>
+                    <br>
+                    <ul *ngFor='let second1 of first1.replies' id="reply">
+                        <h6><u><em>Replies:</em></u></h6>
+                      <li id="replies">By:{{second1.user.firstName}}</li>
+                        <li>Reply:{{second1.reply}}</li>
+                        <li><i class="far fa-clock"></i>:{{second1.timestamp | date: 'dd-MM-yyyy'}}<i
+                                class="far fa-heart"></i>:{{second1.likes}}</li>
+                    </ul>               
+
+                    <button type="button" class="btn btn-outline-dark" (click)="putval(first1.comment)">Reply</button>
+                    <ul *ngIf="comm==first1.comment">
+                        <form class="form-inline my-2 my-lg-0" *ngIf="val">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Reply to this comment"
+                                aria-label="Reply to this comment" name="QuestionCommentReply" [(ngModel)]="QuestionCommentReply">
+                            <button type="button" class="btn btn-outline-success" (click)="replyQuestionComment(first1.comment)">Click
+                                here to reply</button>
+                        </form>
+                    </ul>
+                </ul>
+            </ul>
+            
+            
+              <br>
+              <br>
+              <br>
+       <!-- answers -->
+        </div>
+    </div>
+</body>
+
+
+
+<!-- 
 <body>
     <br>
     <div id="bord">
@@ -13,7 +201,7 @@
           <h3>{{present.question}}</h3>
         </div>
         <div class="container"><u>Topics:</u></div>
-        <ul class="container" *ngFor="let topic of present.topics" style="display: inline-block"><li>{{topic}}</li></ul>
+      <ul *ngFor="let topic of present.topics" class="container" style="display: inline-block">{{topic}}</ul>
         <h4 class="votes1"><em>Description:</em><br>
             <h5>{{present.description}}</h5>
         </h4>
@@ -50,9 +238,8 @@
                         <li>Reply:{{second1.reply}}</li>
                         <li><i class="far fa-clock"></i>:{{second1.timestamp}}<i
                                 class="far fa-heart"></i>:{{second1.likes}}</li>
-                      <!-- <li>{{third.user.imageurl}} By:{{third.user.firstname}}</li> -->
-                    </ul>
-                <!-- <li>{{second.user.imageurl}} By:{{second.user.firstname}}</li> -->
+                    </ul>               
+
                     <button type="button" class="btn btn-outline-dark" (click)="putval(first1.comment)">Reply</button>
                     <ul *ngIf="comm==first1.comment">
                         <form class="form-inline my-2 my-lg-0" *ngIf="val">
@@ -64,16 +251,9 @@
                     </ul>
                 </ul>
             </ul>
-            <!-- <hr style="margin-right: 10%; border: 1px solid black;" /> -->
             <br>
             <br>
-            <!-- <div class="form-group">
-                <br>
-                <br>
-                <label for="exampleInputEmail1">Question:</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter your Question here" style="height: 40px;">
-            </div> -->
+         
             <form>
                 <div class="form-group" style="margin-right: 8%;">
                   <label for="exampleFormControlTextarea1" style="font-size: 20px;">Post the answer below:</label>
@@ -81,8 +261,8 @@
                             placeholder="Enter your answer here......." rows="6"></textarea>
                 </div>
               </form>
+
             <div class="input-group mb-3">
-                <!-- <input type="text" class="form-control" placeholder="Write your" aria-label="Recipient's username" aria-describedby="basic-addon2"> -->
                 <div class="input-group-append">
                   <button (click)="postanswer()" class="btn btn-dark" style="float:right" type="button">Post your own
                     answer
@@ -97,25 +277,15 @@
                   <pre id="this"><h4>By:{{first.user.firstName}}</h4></pre>
                 </h3>
             <li>{{first.answer}}</li>
-            <!-- <li>{{first.user.imageurl}} By:{{First.user.firstname}}</li> -->
             <li>By:{{first.user.firstname}}</li>
                 <li>
-                    <!-- <pre>Upvote:{{first.upvotes}}<button type="button" class="btn btn-outline-success spacing"> Upvote!!</button></pre> -->
                     <mat-chip-list>
                         Upvote:{{first.upvotes}}
                       <mat-chip (click)="upvoteAnswer(first.answer)" color="primary" selected>Upvote It!</mat-chip>
-                        <!-- Downvote:{{first.downvote}} -->
-                        <!-- <mat-chip color="accent" selected>Downvote</mat-chip> -->
+
                     </mat-chip-list>
                 </li>
-              <!--<li>-->
-                    <!-- <pre>Downvote:{{first.downvote}}<button type="button" class="btn btn-outline-danger spacing">Downvote</button></pre> -->
-              <!--<mat-chip-list>-->
-                        <!-- <mat-chip color="primary" selected>Upvote</mat-chip> -->
-              <!--Downvote:{{first.downvote}}-->
-              <!--<mat-chip color="accent" selected (click)="downvoteAnswer()">Downvote</mat-chip>-->
-              <!--</mat-chip-list>-->
-              <!--</li>-->
+           
                 <li> <i class="fas fa-eye"></i>{{first.views}} <i class="fas fa-clock"></i>{{first.timestamp}}</li>
                 <br>
                 <li>
@@ -149,10 +319,8 @@
                                 <li>Reply:{{third.reply}}</li>
                                 <li><i class="far fa-clock"></i>:{{third.timestamp}}<i
                                         class="far fa-heart"></i>:{{third.likes}}</li>
-                              <!-- <li>{{third.user.imageurl}} By:{{third.user.firstname}}</li> -->
                             </ul>
                             <br>
-                          <!-- <li>{{second.user.imageurl}} By:{{second.user.firstname}}</li> -->
                             <button type="button" class="btn btn-outline-dark"
                                 (click)="putval1(second.comment)">Reply</button>
                             <ul *ngIf="comm1==second.comment">
@@ -162,7 +330,7 @@
                                     <button type="button" class="btn btn-outline-success"
                                             (click)="replyAnswerComment(first.answer,second.comment)">Click here to
                                       reply
-                                    </button>
+                                     </button>
                                 </form>
                             </ul>
                         </ul>
@@ -174,4 +342,4 @@
             </ul>
         </div>
     </div>
-</body>
+</body>-->

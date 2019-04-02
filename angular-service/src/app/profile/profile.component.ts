@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   constructor(private trans:TransferServiceService,private app:AppComponent) {
     this.trans.GetUserData(this.app.emailid).subscribe((data) => {
       this.User = data;
+      console.log(data);
     });
   }
 
